@@ -44,33 +44,33 @@
     width: 100vw;
   }
 
-  /* LEFT NAV RAIL */
+  /* LEFT NAV RAIL — matches Meltwater platform nav: white bg, charcoal text, teal active pill */
   .rail {
     width: var(--rail-width);
     min-width: var(--rail-width);
     height: 100vh;
-    background: var(--mw-teal-dark);
-    color: var(--mw-white);
+    background: var(--mw-white);
+    color: var(--mw-black);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    border-right: 1px solid #E8EAEA;
   }
 
   .rail-header {
-    padding: 28px 24px 22px;
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding: 22px 20px 16px;
   }
 
   .rail-logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 4px;
   }
 
   .rail-logo-mark {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     background: var(--mw-teal);
     border-radius: 6px;
     display: flex;
@@ -78,108 +78,105 @@
     justify-content: center;
     color: white;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
     flex-shrink: 0;
   }
 
   .rail-logo-text {
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.01em;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0;
+    color: var(--mw-black);
   }
 
   .rail-title {
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 500;
-    color: var(--mw-teal-tint-1);
+    color: #8a8f8f;
     line-height: 1.5;
+    margin-top: 4px;
   }
 
   .rail-nav {
     flex: 1;
-    padding: 18px 16px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .rail-section-label {
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(163,223,223,0.65);
-    padding: 14px 12px 8px;
-  }
-
-  .rail-link {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 13px 12px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: rgba(255,255,255,0.82);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    border: 1px solid transparent;
-  }
-
-  .rail-link:hover {
-    background: rgba(255,255,255,0.07);
-    color: white;
-  }
-
-  .rail-link.active {
-    background: rgba(40,187,187,0.22);
-    border-color: rgba(40,187,187,0.4);
-    color: white;
-  }
-
-  .rail-link-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .rail-link.active .rail-link-icon {
-    background: var(--mw-teal);
-  }
-
-  .rail-link-text {
+    padding: 8px 12px 16px;
     display: flex;
     flex-direction: column;
     gap: 2px;
   }
 
-  .rail-link-title {
-    font-size: 13.5px;
+  .rail-section-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a8adad;
+    padding: 14px 12px 6px;
+  }
+
+  .rail-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #3a3d3d;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .rail-link:hover {
+    background: #F4F6F6;
+    color: var(--mw-black);
+  }
+
+  .rail-link.active {
+    background: var(--mw-teal-tint-3);
+    color: var(--mw-teal-dark);
     font-weight: 600;
-    line-height: 1.35;
+  }
+
+  .rail-link-icon {
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    filter: grayscale(1) opacity(0.65);
+  }
+
+  .rail-link.active .rail-link-icon {
+    filter: none;
+  }
+
+  .rail-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .rail-link-title {
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .rail-link-desc {
-    font-size: 11.5px;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.4;
-  }
-
-  .rail-link.active .rail-link-desc {
-    color: rgba(255,255,255,0.75);
+    display: none;
   }
 
   .rail-footer {
-    padding: 16px 24px 20px;
-    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 16px 20px 20px;
+    border-top: 1px solid #EEF1F1;
     font-size: 11px;
-    color: rgba(255,255,255,0.45);
+    color: #a8adad;
     line-height: 1.5;
   }
 
@@ -267,7 +264,7 @@
 
     .mobile-toggle-icon {
       font-size: 18px;
-      color: white;
+      color: #3a3d3d;
       transition: transform 0.2s;
     }
 
