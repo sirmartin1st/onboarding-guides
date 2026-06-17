@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM Onboarding Guides — Meltwater</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mw-teal:        #28BBBB;
+    --mw-teal-medium: #00A7A5;
+    --mw-teal-dark:   #1C7070;
+    --mw-teal-tint-1: #A3DFDF;
+    --mw-teal-tint-2: #C0EBEB;
+    --mw-teal-tint-3: #E1EFF0;
+    --mw-gray:        #F0F4F4;
+    --mw-black:       #1A1A1A;
+    --mw-white:       #FFFFFF;
+    --mw-orange:      #FF6221;
+    --mw-orange-mid:  #FFDDCC;
+    --mw-orange-light:#FFEFEA;
+    --mw-purple:      #B627A1;
+    --mw-purple-mid:  #E0A6D7;
+    --mw-purple-light:#F0D4EC;
+    --mw-yellow:      #FFCC01;
+    --mw-yellow-mid:  #FCFCCC;
+    --mw-yellow-light:#FFFAE7;
+    --mw-font: 'Poppins', Arial, sans-serif;
+    --rail-width: 280px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    font-family: var(--mw-font);
+    color: var(--mw-black);
+    overflow: hidden;
+  }
+
+  .app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* LEFT NAV RAIL */
+  .rail {
+    width: var(--rail-width);
+    min-width: var(--rail-width);
+    height: 100vh;
+    background: var(--mw-teal-dark);
+    color: var(--mw-white);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .rail-header {
+    padding: 28px 24px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .rail-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .rail-logo-mark {
+    width: 30px;
+    height: 30px;
+    background: var(--mw-teal);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .rail-logo-text {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  .rail-title {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--mw-teal-tint-1);
+    line-height: 1.5;
+  }
+
+  .rail-nav {
+    flex: 1;
+    padding: 18px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .rail-section-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(163,223,223,0.65);
+    padding: 14px 12px 8px;
+  }
+
+  .rail-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.82);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border: 1px solid transparent;
+  }
+
+  .rail-link:hover {
+    background: rgba(255,255,255,0.07);
+    color: white;
+  }
+
+  .rail-link.active {
+    background: rgba(40,187,187,0.22);
+    border-color: rgba(40,187,187,0.4);
+    color: white;
+  }
+
+  .rail-link-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .rail-link.active .rail-link-icon {
+    background: var(--mw-teal);
+  }
+
+  .rail-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rail-link-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .rail-link-desc {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+
+  .rail-link.active .rail-link-desc {
+    color: rgba(255,255,255,0.75);
+  }
+
+  .rail-footer {
+    padding: 16px 24px 20px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+
+  /* MAIN VIEWER */
+  .viewer {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--mw-gray);
+  }
+
+  .viewer-frame {
+    flex: 1;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background: white;
+  }
+
+  /* EMPTY STATE (no guide selected) */
+  .empty-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .empty-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--mw-teal-tint-3);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .empty-state h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--mw-black);
+    margin-bottom: 8px;
+  }
+
+  .empty-state p {
+    font-size: 14px;
+    color: #5a5a5a;
+    max-width: 380px;
+    line-height: 1.6;
+  }
+
+  /* MOBILE */
+  .mobile-toggle {
+    display: none;
+  }
+
+  @media (max-width: 860px) {
+    .app { flex-direction: column; }
+
+    .rail {
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      max-height: 100vh;
+    }
+
+    .rail.collapsed .rail-nav,
+    .rail.collapsed .rail-footer {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .mobile-toggle-icon {
+      font-size: 18px;
+      color: white;
+      transition: transform 0.2s;
+    }
+
+    .rail.collapsed .mobile-toggle-icon {
+      transform: rotate(-90deg);
+    }
+
+    .viewer { height: 70vh; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- LEFT NAV RAIL -->
+  <nav class="rail" id="rail">
+    <div class="rail-header">
+      <div class="rail-logo">
+        <div class="rail-logo-mark">&lt;o&gt;</div>
+        <div class="rail-logo-text">Meltwater</div>
+      </div>
+      <div class="rail-title" onclick="toggleMobileRail()" style="cursor:pointer; display:flex; align-items:center; justify-content:space-between;">
+        <span>IM Onboarding Guides</span>
+        <span class="mobile-toggle-icon" style="display:none;">▾</span>
+      </div>
+    </div>
+
+    <div class="rail-nav" id="rail-nav">
+      <!-- Populated by JS from the GUIDES config below -->
+    </div>
+
+    <div class="rail-footer">
+      Internal use only — Implementation Manager reference library.
+    </div>
+  </nav>
+
+  <!-- MAIN VIEWER -->
+  <main class="viewer" id="viewer">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">📚</div>
+      <h2>Select a guide to get started</h2>
+      <p>Choose a product from the left to open its onboarding guide — talk tracks, discovery questions, and activation steps, all in one place.</p>
+    </div>
+    <iframe class="viewer-frame" id="viewer-frame" style="display:none;"></iframe>
+  </main>
+
+</div>
+
+<script>
+  // ── ADD NEW GUIDES HERE ──────────────────────────────────────
+  // To add a guide: drop the HTML file in /guides/ and add one
+  // entry below. That's the only file you need to touch.
+  const GUIDES = [
+    {
+      id: "api",
+      title: "Meltwater API",
+      desc: "Discovery, talk tracks, activation",
+      icon: "🔌",
+      file: "guides/api-guide.html"
+    },
+    {
+      id: "gail",
+      title: "GenAI Lens (GAIL)",
+      desc: "Walkthrough, prompt strategy, cadence",
+      icon: "✨",
+      file: "guides/gail-guide.html"
+    },
+    {
+      id: "usage-health",
+      title: "Usage Health Score",
+      desc: "Tactics by product, Totango reference",
+      icon: "📊",
+      file: "guides/usage-health-playbook.html"
+    }
+  ];
+  // ──────────────────────────────────────────────────────────────
+
+  const railNav = document.getElementById('rail-nav');
+  const frame = document.getElementById('viewer-frame');
+  const emptyState = document.getElementById('empty-state');
+
+  function renderNav() {
+    railNav.innerHTML = '';
+    const label = document.createElement('div');
+    label.className = 'rail-section-label';
+    label.textContent = 'Guides';
+    railNav.appendChild(label);
+
+    GUIDES.forEach(guide => {
+      const link = document.createElement('a');
+      link.className = 'rail-link';
+      link.id = 'link-' + guide.id;
+      link.onclick = () => selectGuide(guide.id);
+      link.innerHTML = `
+        <div class="rail-link-icon">${guide.icon}</div>
+        <div class="rail-link-text">
+          <div class="rail-link-title">${guide.title}</div>
+          <div class="rail-link-desc">${guide.desc}</div>
+        </div>
+      `;
+      railNav.appendChild(link);
+    });
+  }
+
+  function selectGuide(id) {
+    const guide = GUIDES.find(g => g.id === id);
+    if (!guide) return;
+
+    document.querySelectorAll('.rail-link').forEach(el => el.classList.remove('active'));
+    document.getElementById('link-' + id).classList.add('active');
+
+    emptyState.style.display = 'none';
+    frame.style.display = 'block';
+    frame.src = guide.file;
+
+    // Update the URL hash so the link is shareable/bookmarkable
+    history.replaceState(null, '', '#' + id);
+
+    // Collapse rail on mobile after selection
+    if (window.innerWidth <= 860) {
+      document.getElementById('rail').classList.add('collapsed');
+    }
+  }
+
+  function toggleMobileRail() {
+    if (window.innerWidth <= 860) {
+      document.getElementById('rail').classList.toggle('collapsed');
+    }
+  }
+
+  function init() {
+    renderNav();
+    const hash = window.location.hash.replace('#', '');
+    if (hash && GUIDES.find(g => g.id === hash)) {
+      selectGuide(hash);
+    }
+    if (window.innerWidth <= 860) {
+      document.querySelector('.mobile-toggle-icon').style.display = 'inline';
+    }
+  }
+
+  init();
+</script>
+
+</body>
+</html>

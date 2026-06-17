@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenAI Lens — IM Adoption Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mw-teal:        #28BBBB;
+      --mw-teal-medium: #00A7A5;
+      --mw-teal-dark:   #1C7070;
+      --mw-teal-tint-1: #A3DFDF;
+      --mw-teal-tint-2: #C0EBEB;
+      --mw-teal-tint-3: #E1EFF0;
+      --mw-gray:        #F0F4F4;
+      --mw-black:       #1A1A1A;
+      --mw-white:       #FFFFFF;
+      --mw-orange:      #FF6221;
+      --mw-orange-mid:  #FFDDCC;
+      --mw-orange-light:#FFEFEA;
+      --mw-purple:      #B627A1;
+      --mw-purple-mid:  #E0A6D7;
+      --mw-purple-light:#F0D4EC;
+      --mw-font: 'Poppins', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--mw-font);
+      background: var(--mw-white);
+      color: var(--mw-black);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--mw-white);
+      border-bottom: 2px solid var(--mw-teal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--mw-teal-dark);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--mw-teal);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mw-black);
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+
+    /* HERO */
+    .hero {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 72px 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border: 40px solid rgba(40,187,187,0.18);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: 140px;
+      width: 160px; height: 160px;
+      border: 22px solid rgba(182,39,161,0.15);
+      border-radius: 50%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 660px;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--mw-teal); }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 400;
+      max-width: 580px;
+      opacity: 0.85;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(40,187,187,0.18);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .pill-purple {
+      background: rgba(182,39,161,0.18);
+      border: 1px solid rgba(182,39,161,0.3);
+      color: #E0A6D7;
+    }
+    .pill-orange {
+      background: rgba(255,98,33,0.18);
+      border: 1px solid rgba(255,98,33,0.3);
+      color: #FFDDCC;
+    }
+
+    /* PAGE BODY */
+    .page-body {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+
+    section { margin-bottom: 68px; }
+
+    /* SECTION HEADERS */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--mw-teal-tint-2);
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mw-teal-medium);
+      margin-bottom: 8px;
+    }
+    .section-eyebrow-orange { color: var(--mw-orange); }
+    .section-eyebrow-purple { color: var(--mw-purple); }
+    .section-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.2;
+    }
+    .section-header p {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+      max-width: 700px;
+    }
+
+    /* CALLOUTS */
+    .callout {
+      background: var(--mw-teal-tint-3);
+      border-left: 4px solid var(--mw-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--mw-teal-dark); }
+    .callout a { color: var(--mw-teal-dark); font-weight: 600; }
+    .callout-orange {
+      background: var(--mw-orange-light);
+      border-left-color: var(--mw-orange);
+    }
+    .callout-orange strong { color: #c04a00; }
+    .callout-orange a { color: #c04a00; }
+    .callout-purple {
+      background: var(--mw-purple-light);
+      border-left-color: var(--mw-purple);
+    }
+    .callout-purple strong { color: #8a1a7a; }
+    .callout-purple a { color: #8a1a7a; }
+
+    /* STAT BAR */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--mw-teal-dark);
+      border-radius: 10px;
+      padding: 24px 20px;
+      color: white;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--mw-teal);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 12.5px;
+      opacity: 0.85;
+      line-height: 1.4;
+    }
+
+    /* STEP OVERVIEW */
+    .steps-overview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .step-overview-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 20px;
+      background: var(--mw-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+    .step-overview-card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
+    }
+    .soc-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mw-teal-medium);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .soc-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .soc-desc {
+      font-size: 12px;
+      color: #5a5a5a;
+      line-height: 1.5;
+    }
+
+    /* CAPABILITY CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px;
+      background: var(--mw-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
+    }
+    .card-icon {
+      width: 36px; height: 36px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--mw-teal-dark);
+    }
+    .card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+
+    /* TAB WALKTHROUGH */
+    .tab-list { display: flex; flex-direction: column; gap: 18px; }
+    .tab-item {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .tab-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tab-badge {
+      background: rgba(40,187,187,0.3);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tab-title {
+      font-size: 15px;
+      font-weight: 700;
+      flex: 1;
+    }
+    .tab-link {
+      font-size: 11.5px;
+      color: var(--mw-teal-tint-1);
+      text-decoration: none;
+      opacity: 0.8;
+      white-space: nowrap;
+    }
+    .tab-link:hover { opacity: 1; text-decoration: underline; }
+    .tab-body {
+      padding: 20px 22px;
+      background: var(--mw-white);
+    }
+    .tab-body p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #4a4a4a;
+      margin-bottom: 12px;
+    }
+    .tab-body p:last-child { margin-bottom: 0; }
+    .tab-body strong { color: var(--mw-black); }
+    .tab-tip {
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+
+    /* TALK TRACKS */
+    .talk-track {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      border-radius: 10px;
+      padding: 26px 30px;
+      margin-bottom: 18px;
+    }
+    .talk-track-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 10px;
+    }
+    .talk-track p {
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: 0.92;
+    }
+    .talk-track p + p { margin-top: 12px; }
+
+    /* PROMPT SECTION */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .prompt-good, .prompt-bad {
+      border-radius: 10px;
+      padding: 22px;
+    }
+    .prompt-good {
+      background: var(--mw-teal-tint-3);
+      border: 1.5px solid var(--mw-teal-tint-2);
+    }
+    .prompt-bad {
+      background: var(--mw-orange-light);
+      border: 1.5px solid var(--mw-orange-mid);
+    }
+    .prompt-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .prompt-good .prompt-label { color: var(--mw-teal-dark); }
+    .prompt-bad .prompt-label { color: #c04a00; }
+    .prompt-item {
+      border-radius: 6px;
+      padding: 11px 14px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .prompt-item:last-child { margin-bottom: 0; }
+    .prompt-good .prompt-item {
+      background: rgba(40,187,187,0.1);
+      border: 1px solid rgba(40,187,187,0.2);
+      color: var(--mw-black);
+    }
+    .prompt-bad .prompt-item {
+      background: rgba(255,98,33,0.08);
+      border: 1px solid rgba(255,98,33,0.15);
+      color: #5a3020;
+    }
+    .prompt-item .prompt-note {
+      display: block;
+      font-size: 11.5px;
+      font-style: italic;
+      margin-top: 4px;
+      opacity: 0.75;
+    }
+
+    /* STARTER PROMPTS BY USE CASE */
+    .use-case-prompts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .ucp-card {
+      background: var(--mw-white);
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .ucp-card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 14px rgba(40,187,187,0.1);
+    }
+    .ucp-icon { font-size: 20px; margin-bottom: 10px; }
+    .ucp-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mw-teal-dark);
+      margin-bottom: 8px;
+    }
+    .ucp-prompt {
+      background: var(--mw-gray);
+      border-radius: 5px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--mw-black);
+      line-height: 1.5;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .ucp-prompt:last-child { margin-bottom: 0; }
+
+    /* QUESTIONS */
+    .questions-list { display: flex; flex-direction: column; gap: 14px; }
+    .question-item {
+      background: var(--mw-gray);
+      border-radius: 8px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .q-number {
+      background: var(--mw-teal);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .q-body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mw-black);
+      margin-bottom: 5px;
+    }
+    .q-body .q-listen {
+      font-size: 12.5px;
+      color: #5a5a5a;
+      font-style: italic;
+    }
+
+    /* OBJECTIONS */
+    .objections { display: flex; flex-direction: column; gap: 14px; }
+    .objection {
+      border: 1.5px solid var(--mw-orange-mid);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .obj-q {
+      background: var(--mw-orange-light);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c04a00;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .obj-q::before { content: '💬'; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .obj-a {
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #4a4a4a;
+      border-top: 1px solid var(--mw-orange-mid);
+      background: var(--mw-white);
+    }
+
+    /* ACTIVATION STEPS */
+    .steps { display: flex; flex-direction: column; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 42px; bottom: 42px;
+      width: 2px;
+      background: var(--mw-teal-tint-2);
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 18px 0;
+      position: relative;
+    }
+    .step-num {
+      min-width: 42px; height: 42px;
+      background: var(--mw-teal);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mw-black);
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+    .step-content p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 8px;
+    }
+    .step-note {
+      margin-top: 8px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .step-note-orange {
+      background: var(--mw-orange-light);
+      color: #c04a00;
+    }
+
+    /* RESOURCES */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .resource-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .resource-card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 14px rgba(40,187,187,0.1);
+    }
+    .resource-icon { font-size: 22px; margin-bottom: 10px; }
+    .resource-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mw-teal-dark);
+      margin-bottom: 5px;
+    }
+    .resource-desc {
+      font-size: 12px;
+      color: #5a5a5a;
+      line-height: 1.5;
+    }
+
+    /* LLMS COVERED */
+    .llm-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .llm-tag {
+      background: var(--mw-teal-tint-3);
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--mw-teal-dark);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; text-align: right; }
+    .footer-links a {
+      color: var(--mw-teal-tint-1);
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .footer-links a:hover { text-decoration: underline; color: white; }
+    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 24px; }
+      .hero h1 { font-size: 28px; }
+      .page-body { padding: 40px 24px; }
+      .stat-bar, .steps-overview, .cards-grid, .prompt-grid, .use-case-prompts, .resources-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+      .footer-links { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">&lt;o&gt;</div>
+    GenAI Lens — IM Guide
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#prep">Prep</a></li>
+    <li><a href="#framing">Framing</a></li>
+    <li><a href="#walkthrough">Walkthrough</a></li>
+    <li><a href="#prompts">Prompts</a></li>
+    <li><a href="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Internal Guide · Implementation</div>
+  <h1>Onboarding customers to <span>GenAI Lens</span></h1>
+  <p class="hero-sub">Your end-to-end reference for taking every GAIL customer from kickoff to active adoption — even if they've never thought about LLM monitoring before.</p>
+  <div class="hero-pills">
+    <span class="pill">How to frame it</span>
+    <span class="pill">Pre-call prep</span>
+    <span class="pill">Tab walkthrough</span>
+    <span class="pill pill-purple">Prompt strategy</span>
+    <span class="pill pill-orange">Objection handling</span>
+    <span class="pill pill-orange">Next steps</span>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-eyebrow">Context</div>
+      <h2>Why this guide exists</h2>
+      <p>Most GAIL customers are new to LLM monitoring entirely. They purchased the product but may not know what to do with it, what questions to ask, or why it matters for their team. Your job is to close that gap — fast and confidently.</p>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-card">
+        <div class="stat-num">30%</div>
+        <div class="stat-label">of brand perception will be shaped by AI-generated content by 2026 (Gartner)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">700%</div>
+        <div class="stat-label">increase in referral traffic from LLMs — customers need to know how their brand shows up</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">90%+</div>
+        <div class="stat-label">of leading LLMs covered by GenAI Lens across ChatGPT, Gemini, Claude, Grok, Perplexity, DeepSeek, and more</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>What GenAI Lens does in one sentence:</strong> It shows customers how their brand, competitors, and industry are described by AI models — and surfaces the sources shaping those narratives — so they can actually do something about it.
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <h3>Brand visibility</h3>
+        <p>Track how often and how positively their brand is mentioned across major LLMs — and see how that compares to competitors.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>Sentiment & narrative</h3>
+        <p>Understand the language, themes, and framing AI models use when discussing the brand — including what's driving positive or negative signals.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📰</div>
+        <h3>Source intelligence</h3>
+        <p>See which outlets and journalists are influencing LLM responses — so PR and comms teams know where to focus their efforts.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Competitive benchmarking</h3>
+        <p>Compare brand performance against competitors across models and over time — a new KPI set most teams haven't had access to before.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-orange">
+      <strong>LLMs covered vary by contract:</strong> Before your first GAIL session, review the customer's contract to confirm which models are included in their tier. Don't assume — model access depends on the package they purchased. The pricing tier breakdown is your reference for what's available at each level.
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>GenAI Lens is GA and moving fast:</strong> This is a fully live product with an active development roadmap. New features and model additions are shipping regularly — frame that as momentum when it comes up. Customers who stay engaged will keep unlocking new capability as it arrives.
+    </div>
+  </section>
+
+  <!-- HOW THIS GUIDE IS STRUCTURED -->
+  <section id="structure">
+    <div class="section-header">
+      <div class="section-eyebrow">Your roadmap</div>
+      <h2>Six steps from kickoff to adoption</h2>
+      <p>Follow this sequence with every GAIL customer. Steps 1–2 happen before the call. Steps 3–6 are on the call and in follow-up.</p>
+    </div>
+
+    <div class="steps-overview">
+      <a href="#prep" class="step-overview-card">
+        <div class="soc-num">Step 1</div>
+        <div class="soc-title">Pre-call prep</div>
+        <div class="soc-desc">Build 5–15 prompts and set up their brand before you get on the call. It's the difference between showing and telling.</div>
+      </a>
+      <a href="#framing" class="step-overview-card">
+        <div class="soc-num">Step 2</div>
+        <div class="soc-title">Frame it for their world</div>
+        <div class="soc-desc">Assess how familiar they are with LLMs and meet them there. Most customers need a baseline before the product lands.</div>
+      </a>
+      <a href="#walkthrough" class="step-overview-card">
+        <div class="soc-num">Step 3</div>
+        <div class="soc-title">Product walkthrough</div>
+        <div class="soc-desc">Walk each tab in sequence. Brand Setup first, then Trends, Benchmarking, Sentiment, Sources, and Prompt Management.</div>
+      </a>
+      <a href="#prompts" class="step-overview-card">
+        <div class="soc-num">Step 4</div>
+        <div class="soc-title">Prompt strategy</div>
+        <div class="soc-desc">Show what good prompts look like, what bad ones look like, and give them starter prompts to work from.</div>
+      </a>
+      <a href="#so-what" class="step-overview-card">
+        <div class="soc-num">Step 5</div>
+        <div class="soc-title">Answer "so what?"</div>
+        <div class="soc-desc">The most common question. Have a clear answer ready based on their team type before they ask it.</div>
+      </a>
+      <a href="#next-steps" class="step-overview-card">
+        <div class="soc-num">Step 6</div>
+        <div class="soc-title">Next steps & cadence</div>
+        <div class="soc-desc">Set a clear follow-up plan with prompt validation, bulk upload, and a check-in on what they're seeing.</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- STEP 1: PRE-CALL PREP -->
+  <section id="prep">
+    <div class="section-header">
+      <div class="section-eyebrow">Step 1</div>
+      <h2>Pre-call prep</h2>
+      <p>The single biggest difference between a GAIL session that lands and one that doesn't is whether you show up with real data already in the platform. Build out a meaningful set of prompts before the call — not one, but 5 to 15. That's enough to generate real signal across multiple tabs and give the customer something worth reacting to.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Why 5–15 prompts?</strong> More prompts mean richer data across Trends, Benchmarking, Sentiment, and Sources. They're also low-risk — prompts can be deleted at any time and won't affect the customer's prompt capacity permanently. Think of your pre-built prompts as a demo layer the customer can keep, modify, or replace as they build their own.
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Watch the demo and check release notes</h3>
+          <p>Before any GAIL conversation, review Maia's demo video and the recording from Maxim Davis on the <a href="https://meltwater.skillshood.com/content/pages/5063" style="color: var(--mw-teal-dark); font-weight: 600;">Saleshood page</a>. Then check the latest <a href="https://meltwater.skillshood.com/content/pages/5063" style="color: var(--mw-teal-dark); font-weight: 600;">Release Notes</a> — new features ship frequently and you want to know what's changed.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Set up the customer's brand and competitors</h3>
+          <p>Before adding any prompts, complete Brand Setup for the customer. Add their primary brand and at least three to five key competitors. This ensures the Benchmarking and Sentiment tabs have something meaningful to show when you get on the call — and it's the first thing most customers will want to verify is correct anyway.</p>
+          <div class="step-note">💡 Confirm which competitors matter most by checking the customer's Salesforce account or any pre-sales notes. If you're unsure, use the top two or three names you know from their industry and let the customer adjust on the call.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Build 5–15 prompts using two resources</h3>
+          <p>Use both of the following to build out a strong starting set. Aim for variety — brand-level, competitor-level, product-level, and category-level prompts will give the most complete picture across tabs.</p>
+          <p><strong><a href="https://chatgpt.com/g/g-691b52bc192c8191b571eedb6cbf4192-gail-prompt-creator" style="color: var(--mw-teal-dark);">GAIL Prompt Creator GPT</a></strong> — Custom GPT built specifically to generate prompt ideas tailored to a brand and industry. Input the customer's brand name and a few details about their space and it'll generate a solid starting list.</p>
+          <p><strong><a href="https://docs.google.com/spreadsheets/d/1zixyALZD93HNwzqa12sc-Jkf4lmmY0Sq8uKtgVikdy0/edit" style="color: var(--mw-teal-dark);">PM Prompt Spreadsheet</a></strong> — A library of prompt ideas organized by use case and industry, maintained by the product team. Use it as inspiration to identify prompt angles you might not have thought of. This is a reference resource — it's not tied to your specific customer's account.</p>
+          <div class="step-note step-note-orange">⏱ Add prompts at least 1–2 hours before the call so there's real data to review. Prompts added right before the session may not have enough data populated yet.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Know where GAIL lives in the platform</h3>
+          <p>GenAI Lens lives under the <strong>Monitor</strong> tab. Introduce it after covering Explore — customers who understand Explore will make the connection to GenAI Lens quickly, since both are monitoring tools focused on how a brand is being talked about.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: FRAMING -->
+  <section id="framing">
+    <div class="section-header">
+      <div class="section-eyebrow">Step 2</div>
+      <h2>Framing it for their world</h2>
+      <p>Before you show the product, establish the context. Most customers are new to this space — start by meeting them where they are on LLMs, then connect GenAI Lens to something they already care about.</p>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-label">If they're not familiar with LLMs — start here</div>
+      <p>"Before we look at the product, let me give you a quick frame. LLMs — large language models — are the AI behind tools like ChatGPT, Gemini, and Google's AI search results. They're trained on massive amounts of text, and when someone asks them a question about your brand, your industry, or your competitors, they generate an answer based on what they've learned from the internet."</p>
+      <p>"The challenge is that your brand is showing up in those answers — and until now, there's been no way to see how. GenAI Lens changes that."</p>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-label">If they're already familiar with LLMs — lead with the gap</div>
+      <p>"You're already using tools like ChatGPT or Gemini, so you know how much people are relying on them for research, recommendations, and decisions. What most teams don't have visibility into is: what are those models actually saying about your brand? What sources are shaping that narrative? And how does your share of AI voice compare to your competitors?"</p>
+      <p>"That's exactly what GenAI Lens is built to answer."</p>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-label">Connecting it to what they already own (Explore or Monitor users)</div>
+      <p>"You're already using Explore to track your brand across news and social. Think of GenAI Lens as extending that same visibility into a new channel — AI-generated conversations. The same way you monitor what journalists and social users are saying about your brand, GenAI Lens monitors what AI models are saying. It's a new layer on top of what you're already doing."</p>
+    </div>
+
+    <div style="margin-top: 32px;">
+      <div class="section-header" style="border-bottom: 2px solid var(--mw-orange-mid);">
+        <div class="section-eyebrow section-eyebrow-orange">Common objections</div>
+        <h2>Handling pushback before you get to the product</h2>
+        <p>These come up before customers even see the walkthrough. Have these ready.</p>
+      </div>
+
+      <div class="objections">
+        <div class="objection">
+          <div class="obj-q">"Our audience isn't really using AI for research yet."</div>
+          <div class="obj-a">LLM referral traffic to the top 1,000 websites globally hit 1.1 billion visits in June 2025 alone — up 700% year-over-year. That shift is happening faster than most teams expect. The brands that get visibility into this now will be ahead of the curve when their customers catch up — and they're catching up quickly.</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"I don't really understand how this is different from regular media monitoring."</div>
+          <div class="obj-a">Media monitoring tracks what journalists and social users publish publicly. LLMs are different — they synthesize information from across the web and generate new content, often in closed environments, without any public record. Traditional monitoring can't see inside those conversations. GenAI Lens is purpose-built for exactly that layer.</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Is this actually ready to use, or is it more of a beta?"</div>
+          <div class="obj-a">It's live and actively used by major brands today — including Heineken and global pharmaceutical and healthcare organizations. That said, it's a fast-moving product and new features are being added regularly. I'll walk you through what's live now and flag what's coming so you can plan around it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 3: PRODUCT WALKTHROUGH -->
+  <section id="walkthrough">
+    <div class="section-header">
+      <div class="section-eyebrow">Step 3</div>
+      <h2>Product walkthrough</h2>
+      <p>Walk the product in this sequence. Brand Setup first — it makes every subsequent tab more relevant. Then move through Trends, Benchmarking, Sentiment, and Sources. Use the Competitor-only toggle throughout to keep charts focused.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Before anything else:</strong> Ask the customer if their brand and key competitors appear in the default results. If not, that's the first thing to fix — Brand Setup makes the rest of the walkthrough land.
+    </div>
+
+    <div class="tab-list">
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Start here</span>
+          <span class="tab-title">Brand Setup</span>
+          <a href="https://community.meltwater.com/genai-lens-223/genai-lens-setting-up-your-brand-9638" target="_blank" class="tab-link">mCommunity guide ↗</a>
+        </div>
+        <div class="tab-body">
+          <p>You've already completed Brand Setup as part of your pre-call prep — the customer's brand and competitors are in the platform before the call starts. Use this part of the session to walk them through what you've built and confirm it's right.</p>
+          <p><strong>What to cover:</strong> Show them their brand and the competitors you added. Ask whether anything is missing or should be adjusted — a competitor they care about, a product line, a key person. Make any changes live so they see how easy it is to manage themselves going forward.</p>
+          <p><strong>Key toggle:</strong> Demonstrate <strong>Competitor-only mode</strong> and explain what it does — it filters all charts to just their brand and the competitors they've added. Turn it on, show the difference, then explain they can toggle it off any time to see the full landscape.</p>
+          <div class="tab-tip">💡 This is a natural moment to explain what "entities" means — brands, products, people, locations, and key phrases are all trackable. Ask if there are any products or people they'd want to add beyond just the brand name.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Tab 1</span>
+          <span class="tab-title">Trends</span>
+          <a href="https://community.meltwater.com/genai-lens-223" target="_blank" class="tab-link">mCommunity guide ↗</a>
+        </div>
+        <div class="tab-body">
+          <p>The Trends tab shows how often their brand, competitors, products, people, locations, and key phrases appear in LLM responses over time — based on the prompts they've set up.</p>
+          <p><strong>What to show:</strong> Pull up the chart for their brand and walk them through what the mention volume means. A spike or dip is a good conversation starter — "what happened here that might have affected how AI talks about you?"</p>
+          <p><strong>The key message:</strong> These aren't social mentions or news articles. This is specifically what AI models are saying when someone asks about your space. It's a fundamentally new signal.</p>
+          <div class="tab-tip">💡 If there's limited data, use this as a reason to add more prompts — more prompts = more signal. It's also a good setup for the bulk upload conversation later.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Tab 2</span>
+          <span class="tab-title">Benchmarking</span>
+          <a href="https://community.meltwater.com/genai-lens-223/genai-lens-benchmarking-tab-9416" target="_blank" class="tab-link">mCommunity guide ↗</a>
+        </div>
+        <div class="tab-body">
+          <p>Benchmarking shows how their brand or competitor performs across models and entities — side by side. This is often the tab that generates the most customer reaction because it makes competitive gaps visible immediately.</p>
+          <p><strong>What to show:</strong> Pull up the head-to-head comparison between their brand and a key competitor. Walk through what "share of model" means as a new KPI alongside traditional share of voice.</p>
+          <p><strong>The key message:</strong> This is one of the only places a brand can see how they're performing in AI-generated conversations versus competitors — not just in news or social. It's a genuinely new type of visibility.</p>
+          <div class="tab-tip">💡 If a competitor is showing up significantly more, that's an "aha" moment. Don't rush past it — let the customer sit with it and ask what they think is driving the gap.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Tab 3</span>
+          <span class="tab-title">Sentiment</span>
+          <a href="https://community.meltwater.com/genai-lens-223/genai-lens-sentiment-tab-9640" target="_blank" class="tab-link">mCommunity guide ↗</a>
+        </div>
+        <div class="tab-body">
+          <p>The Sentiment tab breaks down how LLMs characterize the brand — what language, themes, and context are showing up as positive, negative, or neutral. The Sentiment Analysis widget surfaces the specific framing behind each rating.</p>
+          <p><strong>What to show:</strong> Pull up the sentiment breakdown for their brand and walk through one or two specific examples. If there's negative sentiment, dig into what's driving it — is it accurate? Is it outdated? That's an actionable insight.</p>
+          <p><strong>The key message:</strong> This isn't a vanity metric. The sentiment analysis tells you what specific claims or associations are shaping AI perception — so you know exactly what to address in your content and PR strategy.</p>
+          <div class="tab-tip">💡 Negative sentiment tied to an old article or outdated narrative is a strong use case for the Sources tab follow-up — show how the two tabs connect.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Tab 4</span>
+          <span class="tab-title">Sources</span>
+          <a href="https://community.meltwater.com/genai-lens-223/genai-lens-sources-tab-9569" target="_blank" class="tab-link">mCommunity guide ↗</a>
+        </div>
+        <div class="tab-body">
+          <p>The Sources tab surfaces the top outlets, journalists, and domains that appear in LLM responses — revealing who and what is actually shaping the AI narrative around their brand.</p>
+          <p><strong>What to show:</strong> Walk through the top sources and identify any that are unfamiliar or surprising. Then demonstrate the drill-down: click into a domain to see which entities it's associated with, and use the Unified Profile to explore the journalist or outlet further.</p>
+          <p><strong>The key message:</strong> Knowing which sources influence LLM outputs is the starting point for a GEO strategy. If their brand shows up negatively in AI, this tab tells them what content to address. If a competitor is outperforming them, this shows where that perception is coming from.</p>
+          <p><strong>Action worth naming:</strong> From the Sources tab, customers can click the profile icon on a journalist and select "Send Email" to reach out directly from the platform — bridging monitoring into media relations in one step.</p>
+          <div class="tab-tip">💡 GlobeNewswire and PR Newswire are consistently among the most LLM-influential sources. If the customer isn't using newswires, this is the conversation to have.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Tab 5</span>
+          <span class="tab-title">Prompt Management</span>
+          <a href="https://community.meltwater.com/genai-lens-223/genai-lens-managing-topics-prompts-8078" target="_blank" class="tab-link">mCommunity guide ↗</a>
+        </div>
+        <div class="tab-body">
+          <p>Prompt Management is where the customer will live once they're active — it's how they create, organize, and manage all their prompts over time. Ending the walkthrough here is intentional: it sets up the transition directly into the Prompt Strategy section and the collaborative prompt-building moment.</p>
+          <p><strong>What to show:</strong> Walk through how to create a new prompt using the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" target="_blank" style="color: var(--mw-teal-dark); font-weight: 600;">prompt creation flow</a> — the fields, the options, and what each setting controls. Then show how Topics and Labels can be used to organize prompts as their library grows.</p>
+          <p><strong>The key message:</strong> The prompts you built before the call are a starting point. This is where they take ownership — adding prompts that reflect their specific questions, campaigns, and competitors. The more focused and specific their prompts, the more useful the data across every other tab.</p>
+          <div class="tab-tip">💡 This is the natural lead-in to building a prompt together. After showing them the creation flow, hand it over: "Now let's build one based on what you've seen today."</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STEP 4: PROMPTS -->
+  <section id="prompts">
+    <div class="section-header">
+      <div class="section-eyebrow">Step 4</div>
+      <h2>Prompt strategy</h2>
+      <p>Prompts are the foundation of what GAIL shows. Better prompts = better data. Most new customers need guidance here — they default to vague inputs and then wonder why the results aren't useful.</p>
+    </div>
+
+    <div class="callout">
+      <strong>How prompts work in GenAI Lens:</strong> Each prompt is submitted to multiple LLMs, which generate responses. GenAI Lens then analyzes those responses for brand mentions, sentiment, sources, and entities. The quality of your prompts directly determines the quality of your insights.
+    </div>
+
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; margin-top: 8px;">What makes a good vs. bad prompt</h3>
+
+    <div class="prompt-grid">
+      <div class="prompt-good">
+        <div class="prompt-label">✅ Good prompts</div>
+        <div class="prompt-item">
+          Tell me about [Brand Name]. How do people generally perceive it, and where does it stand in the market right now?
+          <span class="prompt-note">Specific, open-ended, mirrors how a consumer would actually ask.</span>
+        </div>
+        <div class="prompt-item">
+          What's the latest news or buzz around [Competitor Brand Name]?
+          <span class="prompt-note">Named entity + context = richer, more trackable LLM responses.</span>
+        </div>
+        <div class="prompt-item">
+          How does [Brand]'s [Product] compare to [Competitor]'s [Product]? What are the key differences?
+          <span class="prompt-note">Head-to-head prompts generate strong competitive data in Benchmarking.</span>
+        </div>
+        <div class="prompt-item">
+          What are the top [category] companies known for in terms of customer service?
+          <span class="prompt-note">Category-level prompts surface how the brand ranks in a broader context.</span>
+        </div>
+      </div>
+
+      <div class="prompt-bad">
+        <div class="prompt-label">❌ Prompts to avoid</div>
+        <div class="prompt-item">
+          Tell me about [Brand].
+          <span class="prompt-note">Too vague. LLMs return generic responses with no trackable signal.</span>
+        </div>
+        <div class="prompt-item">
+          Is [Brand] a good company?
+          <span class="prompt-note">Binary framing limits the response and skews sentiment artificially.</span>
+        </div>
+        <div class="prompt-item">
+          What are all the things [Brand] has ever done?
+          <span class="prompt-note">Overly broad. LLMs will hallucinate or give outdated historical content.</span>
+        </div>
+        <div class="prompt-item">
+          How many employees does [Brand] have?
+          <span class="prompt-note">Factual queries don't generate useful narrative or sentiment data.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>Your pre-built prompts set the standard.</strong> The prompts you add before the call are a model for what good looks like — good enough that the customer may not want to remove them. Use them during the walkthrough to show what a well-formed prompt generates, then use that output as the launchpad for building a new prompt together at the end of the call.
+    </div>
+
+    <div class="use-case-prompts">
+      <div class="ucp-card">
+        <div class="ucp-icon">🏷️</div>
+        <div class="ucp-title">Brand Snapshot</div>
+        <div class="ucp-prompt">"Tell me about [Brand Name]. How do people generally perceive it, and where does it stand in the market right now?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">📦</div>
+        <div class="ucp-title">Product Overview</div>
+        <div class="ucp-prompt">"Can you describe [Product/Service Name]? What are its main features and who typically uses it?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">🔔</div>
+        <div class="ucp-title">Competitor Buzz</div>
+        <div class="ucp-prompt">"What's the latest news or buzz around [Competitor Brand Name]?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">⚔️</div>
+        <div class="ucp-title">Product vs. Competitor</div>
+        <div class="ucp-prompt">"How does [Brand]'s [Product] compare to [Competitor Product] from [Competitor]? What are the key differences?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">🏆</div>
+        <div class="ucp-title">Category Leader</div>
+        <div class="ucp-prompt">"Who are the top companies in [industry/category] and what are they known for?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">🛒</div>
+        <div class="ucp-title">Buyer Intent</div>
+        <div class="ucp-prompt">"What should I look for when choosing a [product category]? Which brands are recommended most?"</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Prompts by team type:</strong> Tailor your pre-built set based on who owns GAIL at this customer. PR teams care about brand protection and journalist sources. Marketing teams care about category visibility and buyer intent. Competitive intel teams care about how competitors are positioned. Aim for at least one prompt covering each function they have in the room.
+    </div>
+
+    <div style="margin-top: 32px;">
+      <div class="section-header" style="border-bottom: 2px solid var(--mw-purple-mid);">
+        <div class="section-eyebrow section-eyebrow-purple">End of call · High-value moment</div>
+        <h2>Build a prompt together</h2>
+        <p>Near the end of the walkthrough, after you've reviewed an output together, build one new prompt collaboratively with the customer. This is the moment that converts a passive observer into an active user.</p>
+      </div>
+
+      <div class="talk-track">
+        <div class="talk-track-label">Talk track — closing the session with a collaborative prompt</div>
+        <p>"Now that you've seen what this data looks like — let me ask you: what's a question you'd actually want to ask an AI about your brand or your space? Something you'd be curious to know the answer to."</p>
+        <p>"Let's build that prompt right now, together. You tell me what you want to know, and I'll show you how to shape it so it generates the most useful output."</p>
+      </div>
+
+      <div class="callout">
+        <strong>Why this works:</strong> Seeing a prompt they helped build — and the data it generates — makes the product feel personal and immediately useful. It also gives them a clear mental model for what to do next on their own. The customer leaves having already done the thing, not just watched it.
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: SO WHAT -->
+  <section id="so-what">
+    <div class="section-header">
+      <div class="section-eyebrow">Step 5</div>
+      <h2>Answering "so what do I do with this?"</h2>
+      <p>This is the most common question after the walkthrough. Have a clear, actionable answer ready — tailored to whoever's in the room. Don't let the conversation end without connecting the data to something they can actually do next week.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">📨</div>
+        <h3>PR & media relations teams</h3>
+        <p>The Sources tab shows exactly which journalists and outlets are influencing LLM responses. Use that to build targeted outreach lists — pitch the journalists who are already shaping the narrative. Positive coverage from high-influence sources improves AI brand visibility over time.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📰</div>
+        <h3>Content & comms teams</h3>
+        <p>GlobeNewswire and PR Newswire are consistently among the most LLM-influential sources. If the customer isn't using newswires or isn't getting consistent coverage on high-authority sites, that's the place to start for GEO improvement.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Influencer & Klear users</h3>
+        <p>Top journalists from the Sources tab link directly to Klear profiles if the customer has access. This bridges LLM source data into influencer strategy — find the journalists shaping AI perception, then engage them as a content partner.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗂️</div>
+        <h3>Brand & strategy teams</h3>
+        <p>Use Benchmarking and Sentiment data to establish a new baseline KPI: "share of model" alongside traditional share of voice. Set a quarterly reporting cadence and tie the data to brand health metrics they already track.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-orange">
+      <strong>Don't skip this step.</strong> Customers who leave the walkthrough without a clear "next action" will go dark. Even a simple one — "pitch one journalist from the Sources tab this week" or "add five more prompts before our next check-in" — keeps momentum going.
+    </div>
+  </section>
+
+  <!-- STEP 6: NEXT STEPS -->
+  <section id="next-steps">
+    <div class="section-header">
+      <div class="section-eyebrow">Step 6</div>
+      <h2>Next steps & ongoing cadence</h2>
+      <p>Leave every GAIL session with three things agreed: what the customer is going to do before you talk again, when they're going to do it, and when you're checking back in. Simple as that.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Customer: build your own prompts this week</h3>
+          <p>Ask the customer to create at least five prompts of their own before the follow-up call. They've already seen what good prompts look like and built one with you on the call — now they do it on their own. Point them to the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" style="color: var(--mw-teal-dark); font-weight: 600;">Creating a Prompt guide</a> and the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-llm-visibility-monitoring-setup-playbook-10877" style="color: var(--mw-teal-dark); font-weight: 600;">LLM Visibility Monitoring Setup Playbook</a> as self-service resources.</p>
+          <div class="step-note">💡 Remind them that prompts can be deleted at any time with no lasting impact — there's no cost to experimenting. Encourage them to try different angles and see what generates the most interesting data.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Customer: review results in about a week</h3>
+          <p>Ask them to log back in after about a week and look at what the data is showing. By then, the prompts they've added — and the ones you pre-built — will have accumulated enough signal to show real patterns. Encourage them to note any questions or surprises before the follow-up call.</p>
+          <div class="step-note step-note-orange">📅 Set this expectation explicitly on the call: "Give it a week, log back in, and take a look at the Trends and Benchmarking tabs. See what stands out — we'll walk through it together when we talk."</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>IM: follow up in 2–3 weeks</h3>
+          <p>Book the follow-up before you end the session. In that call, review the prompts the customer created, look at the data that's populated, and answer any questions that came up during their solo exploration.</p>
+          <p>This is the session where adoption either sticks or stalls. If the customer shows up having added prompts and explored the data on their own, adoption is real. If they haven't touched it, use the session to diagnose why and reset with a simpler starting point.</p>
+          <div class="step-note">🎯 Goal for the second session: have the customer pull up a tab and tell you what they're seeing — without you narrating. Independent interpretation means the product has clicked for them.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <h2>Customer-facing resources</h2>
+      <p>Use these links in your follow-up emails, session notes, and onboarding plans. All are appropriate to send directly to the customer.</p>
+    </div>
+
+    <div class="resources-grid">
+      <a href="https://community.meltwater.com/genai-lens-223" target="_blank" class="resource-card">
+        <div class="resource-icon">🏠</div>
+        <div class="resource-title">mCommunity — GenAI Lens hub</div>
+        <div class="resource-desc">The main help center for GAIL. All tab guides, setup instructions, and release notes live here.</div>
+      </a>
+      <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" target="_blank" class="resource-card">
+        <div class="resource-icon">✏️</div>
+        <div class="resource-title">Creating a prompt — mCommunity</div>
+        <div class="resource-desc">Step-by-step guide to building prompts in GenAI Lens. Share this with customers after the session so they can create their own independently.</div>
+      </a>
+      <a href="https://community.meltwater.com/genai-lens-223/genai-lens-managing-topics-prompts-8078" target="_blank" class="resource-card">
+        <div class="resource-icon">🗂️</div>
+        <div class="resource-title">Managing topics & prompts — mCommunity</div>
+        <div class="resource-desc">How to organize prompts with Topics and Labels as the customer's library grows. Good to share once they have a meaningful set live.</div>
+      </a>
+      <a href="https://community.meltwater.com/genai-lens-223/genai-lens-training-videos-9647" target="_blank" class="resource-card">
+        <div class="resource-icon">🎬</div>
+        <div class="resource-title">Training videos</div>
+        <div class="resource-desc">Short walkthrough videos for each major feature. Good to share before or after the live session.</div>
+      </a>
+      <a href="https://academy.meltwater.com/courses/genai-lens-core" target="_blank" class="resource-card">
+        <div class="resource-icon">🎓</div>
+        <div class="resource-title">mAcademy — GenAI Lens core course</div>
+        <div class="resource-desc">Structured self-paced learning for customers who want to go deeper at their own pace.</div>
+      </a>
+      <a href="https://academy.meltwater.com/courses/geo-playbook" target="_blank" class="resource-card">
+        <div class="resource-icon">🗺️</div>
+        <div class="resource-title">The GEO Playbook</div>
+        <div class="resource-desc">Generative Engine Optimization — how to actually improve AI brand visibility. Share with content and PR teams.</div>
+      </a>
+      <a href="https://www.meltwater.com/en/blog/category/generative-engine-optimization" target="_blank" class="resource-card">
+        <div class="resource-icon">✍️</div>
+        <div class="resource-title">Meltwater GEO blog</div>
+        <div class="resource-desc">Practical articles on GEO strategy, brand safety in AI, and improving LLM visibility. Good for educating skeptical stakeholders.</div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">&lt;o&gt; Meltwater</div>
+    <div class="footer-note">Internal use only · Implementation Manager reference guide · GenAI Lens</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://community.meltwater.com/genai-lens-223" target="_blank">mCommunity — GenAI Lens Hub</a>
+    <a href="https://academy.meltwater.com/courses/genai-lens-core" target="_blank">mAcademy — GenAI Lens Core</a>
+    <a href="https://community.meltwater.com/genai-lens-223/genai-lens-llm-visibility-monitoring-setup-playbook-10877" target="_blank">LLM Visibility Monitoring Playbook</a>
+    <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" target="_blank">Creating a Prompt — mCommunity</a>
+  </div>
+</footer>
+
+</body>
+</html>

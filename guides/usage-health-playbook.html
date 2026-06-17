@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usage Health Score — IM Playbook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mw-teal:        #28BBBB;
+      --mw-teal-medium: #00A7A5;
+      --mw-teal-dark:   #1C7070;
+      --mw-teal-tint-1: #A3DFDF;
+      --mw-teal-tint-2: #C0EBEB;
+      --mw-teal-tint-3: #E1EFF0;
+      --mw-gray:        #F0F4F4;
+      --mw-black:       #1A1A1A;
+      --mw-white:       #FFFFFF;
+      --mw-orange:      #FF6221;
+      --mw-orange-mid:  #FFDDCC;
+      --mw-orange-light:#FFEFEA;
+      --mw-purple:      #B627A1;
+      --mw-purple-mid:  #E0A6D7;
+      --mw-purple-light:#F0D4EC;
+      --mw-yellow:      #FFCC01;
+      --mw-yellow-mid:  #FCFCCC;
+      --mw-yellow-light:#FFFAE7;
+      --mw-yellow-dark: #8a7000;
+      --mw-font: 'Poppins', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--mw-font);
+      background: var(--mw-white);
+      color: var(--mw-black);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--mw-white);
+      border-bottom: 2px solid var(--mw-teal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--mw-teal-dark);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--mw-teal);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mw-black);
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+
+    /* HERO */
+    .hero {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 64px 48px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border: 40px solid rgba(40,187,187,0.18);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: 140px;
+      width: 160px; height: 160px;
+      border: 22px solid rgba(255,98,33,0.15);
+      border-radius: 50%;
+    }
+    .hero-eyebrow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mw-teal-tint-1);
+    }
+    .internal-badge {
+      background: rgba(255,98,33,0.2);
+      border: 1px solid rgba(255,98,33,0.35);
+      color: #FFDDCC;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 660px;
+      margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--mw-teal); }
+    .hero-sub {
+      font-size: 15.5px;
+      font-weight: 400;
+      max-width: 600px;
+      opacity: 0.85;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(40,187,187,0.18);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .pill-orange {
+      background: rgba(255,98,33,0.18);
+      border: 1px solid rgba(255,98,33,0.3);
+      color: #FFDDCC;
+    }
+    .pill-purple {
+      background: rgba(182,39,161,0.18);
+      border: 1px solid rgba(182,39,161,0.3);
+      color: #E0A6D7;
+    }
+    .pill-yellow {
+      background: rgba(255,204,1,0.18);
+      border: 1px solid rgba(255,204,1,0.35);
+      color: #FFCC01;
+    }
+
+    /* PAGE BODY */
+    .page-body {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 48px 80px;
+    }
+
+    .intro-note {
+      background: var(--mw-teal-tint-3);
+      border-left: 4px solid var(--mw-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 24px;
+      margin-bottom: 56px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: #2a2a2a;
+    }
+    .intro-note strong { color: var(--mw-teal-dark); }
+
+    section { margin-bottom: 60px; }
+
+    /* PRODUCT SECTION HEADER */
+    .product-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+      padding-bottom: 18px;
+      border-bottom: 2px solid var(--theme-tint, var(--mw-teal-tint-2));
+    }
+    .product-icon {
+      width: 44px; height: 44px;
+      background: var(--theme-dark, var(--mw-teal-dark));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .product-header-text .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--theme-medium, var(--mw-teal-medium));
+      margin-bottom: 4px;
+    }
+    .product-header-text h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.2;
+    }
+    .product-intro {
+      font-size: 13.5px;
+      color: #4a4a4a;
+      max-width: 720px;
+      margin: 16px 0 28px;
+    }
+
+    /* METRIC BLOCK */
+    .metric-block {
+      border: 1.5px solid var(--theme-tint, var(--mw-teal-tint-2));
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .metric-header {
+      background: var(--theme-tint-light, var(--mw-teal-tint-3));
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .metric-tag {
+      background: var(--theme-dark, var(--mw-teal-dark));
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .metric-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--theme-dark, var(--mw-teal-dark));
+    }
+    .metric-body { padding: 22px 22px 20px; background: var(--mw-white); }
+    .metric-body p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 12px;
+    }
+    .metric-body p:last-child { margin-bottom: 0; }
+    .metric-what {
+      font-size: 13.5px;
+      color: #3a3a3a;
+      margin: 0 0 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--theme-tint-light, var(--mw-teal-tint-3));
+    }
+    .metric-what strong { color: var(--mw-black); }
+
+    .tips-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--theme-medium, var(--mw-teal-medium));
+      margin-bottom: 10px;
+    }
+    .tip-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tip-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #3a3a3a;
+    }
+    .tip-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--theme-accent, var(--mw-teal));
+    }
+    .tip-list li strong { color: var(--mw-black); }
+    .tip-sublist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+      margin-left: 18px;
+    }
+    .tip-sublist li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+    .tip-sublist li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--theme-accent-tint, var(--mw-teal-tint-1));
+    }
+
+    .callout-mini {
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.55;
+      margin-top: 14px;
+    }
+    .callout-mini-orange {
+      background: var(--mw-orange-light);
+      color: #c04a00;
+    }
+    .callout-mini-purple {
+      background: var(--mw-purple-light);
+      color: #8a1a7a;
+    }
+
+    .sequence-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0 18px;
+      padding: 10px 16px;
+      background: var(--mw-orange-light);
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #c04a00;
+    }
+
+    .secondary-block {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--theme-tint, var(--mw-teal-tint-2));
+    }
+    .secondary-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--theme-accent, var(--mw-orange));
+      margin-bottom: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+    .footer-tag {
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: right;
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    /* PRODUCT THEMES */
+    .theme-teal {
+      --theme-dark: var(--mw-teal-dark);
+      --theme-medium: var(--mw-teal-medium);
+      --theme-tint: var(--mw-teal-tint-2);
+      --theme-tint-light: var(--mw-teal-tint-3);
+      --theme-accent: var(--mw-teal);
+      --theme-accent-tint: var(--mw-teal-tint-1);
+    }
+    .theme-yellow {
+      --theme-dark: #8a7000;
+      --theme-medium: #a38600;
+      --theme-tint: var(--mw-yellow-mid);
+      --theme-tint-light: var(--mw-yellow-light);
+      --theme-accent: var(--mw-yellow);
+      --theme-accent-tint: var(--mw-yellow-mid);
+    }
+    .theme-purple {
+      --theme-dark: #8a1a7a;
+      --theme-medium: #a8219a;
+      --theme-tint: var(--mw-purple-mid);
+      --theme-tint-light: var(--mw-purple-light);
+      --theme-accent: var(--mw-purple);
+      --theme-accent-tint: var(--mw-purple-mid);
+    }
+    .theme-orange {
+      --theme-dark: #c04a00;
+      --theme-medium: #d6551a;
+      --theme-tint: var(--mw-orange-mid);
+      --theme-tint-light: var(--mw-orange-light);
+      --theme-accent: var(--mw-orange);
+      --theme-accent-tint: var(--mw-orange-mid);
+    }
+    .theme-yellow .metric-tag,
+    .theme-yellow .metric-name { color: var(--theme-dark); }
+    .theme-yellow .metric-tag { background: var(--theme-dark); color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 40px 24px; }
+      .hero h1 { font-size: 26px; }
+      .page-body { padding: 36px 24px; }
+      footer { flex-direction: column; }
+      .footer-tag { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">&lt;o&gt;</div>
+    Usage Health — IM Playbook
+  </div>
+  <ul class="nav-links">
+    <li><a href="#explore">Explore / MI</a></li>
+    <li><a href="#media-relations">Media Relations</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+    <li><a href="#klear">Klear</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow-row">
+    <div class="hero-eyebrow">Internal Guide · Implementation</div>
+    <div class="internal-badge">Internal only — do not share with customers</div>
+  </div>
+  <h1>Driving <span>Usage Health Score</span> by product</h1>
+  <p class="hero-sub">When you see a metric showing yellow or red in Totango, come here. This is a tactical reference for moving each usage health metric in the right direction — organized by product, so you can jump straight to what needs attention.</p>
+  <div class="hero-pills">
+    <span class="pill">Explore / Media Intelligence</span>
+    <span class="pill pill-yellow">Media Relations</span>
+    <span class="pill pill-purple">Newsletter</span>
+    <span class="pill pill-orange">Klear</span>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <div class="intro-note">
+    <strong>How to use this guide:</strong> Check Totango first to see which usage metrics are red or yellow on your accounts. Each metric below is tied to a specific, observable customer behavior in the platform — the tips are ways to prompt that behavior during calls, workshops, or async follow-up. Work the metrics that are weakest on a given account; you don't need to run every tactic on every customer.
+  </div>
+
+  <!-- EXPLORE / MEDIA INTELLIGENCE -->
+  <section id="explore" class="theme-teal">
+    <div class="product-header">
+      <div class="product-icon">🔍</div>
+      <div class="product-header-text">
+        <div class="section-eyebrow">Product</div>
+        <h2>Explore / Media Intelligence</h2>
+      </div>
+    </div>
+    <p class="product-intro">Four metrics make up usage health here. Searches and Articles Clicked reflect whether the customer is actively working in the platform. CSV Export Volume reflects whether they're pulling data out for other uses. % MAU reflects whether the people who should be in the platform actually are.</p>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">Searches Completed (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether the customer is actively interacting with a search — building, editing, or saving one. The goal is hands-on-keyboard engagement with the search engine itself, not just viewing results someone else set up.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Get them hands-on, screen-share style.</strong> Have the customer share their screen and do one of the following live: build a Monitor View, edit an existing search with new keywords, add a filter to a search and save it, or build a new search from scratch.</li>
+          <li><strong>Use email as a lighter-touch nudge.</strong> Ask them to review an existing search and add keywords you may not have known to include — exclusions, product names, leadership names. Or simply encourage them to try out Monitor.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">Articles Clicked (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether the customer is reading the content the platform surfaces. Daily Digest is the strongest lever here — if it's compelling enough to open and click through, this metric moves on its own without any extra outreach.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Make the Digest worth opening.</strong> Coverage of their own brand is table stakes — the real lift comes from content that's tangential but genuinely interesting to them.</li>
+          <li><strong>Add an industry pulse.</strong> What's the highest-reaching news in their industry today? A topic-level boolean works well for surfacing this automatically.</li>
+          <li><strong>Go hyper-local if relevant.</strong> If the customer cares about a specific city or market, what's the big local story they'd want to know about?</li>
+          <li><strong>Build a "top stories" layer.</strong> Think beyond their direct mentions — set up a top 10–20 reach digest covering the broader conversation they should be aware of.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">CSV Export Volume (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether the customer is pulling raw data out of the platform. This tends to be an advanced behavior — customers usually need to be comfortable with the basics before exports become relevant, so it's reasonable for this one to lag early in onboarding.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Show the AI angle.</strong> For sophisticated customers, walk through exporting content and talk through how they might upload that raw data into an LLM like Claude or ChatGPT for further analysis.</li>
+          <li><strong>Position it as a reporting connector.</strong> Exports let them bring Meltwater data together with other data sources for a larger, blended report.</li>
+          <li><strong>Save it for the right moment, but don't wait too long.</strong> This is often best introduced in a later workshop or Q&A session once the customer is already comfortable with the platform — but watch for natural trigger moments rather than waiting for a dedicated session:</li>
+        </ul>
+        <ul class="tip-sublist">
+          <li>End-of-month or end-of-quarter reporting cycles, when they're likely assembling data for a recap anyway</li>
+          <li>Board deck or leadership update prep — a good moment to offer "let me show you how to pull this into a spreadsheet for that"</li>
+          <li>Any time the customer asks something like "can I get this data out" or "can I put this in a spreadsheet" — that's your opening, don't defer it to a future workshop</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">% MAU (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures what share of provisioned users are actually logging in. A low number here is often a data hygiene issue as much as an adoption issue — stale or auto-created users can drag this down without reflecting real engagement.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Drive logins directly.</strong> Get more people actually using the platform, or clean up users who were auto-created and never activated.</li>
+          <li><strong>Loop in the champion.</strong> Ask your champion to flag any users on the account who haven't logged in yet — they often know why, and can help re-engage them.</li>
+          <li><strong>Validate the user list.</strong> Confirm which users are actually still needed and delete any that aren't. A smaller, accurate user base is better for this metric than a large, stale one.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA RELATIONS -->
+  <section id="media-relations" class="theme-yellow">
+    <div class="product-header">
+      <div class="product-icon">📰</div>
+      <div class="product-header-text">
+        <div class="section-eyebrow">Product</div>
+        <h2>Media Relations</h2>
+      </div>
+    </div>
+    <p class="product-intro">These two metrics build on each other in practice, even though they're scored independently. A customer needs a media list before outreach makes sense — so work Media List Updates first, and let Journalist Outreach follow naturally once there's a real reason to send something.</p>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">Media List Updates (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether the customer is actively building or maintaining a media list. This is usually the easier of the two Media Relations metrics to move, since it doesn't require an active outreach need to justify the activity.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Make it a screen-share moment.</strong> Walk the customer through how to build a media list, asking probing discovery questions about the types of journalists they'd want to reach, then have them build it live.</li>
+          <li><strong>Pre-build, then hand off.</strong> Create a media list for them ahead of time with a deliberately small number of journalists, then show them how to add more contacts to it themselves.</li>
+          <li><strong>Or do it fully async.</strong> Build the list offline and send them details on how to add to it or build their own from scratch.</li>
+          <li><strong>Reframe it for not-ready customers.</strong> If they don't have an immediate need, position it as a readiness exercise: "I want to make sure you're comfortable with how this works now, so when you do need it, it's easy." A mock scenario where they share their screen and walk through it is the best way to make this stick.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">Journalist Outreach (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether the customer is actually sending outreach to journalists. This is typically the hardest Media Relations metric to move artificially — it depends on the customer having a real reason to reach out, which you can't always manufacture on a timeline.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Don't force it — sequence it.</strong> If there's no immediate outreach need, focus your energy on Media List Updates first. A strong list sets up outreach naturally; pushing outreach before the list exists usually doesn't work.</li>
+          <li><strong>Build readiness, not volume.</strong> Even without a live campaign, make sure the customer knows the steps and feels comfortable, so the first real outreach isn't also their first time learning the workflow.</li>
+        </ul>
+        <div class="secondary-block">
+          <div class="secondary-label">Low-stakes ways to build readiness</div>
+          <ul class="tip-list">
+            <li>Draft one sample pitch together as a template they can reuse later — even without a campaign to send it on.</li>
+            <li>Have them identify 3 target journalists from their own media list as a dry run, so the next step (actually sending) feels small.</li>
+            <li>Walk through the send flow on a mock list during a workshop, so the mechanics are already familiar when a real need comes up.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter" class="theme-purple">
+    <div class="product-header">
+      <div class="product-icon">✉️</div>
+      <div class="product-header-text">
+        <div class="section-eyebrow">Product</div>
+        <h2>Newsletter</h2>
+      </div>
+    </div>
+    <p class="product-intro">One metric here — Articles Read — but it depends entirely on getting a newsletter set up and actually landing in inboxes. The setup work is the unlock; once it's flowing regularly, the read-through tends to follow.</p>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">Newsletter Articles Read (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether recipients are actually opening and clicking through newsletter content. This starts with having a newsletter live at all — a customer with no template set up has no chance of generating this metric.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Get the basics set up first.</strong> Make sure a basic branded newsletter template exists in their account before doing anything else — this is the prerequisite for everything below.</li>
+        </ul>
+        <div class="secondary-block">
+          <div class="secondary-label">For customers who need convincing</div>
+          <ul class="tip-list">
+            <li><strong>Lead with reach.</strong> Position it as a way to get the daily digest out to a wider team — automated daily, or curated manually if they want control over which articles go out.</li>
+            <li><strong>Lead with branding.</strong> Unlike the Daily Digest, the Newsletter can be branded to match their company's visual identity — a meaningful differentiator for comms-focused stakeholders.</li>
+          </ul>
+        </div>
+        <div class="secondary-block">
+          <div class="secondary-label">A second touchpoint worth building in</div>
+          <ul class="tip-list">
+            <li><strong>Set up a weekly newsletter alongside the daily digest.</strong> Build this in during account setup, or add it later if Articles Read is showing low adoption. It's a simple roundup of the week's brand, competitor, and industry news, sent to the same recipients as the daily digest. Every additional touch in someone's inbox is another chance for a click — and it gives you a natural reason to bring up Newsletter performance on your next call with the customer.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KLEAR -->
+  <section id="klear" class="theme-orange">
+    <div class="product-header">
+      <div class="product-icon">⭐</div>
+      <div class="product-header-text">
+        <div class="section-eyebrow">Product</div>
+        <h2>Klear</h2>
+      </div>
+    </div>
+    <p class="product-intro">Both metrics here come down to the same root cause when they're red: the customer simply isn't logging into Klear. Getting them back into the platform with something compelling to look at solves both at once.</p>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">Klear Influencer Profiles Viewed (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether the customer is actively browsing and viewing influencer profiles. If this is red, it's very likely a login problem rather than a feature problem — start there before assuming the feature itself isn't landing.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Diagnose the login gap first.</strong> If this metric is red, the customer almost certainly isn't logging into Klear post-training. Focus on getting them back into the platform before anything else.</li>
+          <li><strong>Send a taste of what's there.</strong> Share a few interesting influencers over email along with a quick tip on how to run a search to find similar ones — give them a reason to log in.</li>
+          <li><strong>Make it a workshop activity.</strong> Have the customer log in and share their screen during a workshop call — have them search for influencers and click into a few profiles to dig deeper.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="metric-block">
+      <div class="metric-header">
+        <span class="metric-tag">Metric</span>
+        <span class="metric-name">Klear Campaigns Opened (90D)</span>
+      </div>
+      <div class="metric-body">
+        <p class="metric-what">Measures whether the customer is opening and engaging with campaigns in Klear. A compelling sample campaign — built before they ever log in — gives them something concrete to react to instead of a blank slate.</p>
+        <div class="tips-label">Tips & tactics</div>
+        <ul class="tip-list">
+          <li><strong>Pre-build a sample campaign.</strong> Before the first training, create a sample campaign using influencers they've likely worked with before — ask the client for a list, or find a few relevant examples directly in Klear.</li>
+          <li><strong>Make the campaign compelling, not generic.</strong> A campaign built around influencers they actually recognize lands far better than a generic walkthrough example.</li>
+          <li><strong>Hand over campaign management.</strong> Make sure they know how to manage campaigns themselves in Klear — another good opportunity to have them share their screen and drive.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">&lt;o&gt; Meltwater</div>
+    <div class="footer-note">Internal use only · Implementation Manager reference guide · Usage Health Score</div>
+  </div>
+  <div class="footer-tag">Not for customer distribution. Check Totango for current metric status before applying tactics from this guide.</div>
+</footer>
+
+</body>
+</html>
