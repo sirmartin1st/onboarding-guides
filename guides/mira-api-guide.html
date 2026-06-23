@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mira API — IM Onboarding Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mw-teal:        #28BBBB;
+      --mw-teal-medium: #00A7A5;
+      --mw-teal-dark:   #1C7070;
+      --mw-teal-tint-1: #A3DFDF;
+      --mw-teal-tint-2: #C0EBEB;
+      --mw-teal-tint-3: #E1EFF0;
+      --mw-gray:        #F0F4F4;
+      --mw-black:       #1A1A1A;
+      --mw-white:       #FFFFFF;
+      --mw-orange:      #FF6221;
+      --mw-orange-mid:  #FFDDCC;
+      --mw-orange-light:#FFEFEA;
+      --mw-purple:      #B627A1;
+      --mw-purple-mid:  #E0A6D7;
+      --mw-purple-light:#F0D4EC;
+      --mw-font: 'Poppins', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--mw-font);
+      background: var(--mw-white);
+      color: var(--mw-black);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--mw-white);
+      border-bottom: 2px solid var(--mw-teal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--mw-teal-dark);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--mw-teal);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mw-black);
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+
+    /* HERO */
+    .hero {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 72px 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border: 40px solid rgba(40,187,187,0.18);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: 140px;
+      width: 160px; height: 160px;
+      border: 22px solid rgba(182,39,161,0.15);
+      border-radius: 50%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 660px;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--mw-teal); }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 400;
+      max-width: 580px;
+      opacity: 0.85;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(40,187,187,0.18);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .pill-purple {
+      background: rgba(182,39,161,0.18);
+      border: 1px solid rgba(182,39,161,0.3);
+      color: #E0A6D7;
+    }
+    .pill-orange {
+      background: rgba(255,98,33,0.18);
+      border: 1px solid rgba(255,98,33,0.3);
+      color: #FFDDCC;
+    }
+
+    /* PAGE BODY */
+    .page-body {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+
+    section { margin-bottom: 68px; }
+
+    /* SECTION HEADERS */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--mw-teal-tint-2);
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mw-teal-medium);
+      margin-bottom: 8px;
+    }
+    .section-eyebrow-orange { color: var(--mw-orange); }
+    .section-eyebrow-purple { color: var(--mw-purple); }
+    .section-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.2;
+    }
+    .section-header p {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+      max-width: 700px;
+    }
+
+    /* CALLOUTS */
+    .callout {
+      background: var(--mw-teal-tint-3);
+      border-left: 4px solid var(--mw-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--mw-teal-dark); }
+    .callout a { color: var(--mw-teal-dark); font-weight: 600; }
+    .callout-orange {
+      background: var(--mw-orange-light);
+      border-left-color: var(--mw-orange);
+    }
+    .callout-orange strong { color: #c04a00; }
+    .callout-orange a { color: #c04a00; }
+    .callout-purple {
+      background: var(--mw-purple-light);
+      border-left-color: var(--mw-purple);
+    }
+    .callout-purple strong { color: #8a1a7a; }
+    .callout-purple a { color: #8a1a7a; }
+
+    /* PRODUCT LAYERS (Meltwater API vs Mira API vs Meltwater MCP) */
+    .layers-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .layer-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .layer-card.this-guide {
+      border: 2px solid var(--mw-purple);
+      background: var(--mw-purple-light);
+    }
+    .layer-tag {
+      flex-shrink: 0;
+      min-width: 92px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: var(--mw-teal-dark);
+      color: white;
+      margin-top: 2px;
+    }
+    .layer-card.this-guide .layer-tag {
+      background: var(--mw-purple);
+    }
+    .layer-body h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mw-black);
+      margin-bottom: 6px;
+    }
+    .layer-body p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+    }
+    .layer-body p strong { color: var(--mw-black); }
+
+    .boundary-banner {
+      background: var(--mw-teal-dark);
+      color: white;
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .boundary-banner strong { color: var(--mw-teal-tint-1); }
+
+    /* CHOOSE YOUR PATH */
+    .path-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .path-card {
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .path-card.ready {
+      background: var(--mw-teal-dark);
+      color: white;
+    }
+    .path-card.needs-work {
+      background: var(--mw-orange-light);
+      border: 2px solid var(--mw-orange-mid);
+    }
+    .path-icon { font-size: 28px; margin-bottom: 4px; }
+    .path-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .path-card.ready h3 { color: white; }
+    .path-card.needs-work h3 { color: #c04a00; }
+    .path-card p { font-size: 13.5px; line-height: 1.55; }
+    .path-card.ready p { opacity: 0.85; }
+    .path-card.needs-work p { color: #5a3020; }
+    .path-signals {
+      font-size: 12.5px;
+      font-style: italic;
+      margin-top: 2px;
+    }
+    .path-card.ready .path-signals { opacity: 0.7; }
+    .path-card.needs-work .path-signals { color: #7a4a30; }
+    .path-cta {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      align-self: flex-start;
+    }
+    .path-card.ready .path-cta {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .path-card.ready .path-cta:hover { background: rgba(255,255,255,0.25); }
+    .path-card.needs-work .path-cta {
+      background: var(--mw-orange);
+      color: white;
+    }
+    .path-card.needs-work .path-cta:hover { background: #e05010; }
+
+    /* CAPABILITY CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px;
+      background: var(--mw-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
+    }
+    .card-icon {
+      width: 36px; height: 36px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--mw-teal-dark);
+    }
+    .card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+
+    /* DISCOVERY QUESTIONS */
+    .questions-list { display: flex; flex-direction: column; gap: 14px; }
+    .question-item {
+      background: var(--mw-gray);
+      border-radius: 8px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .q-number {
+      background: var(--mw-teal);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .q-body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mw-black);
+      margin-bottom: 5px;
+    }
+    .q-body .q-listen {
+      font-size: 12.5px;
+      color: #5a5a5a;
+      font-style: italic;
+    }
+
+    /* TALK TRACKS */
+    .talk-track {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      border-radius: 10px;
+      padding: 26px 30px;
+      margin-bottom: 18px;
+    }
+    .talk-track-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 10px;
+    }
+    .talk-track p {
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: 0.92;
+    }
+    .talk-track p + p { margin-top: 12px; }
+
+    /* PROOF POINT CARD */
+    .proof-card {
+      background: var(--mw-purple-light);
+      border: 1.5px solid var(--mw-purple-mid);
+      border-radius: 10px;
+      padding: 24px 26px;
+      margin-bottom: 18px;
+    }
+    .proof-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8a1a7a;
+      margin-bottom: 10px;
+    }
+    .proof-card p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #5a2a52;
+      margin-bottom: 10px;
+    }
+    .proof-card p:last-child { margin-bottom: 0; }
+    .proof-card strong { color: #5a1a50; }
+
+    /* USE CASES */
+    .use-cases-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mw-orange);
+      margin-bottom: 16px;
+      margin-top: 32px;
+    }
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .use-case {
+      background: var(--mw-orange-light);
+      border: 1.5px solid var(--mw-orange-mid);
+      border-radius: 8px;
+      padding: 18px 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .use-case:hover {
+      border-color: var(--mw-orange);
+      box-shadow: 0 4px 14px rgba(255,98,33,0.12);
+    }
+    .use-case .uc-icon { font-size: 20px; margin-bottom: 10px; }
+    .use-case h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #c04a00;
+      margin-bottom: 6px;
+    }
+    .use-case p {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #5a3020;
+    }
+
+    /* OBJECTIONS */
+    .objections-header {
+      margin-top: 48px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--mw-orange-mid);
+    }
+    .objections-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mw-black);
+    }
+    .objections-header p {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+    }
+    .objections { display: flex; flex-direction: column; gap: 14px; }
+    .objection {
+      border: 1.5px solid var(--mw-orange-mid);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .obj-q {
+      background: var(--mw-orange-light);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c04a00;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .obj-q::before { content: '💬'; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .obj-a {
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #4a4a4a;
+      border-top: 1px solid var(--mw-orange-mid);
+      background: var(--mw-white);
+    }
+
+    /* ACTIVATION STEPS */
+    .steps { display: flex; flex-direction: column; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 42px; bottom: 42px;
+      width: 2px;
+      background: var(--mw-teal-tint-2);
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 18px 0;
+      position: relative;
+    }
+    .step-num {
+      min-width: 42px; height: 42px;
+      background: var(--mw-teal);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mw-black);
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+    .step-content p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+    }
+    .step-content p + p { margin-top: 8px; }
+    .step-note {
+      margin-top: 10px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .step-note-orange {
+      background: var(--mw-orange-light);
+      color: #c04a00;
+    }
+    .step-content code {
+      background: var(--mw-gray);
+      border: 1px solid var(--mw-teal-tint-2);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--mw-teal-dark);
+    }
+
+    /* INTEGRATION CARDS (Claude / OpenAI) */
+    .integration-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .integration-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .integration-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .integration-icon {
+      width: 26px; height: 26px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .integration-title { font-size: 14px; font-weight: 700; }
+    .integration-body {
+      padding: 20px 20px 18px;
+      background: var(--mw-white);
+    }
+    .integration-body p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 10px;
+    }
+    .integration-body p:last-child { margin-bottom: 0; }
+    .integration-body strong { color: var(--mw-black); }
+    .integration-tag {
+      display: inline-block;
+      background: var(--mw-teal-tint-3);
+      color: var(--mw-teal-dark);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    /* ONBOARDING JOURNEY (good activation) */
+    .journey-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .journey-stage {
+      display: flex;
+      gap: 22px;
+      padding: 22px 0;
+      border-bottom: 1px dashed var(--mw-teal-tint-2);
+    }
+    .journey-stage:last-child { border-bottom: none; }
+    .journey-when {
+      min-width: 96px;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--mw-teal-medium);
+      padding-top: 2px;
+    }
+    .journey-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mw-black);
+      margin-bottom: 6px;
+    }
+    .journey-content p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 8px;
+    }
+    .journey-content p:last-child { margin-bottom: 0; }
+    .journey-content ul {
+      list-style: none;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .journey-content ul li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+    .journey-content ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--mw-teal);
+    }
+
+    /* CODE BLOCKS */
+    .code-block {
+      background: #1A1A1A;
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin: 10px 0 14px;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #C0EBEB;
+      white-space: pre;
+    }
+    .code-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8a8a8a;
+      margin-bottom: 8px;
+    }
+    .doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--mw-teal-dark);
+      text-decoration: none;
+      margin-top: 4px;
+    }
+    .doc-link:hover { text-decoration: underline; }
+    .doc-link::after { content: '↗'; font-size: 11px; }
+
+    /* PROMPT LIBRARY */
+    .prompt-library-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .prompt-lib-card {
+      background: var(--mw-gray);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .prompt-lib-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--mw-teal-dark);
+      margin-bottom: 8px;
+    }
+    .prompt-lib-card .prompt-example {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--mw-black);
+      line-height: 1.55;
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--mw-teal-tint-2);
+    }
+    .prompt-lib-card .prompt-example:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    /* SKILLS BLOCK */
+    .skills-explainer {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    .skills-explainer-box {
+      flex: 1;
+      border-radius: 10px;
+      padding: 18px 20px;
+      border: 1.5px solid var(--mw-teal-tint-2);
+    }
+    .skills-explainer-box.mcp-box { background: var(--mw-teal-tint-3); }
+    .skills-explainer-box.skill-box { background: var(--mw-purple-light); border-color: var(--mw-purple-mid); }
+    .skills-explainer-box h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .mcp-box h4 { color: var(--mw-teal-dark); }
+    .skill-box h4 { color: #8a1a7a; }
+    .skills-explainer-box p {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+    .skills-explainer-arrow {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      color: var(--mw-teal-medium);
+      font-weight: 700;
+    }
+    .skill-example-block {
+      background: var(--mw-white);
+      border: 1.5px dashed var(--mw-purple-mid);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 4px;
+    }
+    .skill-example-block .skill-file-name {
+      font-family: 'Courier New', monospace;
+      font-size: 11.5px;
+      background: var(--mw-purple-light);
+      color: #8a1a7a;
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .skill-example-block p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 6px;
+    }
+    .skill-example-block p:last-child { margin-bottom: 0; }
+
+    /* NOT SUPPORTED CALLOUT */
+    .not-supported {
+      background: #2a1810;
+      color: #FFEFEA;
+      border-radius: 10px;
+      padding: 26px 28px;
+      margin-top: 24px;
+    }
+    .not-supported-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mw-orange);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .not-supported ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .not-supported li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      opacity: 0.92;
+    }
+    .not-supported li::before {
+      content: '✕';
+      position: absolute;
+      left: 0; top: 0;
+      color: var(--mw-orange);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .not-supported li strong { color: white; }
+
+    /* SPEC GRID (limits) */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .spec-card {
+      background: var(--mw-gray);
+      border-radius: 10px;
+      padding: 18px 18px;
+      text-align: center;
+    }
+    .spec-num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--mw-teal-dark);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .spec-label {
+      font-size: 12px;
+      color: #4a4a4a;
+      line-height: 1.4;
+    }
+
+    /* PRICING TIER TABLE */
+    .tier-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .tier-table th {
+      background: var(--mw-teal-dark);
+      color: white;
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tier-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--mw-teal-tint-2);
+      color: #3a3a3a;
+    }
+    .tier-table tr:last-child td { border-bottom: none; }
+    .tier-table td.tier-name { font-weight: 600; color: var(--mw-teal-dark); }
+    .tier-table tr.trial-row td { color: #5a5a5a; font-style: italic; }
+
+    /* EMAIL TEMPLATE */
+    .email-shell {
+      border: 2px solid var(--mw-teal-tint-2);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .email-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 14px 24px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .email-copy-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 5px 14px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      font-family: var(--mw-font);
+      transition: background 0.2s;
+      text-transform: uppercase;
+    }
+    .email-copy-btn:hover { background: rgba(255,255,255,0.25); }
+    .email-copy-btn.copied { background: rgba(40,187,187,0.4); }
+    .email-meta {
+      background: var(--mw-gray);
+      padding: 14px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-bottom: 1px solid var(--mw-teal-tint-2);
+    }
+    .email-meta-row { display: flex; gap: 12px; font-size: 13px; }
+    .email-meta-label { font-weight: 700; color: var(--mw-teal-dark); min-width: 60px; }
+    .email-meta-value { color: #4a4a4a; font-style: italic; }
+    .email-body {
+      padding: 28px 28px 24px;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--mw-black);
+      white-space: pre-wrap;
+      font-family: var(--mw-font);
+    }
+    .placeholder {
+      background: #fff3cd;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-style: italic;
+      color: #856404;
+      font-size: 13px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; text-align: right; }
+    .footer-links a { color: var(--mw-teal-tint-1); text-decoration: none; font-size: 13px; }
+    .footer-links a:hover { text-decoration: underline; color: white; }
+    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 24px; }
+      .hero h1 { font-size: 28px; }
+      .page-body { padding: 40px 24px; }
+      .path-wrapper, .cards-grid, .use-cases, .integration-grid, .spec-grid, .prompt-library-grid { grid-template-columns: 1fr; }
+      .layer-card { flex-direction: column; }
+      .journey-stage { flex-direction: column; gap: 6px; }
+      .skills-explainer { flex-direction: column; }
+      .skills-explainer-arrow { transform: rotate(90deg); justify-content: center; padding: 4px 0; }
+      footer { flex-direction: column; }
+      .footer-links { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">&lt;o&gt;</div>
+    Mira API — IM Guide
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#boundaries">vs. MCP</a></li>
+    <li><a href="#choose-path">Your path</a></li>
+    <li><a href="#discovery">Discovery</a></li>
+    <li><a href="#activation">Activation</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Internal Guide · Implementation</div>
+  <h1>Onboarding customers to the <span>Mira API</span></h1>
+  <p class="hero-sub">A practical reference for IMs working with customers who already have Mira API access — from spotting real use cases to getting them genuinely using it inside tools like Claude and ChatGPT.</p>
+  <div class="hero-pills">
+    <span class="pill">Mira API vs. Meltwater MCP</span>
+    <span class="pill">Choose your path</span>
+    <span class="pill">Discovery & talk tracks</span>
+    <span class="pill pill-orange">Claude & OpenAI integration</span>
+    <span class="pill pill-purple">What's not supported</span>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-eyebrow">Background</div>
+      <h2>What the Mira API does</h2>
+      <p>Mira API extends Mira AI's news and social intelligence into a customer's own AI assistants, agents, and internal tools — the same engine behind Mira Studio, accessible programmatically instead of through the Meltwater UI.</p>
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>This is a paid add-on, not a bundled feature.</strong> The Mira API is sold separately from the standard Meltwater Insights API. A customer having one does not mean they have the other — confirm access before you assume it, and don't promise activation to a customer who hasn't purchased it. Access is tiered: <strong>Trial</strong> (500 monthly prompts, 90 days) through <strong>Plus, Advanced, Premium,</strong> and <strong>Elite</strong> (up to 40,000 monthly prompts). This guide assumes the customer already has access at one of these tiers — if they don't, loop in their Account Manager for a trial or purchase conversation rather than trying to activate anything yourself.
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Conversational, AI-generated insight</h3>
+        <p>Customers (or their internal tools) ask plain-language questions and get back a written, synthesized answer — not raw mentions, but an AI-generated summary grounded in Meltwater's data.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔌</div>
+        <h3>Built for embedding, not browsing</h3>
+        <p>Designed to be called from a customer's own chatbot, internal AI assistant, or dashboard — not a UI a person logs into. The value is Mira's intelligence showing up inside tools the customer already uses.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧵</div>
+        <h3>Multi-turn, with memory</h3>
+        <p>Supports threaded conversations — a follow-up question can reference everything asked before it in that thread, up to a long context window, without the customer re-explaining themselves.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📎</div>
+        <h3>Cited, not just generated</h3>
+        <p>Responses come back with citations back to the underlying coverage, so outputs are traceable — not a black-box answer, but one a customer can verify and defend internally.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Mental model for IMs:</strong> If a customer already uses Mira Studio inside the Meltwater app and likes it, the Mira API is "that, but callable from your own tools instead of from a login screen." Same engine, same quality of output — different delivery mechanism. If they've never used Mira Studio, walking them through it first (in the app) is often the fastest way to show them what the API would deliver programmatically.
+    </div>
+  </section>
+
+  <!-- BOUNDARIES: Mira API vs Meltwater API vs Meltwater MCP -->
+  <section id="boundaries">
+    <div class="section-header">
+      <div class="section-eyebrow section-eyebrow-purple">Know this before any conversation</div>
+      <h2>Mira API, Meltwater API, and Meltwater MCP aren't the same thing</h2>
+      <p>Customers will use these names loosely. Knowing the difference — fast — is the single most important thing in this guide. Getting this wrong in front of a customer (or promising something this product doesn't do) is the most common mistake to avoid.</p>
+    </div>
+
+    <div class="layers-wrapper">
+      <div class="layer-card">
+        <div class="layer-tag">Meltwater API</div>
+        <div class="layer-body">
+          <h3>Content and analytics</h3>
+          <p>Structured, mention-based data — articles, posts, metrics, sentiment scores. Built for pipelines, BI tools, dashboards, and data warehouses. The customer's system does the analysis; the API just delivers the raw structured data. <strong>This is covered in the separate Meltwater API guide.</strong></p>
+        </div>
+      </div>
+      <div class="layer-card this-guide">
+        <div class="layer-tag">Mira API</div>
+        <div class="layer-body">
+          <h3>Chat-based AI insight (this guide)</h3>
+          <p>Conversational, AI-generated responses powered by Mira AI — the same outputs Mira Studio produces inside the app, delivered via a chat-completion API instead. Built for embedding into a customer's own chatbots, internal agents, or executive briefing tools. <strong>Exposes two tools when accessed via MCP: ask a question, and list projects.</strong> Mira Studio outputs only — nothing broader.</p>
+        </div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-tag">Meltwater MCP</div>
+        <div class="layer-body">
+          <h3>The full agentic tool layer — separate product</h3>
+          <p>A much broader product: full read/write access to searches and assets, journalist and influencer data, AI visibility, and more — callable from Claude, ChatGPT, or any MCP-compatible AI host. <strong>This is not the Mira API and not what this guide covers.</strong> Pricing is still TBD and it isn't sold standalone today. If a customer is describing this, see the objection below — loop in the Account Manager.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="boundary-banner">
+      <strong>The shorthand that holds up under questioning:</strong> Meltwater API gets data <em>out</em>. Mira API lets a customer ask Mira AI a question and get a conversational answer back. Meltwater MCP is the delivery layer that makes Meltwater callable as a tool inside whatever AI environment a customer already works in — a much bigger surface area than Mira API's "ask + list projects." Think of Mira API as a single gate; Meltwater MCP is the whole airport.
+    </div>
+  </section>
+
+  <!-- CHOOSE YOUR PATH -->
+  <section id="choose-path">
+    <div class="section-header">
+      <div class="section-eyebrow">Start here</div>
+      <h2>Choose your path</h2>
+      <p>Both paths assume the customer already has Mira API access on their contract. Where they land determines how much selling this conversation needs.</p>
+    </div>
+
+    <div class="path-wrapper">
+      <div class="path-card ready">
+        <div class="path-icon">✅</div>
+        <h3>Has it and wants it</h3>
+        <p>Customer knows they have Mira API, has a use case in mind, or their technical team is already asking how to integrate it. No education needed — skip straight to activation and integration guidance.</p>
+        <p class="path-signals">Signals: customer mentioned Mira API or Mira Studio at kickoff, they have a developer or AI initiative already underway, they purchased it as a deliberate add-on.</p>
+        <a href="#activation" class="path-cta">↓ Jump to activation</a>
+      </div>
+      <div class="path-card needs-work">
+        <div class="path-icon">💡</div>
+        <h3>Has it but needs encouragement</h3>
+        <p>Customer has access on their contract but hasn't activated it, doesn't know what it's for, or isn't sure it's worth the engineering effort. Use discovery to find a real use case, then the talk tracks to make the case.</p>
+        <p class="path-signals">Signals: package includes it but no one's mentioned it, customer is unfamiliar with Mira Studio, "we have an API budget but haven't used it yet."</p>
+        <a href="#discovery" class="path-cta">↓ Start with discovery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVERY -->
+  <section id="discovery">
+    <div class="section-header">
+      <div class="section-eyebrow">Path 2 · Step 1</div>
+      <h2>Discovery questions</h2>
+      <p>Ask these before explaining anything about the API itself. The goal is finding a real, specific moment in their workflow where an AI-generated answer — not raw data — would save time or look impressive to leadership.</p>
+    </div>
+
+    <div class="questions-list">
+      <div class="question-item">
+        <div class="q-number">1</div>
+        <div class="q-body">
+          <strong>When your team needs a quick read on "what's happening with our brand right now," what does that process look like today?</strong>
+          <span class="q-listen">Listen for: manual digging through Explore, someone compiling a summary by hand, or "we just don't have a fast answer for that." Any of these is a Mira API opening.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">2</div>
+        <div class="q-body">
+          <strong>Does your team use any internal AI tools or assistants today — Claude, ChatGPT, a custom internal bot?</strong>
+          <span class="q-listen">Listen for: yes to any of these. That's an existing surface where Mira API output could show up without building anything new from scratch.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">3</div>
+        <div class="q-body">
+          <strong>Who outside of the people who log into Meltwater would benefit from getting quick media or social insight — leadership, a regional team, an exec?</strong>
+          <span class="q-listen">Listen for: any name or function. This is the "expand beyond traditional users" angle — Mira API can put insight in front of people who'd never log into the platform.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">4</div>
+        <div class="q-body">
+          <strong>Do you have a developer or data/AI team that's already building internal tools or chatbots?</strong>
+          <span class="q-listen">Listen for: yes. This is the technical stakeholder who'd actually implement the integration — get them on a call before going further down this path.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">5</div>
+        <div class="q-body">
+          <strong>How often does someone on your team have to turn raw coverage into a written summary, brief, or report for someone else?</strong>
+          <span class="q-listen">Listen for: a recurring cadence (daily briefs, weekly reports, campaign recaps). This is the clearest "minutes instead of hours" pitch, and it mirrors what Mira Studio already does inside the app.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TALK TRACKS -->
+  <section id="talk-tracks">
+    <div class="section-header">
+      <div class="section-eyebrow">Path 2 · Step 2</div>
+      <h2>Talk tracks</h2>
+      <p>Use these once you know enough from discovery to make the conversation specific. Pick the track that matches what you heard.</p>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-label">Opening — introducing Mira API to a customer who has access but hasn't used it</div>
+      <p>"One thing worth flagging — your package includes the Mira API, which is a way to bring Mira's AI-generated insights directly into your own tools, instead of needing someone to log into Meltwater and ask Mira Studio directly."</p>
+      <p>"If you're already using something like Claude or ChatGPT internally, or you have a developer who builds internal tools, this is usually the fastest way to get Meltwater intelligence in front of people who'd otherwise never see it."</p>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-label">If they already use Mira Studio inside the app</div>
+      <p>"You already know what Mira can do — you've used it to pull brand summaries, sentiment comparisons, coverage reports. The Mira API is the same engine and the same quality of output, just accessible through code instead of the Meltwater login. Anywhere your team already gets a Mira Studio answer, the API can deliver that same kind of answer automatically, inside your own systems."</p>
+    </div>
+
+    <div class="talk-track">
+      <div class="talk-track-label">If they have a developer or AI/data team</div>
+      <p>"For your developer, this will be familiar — it's a chat-completion API, similar in shape to what they'd see calling OpenAI or Anthropic directly, except every response is grounded in Meltwater's news and social data instead of a general model. It supports both streaming and non-streaming responses, and it can maintain a conversation thread, so follow-up questions don't need to repeat context."</p>
+      <p>"It's also exposed as an MCP server, so if your team is already building with Claude or another MCP-compatible assistant, connecting Mira API can be a fairly light lift rather than a custom integration from scratch."</p>
+    </div>
+
+    <div class="proof-card">
+      <div class="proof-label">Proof point worth using — Claude integration in production</div>
+      <p>A QSR (Quick Service Restaurant) enterprise customer's analytics team used to spend hours each day manually assembling customer-perception briefs for leadership. They replaced that with <strong>daily AI-driven briefs delivered automatically, grounded in Meltwater data and combined with the team's own internal context inside Claude.</strong></p>
+      <p>The outputs are trusted at the CEO level specifically because the underlying data is grounded in Meltwater — not a generic LLM guessing. It replaced a six-figure annual spend on a separate listening tool and an outside analyst agency previously used for the same recurring reports.</p>
+      <p>Use this when a customer is skeptical that AI-generated output can be trusted by leadership — this is exactly that scenario, already working in production.</p>
+    </div>
+
+    <div class="use-cases-label">Use cases worth naming in conversation</div>
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="uc-icon">📋</div>
+        <h4>Daily or weekly leadership briefs</h4>
+        <p>Automate the customer-perception or coverage brief a team currently builds by hand — delivered inside Claude, ChatGPT, or an internal tool on a schedule.</p>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">🤖</div>
+        <h4>Internal chatbots and assistants</h4>
+        <p>Embed Mira's AI responses into a Slack bot or internal assistant so anyone on the team can ask "what's the latest on us" without logging into Meltwater.</p>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">📊</div>
+        <h4>BI dashboards with narrative context</h4>
+        <p>Pair structured metrics from the Meltwater API with a Mira-generated narrative summary, so dashboards explain themselves instead of just showing numbers.</p>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">🏢</div>
+        <h4>Insight for non-platform users</h4>
+        <p>Get media and social intelligence in front of execs, regional teams, or strategy functions who'd never log into Meltwater directly.</p>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div class="objections-header">
+      <div class="section-eyebrow section-eyebrow-orange">Path 2 · Step 3</div>
+      <h2>Common objections</h2>
+      <p>For customers who push back, go quiet, or ask about something this product doesn't do. Keep responses grounded and don't overpromise — when in doubt, route to the AM rather than committing on the spot.</p>
+    </div>
+
+    <div class="objections">
+      <div class="objection">
+        <div class="obj-q">"Can you just connect Meltwater to our Claude/ChatGPT setup the way [a competitor / something we saw] does — full access, not just chat answers?"</div>
+        <div class="obj-a">What you're describing sounds closer to Meltwater MCP, which is a separate, broader product from the Mira API — it exposes a much wider set of tools (search and asset management, journalist and influencer data, AI visibility) versus Mira API's ask-a-question-and-get-an-answer model. I can speak to it at a high level, but pricing and packaging for that are still being finalized, so I'd want to loop in your Account Manager before we go further down that road.</div>
+      </div>
+      <div class="objection">
+        <div class="obj-q">"We don't have a developer to build this."</div>
+        <div class="obj-a">That's worth knowing upfront — Mira API is built for integration into a customer's own tools, so some technical lift is real. If you don't have someone in-house, this might be a "park it for later" conversation rather than an active build. I'd still recommend confirming who'd own it if priorities shift, so we're not starting from zero later.</div>
+      </div>
+      <div class="objection">
+        <div class="obj-q">"Could we use this to train our own AI model on Meltwater's content?"</div>
+        <div class="obj-a">No — that's explicitly outside what's supported. Providing a full feed of raw article text to train large language models isn't permitted under Meltwater's data licensing; only summarized or insight-based content delivery is allowed. If they want to explore something AI-related beyond that, loop in the Account Manager rather than improvising an answer here.</div>
+      </div>
+      <div class="objection">
+        <div class="obj-q">"Could we build a product on top of this and sell it to our own customers?"</div>
+        <div class="obj-a">No — Meltwater data and insights can't be integrated into a product intended for resale. That's a usage policy violation regardless of how the integration is built. This is worth flagging early if a customer mentions building anything customer-facing on top of Mira API.</div>
+      </div>
+      <div class="objection">
+        <div class="obj-q">"We're already overwhelmed getting the core platform set up."</div>
+        <div class="obj-a">Totally reasonable — let's keep the focus on fundamentals for now. I'll note Mira API as a phase-two item in our plan and bring it back up once things are stable. There's no urgency on activation timing if the access is already part of the package.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVATION -->
+  <section id="activation">
+    <div class="section-header">
+      <div class="section-eyebrow">Final step · Both paths</div>
+      <h2>Activation & integration</h2>
+      <p>Getting the token activated is the easy part — done in two business days, no customer effort required. The part that actually determines whether a customer adopts this is what happens in the weeks after that. This section covers what good onboarding looks like, the real mechanics of connecting to Claude and OpenAI, starter prompts, and how Claude Skills fit in on top of the connection.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Your first move:</strong> confirm the customer's contract includes a Mira API tier (Trial, Plus, Advanced, Premium, or Elite) — it does not come bundled with standard Meltwater API access. If you're not sure, check with the Account Manager before submitting anything.
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Submit the activation request (you)</h3>
+          <p>Email <strong>help@meltwater.com</strong> to request Mira API activation for the customer's account. Include:</p>
+          <p>• The customer's account name and confirmed Mira API tier<br>
+             • The name and email of the designated <strong>API User</strong> who will manage the token<br>
+             • A link to the customer's <strong>Salesforce Opportunity</strong></p>
+          <div class="step-note step-note-orange">⚠️ Confirm the API User with the customer before submitting — it should be whoever owns the technical implementation, not just the primary contact.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Wait for Support to enable access</h3>
+          <p>Meltwater Support enables Mira API access on the account after receiving your ticket. No customer action needed at this stage.</p>
+          <div class="step-note">⏱ Standard turnaround is <strong>2 business days</strong>. Set that expectation with the customer upfront.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Customer creates their API token</h3>
+          <p>Once Support confirms access is on, the designated API User creates their token in the Meltwater app under <strong>Account &gt; Meltwater API</strong> — same flow as standard Meltwater API access. The token is shown once at creation, so it must be copied and stored securely immediately. Full steps: <a href="https://developer.meltwater.com/guides/getting-started/api-credentials" target="_blank" class="doc-link">API Credentials guide</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER REFERENCE -->
+    <div style="margin-top: 36px;">
+      <div class="section-eyebrow" style="margin-bottom: 14px;">Quick reference · Mira API tiers</div>
+      <table class="tier-table">
+        <thead>
+          <tr><th>Tier</th><th>Monthly prompts</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr class="trial-row"><td class="tier-name">Trial</td><td>500</td><td>90-day trial — good first ask for "not sure yet" customers</td></tr>
+          <tr><td class="tier-name">Plus</td><td>2,500</td><td></td></tr>
+          <tr><td class="tier-name">Advanced</td><td>6,500</td><td></td></tr>
+          <tr><td class="tier-name">Premium</td><td>20,000</td><td></td></tr>
+          <tr><td class="tier-name">Elite</td><td>40,000</td><td>Additional prompt blocks available as an add-on</td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top: 16px; margin-bottom: 0;">
+        <strong>Current pricing isn't included here on purpose</strong> — it changes independently of this guide. Check the Mira API pricing deck or your Account Manager for current numbers before quoting a customer.
+      </div>
+    </div>
+
+    <!-- WHAT GOOD ONBOARDING LOOKS LIKE -->
+    <div style="margin-top: 48px;">
+      <div class="section-header">
+        <div class="section-eyebrow section-eyebrow-purple">What good looks like</div>
+        <h2>A real Mira API onboarding journey</h2>
+        <p>Token creation isn't the finish line — it's the starting gun. Customers who get a working integration in front of real users within the first couple of weeks stick. Customers who get a token and nothing else go dormant. This is the sequence to actually drive toward.</p>
+      </div>
+
+      <div class="journey-wrapper">
+        <div class="journey-stage">
+          <div class="journey-when">Week 1</div>
+          <div class="journey-content">
+            <h3>Get the developer talking to the API directly</h3>
+            <p>Before any Claude or OpenAI wiring, have the customer's developer make one successful call to the Responses endpoint — a single curl request is enough to prove the token works and show them the shape of a real response, citations included.</p>
+            <ul>
+              <li>Confirms the token and account are live before more complex integration work starts</li>
+              <li>Gives the developer a real example response to design around, instead of working from docs alone</li>
+              <li>Takes minutes, not days — a good "win #1" to report back to the customer's stakeholders</li>
+            </ul>
+          </div>
+        </div>
+        <div class="journey-stage">
+          <div class="journey-when">Week 1–2</div>
+          <div class="journey-content">
+            <h3>Connect it to wherever the team already works</h3>
+            <p>Identify whether the team is Claude-based, OpenAI-based, or building something fully custom, and wire up that specific path — see the integration guidance below. This is almost always the developer's task, but you should know enough to sanity-check progress and unblock common snags.</p>
+            <ul>
+              <li>If they're a Claude Desktop shop: get the MCP server configured and have one person ask Mira a real question inside Claude</li>
+              <li>If they're OpenAI-based: get one working call through the Responses API with Mira as a tool</li>
+              <li>Either way — the goal for this stage is one person, one real question, one real answer. Not a finished product.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="journey-stage">
+          <div class="journey-when">Week 2–3</div>
+          <div class="journey-content">
+            <h3>Build the first real recurring use case</h3>
+            <p>Take whatever came up in discovery — a daily brief, a weekly report, a Slack digest — and get a working version of that specific thing in front of the person who'll actually use it. Use the starter prompts below as a basis if the customer hasn't written their own yet.</p>
+            <ul>
+              <li>This is the moment to introduce Claude Skills if they're a Claude shop — see below</li>
+              <li>Push for a real recipient, not a test account — adoption sticks when a real stakeholder sees value, not when a developer confirms it technically works</li>
+            </ul>
+          </div>
+        </div>
+        <div class="journey-stage">
+          <div class="journey-when">Week 3–4</div>
+          <div class="journey-content">
+            <h3>Check in, expand, and hand off ownership</h3>
+            <p>Confirm the integration is actually being used — not just built. Ask what's working, what's missing, and whether there's a second use case worth tackling. By this point the customer's team should own the integration; your job shifts to occasional support rather than active building.</p>
+            <ul>
+              <li>If usage is low, the most common cause is that no one told the intended recipient it exists — close that loop directly</li>
+              <li>If usage is strong, this is the moment to flag a tier upgrade conversation with the Account Manager if prompt volume is climbing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECHNICAL LIMITS -->
+    <div style="margin-top: 48px;">
+      <div class="section-eyebrow" style="margin-bottom: 14px;">What to know before a technical conversation</div>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="spec-num">60 / min</div>
+          <div class="spec-label">Rate limit — shared across both the Responses endpoint and the MCP server. A technical customer should plan burst usage with this in mind.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-num">290,000 tokens</div>
+          <div class="spec-label">Max conversation thread history. If exceeded, the oldest messages are automatically dropped — most customers won't hit this.</div>
+        </div>
+        <div class="spec-card">
+          <div class="spec-num">300 sec</div>
+          <div class="spec-label">Max wait time for a non-streaming response. Long-running or complex queries should use streaming mode instead.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLAUDE / OPENAI INTEGRATION -->
+    <div style="margin-top: 48px;">
+      <div class="section-header">
+        <div class="section-eyebrow section-eyebrow-orange">Helping customers connect Mira API to Claude & OpenAI</div>
+        <h2>How the integration actually works</h2>
+        <p>You're not writing this code with the customer — that's their developer's job. But knowing the actual shape of the setup means you can sanity-check progress, unblock a stuck conversation, and point to the exact doc page instead of "go check developer.meltwater.com" and hoping they find it.</p>
+      </div>
+
+      <div class="integration-grid">
+        <div class="integration-card">
+          <div class="integration-header">
+            <div class="integration-icon">◆</div>
+            <div class="integration-title">Connecting to Claude Desktop</div>
+          </div>
+          <div class="integration-body">
+            <span class="integration-tag">MCP server</span>
+            <p>Mira API is exposed as a <strong>remote MCP server</strong>. The developer edits Claude Desktop's config file directly and adds Meltwater as an MCP server, authenticating with the Mira API token as a header.</p>
+            <div class="code-label">claude_desktop_config.json</div>
+            <div class="code-block"><pre>{
+  "mcpServers": {
+    "meltwater": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://api.meltwater.com/mcp",
+        "--header",
+        "apikey: ${MELTWATER_API_KEY}"
+      ],
+      "env": {
+        "MELTWATER_API_KEY": "&lt;your api key&gt;"
+      }
+    }
+  }
+}</pre></div>
+            <p>File lives at <strong>~/Library/Application Support/Claude/claude_desktop_config.json</strong> on macOS or <strong>%APPDATA%\Claude\claude_desktop_config.json</strong> on Windows — or just Settings &gt; Developer &gt; Edit Config inside Claude Desktop. Save, restart Claude Desktop, and Meltwater shows up as an available tool.</p>
+            <a href="https://developer.meltwater.com/guides/mira-api/mcp-server" target="_blank" class="doc-link">Full MCP Server setup guide</a>
+          </div>
+        </div>
+        <div class="integration-card">
+          <div class="integration-header">
+            <div class="integration-icon">○</div>
+            <div class="integration-title">Connecting to OpenAI</div>
+          </div>
+          <div class="integration-body">
+            <span class="integration-tag">Responses API</span>
+            <p>The same MCP server can be registered as a tool inside OpenAI's Responses API. The developer adds Meltwater's MCP endpoint as a tool source and the model decides when to call it.</p>
+            <div class="code-label">python — registering Meltwater as a tool</div>
+            <div class="code-block"><pre>from openai import OpenAI
+
+client = OpenAI(api_key="&lt;YOUR OPENAI API KEY&gt;")
+
+resp = client.responses.create(
+    model="gpt-4.1",
+    tools=[{
+        "type": "mcp",
+        "server_label": "meltwater-api",
+        "server_url": "https://api.meltwater.com/mcp",
+        "require_approval": "never",
+        "headers": {
+            "apikey": "&lt;YOUR MELTWATER API KEY&gt;"
+        }
+    }],
+    input="What is going on in the news with fast fashion in the last 7 days?",
+)
+print(resp.output_text)</pre></div>
+            <p>For a custom build without MCP at all, a developer can call the chat-completion endpoint directly — <code>POST /v3/mira/responses</code> — and wire the response into whatever workflow they're building themselves.</p>
+            <a href="https://developer.meltwater.com/guides/mira-api/mcp-server" target="_blank" class="doc-link">Full MCP Server setup guide (OpenAI)</a><br>
+            <a href="https://developer.meltwater.com/guides/mira-api/responses" target="_blank" class="doc-link">Responses endpoint reference</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>The talking point that lands with technical stakeholders:</strong> "Every response is grounded in Meltwater's data and comes back with citations — so even though it's generated by an LLM, it's not the model guessing. That's what makes it usable for things leadership will actually rely on." For the full picture, including streaming mode and multi-turn conversation handling, point them to the <a href="https://developer.meltwater.com/guides/mira-api/responses" target="_blank">Responses guide</a> and <a href="https://developer.meltwater.com/guides/mira-api/projects" target="_blank">Projects guide</a> (for grounding answers with company-specific instructions).
+      </div>
+
+      <!-- STARTER PROMPTS -->
+      <div style="margin-top: 36px;">
+        <div class="section-eyebrow" style="margin-bottom: 14px;">Starter prompts worth handing to a customer</div>
+        <p style="font-size: 13.5px; color: #4a4a4a; margin-bottom: 18px; max-width: 700px;">These work whether the customer is testing the raw API, asking through Claude, or asking through an OpenAI-powered tool — the prompt is what changes, not the integration. Good Mira prompts are specific and time-bound, same as the discovery principle for any AI-powered Meltwater product.</p>
+        <div class="prompt-library-grid">
+          <div class="prompt-lib-card">
+            <div class="prompt-lib-tag">📋 Daily / weekly brief</div>
+            <div class="prompt-example">"What are the key conversations around [Brand] in the last 7 days?"</div>
+            <div class="prompt-example">"Summarize the top stories and sentiment shift for [Brand] this week."</div>
+          </div>
+          <div class="prompt-lib-card">
+            <div class="prompt-lib-tag">⚔️ Competitive intel</div>
+            <div class="prompt-example">"Compare sentiment and share of voice for [Brand] vs [Competitor] in the last month."</div>
+            <div class="prompt-example">"What's the latest news or buzz around [Competitor]?"</div>
+          </div>
+          <div class="prompt-lib-card">
+            <div class="prompt-lib-tag">🚨 Risk & issue monitoring</div>
+            <div class="prompt-example">"What are the risks and opportunities in coverage of [Brand] this week?"</div>
+            <div class="prompt-example">"Has there been any negative coverage of [Brand] in the last 48 hours? Summarize it."</div>
+          </div>
+          <div class="prompt-lib-card">
+            <div class="prompt-lib-tag">📰 Campaign & coverage reports</div>
+            <div class="prompt-example">"Create a coverage report for [Campaign] in the last 7 days."</div>
+            <div class="prompt-example">"Which journalists covered [Campaign], and should we follow up with any of them?"</div>
+          </div>
+        </div>
+        <div class="callout-mini" style="margin-top: 4px;">💡 These are the same prompt patterns that work in Mira Studio inside the app — that's intentional. If a customer already has prompts they like in Mira Studio, those same prompts are the fastest starting point for their API or Claude integration.</div>
+      </div>
+
+      <!-- CLAUDE SKILLS -->
+      <div style="margin-top: 40px;">
+        <div class="section-header">
+          <div class="section-eyebrow section-eyebrow-purple">For Claude-based customers</div>
+          <h2>Building a Claude Skill around Mira API</h2>
+          <p>This is a layer on top of the MCP connection, not a separate integration. Worth understanding the distinction so you don't conflate the two with a customer.</p>
+        </div>
+
+        <div class="skills-explainer">
+          <div class="skills-explainer-box mcp-box">
+            <h4>MCP connection (the access)</h4>
+            <p>Gets Mira API into Claude as a callable tool. This is the <code style="background:none;border:none;padding:0;color:#1C7070;">claude_desktop_config.json</code> setup above. Without this, Claude has no way to reach Meltwater at all.</p>
+          </div>
+          <div class="skills-explainer-arrow">+</div>
+          <div class="skills-explainer-box skill-box">
+            <h4>Claude Skill (the recipe)</h4>
+            <p>A reusable set of instructions — a SKILL.md file — that tells Claude exactly how to use that connection for a specific recurring task, so the customer doesn't re-explain the format every time.</p>
+          </div>
+        </div>
+
+        <p style="font-size: 13.5px; color: #4a4a4a; margin-bottom: 14px;">In plain terms: MCP is what lets Claude reach Meltwater at all. A Skill is what teaches Claude to do a specific job with that connection the same way every time — without the customer re-typing instructions in every conversation.</p>
+
+        <div class="skill-example-block">
+          <span class="skill-file-name">SKILL.md — example: weekly leadership brief</span>
+          <p><strong>What it would tell Claude to do:</strong> "When asked for the weekly brief, call Mira API for [Brand]'s coverage from the last 7 days, including sentiment and top sources. Format the response as: headline summary, 3 key stories, sentiment trend line, and one flagged risk or opportunity. Keep it under 300 words. Always include citations."</p>
+          <p><strong>Result:</strong> anyone on the customer's team can ask Claude for "this week's brief" and get the same consistently-formatted output every time — without retyping the formatting instructions, and without needing to know how to write a good Mira prompt themselves.</p>
+        </div>
+
+        <div class="callout-mini callout-mini-purple" style="margin-top: 14px;">💡 This is the natural next step after the Week 2–3 stage in the onboarding journey above. If a customer has a recurring Mira API use case that's working but inconsistent in format, a Skill is usually the fix — not a more complicated prompt.</div>
+
+        <p style="font-size: 13px; color: #5a5a5a; margin-top: 14px;">Claude Skills are a Claude feature, not a Meltwater one — they work with any MCP connection, not just Mira API. There's no Meltwater-specific setup needed beyond having the MCP connection live. Point technical customers to Anthropic's own documentation for how to author a Skill.</p>
+      </div>
+
+      <!-- WHAT'S NOT SUPPORTED -->
+      <div class="not-supported">
+        <div class="not-supported-label">⚠ What Mira API does NOT support</div>
+        <ul>
+          <li><strong>It is not the full Meltwater MCP.</strong> Mira API's MCP exposure is limited to two tools — asking a question and listing projects. It does not support search/asset management, journalist and influencer data, or AI visibility tools. If a customer expects that broader toolset, they're thinking of Meltwater MCP, a separate product.</li>
+          <li><strong>No training data exports.</strong> Providing a full feed of raw article text to train a customer's own LLM is not permitted — only summarized, insight-based output is allowed.</li>
+          <li><strong>No resale or productization.</strong> Meltwater insights delivered through Mira API cannot be built into a product the customer sells to their own customers.</li>
+          <li><strong>Not a replacement for the Meltwater API.</strong> If a customer needs raw structured mentions, metrics, or bulk export for a data warehouse or BI tool, that's the standard Meltwater Insights API — Mira API only returns conversational, AI-generated answers.</li>
+          <li><strong>Mira Studio outputs only.</strong> The API returns the same kind of answer Mira Studio gives inside the app — it doesn't expose any capability beyond what Mira Studio itself can do.</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- EMAIL TEMPLATE -->
+  <section id="email-template">
+    <div class="section-header">
+      <div class="section-eyebrow">Customer email template</div>
+      <h2>Send once Support confirms activation</h2>
+      <p>Gives the API User everything they need to create their first token and start exploring integration options on their own.</p>
+    </div>
+
+    <div class="email-shell">
+      <div class="email-header">
+        Ready to send — use once Support confirms activation
+        <button class="email-copy-btn" onclick="copyEmail(this)">Copy email</button>
+      </div>
+      <div class="email-meta">
+        <div class="email-meta-row">
+          <span class="email-meta-label">To:</span>
+          <span class="email-meta-value">[Customer API User]</span>
+        </div>
+        <div class="email-meta-row">
+          <span class="email-meta-label">Subject:</span>
+          <span class="email-meta-value">Your Mira API access is ready</span>
+        </div>
+      </div>
+      <div class="email-body" id="email-body-text">Hi <span class="placeholder">[First Name]</span>,
+
+Great news — your Mira API access has been activated. You're all set to create your first API token and start bringing Mira's AI-generated news and social insights into your own tools.
+
+To create your token, follow the steps here:
+https://developer.meltwater.com/guides/getting-started/api-credentials
+
+A couple of things worth knowing as you get started:
+
+Mira API is built for chat-based, conversational queries — it returns AI-generated answers grounded in Meltwater data, similar to what you'd see in Mira Studio inside the app, just accessible from your own tools.
+
+It's also available as a remote MCP server, which makes it straightforward to connect to AI assistants like Claude. If you're building with OpenAI instead, the same chat-completion endpoint can be called directly or wired in through the Responses API.
+
+Full setup guides, including MCP configuration and sample code, are at:
+https://developer.meltwater.com/guides/mira-api/overview
+
+If you have any questions as you get set up, our API support team is available at help@meltwater.com.
+
+Talk soon,
+
+<span class="placeholder">[Your Name]</span>
+<span class="placeholder">[Your Title]</span>
+Meltwater</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">&lt;o&gt; Meltwater</div>
+    <div class="footer-note">Internal use only · Implementation Manager reference guide · Mira API</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://developer.meltwater.com/guides/mira-api/overview" target="_blank">Developer Portal — Mira API Overview</a>
+    <a href="https://developer.meltwater.com/guides/mira-api/mcp-server" target="_blank">Developer Portal — MCP Server Guide</a>
+    <a href="https://community.meltwater.com/new-to-meltwater-125/mira-studio-new-user-guide-4279" target="_blank">mCommunity — Mira Studio New User Guide</a>
+  </div>
+</footer>
+
+<script>
+function copyEmail(btn) {
+  const bodyEl = document.getElementById('email-body-text');
+  const div = document.createElement('div');
+  div.innerHTML = bodyEl.innerHTML;
+  const text = "Subject: Your Mira API access is ready\n\n" + div.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy email';
+      btn.classList.remove('copied');
+    }, 2200);
+  }).catch(() => {
+    btn.textContent = 'Copy failed';
+    setTimeout(() => { btn.textContent = 'Copy email'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
