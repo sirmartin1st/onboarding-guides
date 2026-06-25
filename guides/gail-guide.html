@@ -727,6 +727,7 @@
   <div class="hero-eyebrow">Internal Guide · Implementation</div>
   <h1>Onboarding customers to <span>GenAI Lens</span></h1>
   <p class="hero-sub">Your end-to-end reference for taking every GAIL customer from kickoff to active adoption — even if they've never thought about LLM monitoring before.</p>
+  <p style="font-size: 13px; opacity: 0.75; margin-bottom: 28px;">Guide last updated: June 25, 2026 · <a href="https://docs.google.com/document/d/1p1z4iRBdttMuiDbDUUPsXVFQl-3sY24Va4GqjETXe4Q/edit?tab=t.0#heading=h.ygm54cezavi" target="_blank" style="color: var(--mw-teal-tint-1); font-weight: 600; text-decoration: underline;">Check the release notes for any new features</a></p>
   <div class="hero-pills">
     <span class="pill">How to frame it</span>
     <span class="pill">Pre-call prep</span>
@@ -820,7 +821,7 @@
       <a href="#walkthrough" class="step-overview-card">
         <div class="soc-num">Step 3</div>
         <div class="soc-title">Product walkthrough</div>
-        <div class="soc-desc">Walk each tab in sequence. Brand Setup first, then Trends, Benchmarking, Sentiment, Sources, and Prompt Management.</div>
+        <div class="soc-desc">Walk each tab in sequence. Brand Setup first, then Trends, Benchmarking, Sentiment, Sources, and Settings.</div>
       </a>
       <a href="#prompts" class="step-overview-card">
         <div class="soc-num">Step 4</div>
@@ -835,7 +836,7 @@
       <a href="#next-steps" class="step-overview-card">
         <div class="soc-num">Step 6</div>
         <div class="soc-title">Next steps & cadence</div>
-        <div class="soc-desc">Set a clear follow-up plan with prompt validation, bulk upload, and a check-in on what they're seeing.</div>
+        <div class="soc-desc">Set a clear follow-up plan with prompt building, a results check-in, and a date for the next call.</div>
       </a>
     </div>
   </section>
@@ -852,6 +853,10 @@
       <strong>Why 5–15 prompts?</strong> More prompts mean richer data across Trends, Benchmarking, Sentiment, and Sources. They're also low-risk — prompts can be deleted at any time and won't affect the customer's prompt capacity permanently. Think of your pre-built prompts as a demo layer the customer can keep, modify, or replace as they build their own.
     </div>
 
+    <div class="callout callout-purple">
+      <strong>New accounts auto-populate now.</strong> The Enhanced Onboarding Workflow analyzes the customer's website on account creation and pre-fills prompts and topics automatically — no more blank slate. Your job has shifted from "build everything" to "review what's there, then supplement." Always check what's already populated before adding anything new.
+    </div>
+
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
@@ -863,23 +868,31 @@
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-content">
-          <h3>Set up the customer's brand and competitors</h3>
-          <p>Before adding any prompts, complete Brand Setup for the customer. Add their primary brand and at least three to five key competitors. This ensures the Benchmarking and Sentiment tabs have something meaningful to show when you get on the call — and it's the first thing most customers will want to verify is correct anyway.</p>
-          <div class="step-note">💡 Confirm which competitors matter most by checking the customer's Salesforce account or any pre-sales notes. If you're unsure, use the top two or three names you know from their industry and let the customer adjust on the call.</div>
+          <h3>Review what's already auto-populated</h3>
+          <p>Before building anything, open the account and see what the Enhanced Onboarding Workflow has already generated. It analyzes the customer's website and pre-populates relevant prompts and topics automatically. Review these for quality and relevance — keep what's good, delete what's off-target.</p>
+          <div class="step-note">💡 This doesn't replace your prep — it gives you a head start. You're still aiming for 5–15 solid prompts in the account; some of that work may already be done for you.</div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <h3>Build 5–15 prompts using two resources</h3>
-          <p>Use both of the following to build out a strong starting set. Aim for variety — brand-level, competitor-level, product-level, and category-level prompts will give the most complete picture across tabs.</p>
+          <h3>Set up the customer's brand and competitors</h3>
+          <p>Confirm Brand Setup is complete for the customer — add their primary brand and at least three to five key competitors if they're not already there. This ensures the Benchmarking and Sentiment tabs have something meaningful to show when you get on the call — and it's the first thing most customers will want to verify is correct anyway.</p>
+          <div class="step-note">💡 Confirm which competitors matter most by checking the customer's Salesforce account or any pre-sales notes. If you're unsure, use the top two or three names you know from their industry and let the customer adjust on the call.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Supplement to reach 5–15 prompts using two resources</h3>
+          <p>Once you know what's already in the account, fill any gaps using the following. Aim for variety — brand-level, competitor-level, product-level, and category-level prompts will give the most complete picture across tabs.</p>
           <p><strong><a href="https://chatgpt.com/g/g-691b52bc192c8191b571eedb6cbf4192-gail-prompt-creator" style="color: var(--mw-teal-dark);">GAIL Prompt Creator GPT</a></strong> — Custom GPT built specifically to generate prompt ideas tailored to a brand and industry. Input the customer's brand name and a few details about their space and it'll generate a solid starting list.</p>
           <p><strong><a href="https://docs.google.com/spreadsheets/d/1zixyALZD93HNwzqa12sc-Jkf4lmmY0Sq8uKtgVikdy0/edit" style="color: var(--mw-teal-dark);">PM Prompt Spreadsheet</a></strong> — A library of prompt ideas organized by use case and industry, maintained by the product team. Use it as inspiration to identify prompt angles you might not have thought of. This is a reference resource — it's not tied to your specific customer's account.</p>
           <div class="step-note step-note-orange">⏱ Add prompts at least 1–2 hours before the call so there's real data to review. Prompts added right before the session may not have enough data populated yet.</div>
         </div>
       </div>
       <div class="step">
-        <div class="step-num">4</div>
+        <div class="step-num">5</div>
         <div class="step-content">
           <h3>Know where GAIL lives in the platform</h3>
           <p>GenAI Lens lives under the <strong>Monitor</strong> tab. Introduce it after covering Explore — customers who understand Explore will make the connection to GenAI Lens quickly, since both are monitoring tools focused on how a brand is being talked about.</p>
@@ -942,7 +955,7 @@
     <div class="section-header">
       <div class="section-eyebrow">Step 3</div>
       <h2>Product walkthrough</h2>
-      <p>Walk the product in this sequence. Brand Setup first — it makes every subsequent tab more relevant. Then move through Trends, Benchmarking, Sentiment, and Sources. Use the Competitor-only toggle throughout to keep charts focused.</p>
+      <p>Walk the product in this sequence. Brand Setup first — it makes every subsequent tab more relevant. Then move through Trends, Benchmarking, Sentiment, Sources, and Settings. Use the Competitor-only toggle throughout to keep charts focused.</p>
     </div>
 
     <div class="callout">
@@ -960,7 +973,7 @@
         <div class="tab-body">
           <p>You've already completed Brand Setup as part of your pre-call prep — the customer's brand and competitors are in the platform before the call starts. Use this part of the session to walk them through what you've built and confirm it's right.</p>
           <p><strong>What to cover:</strong> Show them their brand and the competitors you added. Ask whether anything is missing or should be adjusted — a competitor they care about, a product line, a key person. Make any changes live so they see how easy it is to manage themselves going forward.</p>
-          <p><strong>Key toggle:</strong> Demonstrate <strong>Competitor-only mode</strong> and explain what it does — it filters all charts to just their brand and the competitors they've added. Turn it on, show the difference, then explain they can toggle it off any time to see the full landscape.</p>
+          <p><strong>Key toggle:</strong> Demonstrate <strong>Competitor-only mode</strong> and explain what it does — it filters all charts to just their brand and the competitors they've added. This now extends to Products and People too, not just Brand, so unbranded prompts (like "top phones on the market") won't bury their product in a sea of unrelated results. Turn it on, show the difference, then explain they can toggle it off any time to see the full landscape.</p>
           <div class="tab-tip">💡 This is a natural moment to explain what "entities" means — brands, products, people, locations, and key phrases are all trackable. Ask if there are any products or people they'd want to add beyond just the brand name.</div>
         </div>
       </div>
@@ -975,7 +988,7 @@
           <p>The Trends tab shows how often their brand, competitors, products, people, locations, and key phrases appear in LLM responses over time — based on the prompts they've set up.</p>
           <p><strong>What to show:</strong> Pull up the chart for their brand and walk them through what the mention volume means. A spike or dip is a good conversation starter — "what happened here that might have affected how AI talks about you?"</p>
           <p><strong>The key message:</strong> These aren't social mentions or news articles. This is specifically what AI models are saying when someone asks about your space. It's a fundamentally new signal.</p>
-          <div class="tab-tip">💡 If there's limited data, use this as a reason to add more prompts — more prompts = more signal. It's also a good setup for the bulk upload conversation later.</div>
+          <div class="tab-tip">💡 If there's limited data, use this as a reason to add more prompts — more prompts = more signal. It's also a good setup for the prompt-building conversation later.</div>
         </div>
       </div>
 
@@ -1025,12 +1038,12 @@
       <div class="tab-item">
         <div class="tab-header">
           <span class="tab-badge">Tab 5</span>
-          <span class="tab-title">Prompt Management</span>
+          <span class="tab-title">Settings</span>
           <a href="https://community.meltwater.com/genai-lens-223/genai-lens-managing-topics-prompts-8078" target="_blank" class="tab-link">mCommunity guide ↗</a>
         </div>
         <div class="tab-body">
-          <p>Prompt Management is where the customer will live once they're active — it's how they create, organize, and manage all their prompts over time. Ending the walkthrough here is intentional: it sets up the transition directly into the Prompt Strategy section and the collaborative prompt-building moment.</p>
-          <p><strong>What to show:</strong> Walk through how to create a new prompt using the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" target="_blank" style="color: var(--mw-teal-dark); font-weight: 600;">prompt creation flow</a> — the fields, the options, and what each setting controls. Then show how Topics and Labels can be used to organize prompts as their library grows.</p>
+          <p>Settings is where the customer will live once they're active — it's how they create, organize, and manage prompts, brands, and entities over time. Ending the walkthrough here is intentional: it sets up the transition directly into the Prompt Strategy section and the collaborative prompt-building moment.</p>
+          <p><strong>What to show:</strong> Walk through how to create a new prompt using the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" target="_blank" style="color: var(--mw-teal-dark); font-weight: 600;">prompt creation flow</a> — the fields, the options, and what each setting controls. Then show how Topics and Labels can be used to organize prompts as their library grows. This is also where brand and entity management lives now, including Discover & Merge for cleaning up duplicate entities.</p>
           <p><strong>The key message:</strong> The prompts you built before the call are a starting point. This is where they take ownership — adding prompts that reflect their specific questions, campaigns, and competitors. The more focused and specific their prompts, the more useful the data across every other tab.</p>
           <div class="tab-tip">💡 This is the natural lead-in to building a prompt together. After showing them the creation flow, hand it over: "Now let's build one based on what you've seen today."</div>
         </div>
@@ -1163,6 +1176,10 @@
       <p>This is the most common question after the walkthrough. Have a clear, actionable answer ready — tailored to whoever's in the room. Don't let the conversation end without connecting the data to something they can actually do next week.</p>
     </div>
 
+    <div class="callout callout-purple">
+      <strong>The product now answers part of this for you.</strong> AI Recommendations generates weekly, in-platform guidance automatically — narrative-driven next steps based on what's happening in the customer's data, at no extra cost. It requires at least one brand set up and refreshes every Monday, so a brand-new account won't have recommendations on day one. Point customers to the Overview tab on the follow-up call and let the platform make part of your case for you.
+    </div>
+
     <div class="cards-grid">
       <div class="card">
         <div class="card-icon">📨</div>
@@ -1226,6 +1243,10 @@
         </div>
       </div>
     </div>
+
+    <div class="callout callout-purple" style="margin-top: 24px;">
+      <strong>New in Beta — worth introducing on the follow-up call:</strong> LLM Executive Reports turn GenAI Lens data into a shareable, branded report covering visibility, sentiment drivers, and competitive positioning — built for leadership audiences who won't dig into the dashboards themselves. Each account gets 4 free reports during the beta, and each takes about 20 minutes to generate, so this isn't a live-demo feature — introduce it, then generate one together or shortly after the call. Be upfront that it's Beta: pricing and packaging aren't finalized, and more capability is coming.
+    </div>
   </section>
 
   <!-- RESOURCES -->
@@ -1266,6 +1287,11 @@
         <div class="resource-icon">🗺️</div>
         <div class="resource-title">The GEO Playbook</div>
         <div class="resource-desc">Generative Engine Optimization — how to actually improve AI brand visibility. Share with content and PR teams.</div>
+      </a>
+      <a href="https://community.meltwater.com/p/geo-quick-action-guide" target="_blank" class="resource-card">
+        <div class="resource-icon">⚡</div>
+        <div class="resource-title">GEO Quick-Action Guide</div>
+        <div class="resource-desc">Job aid pairing with the GEO Playbook — role-specific actions and a 30/60/90-day plan. Good for customers who want to move from learning to doing.</div>
       </a>
       <a href="https://www.meltwater.com/en/blog/category/generative-engine-optimization" target="_blank" class="resource-card">
         <div class="resource-icon">✍️</div>
