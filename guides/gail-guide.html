@@ -727,7 +727,7 @@
   <div class="hero-eyebrow">Internal Guide · Implementation</div>
   <h1>Onboarding customers to <span>GenAI Lens</span></h1>
   <p class="hero-sub">Your end-to-end reference for taking every GAIL customer from kickoff to active adoption — even if they've never thought about LLM monitoring before.</p>
-  <p style="font-size: 13px; opacity: 0.75; margin-bottom: 28px;">Guide last updated: June 25, 2026 · <a href="https://docs.google.com/document/d/1p1z4iRBdttMuiDbDUUPsXVFQl-3sY24Va4GqjETXe4Q/edit?tab=t.0#heading=h.ygm54cezavi" target="_blank" style="color: var(--mw-teal-tint-1); font-weight: 600; text-decoration: underline;">Check the release notes for any new features</a></p>
+  <p style="font-size: 13px; opacity: 0.75; margin-bottom: 28px;">Guide last updated: June 29, 2026 · <a href="https://docs.google.com/document/d/1p1z4iRBdttMuiDbDUUPsXVFQl-3sY24Va4GqjETXe4Q/edit?tab=t.0#heading=h.ygm54cezavi" target="_blank" style="color: var(--mw-teal-tint-1); font-weight: 600; text-decoration: underline;">Check the release notes for any new features</a></p>
   <div class="hero-pills">
     <span class="pill">How to frame it</span>
     <span class="pill">Pre-call prep</span>
@@ -811,7 +811,7 @@
       <a href="#prep" class="step-overview-card">
         <div class="soc-num">Step 1</div>
         <div class="soc-title">Pre-call prep</div>
-        <div class="soc-desc">Build 5–15 prompts and set up their brand before you get on the call. It's the difference between showing and telling.</div>
+        <div class="soc-desc">Add their brand, review the suggested prompts, and supplement if needed before you get on the call. It's the difference between showing and telling.</div>
       </a>
       <a href="#framing" class="step-overview-card">
         <div class="soc-num">Step 2</div>
@@ -846,15 +846,11 @@
     <div class="section-header">
       <div class="section-eyebrow">Step 1</div>
       <h2>Pre-call prep</h2>
-      <p>The single biggest difference between a GAIL session that lands and one that doesn't is whether you show up with real data already in the platform. Build out a meaningful set of prompts before the call — not one, but 5 to 15. That's enough to generate real signal across multiple tabs and give the customer something worth reacting to.</p>
-    </div>
-
-    <div class="callout">
-      <strong>Why 5–15 prompts?</strong> More prompts mean richer data across Trends, Benchmarking, Sentiment, and Sources. They're also low-risk — prompts can be deleted at any time and won't affect the customer's prompt capacity permanently. Think of your pre-built prompts as a demo layer the customer can keep, modify, or replace as they build their own.
+      <p>The single biggest difference between a GAIL session that lands and one that doesn't is whether you show up with real data already in the platform. Adding the customer's brand is what makes that happen — it's the trigger for everything else.</p>
     </div>
 
     <div class="callout callout-purple">
-      <strong>New accounts auto-populate now.</strong> The Enhanced Onboarding Workflow analyzes the customer's website on account creation and pre-fills prompts and topics automatically — no more blank slate. Your job has shifted from "build everything" to "review what's there, then supplement." Always check what's already populated before adding anything new.
+      <strong>How suggested prompts work:</strong> Once you add a brand, GenAI Lens analyzes the customer's website and automatically generates relevant prompts and topics — pre-populating their workspace with meaningful starting points. There's no separate "build prompts" step anymore. Adding the brand is the prompt-building step.
     </div>
 
     <div class="steps">
@@ -868,27 +864,27 @@
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-content">
-          <h3>Review what's already auto-populated</h3>
-          <p>Before building anything, open the account and see what the Enhanced Onboarding Workflow has already generated. It analyzes the customer's website and pre-populates relevant prompts and topics automatically. Review these for quality and relevance — keep what's good, delete what's off-target.</p>
-          <div class="step-note">💡 This doesn't replace your prep — it gives you a head start. You're still aiming for 5–15 solid prompts in the account; some of that work may already be done for you.</div>
+          <h3>Add the customer's brand and competitors</h3>
+          <p>Brand Setup is required and comes first — add the customer's primary brand and at least three to five key competitors. This single step is what triggers GenAI Lens to generate suggested prompts automatically, so don't treat it as optional or something to circle back to.</p>
+          <div class="step-note">💡 Confirm which competitors matter most by checking the customer's Salesforce account or any pre-sales notes. If you're unsure, use the top two or three names you know from their industry and let the customer adjust on the call.</div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <h3>Set up the customer's brand and competitors</h3>
-          <p>Confirm Brand Setup is complete for the customer — add their primary brand and at least three to five key competitors if they're not already there. This ensures the Benchmarking and Sentiment tabs have something meaningful to show when you get on the call — and it's the first thing most customers will want to verify is correct anyway.</p>
-          <div class="step-note">💡 Confirm which competitors matter most by checking the customer's Salesforce account or any pre-sales notes. If you're unsure, use the top two or three names you know from their industry and let the customer adjust on the call.</div>
+          <h3>Review and accept the suggested prompts</h3>
+          <p>Adding a brand generates a set of suggested prompts based on the customer's website. Review them for quality and relevance, then keep them in the account. There's a skip option, but skipping isn't a free pass — getting the suggested prompts back means removing and re-adding the brand, so it's not worth opting out of.</p>
+          <div class="step-note step-note-orange">⚠️ Always keep the suggested prompts. If something looks off-target, edit or delete that individual prompt rather than skipping the whole set.</div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div class="step-content">
-          <h3>Supplement to reach 5–15 prompts using two resources</h3>
-          <p>Once you know what's already in the account, fill any gaps using the following. Aim for variety — brand-level, competitor-level, product-level, and category-level prompts will give the most complete picture across tabs.</p>
+          <h3>Add more prompts if needed</h3>
+          <p>If the suggested set is thin or missing an obvious angle, supplement using the following. Aim for variety — brand-level, competitor-level, product-level, and category-level prompts give the most complete picture across tabs.</p>
           <p><strong><a href="https://chatgpt.com/g/g-691b52bc192c8191b571eedb6cbf4192-gail-prompt-creator" style="color: var(--mw-teal-dark);">GAIL Prompt Creator GPT</a></strong> — Custom GPT built specifically to generate prompt ideas tailored to a brand and industry. Input the customer's brand name and a few details about their space and it'll generate a solid starting list.</p>
           <p><strong><a href="https://docs.google.com/spreadsheets/d/1zixyALZD93HNwzqa12sc-Jkf4lmmY0Sq8uKtgVikdy0/edit" style="color: var(--mw-teal-dark);">PM Prompt Spreadsheet</a></strong> — A library of prompt ideas organized by use case and industry, maintained by the product team. Use it as inspiration to identify prompt angles you might not have thought of. This is a reference resource — it's not tied to your specific customer's account.</p>
-          <div class="step-note step-note-orange">⏱ Add prompts at least 1–2 hours before the call so there's real data to review. Prompts added right before the session may not have enough data populated yet.</div>
+          <div class="step-note step-note-orange">⏱ Do this at least 1–2 hours before the call so there's real data to review. Prompts added right before the session may not have enough data populated yet.</div>
         </div>
       </div>
       <div class="step">
@@ -1044,7 +1040,7 @@
         <div class="tab-body">
           <p>Settings is where the customer will live once they're active — it's how they create, organize, and manage prompts, brands, and entities over time. Ending the walkthrough here is intentional: it sets up the transition directly into the Prompt Strategy section and the collaborative prompt-building moment.</p>
           <p><strong>What to show:</strong> Walk through how to create a new prompt using the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" target="_blank" style="color: var(--mw-teal-dark); font-weight: 600;">prompt creation flow</a> — the fields, the options, and what each setting controls. Then show how Topics and Labels can be used to organize prompts as their library grows. This is also where brand and entity management lives now, including Discover & Merge for cleaning up duplicate entities.</p>
-          <p><strong>The key message:</strong> The prompts you built before the call are a starting point. This is where they take ownership — adding prompts that reflect their specific questions, campaigns, and competitors. The more focused and specific their prompts, the more useful the data across every other tab.</p>
+          <p><strong>The key message:</strong> The prompts already in the account — whether suggested at brand setup or added by you — are a starting point. This is where the customer takes ownership, adding prompts that reflect their specific questions, campaigns, and competitors. The more focused and specific their prompts, the more useful the data across every other tab.</p>
           <div class="tab-tip">💡 This is the natural lead-in to building a prompt together. After showing them the creation flow, hand it over: "Now let's build one based on what you've seen today."</div>
         </div>
       </div>
@@ -1109,7 +1105,7 @@
     </div>
 
     <div class="callout callout-purple">
-      <strong>Your pre-built prompts set the standard.</strong> The prompts you add before the call are a model for what good looks like — good enough that the customer may not want to remove them. Use them during the walkthrough to show what a well-formed prompt generates, then use that output as the launchpad for building a new prompt together at the end of the call.
+      <strong>The prompts already in the account set the standard.</strong> The suggested prompts from brand setup — plus anything you've added — are a model for what good looks like, good enough that the customer may not want to remove them. Use them during the walkthrough to show what a well-formed prompt generates, then use that output as the launchpad for building a new prompt together at the end of the call.
     </div>
 
     <div class="use-case-prompts">
@@ -1146,7 +1142,7 @@
     </div>
 
     <div class="callout">
-      <strong>Prompts by team type:</strong> Tailor your pre-built set based on who owns GAIL at this customer. PR teams care about brand protection and journalist sources. Marketing teams care about category visibility and buyer intent. Competitive intel teams care about how competitors are positioned. Aim for at least one prompt covering each function they have in the room.
+      <strong>Prompts by team type:</strong> Review the suggested prompts with who owns GAIL at this customer in mind, and supplement accordingly. PR teams care about brand protection and journalist sources. Marketing teams care about category visibility and buyer intent. Competitive intel teams care about how competitors are positioned. Aim for at least one prompt covering each function they have in the room.
     </div>
 
     <div style="margin-top: 32px;">
@@ -1177,7 +1173,7 @@
     </div>
 
     <div class="callout callout-purple">
-      <strong>The product now answers part of this for you.</strong> AI Recommendations generates weekly, in-platform guidance automatically — narrative-driven next steps based on what's happening in the customer's data, at no extra cost. It requires at least one brand set up and refreshes every Monday, so a brand-new account won't have recommendations on day one. Point customers to the Overview tab on the follow-up call and let the platform make part of your case for you.
+      <strong>The product now answers part of this for you.</strong> AI Recommendations generates weekly, in-platform guidance automatically based on what's happening in the customer's data — see Next Steps below for how to use this on the follow-up call.
     </div>
 
     <div class="cards-grid">
@@ -1195,6 +1191,7 @@
         <div class="card-icon">🤝</div>
         <h3>Influencer & Klear users</h3>
         <p>Top journalists from the Sources tab link directly to Klear profiles if the customer has access. This bridges LLM source data into influencer strategy — find the journalists shaping AI perception, then engage them as a content partner.</p>
+        <p style="margin-top: 8px;">YouTube shows up with a strong correlation to citations in AI responses. That's a natural bridge to Klear's YouTube partnership — if a customer's Sources data points to video content shaping their AI narrative, that's a concrete reason to bring Klear's creator network into the conversation.</p>
       </div>
       <div class="card">
         <div class="card-icon">🗂️</div>
@@ -1204,7 +1201,7 @@
     </div>
 
     <div class="callout callout-orange">
-      <strong>Don't skip this step.</strong> Customers who leave the walkthrough without a clear "next action" will go dark. Even a simple one — "pitch one journalist from the Sources tab this week" or "add five more prompts before our next check-in" — keeps momentum going.
+      <strong>Don't skip this step.</strong> Customers who leave the walkthrough without a clear "next action" will go dark. Even a simple one — "pitch one journalist from the Sources tab this week" or "add a couple more prompts before our next check-in" — keeps momentum going.
     </div>
   </section>
 
@@ -1221,7 +1218,7 @@
         <div class="step-num">1</div>
         <div class="step-content">
           <h3>Customer: build your own prompts this week</h3>
-          <p>Ask the customer to create at least five prompts of their own before the follow-up call. They've already seen what good prompts look like and built one with you on the call — now they do it on their own. Point them to the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" style="color: var(--mw-teal-dark); font-weight: 600;">Creating a Prompt guide</a> and the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-llm-visibility-monitoring-setup-playbook-10877" style="color: var(--mw-teal-dark); font-weight: 600;">LLM Visibility Monitoring Setup Playbook</a> as self-service resources.</p>
+          <p>Ask the customer to create a few prompts of their own before the follow-up call. They've already seen what good prompts look like and built one with you on the call — now they do it on their own. Point them to the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" style="color: var(--mw-teal-dark); font-weight: 600;">Creating a Prompt guide</a> and the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-llm-visibility-monitoring-setup-playbook-10877" style="color: var(--mw-teal-dark); font-weight: 600;">LLM Visibility Monitoring Setup Playbook</a> as self-service resources.</p>
           <div class="step-note">💡 Remind them that prompts can be deleted at any time with no lasting impact — there's no cost to experimenting. Encourage them to try different angles and see what generates the most interesting data.</div>
         </div>
       </div>
@@ -1229,15 +1226,16 @@
         <div class="step-num">2</div>
         <div class="step-content">
           <h3>Customer: review results in about a week</h3>
-          <p>Ask them to log back in after about a week and look at what the data is showing. By then, the prompts they've added — and the ones you pre-built — will have accumulated enough signal to show real patterns. Encourage them to note any questions or surprises before the follow-up call.</p>
+          <p>Ask them to log back in after about a week and look at what the data is showing. By then, the prompts they've added — and the ones suggested at brand setup — will have accumulated enough signal to show real patterns. Encourage them to note any questions or surprises before the follow-up call.</p>
           <div class="step-note step-note-orange">📅 Set this expectation explicitly on the call: "Give it a week, log back in, and take a look at the Trends and Benchmarking tabs. See what stands out — we'll walk through it together when we talk."</div>
+          <div class="step-note">🗓️ Mention AI Recommendations as a reason to keep coming back, not just a one-time check. Every Monday, GenAI Lens drops fresh, narrative-driven recommendations into the account automatically — at no extra cost. Tell the customer to expect something new each week, so logging in becomes a habit rather than a one-off favor to you.</div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
           <h3>IM: follow up in 2–3 weeks</h3>
-          <p>Book the follow-up before you end the session. In that call, review the prompts the customer created, look at the data that's populated, and answer any questions that came up during their solo exploration.</p>
+          <p>Book the follow-up before you end the session. In that call, review the prompts the customer created, look at the data that's populated, and answer any questions that came up during their solo exploration. Pull up that week's AI Recommendations together — it's a built-in talking point and a good gauge of whether the customer has been logging in on their own.</p>
           <p>This is the session where adoption either sticks or stalls. If the customer shows up having added prompts and explored the data on their own, adoption is real. If they haven't touched it, use the session to diagnose why and reset with a simpler starting point.</p>
           <div class="step-note">🎯 Goal for the second session: have the customer pull up a tab and tell you what they're seeing — without you narrating. Independent interpretation means the product has clicked for them.</div>
         </div>
