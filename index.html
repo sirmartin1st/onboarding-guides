@@ -357,6 +357,10 @@ const GUIDES = [
   ];
   // ──────────────────────────────────────────────────────────────
 
+  // Keep the nav alphabetical regardless of the order guides are
+  // added above — sort once here rather than maintaining order by hand.
+  GUIDES.sort((a, b) => a.title.localeCompare(b.title));
+
   const railNav = document.getElementById('rail-nav');
   const frame = document.getElementById('viewer-frame');
   const emptyState = document.getElementById('empty-state');
