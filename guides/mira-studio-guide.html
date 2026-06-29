@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mira Studio — IM Adoption Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mw-teal:        #28BBBB;
+      --mw-teal-medium: #00A7A5;
+      --mw-teal-dark:   #1C7070;
+      --mw-teal-tint-1: #A3DFDF;
+      --mw-teal-tint-2: #C0EBEB;
+      --mw-teal-tint-3: #E1EFF0;
+      --mw-gray:        #F0F4F4;
+      --mw-black:       #1A1A1A;
+      --mw-white:       #FFFFFF;
+      --mw-orange:      #FF6221;
+      --mw-orange-mid:  #FFDDCC;
+      --mw-orange-light:#FFEFEA;
+      --mw-purple:      #B627A1;
+      --mw-purple-mid:  #E0A6D7;
+      --mw-purple-light:#F0D4EC;
+      --mw-font: 'Poppins', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--mw-font);
+      background: var(--mw-white);
+      color: var(--mw-black);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--mw-white);
+      border-bottom: 2px solid var(--mw-teal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--mw-teal-dark);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--mw-teal) 0%, var(--mw-purple) 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mw-black);
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--mw-teal-dark) 0%, #164a5e 55%, #2d1a4a 100%);
+      color: var(--mw-white);
+      padding: 72px 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border: 40px solid rgba(40,187,187,0.18);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: 140px;
+      width: 170px; height: 170px;
+      border: 22px solid rgba(182,39,161,0.18);
+      border-radius: 50%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 720px;
+      margin-bottom: 18px;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--mw-teal-tint-1), var(--mw-purple-mid));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      white-space: nowrap;
+    }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 400;
+      max-width: 580px;
+      opacity: 0.88;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(40,187,187,0.18);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .pill-purple {
+      background: rgba(182,39,161,0.18);
+      border: 1px solid rgba(182,39,161,0.3);
+      color: #E0A6D7;
+    }
+    .pill-orange {
+      background: rgba(255,98,33,0.18);
+      border: 1px solid rgba(255,98,33,0.3);
+      color: #FFDDCC;
+    }
+
+    /* PAGE BODY */
+    .page-body {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+
+    section { margin-bottom: 64px; }
+
+    /* SECTION HEADERS */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--mw-teal-tint-2);
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mw-teal-medium);
+      margin-bottom: 8px;
+    }
+    .section-eyebrow-orange { color: var(--mw-orange); }
+    .section-eyebrow-purple { color: var(--mw-purple); }
+    .section-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.2;
+    }
+    .section-header p {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+      max-width: 700px;
+    }
+
+    /* CALLOUTS */
+    .callout {
+      background: var(--mw-teal-tint-3);
+      border-left: 4px solid var(--mw-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--mw-teal-dark); }
+    .callout a { color: var(--mw-teal-dark); font-weight: 600; }
+    .callout-orange {
+      background: var(--mw-orange-light);
+      border-left-color: var(--mw-orange);
+    }
+    .callout-orange strong { color: #c04a00; }
+    .callout-orange a { color: #c04a00; }
+    .callout-purple {
+      background: var(--mw-purple-light);
+      border-left-color: var(--mw-purple);
+    }
+    .callout-purple strong { color: #8a1a7a; }
+    .callout-purple a { color: #8a1a7a; }
+
+    /* ACCESS TABLE */
+    .access-table {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .access-row {
+      display: flex;
+      align-items: center;
+      padding: 13px 22px;
+      border-bottom: 1px solid var(--mw-teal-tint-3);
+      font-size: 13.5px;
+    }
+    .access-row:last-child { border-bottom: none; }
+    .access-row.head {
+      background: var(--mw-teal-dark);
+      color: white;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+    }
+    .access-pkg { flex: 1; font-weight: 600; color: var(--mw-black); }
+    .access-status { width: 130px; text-align: right; }
+    .access-yes { color: var(--mw-teal-dark); font-weight: 700; }
+    .access-no { color: #9a9a9a; font-weight: 600; }
+
+    /* CARDS GRID */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px;
+      background: var(--mw-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
+    }
+    .card-icon {
+      width: 36px; height: 36px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--mw-teal-dark);
+    }
+    .card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+
+    /* STAT BAR */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--mw-teal-dark);
+      border-radius: 10px;
+      padding: 22px 18px;
+      color: white;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--mw-teal-tint-1);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.85;
+      line-height: 1.4;
+    }
+
+    /* STEPS (timeline) */
+    .steps { display: flex; flex-direction: column; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 42px; bottom: 42px;
+      width: 2px;
+      background: var(--mw-teal-tint-2);
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 18px 0;
+      position: relative;
+    }
+    .step-num {
+      min-width: 42px; height: 42px;
+      background: var(--mw-teal);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mw-black);
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+    .step-content p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 8px;
+    }
+    .step-note {
+      margin-top: 8px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .step-note-orange { background: var(--mw-orange-light); color: #c04a00; }
+    .step-note-purple { background: var(--mw-purple-light); color: #8a1a7a; }
+
+    /* PROMPT COMPARISON (project-first) */
+    .prompt-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 20px 0;
+    }
+    .pc-card {
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .pc-card.long {
+      background: var(--mw-orange-light);
+      border: 1.5px solid var(--mw-orange-mid);
+    }
+    .pc-card.short {
+      background: var(--mw-teal-tint-3);
+      border: 1.5px solid var(--mw-teal-tint-2);
+    }
+    .pc-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .pc-card.long .pc-label { color: #c04a00; }
+    .pc-card.short .pc-label { color: var(--mw-teal-dark); }
+    .pc-text {
+      font-size: 13px;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--mw-black);
+      background: rgba(255,255,255,0.6);
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+    .pc-meta {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .pc-card.long .pc-meta { color: #c04a00; }
+    .pc-card.short .pc-meta { color: var(--mw-teal-dark); }
+
+    /* DISCOVERY QUESTIONS */
+    .questions-list { display: flex; flex-direction: column; gap: 14px; }
+    .question-item {
+      background: var(--mw-gray);
+      border-radius: 8px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .q-number {
+      background: var(--mw-teal);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .q-body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mw-black);
+      margin-bottom: 5px;
+    }
+    .q-body .q-listen {
+      font-size: 12.5px;
+      color: #5a5a5a;
+      font-style: italic;
+    }
+
+    /* TALK TRACKS (persona) */
+    .persona-block {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .persona-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .persona-icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .persona-title { font-size: 15px; font-weight: 700; }
+    .persona-body { padding: 20px 22px; background: white; }
+    .persona-need {
+      font-size: 12.5px;
+      color: #5a5a5a;
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+    .persona-need strong { color: var(--mw-black); }
+    .persona-quote {
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--mw-black);
+      font-style: italic;
+    }
+    .persona-quote + .persona-quote { margin-top: 10px; }
+
+    /* TAB / FEATURE WALKTHROUGH */
+    .tab-list { display: flex; flex-direction: column; gap: 16px; }
+    .tab-item {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .tab-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tab-badge {
+      background: rgba(40,187,187,0.3);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tab-title { font-size: 15px; font-weight: 700; flex: 1; }
+    .tab-body { padding: 18px 22px; background: var(--mw-white); }
+    .tab-body p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #4a4a4a;
+      margin-bottom: 10px;
+    }
+    .tab-body p:last-child { margin-bottom: 0; }
+    .tab-body strong { color: var(--mw-black); }
+    .tab-tip {
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    /* USE CASE PROMPT GRID */
+    .ucp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .ucp-card {
+      background: var(--mw-white);
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .ucp-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--mw-teal-dark);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .ucp-prompt {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--mw-black);
+      font-style: italic;
+    }
+
+    /* OBJECTIONS / BOUNDARY */
+    .objections { display: flex; flex-direction: column; gap: 14px; }
+    .objection {
+      border: 1.5px solid var(--mw-orange-mid);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .obj-q {
+      background: var(--mw-orange-light);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c04a00;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .obj-q::before { content: '💬'; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .obj-a {
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #4a4a4a;
+      border-top: 1px solid var(--mw-orange-mid);
+      background: var(--mw-white);
+    }
+
+    /* BOUNDARY TABLE */
+    .boundary-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1.5px solid var(--mw-orange-mid);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .boundary-col { padding: 18px 20px; }
+    .boundary-col.use { background: var(--mw-teal-tint-3); }
+    .boundary-col.skip { background: var(--mw-orange-light); border-left: 1.5px solid var(--mw-orange-mid); }
+    .boundary-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .boundary-col.use .boundary-label { color: var(--mw-teal-dark); }
+    .boundary-col.skip .boundary-label { color: #c04a00; }
+    .boundary-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .boundary-col li {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--mw-black);
+      padding-left: 16px;
+      position: relative;
+    }
+    .boundary-col.use li::before { content: '✓'; position: absolute; left: 0; color: var(--mw-teal-dark); font-weight: 700; }
+    .boundary-col.skip li::before { content: '→'; position: absolute; left: 0; color: #c04a00; font-weight: 700; }
+
+    /* NEXT STEPS */
+    .next-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .ns-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .ns-num {
+      width: 28px; height: 28px;
+      background: var(--mw-teal-dark);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .ns-card h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 8px; color: var(--mw-black); }
+    .ns-card p { font-size: 12.5px; line-height: 1.55; color: #4a4a4a; }
+
+    /* RESOURCES */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .resource-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .resource-card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 14px rgba(40,187,187,0.1);
+    }
+    .resource-icon { font-size: 22px; margin-bottom: 10px; }
+    .resource-title { font-size: 13px; font-weight: 700; color: var(--mw-teal-dark); margin-bottom: 5px; }
+    .resource-desc { font-size: 12px; color: #5a5a5a; line-height: 1.5; }
+
+    .internal-sources {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--mw-teal-tint-2);
+    }
+    .internal-sources-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #8a8a8a;
+      margin-bottom: 10px;
+    }
+    .internal-sources ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .internal-sources li { font-size: 12.5px; color: #5a5a5a; }
+    .internal-sources strong { color: var(--mw-black); }
+
+    /* FOOTER */
+    footer {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; text-align: right; }
+    .footer-links a { color: var(--mw-teal-tint-1); text-decoration: none; font-size: 13px; }
+    .footer-links a:hover { text-decoration: underline; color: white; }
+    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 24px; }
+      .hero h1 { font-size: 28px; }
+      .page-body { padding: 40px 24px; }
+      .cards-grid, .stat-bar, .prompt-compare, .ucp-grid, .boundary-table, .next-steps-grid, .resources-grid { grid-template-columns: 1fr; }
+      .boundary-col.skip { border-left: none; border-top: 1.5px solid var(--mw-orange-mid); }
+      footer { flex-direction: column; }
+      .footer-links { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">&lt;o&gt;</div>
+    Mira Studio — IM Guide
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#setup">Pre-session setup</a></li>
+    <li><a href="#discovery">Discovery</a></li>
+    <li><a href="#talk-tracks">Talk tracks</a></li>
+    <li><a href="#walkthrough">Walkthrough</a></li>
+    <li><a href="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Internal Guide · Implementation</div>
+  <h1>Driving adoption of <span>Mira Studio</span></h1>
+  <p class="hero-sub">Most of your book of business already has it. This guide is about getting customers to actually use it — how to set it up before a session, what to say, and how to walk them through it.</p>
+  <div class="hero-pills">
+    <span class="pill">Pre-session setup</span>
+    <span class="pill">Discovery questions</span>
+    <span class="pill pill-purple">Persona talk tracks</span>
+    <span class="pill">Product walkthrough</span>
+    <span class="pill pill-orange">Next steps & cadence</span>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-eyebrow">Background</div>
+      <h2>What Mira Studio is — and who already has it</h2>
+      <p>Mira Studio is Meltwater's AI-powered research and analysis workspace. Customers ask a question in plain language, and Mira scans Meltwater's news and social data to generate a structured response — key takeaways, sentiment, data points, and source links — instead of them building a search or pulling together a report by hand.</p>
+    </div>
+
+    <div class="callout">
+      <strong>The one-liner:</strong> "From question to clarity, fast." No Boolean searches, no dashboards, no deep Meltwater expertise required — describe what you want to know, and Mira finds it.
+    </div>
+
+    <div class="access-table">
+      <div class="access-row head">
+        <div class="access-pkg">Core package</div>
+        <div class="access-status">Mira Studio included?</div>
+      </div>
+      <div class="access-row">
+        <div class="access-pkg">Media Intelligence Essentials</div>
+        <div class="access-status access-no">Not included</div>
+      </div>
+      <div class="access-row">
+        <div class="access-pkg">Media Intelligence Advanced</div>
+        <div class="access-status access-yes">✓ Included</div>
+      </div>
+      <div class="access-row">
+        <div class="access-pkg">Social Essentials</div>
+        <div class="access-status access-yes">✓ Included</div>
+      </div>
+      <div class="access-row">
+        <div class="access-pkg">Social Advanced</div>
+        <div class="access-status access-yes">✓ Included</div>
+      </div>
+      <div class="access-row">
+        <div class="access-pkg">Essentials Suite (PR/Social Hybrid)</div>
+        <div class="access-status access-yes">✓ Included</div>
+      </div>
+      <div class="access-row">
+        <div class="access-pkg">Advanced Suite (PR/Social Hybrid)</div>
+        <div class="access-status access-yes">✓ Included</div>
+      </div>
+      <div class="access-row">
+        <div class="access-pkg">Explore+</div>
+        <div class="access-status access-yes">✓ Included</div>
+      </div>
+    </div>
+
+    <div class="callout callout-orange" style="margin-top: 20px;">
+      <strong>Mira Studio is not sold as an add-on, and it's not available on legacy packages.</strong> If a customer on one of the six qualifying packages above doesn't see it in their left-hand nav, that's a provisioning issue worth flagging to Support — not a packaging question. If a customer is on Media Intelligence Essentials or a legacy package, they don't have it, full stop — there's no upsell path through this guide; loop in the Account Manager if the customer expresses interest.
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>Mira Studio vs. Mira API — quick distinction:</strong> Mira Studio is the in-platform UI most of your customers already have. Mira API is a separate, narrow, paid add-on that lets developers call the same underlying engine programmatically — very few customers have it. If a customer asks about pulling Mira insights into their own tools via API, that's a different conversation (see the Mira API guide on this hub) — don't conflate the two.
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Ask, don't build</h3>
+        <p>Customers type a question in plain language instead of constructing a Boolean search. Three ways in: the Prompt Library, Core Prompts, or a fully custom prompt.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Structured, sourced answers</h3>
+        <p>Every response includes key takeaways, sentiment, relevant data points, and verified source links — not just a wall of generated text.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗂️</div>
+        <h3>Projects carry context</h3>
+        <p>Brand, competitors, region, and preferred filters get set once in a Project and apply automatically — so prompts stay short and answers stay relevant.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3>Built to be shared</h3>
+        <p>Results export to PDF, a shareable link, email, or straight into a Newsletter — recipients don't need a Meltwater account to view a shared link.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>On AI output, generally:</strong> Mira Studio is a mature, generally available product — this isn't an early-access disclaimer. Like any AI tool, it's still worth telling customers to validate findings and review sourcing before presenting Mira's output as final analysis, the same way you'd caveat output from any LLM.
+    </div>
+  </section>
+
+  <!-- WHY THIS MATTERS -->
+  <section id="why">
+    <div class="section-header">
+      <div class="section-eyebrow">Why this matters</div>
+      <h2>The problem Mira Studio actually solves</h2>
+      <p>Most customers aren't asking for an AI feature. They're dealing with shrinking teams, rising pressure to show ROI, and too much manual work between "I have the data" and "I have a report leadership can use." Lead with that, not with the AI angle.</p>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-card">
+        <div class="stat-num">83%</div>
+        <div class="stat-label">of CEOs feel their communications function isn't equipped for how fast the landscape is changing</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50%</div>
+        <div class="stat-label">of PR professionals spend roughly a quarter of their time just on measurement and reporting</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">25%</div>
+        <div class="stat-label">average time savings reported by multinational teams using Meltwater AI, per a Forrester Total Economic Impact study</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Frame it as capacity, not novelty.</strong> Reports that used to take close to a month are finished within a week. Executive briefs that took hours of research and drafting come back in seconds. The pitch isn't "Meltwater has AI now" — it's "the manual part of your job just got a lot smaller."
+    </div>
+  </section>
+
+  <!-- PRE-SESSION SETUP -->
+  <section id="setup">
+    <div class="section-header">
+      <div class="section-eyebrow">Before the call</div>
+      <h2>Pre-session setup</h2>
+      <p>The single biggest lever for a Mira Studio session that lands: show up with a Project already built and real output ready to react to. A blank prompt box and a customer who's never written one is a slow, awkward start. A pre-built Project with a relevant answer already pulled is an immediate "oh, that's useful."</p>
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>The core idea — Projects first, prompts second.</strong> A Project stores everything that shouldn't change between prompts: the customer's brand, their key competitors, region, language, preferred filters, and relevant saved searches. Once that's set, prompts can be short — "what were this week's most impactful stories?" — because Mira already knows who "we" and "our competitors" means. Skip the Project, and every prompt has to restate all of that context manually, which makes prompts long, inconsistent, and more likely to get misinterpreted.
+    </div>
+
+    <div class="prompt-compare">
+      <div class="pc-card long">
+        <div class="pc-label">⚠️ Without a Project</div>
+        <div class="pc-text">"As [Brand]'s comms lead, I want to understand the most impactful coverage and social discussion related to our Smart Bricks product line and our announcements at CES this year, specifically in the US and UK markets, looking at sentiment, key themes, and how this compares to [Competitor 1] and [Competitor 2]..."</div>
+        <div class="pc-meta">~1,340 characters — and the customer has to remember and retype all of this every time.</div>
+      </div>
+      <div class="pc-card short">
+        <div class="pc-label">✅ With a Project</div>
+        <div class="pc-text">"What were the most impactful coverage highlights related to our CES announcements?"</div>
+        <div class="pc-meta">~115 characters — brand, product, competitors, and region are already loaded from the Project.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Why shorter prompts actually perform better — not just easier to type:</strong> every extra clause in a long prompt is another assumption the model has to interpret, and another way the wording could land differently next time. A Project absorbs that complexity once, in a place you can inspect and reuse, instead of re-introducing it — and re-risking it — in every single prompt.
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Build a Project for the customer before the session</h3>
+          <p>Set their brand, primary product or focus area, 3–5 key competitors, region, and language. Add any Explore saved searches that are clearly relevant — these load into the prompt as a reference, not as an automatic filter, so the customer can still choose when to apply them.</p>
+          <div class="step-note">💡 If you're unsure who their real competitors are, use the names confirmed in Salesforce or pre-sales notes. Two or three well-chosen names beat five guessed ones — the customer can always adjust live.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Set a preferred filter set if one makes sense</h3>
+          <p>If the customer clearly favors certain sources, languages, or date ranges, bake that into the Project so it applies to every response by default — one less thing they need to specify per prompt.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Run 1–2 prompts ahead of time so there's a real answer to react to</h3>
+          <p>Use the Prompt Library or a Core Prompt close to what you expect the customer cares about — something tied to their brand, a recent announcement, or a competitor comparison. Walking into a session with an actual Mira response on screen is far more convincing than describing what it could do.</p>
+          <div class="step-note step-note-purple">🗂️ Reverse-engineer from the output: decide what a great answer looks like first, then work backward to what needs to live in the Project, and only then to the exact prompt you'd type.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Know where it lives and how to introduce it</h3>
+          <p>Mira Studio sits in the left-hand navigation. If the customer is also new to Explore, introduce Mira Studio after Explore — once they understand saved searches, the "# to reference a search" shortcut and the underlying data model click faster.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVERY -->
+  <section id="discovery">
+    <div class="section-header">
+      <div class="section-eyebrow">Find their use case</div>
+      <h2>Discovery questions</h2>
+      <p>Mira Studio's value depends entirely on whether it's pointed at something the customer actually cares about. These four questions — asked before or early in the session — surface what that is, and tell you which persona talk track to lean into next.</p>
+    </div>
+
+    <div class="questions-list">
+      <div class="question-item">
+        <div class="q-number">1</div>
+        <div class="q-body">
+          <strong>What information are you expected to deliver regularly to your team or leadership — and why does it matter to them?</strong>
+          <span class="q-listen">Listen for: recurring reports, briefings, or updates. That recurring deliverable is your first candidate for a saved Project and a repeatable prompt.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">2</div>
+        <div class="q-body">
+          <strong>What kinds of questions or requests do you frequently get from colleagues — and how do you usually answer them today?</strong>
+          <span class="q-listen">Listen for: "I pull a report," "I check a few sources and summarize," "I just know it off the top of my head." Manual synthesis work is exactly what Mira replaces.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">3</div>
+        <div class="q-body">
+          <strong>Which of those recurring questions or requests do you wish you could answer faster or more easily?</strong>
+          <span class="q-listen">Listen for: visible frustration or hesitation. That friction point is the strongest entry point for a live demo — it's already a felt need, not a hypothetical one.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">4</div>
+        <div class="q-body">
+          <strong>What routine tasks take longer than they should — and what's actually slowing them down?</strong>
+          <span class="q-listen">Listen for: time spent compiling, formatting, or cross-referencing rather than analyzing. That's the gap between "I have the data" and "I have something I can send" — precisely where Mira Studio sits.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>What you're really doing:</strong> matching Mira Studio to a felt need, not pitching a feature. A customer who hears "this can summarize sentiment" nods politely. A customer who hears "this is the thing that would've saved you the two hours you just described" leans in.
+    </div>
+  </section>
+
+  <!-- TALK TRACKS BY PERSONA -->
+  <section id="talk-tracks">
+    <div class="section-header">
+      <div class="section-eyebrow section-eyebrow-purple">Use what discovery told you</div>
+      <h2>Talk tracks by persona</h2>
+      <p>Match the talk track to who's in the room and what came up in discovery. Most sessions lean primarily on one, but blend in pieces of another if the customer's role spans more than one of these.</p>
+    </div>
+
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-icon">📰</div>
+        <div class="persona-title">PR & Communications</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-need"><strong>What they need:</strong> coverage tracking as fast as it publishes, scalable media briefs, clear mention and sentiment lists, and tools to get ahead of a reputation issue before it escalates.</div>
+        <div class="persona-quote">"You're already tracking coverage in Explore — Mira Studio takes that a step further. Instead of you pulling together the daily recap by hand, you can ask 'what were today's most important stories about us' and get an AI-written summary, with sources, in seconds. When something breaks, that same speed matters even more — Mira can scan what's being said right now and give you a starting point for your response instead of you starting from a blank page."</div>
+      </div>
+    </div>
+
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-icon">📊</div>
+        <div class="persona-title">Brand Leaders & Strategists</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-need"><strong>What they need:</strong> a clear read on how the brand is perceived across channels, how that compares to competitors, and fast answers to "how are we showing up" and "what's changing."</div>
+        <div class="persona-quote">"Instead of pulling separate reports to understand sentiment and then separately checking how you stack up against competitors, you can ask Mira both in plain language — 'how does sentiment toward us compare to [Competitor] this quarter' — and get a direct answer with the supporting data. It's built to help you refine messaging based on what's actually happening in coverage right now, not last quarter's snapshot."</div>
+      </div>
+    </div>
+
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-icon">🔬</div>
+        <div class="persona-title">Research & Consumer Insights</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-need"><strong>What they need:</strong> a blend of qualitative and quantitative competitor analysis, early signals of market shifts, and strategic briefings they can hand to leadership.</div>
+        <div class="persona-quote">"This is a good fit anywhere you're combining numbers with narrative — share of voice is the quantitative side, but Mira can also explain in plain language what's actually driving a shift, which themes are emerging, and how that compares to a competitor's positioning. You get an editable draft you can build on, not just a number you have to go interpret yourself."</div>
+      </div>
+    </div>
+
+    <div class="persona-block">
+      <div class="persona-header">
+        <div class="persona-icon">🎯</div>
+        <div class="persona-title">Executives & Decision-Makers</div>
+      </div>
+      <div class="persona-body">
+        <div class="persona-need"><strong>What they need:</strong> strategic clarity fast, without digging through dashboards themselves — trusted answers they could bring straight into a boardroom or planning session.</div>
+        <div class="persona-quote">"If you want a quick, trustworthy read on how the company or industry is being covered right now, you don't need your team to pull a report first — you can ask directly. It's built to answer high-level questions in plain language, with the sourcing behind it, so you're not waiting on someone else's interpretation before you can act."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT WALKTHROUGH -->
+  <section id="walkthrough">
+    <div class="section-header">
+      <div class="section-eyebrow">Show the product</div>
+      <h2>Product walkthrough</h2>
+      <p>Walk through these in sequence. Lead with whatever Project and prompt you pre-built — that's your proof point — then show the customer how to do it themselves.</p>
+    </div>
+
+    <div class="tab-list">
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Start here</span>
+          <span class="tab-title">Your pre-built Project & response</span>
+        </div>
+        <div class="tab-body">
+          <p>Show the Project you set up before the call — their brand, competitors, and filters already loaded — and the response you generated from it. Point out that this took one short prompt because the context was already there.</p>
+          <p><strong>Key message:</strong> "This is what it looks like once it's set up for you. Let's look at how you'd ask your own questions the same way."</p>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Three ways in</span>
+          <span class="tab-title">Prompt Library, Core Prompts, custom prompts</span>
+        </div>
+        <div class="tab-body">
+          <p>There are three ways to interact with Mira Studio, and new users should start with whichever feels lowest-effort:</p>
+          <p><strong>Prompt Library</strong> — a curated set of pre-written prompts across nine categories (Brand Monitoring, Competitive Intelligence, Industry Trends, Crisis Management, Stakeholder Briefing, Media Relations, Analysis/Reporting, Social Influencers, Social Intelligence). Recommended for anyone new to writing prompts.</p>
+          <p><strong>Core Prompts</strong> — featured shortcuts on the Mira Studio home screen for the most common tasks: Media Brief, Measure Press Release Impact, Industry Brief, Trending News, Compare Competitor Coverage, Consumer Reactions, Social Performance Report, Identify Journalists. Clicking one loads an editable template.</p>
+          <p><strong>Custom prompts</strong> — typed directly into the "Ask me a question…" box, for anything specific that doesn't match a library entry.</p>
+          <div class="tab-tip">💡 Show all three, but anchor the customer to whichever matches what came up in discovery. A customer who described a recurring weekly recap should see a Core Prompt or Library entry close to that, not a blank box.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Context shortcut</span>
+          <span class="tab-title">The # search reference</span>
+        </div>
+        <div class="tab-body">
+          <p>Typing <strong>#</strong> in the prompt box opens a list of the customer's existing Explore saved searches. Selecting one scopes the response to that search's results, rather than Mira's general data — useful when they already have a precise search built and want Mira to summarize or analyze just that.</p>
+          <div class="tab-tip">💡 This is a great moment to connect Mira Studio back to Explore for customers who are already comfortable building searches — it shows the two tools working together rather than as separate, disconnected tabs.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Output</span>
+          <span class="tab-title">Canvas View, sharing, and alerts</span>
+        </div>
+        <div class="tab-body">
+          <p>Every response includes key takeaways, sentiment, data points, and verified source links, with Suggested Follow-Ups at the end to keep the thread going. <strong>Canvas View</strong> opens the response in a slide-out panel for annotating, editing, and exporting.</p>
+          <p><strong>What to show:</strong> from Canvas View, a response can be shared as a link (no Meltwater account needed to view it), downloaded as a PDF, emailed to up to 10 recipients, added as a citation to a Newsletter, or turned directly into an Alert.</p>
+          <div class="tab-tip">💡 For customers managing stakeholders who don't log into Meltwater, the shareable link is the single most useful feature to demonstrate live — it turns Mira Studio into something they can distribute, not just something they personally use.</div>
+        </div>
+      </div>
+
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Beyond the basics</span>
+          <span class="tab-title">Agents, scheduling, and branded exports</span>
+        </div>
+        <div class="tab-body">
+          <p>Once a customer is comfortable with core prompting, a few more advanced capabilities are worth mentioning as "what's next" rather than leading with them on a first session:</p>
+          <p><strong>Agents</strong> (Industry Roundup, News Briefing, Coverage Report) run recurring, templated analysis automatically rather than requiring a fresh prompt each time. <strong>Scheduled Prompts</strong> let a favorite prompt re-run on a cadence — useful for the same weekly recap customers often describe in discovery. <strong>Branded PowerPoint and Web Report exports</strong> turn a Mira response into a polished, on-brand deliverable without manual formatting.</p>
+          <div class="tab-tip">💡 These land best as a second-session topic — "now that you've seen how this works, here's how to put it on autopilot" — rather than competing for attention in an introductory walkthrough.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-orange" style="margin-top: 24px;">
+      <strong>Where Mira Studio isn't the right tool — set expectations early.</strong> It's strongest for qualitative, conversational analysis, not as a replacement for purpose-built reporting tools.
+    </div>
+
+    <div class="boundary-table">
+      <div class="boundary-col use">
+        <div class="boundary-label">Good fit</div>
+        <ul>
+          <li>Explaining coverage or sentiment in plain language</li>
+          <li>Comparing brand performance to competitors</li>
+          <li>Spotting emerging trends or early risk signals</li>
+          <li>Drafting executive briefs and stakeholder summaries</li>
+          <li>Brainstorming copy or angles for an announcement</li>
+        </ul>
+      </div>
+      <div class="boundary-col skip">
+        <div class="boundary-label">Point them elsewhere</div>
+        <ul>
+          <li>Building a Boolean search → Explore Search Assistant</li>
+          <li>Quantitative, metrics-heavy reporting → Unified Dashboards</li>
+          <li>Journalist research and outreach lists → Media Relations</li>
+          <li>An exhaustive list of every mention → Explore</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section id="next-steps">
+    <div class="section-header">
+      <div class="section-eyebrow">Closing the session</div>
+      <h2>Build a prompt together, then set a cadence</h2>
+      <p>Don't end a session having only shown Mira Studio — end it with the customer having used it. Then leave with a concrete next step on both sides.</p>
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>Talk track — closing with a collaborative prompt:</strong> "Now that you've seen this in action — what's a question you've actually been wanting an answer to about your brand or your space? Let's build that prompt together right now, using the Project we set up, and see what comes back."
+    </div>
+
+    <div class="callout">
+      <strong>Mention the mobile app.</strong> Mira Studio is also available in the Meltwater mobile app — same Projects, same prompting. It's worth a quick mention as you wrap the session: "you don't have to be at your desk to try this between now and when we talk again — it's in the mobile app too." A customer who tries one prompt on their phone over the next week shows up far more engaged at the follow-up than one who only saw it once on a screen-share.
+    </div>
+
+    <div class="next-steps-grid">
+      <div class="ns-card">
+        <div class="ns-num">1</div>
+        <h4>Customer: try 2–3 prompts on their own</h4>
+        <p>Point them to the Prompt Library and encourage experimentation — on desktop or the mobile app — since prompts can be edited or deleted freely, so there's no risk in trying different angles before the next check-in.</p>
+      </div>
+      <div class="ns-card">
+        <div class="ns-num">2</div>
+        <h4>Customer: review results in about a week</h4>
+        <p>Ask them to revisit their Project and prompt history and note anything surprising, useful, or confusing — that becomes the agenda for the follow-up.</p>
+      </div>
+      <div class="ns-card">
+        <div class="ns-num">3</div>
+        <h4>IM: follow up in 2–3 weeks</h4>
+        <p>Review what they tried, refine the Project if their focus has shifted, and — if they're ready — introduce Agents or Scheduled Prompts as the next layer of adoption.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <h2>Resources</h2>
+      <p>Customer-facing links you can send directly after a session, plus internal sources behind this guide if you want more depth.</p>
+    </div>
+
+    <div class="resources-grid">
+      <a href="https://community.meltwater.com/meltwater-product-answers-428/meltwater-mira-studio-11602" target="_blank" class="resource-card">
+        <div class="resource-icon">🏠</div>
+        <div class="resource-title">Mira Studio overview — mCommunity</div>
+        <div class="resource-desc">The main reference page: key concepts, FAQs, and step-by-step how-to guides for every core feature.</div>
+      </a>
+      <a href="https://community.meltwater.com/mira-studio-162/using-mira-studio-3596" target="_blank" class="resource-card">
+        <div class="resource-icon">📖</div>
+        <div class="resource-title">Using Mira Studio — mCommunity</div>
+        <div class="resource-desc">Walkthrough of the Prompt Library, Core Prompts, Projects, and Canvas View with screenshots. Good to send after a first session.</div>
+      </a>
+      <a href="https://community.meltwater.com/mira-studio-162/using-mira-studio-agents-10658" target="_blank" class="resource-card">
+        <div class="resource-icon">🤖</div>
+        <div class="resource-title">Using Mira Studio Agents — mCommunity</div>
+        <div class="resource-desc">Detail on Industry Roundup, News Briefing, and Coverage Report agents — share once a customer is ready to go beyond one-off prompts.</div>
+      </a>
+    </div>
+
+    <div class="internal-sources">
+      <div class="internal-sources-label">Internal sources behind this guide — for further IM reading</div>
+      <ul>
+        <li><strong>Mira Studio: Internal Sales Enablement</strong> (Product Marketing, Q1 2026) — packaging rules, persona breakdowns, the Mira Studio vs. generic GenAI comparison, content access boundaries, and roadmap.</li>
+        <li><strong>Mira Studio: How to Demo</strong> (Product Marketing, Jan 2026) — the Projects-first prompting methodology behind the pre-session setup section, plus recommended and discouraged use cases.</li>
+        <li><strong>Mira Studio Personas 101</strong> — persona needs and messaging used to build the talk tracks above.</li>
+        <li><strong>Mira AI Release Notes</strong> (internal doc, ongoing) — most current source for shipped features; supersedes older deck content where they conflict (e.g., Explore+ saved search support, which shipped after the Demo Guidebook was last updated).</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">&lt;o&gt; Meltwater</div>
+    <div class="footer-note">Internal use only · Implementation Manager reference guide · Mira Studio</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://community.meltwater.com/mira-studio-162" target="_blank">mCommunity — Mira Studio Hub</a>
+    <a href="https://community.meltwater.com/mira-studio-162/mira-studio-faqs-3658" target="_blank">Mira Studio FAQs</a>
+    <a href="https://community.meltwater.com/mira-studio-162/mira-studio-best-practices-3597" target="_blank">Mira Studio Best Practices</a>
+  </div>
+</footer>
+
+</body>
+</html>
