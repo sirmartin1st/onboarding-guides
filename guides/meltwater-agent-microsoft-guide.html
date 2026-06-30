@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meltwater Agent for Microsoft — IM Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mw-teal:        #28BBBB;
+      --mw-teal-medium: #00A7A5;
+      --mw-teal-dark:   #1C7070;
+      --mw-teal-tint-1: #A3DFDF;
+      --mw-teal-tint-2: #C0EBEB;
+      --mw-teal-tint-3: #E1EFF0;
+      --mw-gray:        #F0F4F4;
+      --mw-black:       #1A1A1A;
+      --mw-white:       #FFFFFF;
+      --mw-orange:      #FF6221;
+      --mw-orange-mid:  #FFDDCC;
+      --mw-orange-light:#FFEFEA;
+      --mw-purple:      #B627A1;
+      --mw-purple-mid:  #E0A6D7;
+      --mw-purple-light:#F0D4EC;
+      --mw-font: 'Poppins', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--mw-font);
+      background: var(--mw-white);
+      color: var(--mw-black);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--mw-white);
+      border-bottom: 2px solid var(--mw-teal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--mw-teal-dark);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--mw-teal);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mw-black);
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+
+    /* HERO */
+    .hero {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 72px 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border: 40px solid rgba(40,187,187,0.18);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: 130px;
+      width: 170px; height: 170px;
+      border: 22px solid rgba(182,39,161,0.15);
+      border-radius: 50%;
+    }
+    .hero-eyebrow-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mw-teal-tint-1);
+    }
+    .internal-badge {
+      background: rgba(255,98,33,0.2);
+      border: 1px solid rgba(255,98,33,0.35);
+      color: #FFDDCC;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 680px;
+      margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--mw-teal); }
+    .hero-sub {
+      font-size: 15.5px;
+      font-weight: 400;
+      max-width: 600px;
+      opacity: 0.85;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(40,187,187,0.18);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .pill-orange {
+      background: rgba(255,98,33,0.18);
+      border: 1px solid rgba(255,98,33,0.3);
+      color: #FFDDCC;
+    }
+    .pill-purple {
+      background: rgba(182,39,161,0.18);
+      border: 1px solid rgba(182,39,161,0.3);
+      color: #E0A6D7;
+    }
+
+    /* PAGE BODY */
+    .page-body {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+
+    section { margin-bottom: 64px; }
+
+    /* SECTION HEADERS */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--mw-teal-tint-2);
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mw-teal-medium);
+      margin-bottom: 8px;
+    }
+    .section-eyebrow-orange { color: var(--mw-orange); }
+    .section-eyebrow-purple { color: var(--mw-purple); }
+    .section-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.2;
+    }
+    .section-header p {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+      max-width: 700px;
+    }
+
+    /* CALLOUTS */
+    .callout {
+      background: var(--mw-teal-tint-3);
+      border-left: 4px solid var(--mw-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--mw-teal-dark); }
+    .callout a { color: var(--mw-teal-dark); font-weight: 600; }
+    .callout-orange {
+      background: var(--mw-orange-light);
+      border-left-color: var(--mw-orange);
+    }
+    .callout-orange strong { color: #c04a00; }
+    .callout-orange a { color: #c04a00; }
+    .callout-purple {
+      background: var(--mw-purple-light);
+      border-left-color: var(--mw-purple);
+    }
+    .callout-purple strong { color: #8a1a7a; }
+    .callout-purple a { color: #8a1a7a; }
+
+    /* STAT BAR */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--mw-teal-dark);
+      border-radius: 10px;
+      padding: 22px 18px;
+      color: white;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--mw-teal);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.85;
+      line-height: 1.4;
+    }
+
+    /* CAPABILITY CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px;
+      background: var(--mw-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
+    }
+    .card.card-highlight {
+      border-color: var(--mw-orange-mid);
+      background: var(--mw-orange-light);
+    }
+    .card.card-highlight:hover {
+      border-color: var(--mw-orange);
+      box-shadow: 0 4px 16px rgba(255,98,33,0.12);
+    }
+    .card-icon {
+      width: 36px; height: 36px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+    .card.card-highlight .card-icon { background: var(--mw-orange-mid); }
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--mw-teal-dark);
+    }
+    .card.card-highlight h3 { color: #c04a00; }
+    .card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+
+    /* CASE STUDY MINI */
+    .case-mini {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .case-mini-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+    .case-mini-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mw-teal-medium);
+      margin-bottom: 6px;
+    }
+    .case-mini p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #3a3a3a;
+    }
+    .case-mini blockquote {
+      margin-top: 8px;
+      font-style: italic;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      font-size: 13.5px;
+    }
+
+    /* ELIGIBILITY REQUIREMENTS */
+    .req-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .req-card {
+      background: var(--mw-teal-dark);
+      border-radius: 12px;
+      padding: 26px 26px 22px;
+      color: white;
+    }
+    .req-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(40,187,187,0.3);
+      border: 1px solid rgba(163,223,223,0.4);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .req-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .req-card p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      opacity: 0.88;
+    }
+    .req-card code {
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+    }
+
+    /* PATH CARDS (choose your path) */
+    .path-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .path-card {
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .path-card.ready {
+      background: var(--mw-teal-dark);
+      color: white;
+    }
+    .path-card.needs-work {
+      background: var(--mw-orange-light);
+      border: 2px solid var(--mw-orange-mid);
+    }
+    .path-icon { font-size: 28px; margin-bottom: 4px; }
+    .path-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .path-card.ready h3 { color: white; }
+    .path-card.needs-work h3 { color: #c04a00; }
+    .path-card p { font-size: 13.5px; line-height: 1.55; }
+    .path-card.ready p { opacity: 0.85; }
+    .path-card.needs-work p { color: #5a3020; }
+    .path-signals {
+      font-size: 12.5px;
+      font-style: italic;
+      margin-top: 2px;
+    }
+    .path-card.ready .path-signals { opacity: 0.7; }
+    .path-card.needs-work .path-signals { color: #7a4a30; }
+    .path-cta {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      align-self: flex-start;
+    }
+    .path-card.ready .path-cta {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .path-card.ready .path-cta:hover { background: rgba(255,255,255,0.25); }
+    .path-card.needs-work .path-cta {
+      background: var(--mw-orange);
+      color: white;
+    }
+    .path-card.needs-work .path-cta:hover { background: #e05010; }
+
+    .convergence-note {
+      margin-top: 20px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-size: 13px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* DISCOVERY QUESTIONS */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .question-item {
+      background: var(--mw-gray);
+      border-radius: 8px;
+      padding: 18px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .q-number {
+      background: var(--mw-teal);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .q-body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--mw-black);
+    }
+
+    /* TALK TRACKS */
+    .talk-track {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      border-radius: 10px;
+      padding: 26px 30px;
+      margin-bottom: 18px;
+    }
+    .talk-track-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 10px;
+    }
+    .talk-track p {
+      font-size: 14px;
+      line-height: 1.7;
+      opacity: 0.92;
+    }
+    .talk-track p + p { margin-top: 12px; }
+
+    /* PERSONA / TITLES */
+    .persona-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .persona-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mw-teal-dark);
+      margin-bottom: 6px;
+    }
+    .persona-card .persona-sub {
+      font-size: 13px;
+      color: #5a5a5a;
+      margin-bottom: 16px;
+      line-height: 1.55;
+    }
+    .title-groups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .title-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mw-teal-medium);
+      margin-bottom: 8px;
+    }
+    .title-group ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .title-group li {
+      font-size: 12.5px;
+      color: #3a3a3a;
+      padding-left: 14px;
+      position: relative;
+    }
+    .title-group li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--mw-teal);
+    }
+
+    .trigger-phrases {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .trigger-tag {
+      background: var(--mw-gray);
+      border: 1px solid var(--mw-teal-tint-2);
+      border-radius: 16px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-style: italic;
+      color: #4a4a4a;
+    }
+
+    /* CREDENTIAL CHECKLIST */
+    .cred-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .cred-list li {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #3a3a3a;
+      padding-left: 26px;
+      position: relative;
+    }
+    .cred-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0; top: 0;
+      color: var(--mw-teal-medium);
+      font-weight: 700;
+    }
+    .cred-list li strong { color: var(--mw-black); }
+
+    /* ACTIVATION / PROCESS STEPS */
+    .steps { display: flex; flex-direction: column; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 42px; bottom: 42px;
+      width: 2px;
+      background: var(--mw-teal-tint-2);
+    }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 18px 0;
+      position: relative;
+    }
+    .step-num {
+      min-width: 42px; height: 42px;
+      background: var(--mw-teal);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mw-black);
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+    .step-content p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 8px;
+    }
+    .step-content p + p { margin-top: 0; }
+    .step-content ul {
+      list-style: none;
+      margin: 8px 0 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .step-content ul li {
+      font-size: 13px;
+      color: #4a4a4a;
+      padding-left: 16px;
+      position: relative;
+    }
+    .step-content ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--mw-teal);
+    }
+    .step-note {
+      margin-top: 8px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .step-note-orange {
+      background: var(--mw-orange-light);
+      color: #c04a00;
+    }
+    .step-content code {
+      background: var(--mw-gray);
+      border: 1px solid var(--mw-teal-tint-2);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--mw-teal-dark);
+    }
+
+    /* TRACI */
+    .traci-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .traci-letter {
+      background: var(--mw-teal-tint-3);
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .traci-char {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--mw-teal-dark);
+      margin-bottom: 4px;
+    }
+    .traci-word {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--mw-teal-medium);
+      margin-bottom: 4px;
+    }
+    .traci-desc { font-size: 11px; color: #4a4a4a; line-height: 1.4; }
+
+    .example-prompt-block {
+      background: var(--mw-gray);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 24px;
+    }
+    .example-prompt-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mw-teal-medium);
+      margin-bottom: 10px;
+    }
+    .example-prompt-block p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #3a3a3a;
+      margin-bottom: 6px;
+    }
+    .example-prompt-final {
+      margin-top: 10px;
+      background: white;
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--mw-teal-dark);
+      line-height: 1.6;
+    }
+
+    /* SCOPE TABLE */
+    .scope-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .scope-card {
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .scope-card.can {
+      background: var(--mw-teal-tint-3);
+      border: 1.5px solid var(--mw-teal-tint-2);
+    }
+    .scope-card.cannot {
+      background: var(--mw-orange-light);
+      border: 1.5px solid var(--mw-orange-mid);
+    }
+    .scope-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+    .scope-card.can .scope-label { color: var(--mw-teal-dark); }
+    .scope-card.cannot .scope-label { color: #c04a00; }
+    .scope-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .scope-card li {
+      font-size: 12.5px;
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+    .scope-card.can li { color: #1a4a4a; }
+    .scope-card.cannot li { color: #5a3020; }
+    .scope-card.can li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--mw-teal);
+    }
+    .scope-card.cannot li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--mw-orange);
+    }
+
+    /* RESOURCES */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .resource-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 18px 20px;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .resource-card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 14px rgba(40,187,187,0.1);
+    }
+    .resource-icon { font-size: 19px; margin-bottom: 8px; }
+    .resource-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mw-teal-dark);
+      margin-bottom: 4px;
+    }
+    .resource-desc {
+      font-size: 12px;
+      color: #5a5a5a;
+      line-height: 1.5;
+    }
+    .resource-card.slack {
+      background: var(--mw-purple-light);
+      border-color: var(--mw-purple-mid);
+    }
+    .resource-card.slack:hover { border-color: var(--mw-purple); }
+    .resource-card.slack .resource-title { color: #8a1a7a; }
+
+    /* FOOTER */
+    footer {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+    .footer-tag {
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: right;
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 24px; }
+      .hero h1 { font-size: 27px; }
+      .page-body { padding: 40px 24px; }
+      .stat-bar, .cards-grid, .req-wrapper, .path-wrapper, .title-groups, .traci-grid, .scope-grid, .resources-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+      .footer-tag { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">&lt;o&gt;</div>
+    Meltwater Agent for Microsoft
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#eligibility">Eligibility</a></li>
+    <li><a href="#choose-path">Your path</a></li>
+    <li><a href="#it-approval">IT approval</a></li>
+    <li><a href="#activation">Activation</a></li>
+    <li><a href="#prompting">Prompting</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow-row">
+    <div class="hero-eyebrow">Internal Guide · Implementation</div>
+    <div class="internal-badge">Internal only — do not share with customers</div>
+  </div>
+  <h1>Onboarding customers to the <span>Meltwater Agent for Microsoft</span></h1>
+  <p class="hero-sub">A practical reference for IMs — from confirming eligibility to getting the agent live in a customer's Microsoft Copilot environment, with or without a Meltwater license.</p>
+  <div class="hero-pills">
+    <span class="pill">Eligibility check</span>
+    <span class="pill">Choose your path</span>
+    <span class="pill pill-orange">IT approval</span>
+    <span class="pill pill-orange">Phased rollout</span>
+    <span class="pill pill-purple">Prompt strategy</span>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-eyebrow">Background</div>
+      <h2>What the Meltwater Agent for Microsoft does</h2>
+      <p>It's the same underlying capability as Mira Studio, surfaced inside the customer's own Microsoft Copilot environment instead of the Meltwater platform. Customers ask questions in plain English and get Meltwater data back — without logging into Meltwater at all.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Conversational access</h3>
+        <p>Available in Copilot Chat and Copilot in Teams today. Word, Excel, and PowerPoint shipped Q4 2025; Outlook is planned for Q1 2026.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <h3>Deliverables, not just answers</h3>
+        <p>Drafts media briefs, journalist pitches, and campaign summaries directly in Word and PowerPoint — exec-ready output in minutes, not hours.</p>
+      </div>
+      <div class="card card-highlight">
+        <div class="card-icon">🔓</div>
+        <h3>Reaches beyond Meltwater licenses</h3>
+        <p>The single biggest differentiator. Admins can add "Agent-only" users who never touch the Meltwater platform — extending value across the org without buying more seats.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Trusted and compliant</h3>
+        <p>Microsoft 365 certified, plus ISO 42001, 27001, and 27701. Customer data isn't used to train Meltwater or OpenAI models, and inputs are retained for a maximum of 30 days.</p>
+      </div>
+    </div>
+
+    <div class="stat-bar">
+      <div class="stat-card">
+        <div class="stat-num">82%</div>
+        <div class="stat-label">of marketers already use AI to boost productivity</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">68%</div>
+        <div class="stat-label">of PR pros see AI helping with research and list building</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">~25%</div>
+        <div class="stat-label">time saved by teams using AI-powered workflows (Forrester)</div>
+      </div>
+    </div>
+
+    <div class="case-mini">
+      <div class="case-mini-icon">📰</div>
+      <div>
+        <div class="case-mini-label">Quick proof point</div>
+        <p>A large enterprise customer used the Agent to summarize 90,000 articles of post-keynote media coverage in a few minutes — a task that previously took a team several days.</p>
+        <blockquote>"This is amazing. It lets me read 90,000 articles in a couple of minutes."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELIGIBILITY -->
+  <section id="eligibility">
+    <div class="section-header">
+      <div class="section-eyebrow">Before anything else</div>
+      <h2>Eligibility check</h2>
+      <p>Two requirements have to be true before this is even possible for a customer. Confirm both before you go any further.</p>
+    </div>
+
+    <div class="req-wrapper">
+      <div class="req-card">
+        <div class="req-num">1</div>
+        <h3>Paid Microsoft Copilot license</h3>
+        <p>Third-party agents — including Meltwater — are only available in the <strong>paid version</strong> of Microsoft Copilot. A free or trial Copilot tier won't support this. Confirm with the customer which Copilot tier they're on before promising anything.</p>
+      </div>
+      <div class="req-card">
+        <div class="req-num">2</div>
+        <h3>Meltwater entitlement on contract</h3>
+        <p>The account needs the <code>meltwater-copilot</code> and <code>external-users</code> entitlements. This is a PLI — check the contract, don't assume.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>For net new customers, this is automatic.</strong> As long as <code>meltwater-copilot</code> and <code>external-users</code> are on the contract, entitlements are applied without any ticket or manual step from you. Just confirm both are actually on the PLI before you move forward.
+    </div>
+  </section>
+
+  <!-- CHOOSE YOUR PATH -->
+  <section id="choose-path">
+    <div class="section-header">
+      <div class="section-eyebrow">Start here</div>
+      <h2>Choose your path</h2>
+      <p>Once eligibility is confirmed, figure out where the customer stands on awareness and intent. Both paths converge at IT approval — that step doesn't get skipped either way.</p>
+    </div>
+
+    <div class="path-wrapper">
+      <div class="path-card ready">
+        <div class="path-icon">✅</div>
+        <h3>They already know they want it</h3>
+        <p>No education needed. Skip straight to confirming IT readiness — don't jump to activation until that's locked down.</p>
+        <p class="path-signals">Signals: customer asked about it directly, they're already Copilot power users, a technical or IT stakeholder raised it first.</p>
+        <a href="#it-approval" class="path-cta">↓ Jump to IT approval</a>
+      </div>
+      <div class="path-card needs-work">
+        <div class="path-icon">💡</div>
+        <h3>They're eligible but haven't connected the dots</h3>
+        <p>Start with discovery to understand their workflow, then frame the value — especially the reach-without-a-license angle. Then move to IT approval.</p>
+        <p class="path-signals">Signals: customer hasn't mentioned Copilot or the Agent, they're newer to Meltwater, PLI is on the contract but nobody's brought it up.</p>
+        <a href="#discovery" class="path-cta">↓ Start with discovery</a>
+      </div>
+    </div>
+
+    <div class="convergence-note">Both paths land in the same place: confirm IT readiness before submitting anything for activation.</div>
+  </section>
+
+  <!-- DISCOVERY + FRAMING -->
+  <section id="discovery">
+    <div class="section-header">
+      <div class="section-eyebrow">Path B · Step 1</div>
+      <h2>Discovery & framing</h2>
+      <p>Ask these before pitching anything. The goal is to find a real, specific workflow the Agent can shorten — then frame the value around it.</p>
+    </div>
+
+    <div class="questions-list">
+      <div class="question-item">
+        <div class="q-number">1</div>
+        <div class="q-body"><strong>What information are you expected to deliver regularly to your team or leadership, and why does it matter?</strong></div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">2</div>
+        <div class="q-body"><strong>What types of requests or questions do you frequently get from colleagues, and how do you typically respond?</strong></div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">3</div>
+        <div class="q-body"><strong>Which recurring requests do you wish you could handle faster or more efficiently?</strong></div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">4</div>
+        <div class="q-body"><strong>What routine tasks take longer than they should — and what's slowing them down?</strong></div>
+      </div>
+    </div>
+
+    <div class="talk-track" style="margin-top: 24px;">
+      <div class="talk-track-label">Talk track — leading with the reach angle</div>
+      <p>"One thing worth knowing: this isn't limited to people who already have a Meltwater login. We can add colleagues — across comms, marketing, even leadership — as Agent-only users inside Teams and Copilot, so they can ask questions and get Meltwater data without ever logging into the platform."</p>
+      <p>"That means the value isn't capped by your seat count. If there's a recurring request that lands on your desk from someone outside your core team, this is a way to let them self-serve instead of routing through you."</p>
+    </div>
+  </section>
+
+  <!-- IT APPROVAL -->
+  <section id="it-approval">
+    <div class="section-header">
+      <div class="section-eyebrow section-eyebrow-orange">Both paths converge here</div>
+      <h2>IT approval & readiness</h2>
+      <p>This is the most common blocker, and it should be resolved before any activation work starts — not discovered after. Ideally this happens during the sales cycle, but in practice it often lands on you.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Quick diagnostic:</strong> have the customer search "Meltwater" in the Teams app store. If they see an <strong>Add</strong> button, no approval is needed. If they see <strong>Request</strong> — or don't see Meltwater at all — their IT or Security team has to approve it first.
+    </div>
+
+    <div class="persona-card">
+      <h3>Find the right person early</h3>
+      <p class="persona-sub">Listen in discovery for: "we need to check with IT," "our Teams is locked down," "procurement will loop in security." Ask directly: who manages Teams app approvals? What's your internal IT/security approval process? When does IT typically get involved?</p>
+      <div class="title-groups">
+        <div class="title-group">
+          <div class="title-group-label">Most likely — collaboration & IT</div>
+          <ul>
+            <li>Microsoft 365 / O365 Administrator</li>
+            <li>Teams Administrator</li>
+            <li>IT Manager / Senior IT Manager</li>
+            <li>Digital Workplace Lead</li>
+          </ul>
+        </div>
+        <div class="title-group">
+          <div class="title-group-label">Often involved — security & compliance</div>
+          <ul>
+            <li>Information Security (IS) Manager</li>
+            <li>Cybersecurity Manager / Lead</li>
+            <li>IT Risk Manager</li>
+            <li>Data Privacy / Compliance Officer</li>
+          </ul>
+        </div>
+      </div>
+      <div class="trigger-phrases">
+        <span class="trigger-tag">"Digital Workplace"</span>
+        <span class="trigger-tag">"Teams" or "O365" in title</span>
+        <span class="trigger-tag">"Collaboration"</span>
+        <span class="trigger-tag">"Security"</span>
+      </div>
+    </div>
+
+    <div class="persona-card">
+      <h3>What to lead with</h3>
+      <p class="persona-sub">These are the facts that move IT/Security conversations fastest. Lead with credentials, then data handling, then control.</p>
+      <ul class="cred-list">
+        <li><strong>Microsoft 365 Certified</strong> — officially reviewed by Microsoft against industry security, compliance, and data-handling standards.</li>
+        <li><strong>ISO 42001, ISO 27001, ISO 27701</strong> — AI management, information security, and data privacy certifications.</li>
+        <li><strong>No broad tenant access</strong> — Meltwater doesn't gain wide access to the customer's Microsoft tenant.</li>
+        <li><strong>Minimal data processed</strong> — user ID, tenant ID, prompt, and structured results only. No sensitive data required.</li>
+        <li><strong>30-day retention</strong> — with the option for earlier deletion. Inputs are never used to train Meltwater or OpenAI models.</li>
+        <li><strong>Full admin control</strong> — IT can enable or disable the Agent at any time, and scope access by user, group, or role in the Microsoft admin centers.</li>
+      </ul>
+    </div>
+
+    <div class="callout callout-orange">
+      <strong>If the app is blocked:</strong> the customer's Teams/M365 administrator needs to go to <strong>Teams Admin Center → Teams apps → Permission policies</strong>, confirm third-party apps are allowed, and explicitly allow Meltwater by name or App ID.
+    </div>
+
+    <div class="callout">
+      Sending the <strong><a href="https://drive.google.com/file/d/1NHlDjz2pP9pY1A-zrFm94G32BWUGi2qS/view?usp=sharing" target="_blank">Agent Compliance & Security Info Pack</a></strong> alongside the access request gives IT everything above in writing — attach it whenever a customer's IT team needs to review before approving.
+    </div>
+  </section>
+
+  <!-- ACTIVATION -->
+  <section id="activation">
+    <div class="section-header">
+      <div class="section-eyebrow">Final step · Both paths</div>
+      <h2>Activation & phased rollout</h2>
+      <p>Because support for this product is digital-first and self-serve, a phased rollout matters more here than with most products. Agent-only users won't have context on Meltwater or the partnership unless you build that in deliberately.</p>
+    </div>
+
+    <div class="callout callout-orange">
+      <strong>Support model to know before you start:</strong> Agent-only users don't have direct access to Meltwater's support team or ticketing system. If they hit an issue, they go to their internal champion — a core Meltwater platform user — who can escalate through normal support channels if needed. This applies to every account, regardless of size.
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>IT approval confirmed</h3>
+          <p>Don't proceed past this point until the customer's IT team has approved the Teams app installation. See the IT Approval section above if this isn't done yet.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Access control — core team only, first</h3>
+          <p>Grant Agent access only to users who already have Meltwater platform access. Don't open this up to the broader org yet — that comes later, deliberately.</p>
+          <p>Before assigning anyone, confirm how many Agent seats the customer purchased. Every user added against the Agent — core team or Agent-only — counts against that number, so it's worth knowing the ceiling before you start handing out access.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Onboard the core team</h3>
+          <p>Identify two roles within the customer's core team:</p>
+          <ul>
+            <li><strong>Admin</strong> — the main point of contact, a platform user responsible for the rollout and for supporting Agent-only users</li>
+            <li><strong>Champions</strong> — platform users responsible for evangelizing the Agent within their teams and supporting Agent-only users</li>
+          </ul>
+          <p>Train this group on the Agent's capabilities and intended use cases using the <a href="https://docs.google.com/presentation/d/1OkL-FoVQdBA5vkYSWLfEF2J2FvhhlFoilOrw29IR9cg/edit?usp=sharing" target="_blank">customer-facing onboarding deck</a>.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>How access actually gets granted</h3>
+          <p>This is the customer Admin's job, not yours — but you should know the mechanics well enough to walk them through it the first time. A Meltwater subscription has three user/seat types based on which applications are selected: <strong>Meltwater only</strong> (platform seat), <strong>Teams only</strong> (this is the Agent-only seat — officially "Meltwater Agent for Microsoft"), or <strong>both</strong> (one seat each).</p>
+          <p>The Admin adds each user from <strong>Account → Manage Users → Add User</strong> (top right):</p>
+          <ul>
+            <li>First name, last name, email address</li>
+            <li>Check <strong>Send email invite</strong> — required, the user won't get setup instructions without it</li>
+            <li>Time zone, and language (note: the Agent is optimized for English only)</li>
+            <li>Workspaces is optional and not currently integrated with the Agent — skip it for Agent-only users</li>
+            <li>Under <strong>Applications</strong>, select Meltwater, Teams, or both. Permissions are only assignable for users with platform access — that section disables itself if only Teams is selected</li>
+          </ul>
+          <p>What the user receives depends on selection: <strong>Meltwater-only</strong> and <strong>Meltwater + Teams</strong> users both get a single email invite to set up their Meltwater login. <strong>Teams-only (Agent-only) users</strong> get an email invite to set up their Meltwater login <em>plus</em> step-by-step instructions for installing the Agent for Microsoft app — that login is required even though they'll never touch the core platform.</p>
+          <div class="step-note">📋 <strong>You'll need a list from the customer.</strong> For anyone beyond the core team, the Admin needs a first name, last name, and email per person before they can add them — get that list from your Champions before the planned rollout date, not on the day of.</div>
+          <p>To manage <em>existing</em> Agent users — resend a pending invite, edit access, or remove someone — the Admin goes to <strong>Manage Users → External Users</strong>, not the main Users tab. Pencil icon edits access, trashcan removes it, mail icon resends an invite stuck on Pending. Full walkthrough with screenshots is in <a href="https://community.meltwater.com/agent-for-microsoft-copilot-teams-148/teams-agent-adding-managing-users-4008" target="_blank">Adding & Managing Agent Users</a> on mCommunity.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Plan the rollout to Agent-only users</h3>
+          <p>Work with the core team to set a rollout date for broader distribution, and have them collect the name/email list for everyone going on as Agent-only ahead of that date. Don't let this drift — an undefined rollout date is the most common reason this stalls after the core team is trained.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h3>Internal communication</h3>
+          <p>The customer's core team — not Meltwater — drafts and sends the announcement to Agent-only users. It should explain the Meltwater partnership, what the Agent is, what to expect, and who to contact internally for support. A <a href="https://docs.google.com/document/d/1SoBaAy9TV6YVF8xGOsPa7aG6gGYz2ZHtXszvcSzV57A/edit?usp=sharing" target="_blank">communication template</a> is available for them to use.</p>
+          <div class="step-note">⏱ Ideally this communication goes out the same day Agent-only users are added — don't let there be a gap between access and explanation.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <h3>Roll out to Agent-only users</h3>
+          <p>Using the list collected in Step 5, the Admin adds each person via Manage Users → Add User with only the <strong>Teams</strong> application selected. Each receives the two-part invite — Meltwater login setup plus Agent for Microsoft install instructions — covered in Step 4 above.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROMPTING -->
+  <section id="prompting">
+    <div class="section-header">
+      <div class="section-eyebrow">Product training</div>
+      <h2>Prompt strategy & what the Agent can see</h2>
+      <p>Once users are in, the quality of what they get out depends entirely on how they ask. Use this to set expectations and teach good prompting in the same conversation.</p>
+    </div>
+
+    <div class="callout">
+      <strong>Where it lives:</strong> in Copilot Chat, type <code>@meltwater</code> to reference the Agent directly. In Teams or Office apps, select <strong>All Agents → Meltwater</strong> from the left-hand navigation. Conversations persist across Copilot and Office app instances.
+    </div>
+
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Writing prompts with TRACI</h3>
+    <div class="traci-grid">
+      <div class="traci-letter">
+        <div class="traci-char">T</div>
+        <div class="traci-word">Task</div>
+        <div class="traci-desc">What you want the Agent to accomplish</div>
+      </div>
+      <div class="traci-letter">
+        <div class="traci-char">R</div>
+        <div class="traci-word">Role</div>
+        <div class="traci-desc">The role the Agent should assume</div>
+      </div>
+      <div class="traci-letter">
+        <div class="traci-char">A</div>
+        <div class="traci-word">Audience</div>
+        <div class="traci-desc">Who the output is for</div>
+      </div>
+      <div class="traci-letter">
+        <div class="traci-char">C</div>
+        <div class="traci-word">Context</div>
+        <div class="traci-desc">Relevant background information</div>
+      </div>
+      <div class="traci-letter">
+        <div class="traci-char">I</div>
+        <div class="traci-word">Instructions</div>
+        <div class="traci-desc">Formatting or specific guidelines</div>
+      </div>
+    </div>
+
+    <div class="example-prompt-block">
+      <div class="example-prompt-label">Example — building a media pitch with TRACI</div>
+      <p><strong>Task:</strong> Write a media pitch. <strong>Role:</strong> PR specialist. <strong>Audience:</strong> a busy, oversaturated tech journalist. <strong>Context:</strong> a new AI tool that reduces PR workload by 30%. <strong>Instructions:</strong> professional tone, highlight key benefits, end with a call to action.</p>
+      <div class="example-prompt-final">"Write a persuasive media pitch as a PR specialist to a busy journalist who is oversaturated with generic media outreach, convincing them to adopt a new software tool that reduces a PR professional's workload by 30%. Use professional language, highlight the key benefits, and include a clear call to action at the end."</div>
+    </div>
+
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">What the Agent can and can't see</h3>
+    <p style="font-size: 13.5px; color: #4a4a4a; margin-bottom: 18px;">Set this expectation early so customers aren't surprised mid-prompt.</p>
+    <div class="scope-grid">
+      <div class="scope-card can">
+        <div class="scope-label">✓ Has access to</div>
+        <ul>
+          <li>The same data (including add-ons) in the customer's Meltwater account</li>
+          <li>Broadcast, podcast, print, and online partnership sources</li>
+          <li>Saved searches in Meltwater Explore</li>
+          <li>Social listening for Facebook, Instagram, Threads, and TikTok — if authenticated and tracked in Explore</li>
+        </ul>
+      </div>
+      <div class="scope-card cannot">
+        <div class="scope-label">✗ Does not have access to</div>
+        <ul>
+          <li>Workspace-level data — account-level only</li>
+          <li>Premium (paywalled) or regionally restricted content</li>
+          <li>Author lists or media lists</li>
+          <li>Owned and paid connection data</li>
+          <li>Content added via RSS feeds, the Chrome Extension, or the Added Content page</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>Language support:</strong> currently English only. The Agent generally responds in the language a question was asked in, but behavior for non-English queries isn't guaranteed yet — enhanced support is planned.
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <h2>Resources</h2>
+      <p>For troubleshooting and detailed setup walkthroughs, point IMs and customers to these directly rather than relying on this guide to cover every edge case.</p>
+    </div>
+
+    <div class="resources-grid">
+      <a href="https://community.meltwater.com/agent-for-microsoft-copilot-teams-148" target="_blank" class="resource-card">
+        <div class="resource-icon">🏠</div>
+        <div class="resource-title">mCommunity — Agent for Microsoft hub</div>
+        <div class="resource-desc">Central help center for the Agent. Customer-facing and safe to share.</div>
+      </a>
+      <a href="https://community.meltwater.com/agent-for-microsoft-copilot-teams-148/meltwater-agent-in-microsoft-copilot-and-office-apps-8120" target="_blank" class="resource-card">
+        <div class="resource-icon">⚙️</div>
+        <div class="resource-title">Installing & prompting the Agent</div>
+        <div class="resource-desc">Step-by-step setup across Copilot Chat, Teams, and Office apps.</div>
+      </a>
+      <a href="https://community.meltwater.com/agent-for-microsoft-copilot-teams-148/teams-agent-adding-managing-users-4008" target="_blank" class="resource-card">
+        <div class="resource-icon">👥</div>
+        <div class="resource-title">Adding & managing Agent users</div>
+        <div class="resource-desc">For the customer Admin — how to add and manage Agent-only users.</div>
+      </a>
+      <a href="https://docs.google.com/presentation/d/1OkL-FoVQdBA5vkYSWLfEF2J2FvhhlFoilOrw29IR9cg/edit?usp=sharing" target="_blank" class="resource-card">
+        <div class="resource-icon">📊</div>
+        <div class="resource-title">Customer onboarding deck</div>
+        <div class="resource-desc">Use this with the core team during Step 4 of activation.</div>
+      </a>
+      <a href="https://docs.google.com/presentation/d/1_Ho8lOMiCanZs0kIbuVzAu48dYSra33VzRusanN5Bq8/edit?usp=sharing" target="_blank" class="resource-card">
+        <div class="resource-icon">📘</div>
+        <div class="resource-title">Digital Onboarding Pack</div>
+        <div class="resource-desc">For users without a Meltwater login — installation, prompting, prompt library.</div>
+      </a>
+      <a href="https://docs.google.com/document/d/1SoBaAy9TV6YVF8xGOsPa7aG6gGYz2ZHtXszvcSzV57A/edit?usp=sharing" target="_blank" class="resource-card">
+        <div class="resource-icon">✉️</div>
+        <div class="resource-title">Internal comms template</div>
+        <div class="resource-desc">For the customer's core team to announce the rollout to Agent-only users.</div>
+      </a>
+      <a href="https://docs.google.com/presentation/d/1jaVMUy606o3xfIssK9jkzpiNH5dh5pnSjcsZPvIRutI/edit?usp=sharing" target="_blank" class="resource-card">
+        <div class="resource-icon">🛡️</div>
+        <div class="resource-title">Navigating IT approvals (internal)</div>
+        <div class="resource-desc">Full IT persona, objections, and talking points playbook.</div>
+      </a>
+      <a href="https://docs.google.com/document/d/1v4-d3NAKeaWMGJ297lFWdXRrr0m9gjCDzDdkmyjOrCM/edit?usp=sharing" target="_blank" class="resource-card">
+        <div class="resource-icon">🎬</div>
+        <div class="resource-title">Agent Demo Guide (internal)</div>
+        <div class="resource-desc">Linking/authentication troubleshooting and ready-to-use demo prompts by use case.</div>
+      </a>
+      <a href="https://meltwater.slack.com/docs/T02EG0KQK/F096QTX3S8Y" target="_blank" class="resource-card slack">
+        <div class="resource-icon">💬</div>
+        <div class="resource-title">Slack: #product-meltwater-agent</div>
+        <div class="resource-desc">Post questions here, or check this pinned reference doc for more detail.</div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">&lt;o&gt; Meltwater</div>
+    <div class="footer-note">Internal use only · Implementation Manager reference guide · Meltwater Agent for Microsoft</div>
+  </div>
+  <div class="footer-tag">Confirm eligibility and IT readiness before submitting anything for activation. Route troubleshooting questions to #product-meltwater-agent in Slack.</div>
+</footer>
+
+</body>
+</html>
