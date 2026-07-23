@@ -843,7 +843,7 @@
   </nav>
 
   <div class="hero">
-    <div class="hero-eyebrow">Internal Guide · Implementation</div>
+    <div class="hero-eyebrow">Internal Guide · Implementation · Last updated July 22, 2026</div>
     <h1>Deploying <span>Meltwater MCP</span> to your customers</h1>
     <p class="hero-sub">A step-by-step runbook for getting a customer from "account ready" to "asking Meltwater questions inside Claude or ChatGPT" — with the first prompts and skills to run once they're live.</p>
     <div class="hero-pills">
@@ -931,7 +931,7 @@
           <div class="flow-num">2</div>
           <div class="flow-who">Champion + IT admin</div>
           <h4>Enable at the org level</h4>
-          <p>The customer's IT admin turns on the Meltwater connector or app for the organization.</p>
+          <p>The customer's IT admin turns on the Meltwater connector or plugin for the organization.</p>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step s3">
@@ -954,9 +954,10 @@
 
         <ul class="check-list">
           <li><strong>MCP is on the subscription.</strong> An active Meltwater plan that <em>includes a Meltwater MCP package</em>. Access to Meltwater on its own does not automatically include MCP.<sup class="cite"><a href="#ref-1">1</a></sup></li>
-          <li><strong>Supported assistant, enterprise tier.</strong> Claude Enterprise or Team, or ChatGPT Enterprise or Business. Personal Pro / Plus accounts can't do this — connectors and apps are managed at the org level.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></li>
-          <li><strong>Sign-in method confirmed.</strong> Users sign in with their real Meltwater identity — SSO if the org uses it, or Meltwater email and password if not. They never enter credentials into the assistant.<sup class="cite"><a href="#ref-2">2</a></sup> <em>(Sources differ on whether SSO is strictly required — the internal FAQ calls it a prerequisite, the help center shows email/password as a fallback. Confirm with product before telling a customer SSO is mandatory.)</em><sup class="cite"><a href="#ref-4">4</a></sup></li>
-          <li><strong>Add-on entitlements checked.</strong> Add-ons like GenAI Lens, Media Relations, and Klear light up their matching tools automatically — but only for customers who have them.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>A base Explore package is in place.</strong> Explore is a hard prerequisite for Meltwater MCP — no Explore, no MCP. Add-on tools follow the customer's entitlements (see the add-on note below for current readiness).<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>Supported assistant, enterprise tier.</strong> Claude Enterprise or Team, or ChatGPT Enterprise or Business. Personal Pro / Plus accounts are much less likely to clear org approval — connectors and plugins are managed at the org level, and a personal account needs the heavier custom-connector setup rather than the native Enterprise connector. Not a hard technical block, just a steep uphill climb.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></li>
+          <li><strong>Sign-in method confirmed.</strong> Users sign in with their real Meltwater identity via SSO. They never enter credentials into the assistant.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>Add-on entitlements checked.</strong> GenAI Lens and Klear tools are still being brought to production-ready status for MCP by Engineering — check current availability before promising them. Media Relations tooling for MCP hasn't started vetting and has no ETA; don't set this expectation with a customer today.<sup class="cite"><a href="#ref-4">4</a></sup></li>
           <li><strong>At least one good saved Explore search.</strong> Not strictly required — live questions return results without one — but saved searches sharpen results and make citations render predictably. Set one up before you demo.<sup class="cite"><a href="#ref-4">4</a></sup></li>
         </ul>
 
@@ -983,7 +984,7 @@
             <div class="step-num">C</div>
             <div class="step-content">
               <h4>Assign the connector seat, then save</h4>
-              <p>Assign the <strong>Claude Connector</strong> seat or the <strong>ChatGPT App</strong> seat (whichever the user needs), and save. Removing the seat later revokes that user's access. Repeat for each user.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></p>
+              <p>Assign the <strong>Claude Connector</strong> seat or the <strong>ChatGPT Plugin</strong> seat (whichever the user needs), and save. Removing the seat later revokes that user's access. Repeat for each user.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></p>
             </div>
           </div>
         </div>
@@ -1001,7 +1002,7 @@
 
         <ul class="check-list" style="margin-bottom:20px;">
           <li><strong>Who does it:</strong> a Claude Owner / Primary Owner, or a ChatGPT Workspace Owner / Admin — enabling it for everyone in the org.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></li>
-          <li><strong>What they do:</strong> turn on the Meltwater connector (Claude) or the Meltwater app (ChatGPT) at the organization level, following Meltwater's IT admin guide.</li>
+          <li><strong>What they do:</strong> turn on the Meltwater connector (Claude) or the Meltwater plugin (ChatGPT) at the organization level, following Meltwater's IT admin guide.</li>
           <li><strong>Then it hands off:</strong> once enabled at the org level and access is granted per user (Step 1), each end user can connect their own account (Step 3).</li>
         </ul>
 
@@ -1030,7 +1031,7 @@ Could you forward the note below to whoever owns <span class="placeholder">[Clau
 
 Hi team,
 
-We're enabling Meltwater inside <span class="placeholder">[Claude / ChatGPT]</span>. This needs an org-level admin (a Claude Owner, or a ChatGPT Workspace Owner / Admin) to turn on the Meltwater connector/app for the organization. Meltwater's step-by-step IT guides are here:
+We're enabling Meltwater inside <span class="placeholder">[Claude / ChatGPT]</span>. This needs an org-level admin (a Claude Owner, or a ChatGPT Workspace Owner / Admin) to turn on the Meltwater connector/plugin for the organization. Meltwater's step-by-step IT guides are here:
 
 Claude: <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-in-claude-11714#For+IT/Claude+Admins" target="_blank">https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-in-claude-11714</a>
 ChatGPT: <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-mcp-app-in-chatgpt-11715#For+IT/Claude+Admins" target="_blank">https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-mcp-app-in-chatgpt-11715</a>
@@ -1091,17 +1092,21 @@ Best,
               <span class="integration-tag">Enterprise / Business</span>
               <ol>
                 <li>Open ChatGPT, signed in with the <strong>work account</strong> (not personal).</li>
-                <li>Click <strong>Apps</strong> from the sidebar.</li>
+                <li>Click <strong>Plugins</strong> from the sidebar.</li>
                 <li>Search for <strong>Meltwater</strong>.</li>
                 <li>Click <strong>Connect</strong>.</li>
                 <li>A browser window opens the Meltwater sign-in page — <strong>sign in with SSO</strong>.</li>
-                <li>Click <strong>Authorize</strong>. The app's actions appear (gear icon next to Start chat).</li>
+                <li>Click <strong>Authorize</strong>. The plugin's actions appear (gear icon next to Start chat).</li>
               </ol>
               <div class="verify-line">
                 <strong>Verify:</strong> new chat → @mention <strong>Meltwater</strong> (or + → More → Meltwater) → ask <em>"List actions"</em> or <em>"List my saved Meltwater searches."</em> A list coming back confirms the connection.<sup class="cite"><a href="#ref-3">3</a></sup>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="callout">
+          <strong>Naming note — the customer's is just "Meltwater."</strong> The steps above and the email below reference the connector/plugin named <strong>Meltwater</strong>, which is what your customer connects to. When <em>you</em> connect your own Meltwater employee (buddy) account to test or demo, use <strong>Meltwater Internal</strong> instead — same steps, different entry in the list.
         </div>
 
         <p style="font-size:13.5px; color:#4a4a4a; margin:18px 0 8px;">Once each user is granted access, hand them the connection steps directly. Here's a starter email you can adapt — swap in your own links and details:</p>
@@ -1122,8 +1127,8 @@ You're all set on the Meltwater side — I've enabled your access, so you can no
 It takes about two minutes:
 
 1. Open <span class="placeholder">[Claude / ChatGPT]</span>, signed in with your work account.
-2. Go to <span class="placeholder">[Customize (Claude) / Apps (ChatGPT)]</span> and search for "Meltwater."
-3. Click Connect. A browser window will open on the Meltwater sign-in page — sign in with your usual Meltwater login (single sign-on, if your organization uses it). You never type Meltwater credentials into the assistant itself.
+2. Go to <span class="placeholder">[Customize (Claude) / Plugins (ChatGPT)]</span> and search for "Meltwater."
+3. Click Connect. A browser window will open on the Meltwater sign-in page — sign in with your organization's single sign-on (SSO). You never type Meltwater credentials into the assistant itself.
 4. Click Authorize. That's it — Meltwater is now connected.
 
 To check it's working, start a new chat and ask: "List my saved Meltwater searches." If your searches come back, you're live.
@@ -1183,7 +1188,7 @@ Best,
         </div>
 
         <div class="callout" style="margin-top:20px;">
-          <strong>Handoff — leave them self-sufficient.</strong> Before you close out the session, confirm: the user has connected and verified independently; they've run at least two prompts that matter to their role; a Brand DNA (or custom-GPT) context is in place; they know results follow their own Meltwater permissions; and they know who their admin is for adding more users. Then set the expectation: <em>"Ask it the way you'd ask a colleague, and follow up — each question builds on the last."</em>
+          <strong>Handoff — leave them self-sufficient.</strong> Before you close out the session, confirm: the user has connected and verified independently; they've run at least two prompts that matter to their role; a Brand DNA (or custom-GPT) context is in place; they know results follow their own Meltwater permissions and workspace assignments — they see exactly what they'd see in the platform, nothing more; and they know who their admin is for adding more users. Then set the expectation: <em>"Ask it the way you'd ask a colleague, and follow up — each question builds on the last."</em>
         </div>
       </div>
     </section>
@@ -1193,7 +1198,7 @@ Best,
       <div class="section-header">
         <div class="section-eyebrow section-eyebrow-orange">Put it to work</div>
         <h2>Deeper workflows by team</h2>
-        <p>The same prompts work identically in Claude and ChatGPT. Match the starter question to the team you're onboarding.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+        <p>The same prompts work identically in Claude and ChatGPT for core Listening workflows (PR &amp; Comms, Marketing &amp; Insights). Media Relations and Influencer Marketing tools are Claude-only today — ChatGPT doesn't yet expose Klear, Media Relations, or GenAI Lens tools, so demo those two workflows in Claude and describe the experience as representative.<sup class="cite"><a href="#ref-5">5</a></sup></p>
       </div>
 
       <div class="prompt-library-grid">
@@ -1282,7 +1287,7 @@ Best,
 
       <div class="objections">
         <div class="objection">
-          <div class="obj-q">"Meltwater doesn't show up in my connector / app list."</div>
+          <div class="obj-q">"Meltwater doesn't show up in my connector / plugin list."</div>
           <div class="obj-a">Almost always the account: confirm they're signed in to the <strong>work / enterprise account</strong>, not a personal one. If it's still missing, their per-user access probably isn't active yet — the Meltwater admin needs to assign the seat (Step 1C). Have them contact their admin.</div>
         </div>
         <div class="objection">
@@ -1291,15 +1296,19 @@ Best,
         </div>
         <div class="objection">
           <div class="obj-q">"ChatGPT throws access_denied / 'no seat for this provider'."</div>
-          <div class="obj-a">The seat isn't assigned. Check both layers: the ChatGPT app is enabled at the <strong>workspace</strong> level by a Workspace Owner/Admin, <em>and</em> the user has the <strong>ChatGPT App seat</strong> granted inside Meltwater. Missing either produces this error.</div>
+          <div class="obj-a">The seat isn't assigned. Check both layers: the ChatGPT plugin is enabled at the <strong>workspace</strong> level by a Workspace Owner/Admin, <em>and</em> the user has the <strong>ChatGPT Plugin seat</strong> granted inside Meltwater. Missing either produces this error.</div>
         </div>
         <div class="objection">
           <div class="obj-q">"I get a login error signing in to Meltwater."</div>
-          <div class="obj-a">Confirm the Meltwater account is active and they're using the right method: <strong>SSO</strong> if the org uses it, otherwise Meltwater email + password. If SSO fails, it's a Meltwater admin / Support issue, not a connector one.</div>
+          <div class="obj-a">Sign-in runs through the organization's <strong>SSO</strong> — confirm the Meltwater account is active and that the user's SSO is set up. If SSO fails, it's a Meltwater admin / Support issue, not a connector one.</div>
         </div>
         <div class="objection">
           <div class="obj-q">"The response came back empty or errored."</div>
-          <div class="obj-a">Usually an expired sign-in — <strong>reconnect</strong> the connector/app to re-trigger the sign-in flow. In ChatGPT, if a <em>write</em> action specifically is blocked, the workspace may be set to <strong>read-only</strong> for Meltwater; that's an admin setting.</div>
+          <div class="obj-a">Usually an expired sign-in — <strong>reconnect</strong> the connector/plugin to re-trigger the sign-in flow. In ChatGPT, if a <em>write</em> action specifically is blocked, the workspace may be set to <strong>read-only</strong> for Meltwater; that's an admin setting.</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Do users have to sign in every session?"</div>
+          <div class="obj-a">No — they sign in once and the connection stays live. Re-authentication only happens under normal conditions: their SSO session or security policy requires a fresh sign-in, an admin changes or revokes their access, or they connect a new assistant. It's the same SSO flow each time, so an occasional re-auth is expected, not a fault.<sup class="cite"><a href="#ref-4">4</a></sup></div>
         </div>
         <div class="objection">
           <div class="obj-q">"Can we connect a different assistant — Perplexity, Copilot, Gemini?"</div>
@@ -1344,7 +1353,7 @@ Best,
         <li id="ref-1"><a href="https://community.meltwater.com/meltwater-mcp-433/getting-started-with-meltwater-mcp-11718" target="_blank">Getting Started with Meltwater MCP</a> — Meltwater Community Help Center.</li>
         <li id="ref-2"><a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-in-claude-11714" target="_blank">Connect Meltwater in Claude</a> — Meltwater Community Help Center.</li>
         <li id="ref-3"><a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-mcp-app-in-chatgpt-11715" target="_blank">Connect Meltwater MCP App in ChatGPT</a> — Meltwater Community Help Center.</li>
-        <li id="ref-4"><a href="https://docs.google.com/document/d/1nfg4ZUMSDb4Vzvh6XfC9PA771-Ea6S0M5Ubo_P06s9Q/edit" target="_blank">Meltwater MCP FAQ</a> (Internal), updated Jul 8, 2026. <span class="src-note">Internal doc — verify it's current before quoting specifics.</span></li>
+        <li id="ref-4"><a href="https://docs.google.com/document/d/1nfg4ZUMSDb4Vzvh6XfC9PA771-Ea6S0M5Ubo_P06s9Q/edit" target="_blank">Meltwater MCP FAQ</a> (Internal). <span class="src-note">Updated often by Product Marketing — check the file for the latest.</span></li>
         <li id="ref-5"><a href="https://docs.google.com/presentation/d/1HT2TjyHfirvYlbjztj10H7y5DwdhkFV0CxYSyygho2o/edit" target="_blank">Meltwater MCP customer-facing pitch deck</a>. <span class="src-note">Internal collateral.</span></li>
         <li id="ref-6"><a href="https://www.meltwater.com/en/about/press-releases/meltwater-mcp" target="_blank">Meltwater Expands Access to Meltwater MCP</a> — Press release, Jul 8, 2026.</li>
         <li id="ref-7"><a href="https://developer.meltwater.com/guides/meltwater-mcp/overview" target="_blank">Meltwater MCP — Overview</a> — Meltwater Developer Portal.</li>
