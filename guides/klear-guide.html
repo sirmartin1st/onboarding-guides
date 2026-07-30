@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klear — IM Onboarding Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mw-teal:        #28BBBB;
+      --mw-teal-medium: #00A7A5;
+      --mw-teal-dark:   #1C7070;
+      --mw-teal-tint-1: #A3DFDF;
+      --mw-teal-tint-2: #C0EBEB;
+      --mw-teal-tint-3: #E1EFF0;
+      --mw-gray:        #F0F4F4;
+      --mw-black:       #1A1A1A;
+      --mw-white:       #FFFFFF;
+      --mw-orange:      #FF6221;
+      --mw-orange-mid:  #FFDDCC;
+      --mw-orange-light:#FFEFEA;
+      --mw-purple:      #B627A1;
+      --mw-purple-mid:  #E0A6D7;
+      --mw-purple-light:#F0D4EC;
+      --mw-font: 'Poppins', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--mw-font);
+      background: var(--mw-white);
+      color: var(--mw-black);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--mw-white);
+      border-bottom: 2px solid var(--mw-teal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--mw-teal-dark);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--mw-teal);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mw-black);
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+
+    /* HERO */
+    .hero {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 72px 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border: 40px solid rgba(40,187,187,0.18);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: 140px;
+      width: 160px; height: 160px;
+      border: 22px solid rgba(182,39,161,0.15);
+      border-radius: 50%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 660px;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--mw-teal); }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 400;
+      max-width: 600px;
+      opacity: 0.85;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(40,187,187,0.18);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .pill-purple {
+      background: rgba(182,39,161,0.18);
+      border: 1px solid rgba(182,39,161,0.3);
+      color: #E0A6D7;
+    }
+    .pill-orange {
+      background: rgba(255,98,33,0.18);
+      border: 1px solid rgba(255,98,33,0.3);
+      color: #FFDDCC;
+    }
+
+    /* PAGE BODY */
+    .page-body {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+
+    section { margin-bottom: 68px; }
+
+    /* SECTION HEADERS */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--mw-teal-tint-2);
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mw-teal-medium);
+      margin-bottom: 8px;
+    }
+    .section-eyebrow-orange { color: var(--mw-orange); }
+    .section-eyebrow-purple { color: var(--mw-purple); }
+    .section-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.2;
+    }
+    .section-header p {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+      max-width: 700px;
+    }
+
+    /* CALLOUTS */
+    .callout {
+      background: var(--mw-teal-tint-3);
+      border-left: 4px solid var(--mw-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--mw-teal-dark); }
+    .callout a { color: var(--mw-teal-dark); font-weight: 600; }
+    .callout-orange {
+      background: var(--mw-orange-light);
+      border-left-color: var(--mw-orange);
+    }
+    .callout-orange strong { color: #c04a00; }
+    .callout-orange a { color: #c04a00; }
+    .callout-purple {
+      background: var(--mw-purple-light);
+      border-left-color: var(--mw-purple);
+    }
+    .callout-purple strong { color: #8a1a7a; }
+    .callout-purple a { color: #8a1a7a; }
+
+    /* BOUNDARY BANNER */
+    .boundary-banner {
+      background: var(--mw-teal-dark);
+      color: white;
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .boundary-banner strong { color: var(--mw-teal-tint-1); }
+    .boundary-banner a { color: var(--mw-teal-tint-1); font-weight: 600; }
+
+    /* CAPABILITY CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px;
+      background: var(--mw-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
+    }
+    .card-icon {
+      width: 36px; height: 36px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--mw-teal-dark);
+    }
+    .card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+
+    /* WORKFLOW MAP (client journey at-a-glance) */
+    .activation-flow {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .flow-step {
+      flex: 1;
+      min-width: 120px;
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .flow-step.s1 { background: var(--mw-teal-tint-3); border: 1.5px solid var(--mw-teal-tint-2); }
+    .flow-step.s2 { background: var(--mw-teal-tint-3); border: 1.5px solid var(--mw-teal-tint-2); }
+    .flow-step.s3 { background: var(--mw-teal-tint-3); border: 1.5px solid var(--mw-teal-tint-2); }
+    .flow-step.s4 { background: var(--mw-teal-tint-3); border: 1.5px solid var(--mw-teal-tint-2); }
+    .flow-step.s5 { background: var(--mw-purple-light); border: 1.5px solid var(--mw-purple-mid); }
+    .flow-num {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: white;
+      background: var(--mw-teal);
+    }
+    .flow-step.s5 .flow-num { background: var(--mw-purple); }
+    .flow-step h4 { font-size: 13px; font-weight: 700; color: var(--mw-black); line-height: 1.3; }
+    .flow-step p { font-size: 11.5px; line-height: 1.45; color: #4a4a4a; }
+    .flow-arrow {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--mw-teal-medium); font-weight: 700;
+      padding: 0 6px; flex-shrink: 0;
+    }
+
+    /* STEP SUB-SECTIONS */
+    .activation-step { margin-top: 44px; }
+    .activation-step-head {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .activation-step-num {
+      min-width: 38px; height: 38px;
+      background: var(--mw-teal); color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; flex-shrink: 0;
+    }
+    .activation-step.purple .activation-step-num { background: var(--mw-purple); }
+    .activation-step.orange .activation-step-num { background: var(--mw-orange); }
+    .activation-step-head h3 { font-size: 19px; font-weight: 700; color: var(--mw-black); line-height: 1.2; }
+
+    /* CHECKLIST */
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 4px 0 8px; }
+    .check-list li {
+      position: relative; padding-left: 28px;
+      font-size: 13.5px; line-height: 1.55; color: #3a3a3a;
+    }
+    .check-list li::before {
+      content: '✓';
+      position: absolute; left: 0; top: 0;
+      width: 18px; height: 18px; border-radius: 4px;
+      background: var(--mw-teal-tint-3); color: var(--mw-teal-dark);
+      font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .check-list li strong { color: var(--mw-black); }
+
+    /* CONFIG GROUP CARDS */
+    .config-group {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .config-group-head {
+      background: var(--mw-teal-tint-3);
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .config-group-head .cg-icon { font-size: 18px; }
+    .config-group-head h4 { font-size: 15px; font-weight: 700; color: var(--mw-teal-dark); }
+    .config-group-body { padding: 16px 22px 18px; }
+    .config-row {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--mw-gray);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .config-row:last-child { border-bottom: none; }
+    .config-row .cr-name { flex: 1; color: #3a3a3a; }
+    .config-row .cr-name strong { color: var(--mw-black); }
+    .tag {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      padding: 3px 9px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+    }
+    .tag-must { background: var(--mw-teal); color: white; }
+    .tag-should { background: var(--mw-teal-tint-2); color: var(--mw-teal-dark); }
+    .tag-client { background: var(--mw-orange-light); color: #c04a00; border: 1px solid var(--mw-orange-mid); }
+
+    /* NUMBERED STEPS */
+    .steps { display: flex; flex-direction: column; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 42px; bottom: 42px;
+      width: 2px;
+      background: var(--mw-teal-tint-2);
+    }
+    .steps.purple-line::before { background: var(--mw-purple-mid); }
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 14px 0;
+      position: relative;
+    }
+    .step-num {
+      min-width: 42px; height: 42px;
+      background: var(--mw-teal);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .steps.purple-line .step-num { background: var(--mw-purple); }
+    .step-content h4 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--mw-black);
+      margin-bottom: 4px;
+      margin-top: 10px;
+    }
+    .step-content p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #4a4a4a;
+    }
+    .step-content code, .inline-code {
+      background: var(--mw-gray);
+      border: 1px solid var(--mw-teal-tint-2);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--mw-teal-dark);
+    }
+    .step-note {
+      margin-top: 10px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .step-note-orange {
+      background: var(--mw-orange-light);
+      color: #c04a00;
+    }
+
+    /* PAY VENDOR CARDS */
+    .integration-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    .integration-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .integration-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .integration-header.purple { background: var(--mw-purple); }
+    .integration-icon {
+      width: 26px; height: 26px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .integration-title { font-size: 14px; font-weight: 700; }
+    .integration-body {
+      padding: 20px 20px 18px;
+      background: var(--mw-white);
+    }
+    .integration-body ol { margin: 0 0 4px 18px; }
+    .integration-body ol li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 7px;
+      padding-left: 4px;
+    }
+    .integration-body ol li strong { color: var(--mw-black); }
+    .integration-tag {
+      display: inline-block;
+      background: var(--mw-teal-tint-3);
+      color: var(--mw-teal-dark);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .integration-tag.purple { background: var(--mw-purple-light); color: #8a1a7a; }
+    .verify-line {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--mw-teal-tint-2);
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+    .verify-line strong { color: var(--mw-teal-dark); }
+
+    /* EMAIL TEMPLATE */
+    .email-shell {
+      border: 2px solid var(--mw-teal-tint-2);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .email-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 14px 24px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .email-copy-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 5px 14px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      font-family: var(--mw-font);
+      transition: background 0.2s;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .email-copy-btn:hover { background: rgba(255,255,255,0.25); }
+    .email-copy-btn.copied { background: rgba(40,187,187,0.4); }
+    .email-meta {
+      background: var(--mw-gray);
+      padding: 14px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-bottom: 1px solid var(--mw-teal-tint-2);
+    }
+    .email-meta-row { display: flex; gap: 12px; font-size: 13px; }
+    .email-meta-label { font-weight: 700; color: var(--mw-teal-dark); min-width: 60px; }
+    .email-meta-value { color: #4a4a4a; font-style: italic; }
+    .email-body {
+      padding: 28px 28px 24px;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--mw-black);
+      white-space: pre-wrap;
+      font-family: var(--mw-font);
+    }
+    .placeholder {
+      background: #fff3cd;
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-style: italic;
+      color: #856404;
+      font-size: 13px;
+    }
+
+    /* TROUBLESHOOTING (Q&A) */
+    .objections { display: flex; flex-direction: column; gap: 14px; }
+    .objection {
+      border: 1.5px solid var(--mw-orange-mid);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .obj-q {
+      background: var(--mw-orange-light);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #c04a00;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .obj-q::before { content: '🔧'; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .obj-a {
+      padding: 16px 20px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #4a4a4a;
+      border-top: 1px solid var(--mw-orange-mid);
+      background: var(--mw-white);
+    }
+    .obj-a strong { color: var(--mw-black); }
+    .obj-a a { color: var(--mw-teal-dark); font-weight: 600; }
+
+    /* NOT SUPPORTED / WATCH-OUTS */
+    .not-supported {
+      background: #2a1810;
+      color: #FFEFEA;
+      border-radius: 10px;
+      padding: 26px 28px;
+      margin-top: 24px;
+    }
+    .not-supported-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mw-orange);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .not-supported ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .not-supported li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      opacity: 0.92;
+    }
+    .not-supported li::before {
+      content: '!';
+      position: absolute;
+      left: 0; top: 0;
+      color: var(--mw-orange);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .not-supported li strong { color: white; }
+
+    /* TIER GRID */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .tier-card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 20px 22px;
+      background: var(--mw-white);
+    }
+    .tier-card .tier-name {
+      font-size: 15px; font-weight: 700; color: var(--mw-teal-dark); margin-bottom: 4px;
+    }
+    .tier-card .tier-tag {
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--mw-teal-medium); margin-bottom: 12px;
+    }
+    .tier-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .tier-card ul li {
+      position: relative; padding-left: 18px; font-size: 12.5px; line-height: 1.5; color: #4a4a4a;
+    }
+    .tier-card ul li::before {
+      content: '+'; position: absolute; left: 0; top: 0; color: var(--mw-teal); font-weight: 700;
+    }
+    .tier-card ul li strong { color: var(--mw-black); }
+
+    /* DOC LINK */
+    .doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--mw-teal-dark);
+      text-decoration: none;
+      margin-top: 4px;
+    }
+    .doc-link:hover { text-decoration: underline; }
+    .doc-link::after { content: '↗'; font-size: 11px; }
+
+    /* CITATIONS */
+    sup.cite { font-size: 10px; line-height: 0; }
+    sup.cite a {
+      color: var(--mw-teal-medium);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0 1px;
+    }
+    sup.cite a:hover { text-decoration: underline; }
+    .sources {
+      margin-top: 24px;
+      background: var(--mw-gray);
+      border-radius: 10px;
+      padding: 24px 28px;
+    }
+    .sources h3 {
+      font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--mw-teal-dark); margin-bottom: 14px;
+    }
+    .sources ol { margin: 0 0 0 18px; }
+    .sources li {
+      font-size: 12.5px; line-height: 1.6; color: #4a4a4a; margin-bottom: 7px;
+    }
+    .sources a { color: var(--mw-teal-dark); text-decoration: underline; font-weight: 500; }
+    .sources a:hover { color: var(--mw-teal-medium); }
+    .sources .src-note { font-style: italic; color: #7a7a7a; }
+
+    /* AUDIENCE CHIP */
+    .step-audience {
+      display: inline-block;
+      background: var(--mw-teal-tint-3);
+      color: var(--mw-teal-dark);
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .activation-step.purple .step-audience { background: var(--mw-purple-light); color: #8a1a7a; }
+    .activation-step.orange .step-audience { background: var(--mw-orange-light); color: #c04a00; }
+
+    /* INTERNAL-ONLY RESOURCE CALLOUT */
+    .internal-note {
+      background: #FFFAE7;
+      border: 1.5px dashed #E0B400;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-top: 24px;
+    }
+    .internal-note .internal-badge {
+      display: inline-block;
+      background: #FFCC01; color: #5a4500;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 3px 10px; border-radius: 4px; margin-bottom: 10px;
+    }
+    .internal-note p { font-size: 13.5px; line-height: 1.6; color: #5a4500; }
+    .internal-note a { color: #8a6a00; font-weight: 700; }
+
+    /* RESOURCE LINK GRID */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .resource-link {
+      display: block;
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .resource-link:hover { border-color: var(--mw-teal); box-shadow: 0 3px 12px rgba(40,187,187,0.1); }
+    .resource-link .rl-title { font-size: 13px; font-weight: 700; color: var(--mw-teal-dark); margin-bottom: 3px; }
+    .resource-link .rl-desc { font-size: 12px; color: #5a5a5a; line-height: 1.45; }
+
+    /* FOOTER */
+    footer {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; text-align: right; }
+    .footer-links a { color: var(--mw-teal-tint-1); text-decoration: none; font-size: 13px; }
+    .footer-links a:hover { text-decoration: underline; color: white; }
+    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 24px; }
+      .hero h1 { font-size: 28px; }
+      .page-body { padding: 40px 24px; }
+      .cards-grid, .integration-grid, .tier-grid, .resource-grid { grid-template-columns: 1fr; }
+      .activation-flow { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); padding: 4px 0; }
+      footer { flex-direction: column; }
+      .footer-links { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-logo-mark">&lt;o&gt;</div>
+      Klear — IM Guide
+    </div>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#activate">Activate</a></li>
+      <li><a href="#configure">Configure</a></li>
+      <li><a href="#feature-activations">Story &amp; Pay</a></li>
+      <li><a href="#enable">Enable client</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Internal Guide · Implementation</div>
+    <h1>Standing up <span>Klear</span> for your customer</h1>
+    <p class="hero-sub">A tactical runbook for getting a Klear account from "contract signed" to "client running campaigns" — activation, account configuration, the ticket-gated features (IG Story Tracking and Klear Pay), and how to enable the client on the tool.</p>
+    <div class="hero-pills">
+      <span class="pill">Activate &amp; configure</span>
+      <span class="pill pill-purple">IG Story Tracking &amp; Klear Pay</span>
+      <span class="pill pill-orange">Enablement playbook</span>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <!-- ═══════════ SECTION 1: OVERVIEW ═══════════ -->
+    <section id="overview">
+      <div class="section-header">
+        <div class="section-eyebrow">Start here</div>
+        <h2>Klear in 60 seconds</h2>
+        <p>The customer already bought the value. Your job is correct execution: get the account live, configured to their workflow, and the team enabled. This is a map of where everything lands.</p>
+      </div>
+
+      <div class="callout">
+        <strong>What Klear is:</strong> Meltwater's influencer marketing platform — a database of 30M+ creators plus the tooling to discover and vet them, manage a creator community, pay creators, and report on campaign ROI.<sup class="cite"><a href="#ref-9">9</a></sup> Everything you configure in setup exists to serve one of the four use cases below.
+      </div>
+
+      <p style="font-size:14px; color:#4a4a4a; margin-bottom:20px;">Klear breaks into four customer use cases. Knowing which ones a customer cares about tells you what to configure and where to push adoption:<sup class="cite"><a href="#ref-3">3</a></sup></p>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🔍</div>
+          <h3>Grow your community</h3>
+          <p>Discover, vet, and recruit creators — search by topic, keyword, or visual, then vet for brand fit. The use case most clients adopt on their own.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💬</div>
+          <h3>Manage your community</h3>
+          <p>Contract and communicate with creators in one inbox, run campaign briefs and content approvals, and store first-party data. A key stickiness driver.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💳</div>
+          <h3>Pay your community</h3>
+          <p>Klear Pay — pay creators directly through Klear via Gigapay or Tipalti. Lower adoption, but clients with integrated payments have far higher retention.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h3>Report &amp; analyse</h3>
+          <p>Track content, calculate ROI and EMV, compare market by market, and pull competitive intelligence. Configuration-heavy — get the settings right early.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-purple">
+        <strong>In-tool, the four use cases become one client workflow:</strong> the client works left to right across the tabs. Everything you set up in configuration feeds this flow.
+      </div>
+
+      <div class="activation-flow">
+        <div class="flow-step s1">
+          <div class="flow-num">1</div>
+          <h4>Discover</h4>
+          <p>Find creators by topic, keyword, or visual.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step s2">
+          <div class="flow-num">2</div>
+          <h4>Vet</h4>
+          <p>Check engagement, demographics, brand fit.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step s3">
+          <div class="flow-num">3</div>
+          <h4>Campaign</h4>
+          <p>Build the campaign, add members, set tracking.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step s4">
+          <div class="flow-num">4</div>
+          <h4>Connect</h4>
+          <p>Invite, brief, message, approve content, pay.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step s5">
+          <div class="flow-num">5</div>
+          <h4>Measure</h4>
+          <p>Track ROI, EMV, and export reports.</p>
+        </div>
+      </div>
+
+      <div class="boundary-banner">
+        <strong>Scope of this guide:</strong> the IM path — how to <strong>activate</strong>, <strong>configure</strong>, and <strong>enable a client</strong> on Klear. It is not a client-facing user manual (send clients to <a href="https://community.meltwater.com/klear-setup-47/get-started-with-klear-7851" target="_blank">Get Started with Klear</a> and <a href="https://academy.meltwater.com/pages/klear-academy" target="_blank">Klear Academy</a>) and it does not cover the sales / lead-approval process.
+      </div>
+    </section>
+
+    <!-- ═══════════ SECTION 2: PACKAGES / PREREQUISITES ═══════════ -->
+    <section id="packages">
+      <div class="section-header">
+        <div class="section-eyebrow">Before you activate</div>
+        <h2>Know the package before you touch the account</h2>
+        <p>The package the customer bought decides what you can configure — number of workspaces, whether the API and automated Story Tracking are included, and which Klear Pay vendor is available. Confirm it first (check Totango / the contract), then set up to match.<sup class="cite"><a href="#ref-4">4</a></sup></p>
+      </div>
+
+      <p style="font-size:14px; color:#4a4a4a; margin-bottom:18px;">Klear sells in four tiers. Rather than memorize seat and influencer caps (those live in the contract and change), think in terms of <strong>what unlocks as you move up</strong>:<sup class="cite"><a href="#ref-4">4</a></sup></p>
+
+      <div class="tier-grid">
+        <div class="tier-card">
+          <div class="tier-name">Essentials (L1)</div>
+          <div class="tier-tag">Entry — discover, manage, report</div>
+          <ul>
+            <li>Discover, vet, and manage creators; report on campaign ROI</li>
+            <li><strong>Full Recruit</strong> (landing page / website embed)</li>
+            <li>Self-serve <strong>unauthenticated IG Story Tracking</strong> (tagged, brand-connected)</li>
+            <li>eCommerce integrations (Shopify / WooCommerce), tracking pixels, coupon codes</li>
+            <li>Gigapay available as an optional add-on</li>
+          </ul>
+        </div>
+        <div class="tier-card">
+          <div class="tier-name">Advanced (L2)</div>
+          <div class="tier-tag">Adds payments, automation, API</div>
+          <ul>
+            <li>Everything in Essentials, plus:</li>
+            <li><strong>Klear Pay via Tipalti</strong> (pay creators from the Payments module)</li>
+            <li><strong>Meltwater-assisted automated IG Story Tracking</strong> (needs Support activation)</li>
+            <li><strong>Influencer Campaign API</strong> (push campaign data to BI tools)</li>
+            <li>More seats and active influencers</li>
+          </ul>
+        </div>
+        <div class="tier-card">
+          <div class="tier-name">Advanced (L3)</div>
+          <div class="tier-tag">Adds scale &amp; a second workspace</div>
+          <ul>
+            <li>Everything in Advanced (L2), plus:</li>
+            <li><strong>Multiple workspaces</strong> — segment by team, region, or brand</li>
+            <li>Higher seat and active-influencer allocations</li>
+          </ul>
+        </div>
+        <div class="tier-card">
+          <div class="tier-name">Enterprise (L4)</div>
+          <div class="tier-tag">Top of the range</div>
+          <ul>
+            <li>Everything in Advanced (L3), plus:</li>
+            <li>The most workspaces, seats, and active influencers</li>
+            <li>Best fit for multi-market / multi-team programs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-orange">
+        <strong>Exact seat, influencer, and workspace numbers live in the contract / Totango — not here.</strong> They change with packaging updates and vary by deal. This guide stays qualitative on purpose; confirm the specifics per account before you promise anything.
+      </div>
+    </section>
+
+    <!-- ═══════════ SECTION 3: ACTIVATE ═══════════ -->
+    <section id="activate">
+      <div class="section-header">
+        <div class="section-eyebrow">Step one</div>
+        <h2>Activate the account</h2>
+        <p>Klear accounts are created by Product Support off an emailed request — there's no self-serve provisioning. It's a short, mechanical step, but it gates everything after it, so get the request right the first time.</p>
+      </div>
+
+      <div class="callout">
+        <strong>Before you send the request:</strong> Support activates the account only once the order is <strong>Active</strong> in Salesforce, and not before the order start date. If Klear already shows on the account in Salesforce, it's cleared to set up.
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Email help@meltwater.com to request activation</h4>
+            <p>Send a request to <span class="inline-code">help@meltwater.com</span> asking Product Support to activate a Klear account for the customer.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Include everything Support needs</h4>
+            <p>Provide the client's <strong>full name and email address</strong>. If there will be multiple users, <strong>name the primary admin</strong>. In the same request, ask for access for <strong>yourself and the accounts team</strong> by listing all of your emails.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Wait for confirmation</h4>
+            <p>Product Support creates the account and confirms back when it's live. You can't move on to configuration until this lands.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:22px;">
+        <strong>Need your own access to demo?</strong> For a buddy / demo account, follow <a href="https://meltwatergroup.seismic.com/app#/doccenter/4eaaec7a-2fe5-4d5a-94f6-dfde0f081499/doc/" target="_blank">How Do I Get Access To Social Influencers</a>. Access to a client's account comes through the same activation request above (list your emails when you email help@) — it then appears as a workspace option in your Meltwater logins.<sup class="cite"><a href="#ref-9">9</a></sup>
+      </div>
+    </section>
+
+    <!-- ═══════════ SECTION 4: CONFIGURE ═══════════ -->
+    <section id="configure">
+      <div class="section-header">
+        <div class="section-eyebrow">Step two</div>
+        <h2>Configure the account for the customer</h2>
+        <p>This is where most of the IM work sits. Reporting &amp; analyse is configuration-heavy — the settings matter as much as the enablement. Work through the groups below; each item is flagged <strong>Must-have</strong> or <strong>Should-have</strong>, and where the <strong>client</strong> has to do it themselves (usually because it needs their credentials).<sup class="cite"><a href="#ref-8">8</a></sup></p>
+      </div>
+
+      <div class="callout">
+        <strong>How to read the tags:</strong> <span class="tag tag-must">Must have</span> do it in every implementation · <span class="tag tag-should">Should have</span> do it when it fits the client's workflow · <span class="tag tag-client">Client-owned</span> the client must action this (it needs their logins / accounts). Several items are also tracked in Totango.<sup class="cite"><a href="#ref-8">8</a></sup>
+      </div>
+
+      <!-- GROUP A: connections -->
+      <div class="config-group">
+        <div class="config-group-head">
+          <span class="cg-icon">🔌</span>
+          <h4>Core connections</h4>
+        </div>
+        <div class="config-group-body">
+          <div class="config-row">
+            <div class="cr-name"><strong>Connect emails</strong> — link the client's sending inbox so Connect messages send and receive natively.</div>
+            <span class="tag tag-must">Must have</span>
+            <span class="tag tag-client">Client-owned</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Connect brand IG business + Facebook</strong> — enables tagged-post tracking, @mentions, Stories, insights, and demographics. Instagram must be a Business/Creator account.</div>
+            <span class="tag tag-should">Should have</span>
+            <span class="tag tag-client">Client-owned</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Connect eCommerce store</strong> — Shopify / WooCommerce (or the offline product-gifting workflow) for full conversion and sales tracking.</div>
+            <span class="tag tag-should">Should have</span>
+            <span class="tag tag-client">Client-owned</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUP B: settings -->
+      <div class="config-group">
+        <div class="config-group-head">
+          <span class="cg-icon">⚙️</span>
+          <h4>Account settings</h4>
+        </div>
+        <div class="config-group-body">
+          <div class="config-row">
+            <div class="cr-name"><strong>Set AI personalisation</strong> — powers AI-personalised influencer vetting and campaign docs. Use the LLM prompts to generate personalisation.</div>
+            <span class="tag tag-must">Must have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Confirm currency</strong> — set before any budgets or payments are entered so reporting reads correctly.</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Select engagement-rate calculation</strong> — align to how the client benchmarks performance.</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Select correct timezone</strong> — ensures content and reporting timestamps line up with the client's market.</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUP C: data & structure -->
+      <div class="config-group">
+        <div class="config-group-head">
+          <span class="cg-icon">🗂️</span>
+          <h4>Data &amp; structure</h4>
+        </div>
+        <div class="config-group-body">
+          <div class="config-row">
+            <div class="cr-name"><strong>Upload the influencer community</strong> — import the client's existing creator list (reformat if necessary) so they start with their people already in Klear.</div>
+            <span class="tag tag-must">Must have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Set up the monitor landscape</strong> — configure Monitors for competitive intelligence and brand tracking. Secondary for many clients and mostly separate from campaign building — set it up where competitive tracking is a genuine need.</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Set up influencer tags</strong> — structure tags to reflect sub-communities and make filtering / reporting work.</div>
+            <span class="tag tag-must">Must have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Set up campaign labels</strong> <em>(L2+)</em> — organize and roll up reporting across campaigns (e.g. by market or brand).</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUP D: campaigns & recruit -->
+      <div class="config-group">
+        <div class="config-group-head">
+          <span class="cg-icon">🚀</span>
+          <h4>Campaigns &amp; Recruit</h4>
+        </div>
+        <div class="config-group-body">
+          <div class="config-row">
+            <div class="cr-name"><strong>Set up a campaign</strong> — build the first campaign with tracking keywords, hashtags, and brand handles so content is captured correctly.</div>
+            <span class="tag tag-must">Must have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Set up &amp; train on the Recruit form</strong> — the branded landing page / website embed that captures new creator applications. Usually a secondary use case, so enable it where it fits the client's program.</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Create an email template</strong> <em>(L2+)</em> — reusable outreach so the client isn't writing from scratch each time.</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+          <div class="config-row">
+            <div class="cr-name"><strong>Introduce Gigapay / begin Tipalti onboarding</strong> <em>(L2+)</em> — kick off Klear Pay if the client bought it. See the next section for the full process.</div>
+            <span class="tag tag-should">Should have</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-orange">
+        <strong>Client-owned items are the usual blockers.</strong> Connecting emails, the brand IG/Facebook, and the eCommerce store all need the client's own logins — you can't do them for the client. Line these up early and set the expectation, or configuration stalls waiting on the client.
+      </div>
+
+      <div class="callout callout-purple">
+        <strong>Reporting configuration = adoption insurance.</strong> If reporting &amp; analyse isn't set up to meet the client's actual reporting goals, they won't get value and it becomes a risk trigger. Understand who receives the report (often a Manager or CMO) versus who configures it (usually the day-to-day Specialist), and build the setup around the recipient's goals.<sup class="cite"><a href="#ref-3">3</a></sup>
+      </div>
+    </section>
+
+    <!-- ═══════════ SECTION 5: FEATURE ACTIVATIONS ═══════════ -->
+    <section id="feature-activations">
+      <div class="section-header">
+        <div class="section-eyebrow section-eyebrow-purple">Step three</div>
+        <h2>Feature activations that need a ticket or vendor</h2>
+        <p>Two features aren't just settings — they need a Support ticket or a third-party vendor to switch on. These are the ones IMs most often trip over, so they get their own section.</p>
+      </div>
+
+      <!-- IG STORY TRACKING -->
+      <div class="activation-step orange">
+        <div class="activation-step-head">
+          <div class="activation-step-num">A</div>
+          <h3>Instagram Story Tracking</h3>
+          <span class="step-audience">Support ticket required for L2+ &amp; add-on</span>
+        </div>
+
+        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">Instagram Stories are one of the biggest reporting gaps in influencer marketing — most platforms can't track them without the influencer authenticating. Klear captures them in three ways depending on plan and add-on:<sup class="cite"><a href="#ref-4">4</a></sup></p>
+
+        <ul class="check-list">
+          <li><strong>Self-serve, tagged (all plans):</strong> when the brand IG + Facebook are connected and an influencer <em>tags the brand</em> in a Story, the client gets notified and can save it to a campaign within 24 hours. No ticket needed.</li>
+          <li><strong>Meltwater-assisted, automated (L2+):</strong> Meltwater captures and saves eligible tagged Stories to the campaign on the client's behalf, 7 days a week. <strong>Requires a Support ticket to activate.</strong></li>
+          <li><strong>Advanced manual, no tag required (add-on, any plan L1–L4):</strong> Meltwater manually gathers and saves Stories from an approved influencer list even when the brand isn't tagged. Purchased as an add-on; requires a ticket plus a completed tracking template.</li>
+        </ul>
+
+        <div class="callout callout-orange" style="margin-top:20px;">
+          <strong>The pre-launch checklist that actually matters.</strong> For assisted tracking, before any campaign goes live confirm: the client has connected the brand <strong>Instagram AND Facebook</strong> in Klear; influencers are <strong>added to the campaign(s)</strong>; and the client has told influencers to <strong>tag the brand</strong> in their Stories. If these aren't done before launch, Stories won't be tracked or saved — there's no retroactive capture.<sup class="cite"><a href="#ref-4">4</a></sup>
+        </div>
+
+        <div class="integration-grid">
+          <div class="integration-card">
+            <div class="integration-header">
+              <div class="integration-icon">◆</div>
+              <div class="integration-title">Assisted tracking (L2+)</div>
+            </div>
+            <div class="integration-body">
+              <span class="integration-tag">Support ticket</span>
+              <ol>
+                <li>Submit a Support ticket requesting <strong>Instagram Story Tracking Support</strong>.</li>
+                <li>Include the <strong>Salesforce account / opportunity link</strong> and the customer's plan (L2, L3, or add-on from L1).</li>
+                <li>The account is added to the monitored list. You may be pulled into <span class="inline-code">#manual-instagram-story-tracking</span> for details.</li>
+                <li>Complete the pre-launch checklist above <em>before</em> campaigns go live.</li>
+              </ol>
+              <div class="verify-line">
+                <strong>Metrics note:</strong> performance is estimated on Klear's True Reach — real Meta data only comes from influencers authenticated to Klear.
+              </div>
+            </div>
+          </div>
+          <div class="integration-card">
+            <div class="integration-header purple">
+              <div class="integration-icon">◈</div>
+              <div class="integration-title">Advanced manual add-on</div>
+            </div>
+            <div class="integration-body">
+              <span class="integration-tag purple">Add-on + ticket</span>
+              <ol>
+                <li>Submit a ticket requesting <strong>Advanced Instagram Story Tracking Support</strong>; include the Salesforce link and which plan the add-on was bought from.</li>
+                <li>Copy the tracking template, have the customer complete it, and return it <strong>before the campaign goes live</strong>.</li>
+                <li>Link the completed details in the internal tracking doc.</li>
+                <li>Meltwater monitors the approved list (up to ~20 influencers/day) and saves Stories to the campaign, 7 days a week.</li>
+              </ol>
+              <div class="verify-line">
+                <strong>Questions?</strong> Neil Brennan or Paul Davison can help with what to gather.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KLEAR PAY -->
+      <div class="activation-step purple">
+        <div class="activation-step-head">
+          <div class="activation-step-num">B</div>
+          <h3>Klear Pay — Gigapay vs Tipalti</h3>
+          <span class="step-audience">Vendor onboarding required</span>
+        </div>
+
+        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">Klear Pay lets clients pay creators directly from Klear. It runs through one of two vendors, and the client must contract with that vendor — payments can't be switched on without it. Adoption is lower than other use cases, but clients with integrated payments retain dramatically better, so it's worth leaning in.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+
+        <div class="tier-grid">
+          <div class="tier-card">
+            <div class="tier-name">Gigapay</div>
+            <div class="tier-tag">Optional on all plans · simpler setup</div>
+            <ul>
+              <li><strong>Merchant of Record</strong> — Gigapay handles tax, KYC, and compliance</li>
+              <li>Streamlined onboarding; often very straightforward for clients</li>
+              <li>Requires a separate agreement and an annual payment commitment</li>
+              <li>Good default when the client wants tax/compliance off their plate</li>
+            </ul>
+          </div>
+          <div class="tier-card">
+            <div class="tier-name">Tipalti</div>
+            <div class="tier-tag">L2+ · more configuration</div>
+            <ul>
+              <li>Client is responsible for filing taxes (jurisdiction-dependent)</li>
+              <li>Funds sent to a Tipalti account; released to creators from Klear</li>
+              <li>Optional AP approval step for finance oversight</li>
+              <li>More setup steps and a longer onboarding than Gigapay</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-purple">
+          <strong>Both can power campaign work and affiliate programs.</strong> Pick the vendor with the client based on how much tax/compliance they want to own (Gigapay takes it on; Tipalti leaves it with the brand) and their plan level (Tipalti is L2+). For a client-ready side-by-side of the two partners, use the <a href="https://docs.google.com/presentation/d/1NrHtcNCCX8oQGMC60-huJAFnm_i29592FWvk83b1KDY/edit" target="_blank">KlearPay partner comparison deck</a>.<sup class="cite"><a href="#ref-10">10</a></sup>
+        </div>
+
+        <h4 style="font-size:16px; font-weight:700; color:var(--mw-black); margin:34px 0 6px;">Gigapay onboarding — step by step</h4>
+        <p style="font-size:13.5px; color:#4a4a4a; margin-bottom:8px;">Internal Klear contact for setup questions: <strong>Paul Davison</strong>. Gigapay-specific contact: Hjalmar Bergkvist Soto, or <span class="inline-code">#product-gigapay</span>.<sup class="cite"><a href="#ref-6">6</a></sup></p>
+
+        <div class="steps purple-line">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Pre-activation checklist</h4>
+              <p>Confirm the client understands the volume-based pricing model, is willing to commit to the annual payment threshold, and understands Gigapay is the <strong>Merchant of Record</strong> (managing tax, KYC, compliance). If they're unsure which option fits, share the customer discussion deck.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Submit the activation ticket</h4>
+              <p>Open a Support ticket for Klear activation and include the full business details: email, phone, TIN, VAT number, friendly/company name, registered legal name, country (3-letter ISO), state (if US/CA/AU), city, address, and ZIP. This routes straight to Gigapay's onboarding team.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Gigapay account setup</h4>
+              <p>A Gigapay rep contacts the customer to run KYC verification, complete financial onboarding, finalize the Gigapay Service Agreement, and train them on funding the portal. Once signed, the account is created and configured.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Link the account in Klear</h4>
+              <p>Klear Product Support syncs the Gigapay account to the workspace. It appears under <span class="inline-code">Account Settings → Integrations → Payments</span>. A client can connect multiple Gigapay accounts (each with its own balance/currency).</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Campaign setup</h4>
+              <p>In the Campaign Brief, toggle <strong>Add Payment Details</strong>. If there are multiple Gigapay accounts, select the right one — <strong>this can't be changed once the campaign is created</strong>. Invited influencers enter payment info in their creator portal, then finish onboarding via Gigapay's follow-up email. Status updates to <em>"Influencer is payable."</em></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Send payments</h4>
+              <p>When deliverables are met, go to the campaign's <strong>Connect</strong> tab, choose <strong>Send Payment</strong>, enter the amount, review, and pay. The influencer claims the payout via Gigapay; funds release automatically. Track status in <span class="inline-code">Connect → Payments</span> and export summaries anytime.</p>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size:16px; font-weight:700; color:var(--mw-black); margin:34px 0 6px;">Tipalti onboarding — step by step</h4>
+        <p style="font-size:13.5px; color:#4a4a4a; margin-bottom:8px;">More involved than Gigapay. The Tipalti Alliance Manager (Danielle Brockmeyer) sends a daily status report to whoever initiated onboarding. If there's no IM on the account, include Paul Davison on the kickoff call.<sup class="cite"><a href="#ref-7">7</a></sup></p>
+
+        <div class="steps purple-line">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Kickoff call</h4>
+              <p>Set up a kickoff with the client and their IM to walk through KlearPay and the onboarding process (use the provided slide deck template). If Finance or senior leadership joins, loop in Danielle Brockmeyer.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Complete the Client Information Document</h4>
+              <p>Copy the Client Information Document, fill out <strong>all</strong> fields (required to start), and email it to <span class="inline-code">Channel.TPP@tipalti.com</span> with the customer copied, using the initiate-onboarding template.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>Order Form (DocuSign)</h4>
+              <p>Tipalti's Channel Sales Executive sends the Order Form to the customer via DocuSign within ~1 business day — use the order form matching the customer's HQ region. Once signed, Tipalti sends a separate order form to Neil Brennan to confirm the subscription fee for the client's instance.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>KYC ("Know Your Customer")</h4>
+              <p>After the order form is signed, Tipalti's Compliance Team emails the KYC form (from <span class="inline-code">complianceonboarding@tipalti.com</span>) within ~2 business days. Share the Tipalti KYC FAQ with whoever will complete it.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <h4>Configuration &amp; activation</h4>
+              <p>Work with the client to complete the configuration form (Tipalti onboarding manager must be listed as <span class="inline-code">kunwar.parmar@tipalti.com</span>), then email Tipalti to confirm submission. Tipalti sets up the instance in ~1–2 business days; Firas (Meltwater) completes the integration and activates KlearPay, then shares funding instructions with the IM/AM to relay and train the client. The client can then fund the account.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <h4>Ongoing support</h4>
+              <p>Once live, contact <span class="inline-code">partner.support@tipalti.com</span> for technical issues, using the subject line <span class="inline-code">Klear + {Client Name}</span> and including the payer name and payee IDAP where relevant.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="internal-note">
+          <div class="internal-badge">Internal — full docs</div>
+          <p>The step-by-step above is condensed. For the complete field lists, email templates, region-specific order forms, and vendor contacts, use the full internal docs: <a href="https://docs.google.com/document/d/1ZS5L3cPsv6-R7O_6BpYS_ut4tnMBPvONCFDxImWWWmU/edit" target="_blank">Gigapay Onboarding</a> and <a href="https://docs.google.com/document/d/1EWAtIXdKKBOdT6-OmZCNyUGbOnZvs1PNUlIZMjpcJm0/edit" target="_blank">Tipalti Onboarding</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SECTION 6: ENABLE THE CLIENT ═══════════ -->
+    <section id="enable">
+      <div class="section-header">
+        <div class="section-eyebrow section-eyebrow-orange">Step four</div>
+        <h2>Enable the client on Klear</h2>
+        <p>Account's live and configured — now get the team using it. Enablement is where adoption is won or lost. Run working sessions around the client's workflows and outcomes, not feature tours.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+      </div>
+
+      <div class="callout callout-orange">
+        <strong>Move from "tell &amp; show" to "do."</strong> Tell them what they need to know, show them how, then give them a task and get their hands on the keyboard. Reinforce with <strong>teachbacks</strong> — ask them to explain back what they just learned and walk you through the workflow themselves. Adjust depth to the persona: Specialists, Generalists, and Managers all use Klear differently.<sup class="cite"><a href="#ref-3">3</a></sup>
+      </div>
+
+      <p style="font-size:14px; color:#4a4a4a; margin-bottom:8px;">Enable in the order the client will actually work — the same left-to-right flow from the overview. Anchor each session on the outcome, not the tab:</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Discover &amp; vet (Grow your community)</h4>
+            <p>Teach searching by topic, keyword, and visual, then vetting on engagement, audience demographics, and brand fit. This is the use case clients adopt most naturally — but if it's the <em>only</em> thing they use, that's a risk trigger. Show advanced search and vetting to deepen the value.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Build the campaign (Report &amp; analyse foundation)</h4>
+            <p>Walk them through creating a campaign, adding members, and setting tracking keywords/hashtags/handles so content is captured correctly. Tie labels and tags back to how they want to report.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Collaborate in Connect (Manage your community)</h4>
+            <p>Invite and brief creators, message in-platform, approve content, and store first-party data. This is a major stickiness driver — the more of their community management lives in Klear, the more reliant (and retained) they become.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Pay creators (Pay your community)</h4>
+            <p>If Klear Pay is set up, enable them on sending payments and tracking status. Don't let this land in the "too hard" basket — integrated payments correlate with far higher retention, so coach through it during enablement.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Measure &amp; report (Report &amp; analyse)</h4>
+            <p>Show the Measure tab (Overview vs Analytics), building a campaign report, and — for L2+ — competitive intelligence via Monitors and the Influencer Campaign API for BI dashboards. Make sure the output matches what the report recipient actually needs.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-purple" style="margin-top:22px;">
+        <strong>Know when a client is actually enabled.</strong> Look for leading indicators per use case, not just logins: influencers uploaded and assigned to campaigns, campaigns with tracking configured, Connect being used for real communication, first-party data captured, and reports being pulled. Usage across multiple use cases — especially Manage and Pay — is the strongest signal of a sticky, retained account.<sup class="cite"><a href="#ref-3">3</a></sup>
+      </div>
+
+      <div class="internal-note">
+        <div class="internal-badge">Client-facing training resources</div>
+        <p>Point clients to <a href="https://community.meltwater.com/klear-setup-47/get-started-with-klear-7851" target="_blank">Get Started with Klear</a> for the step-by-step user walkthrough and <a href="https://academy.meltwater.com/pages/klear-academy" target="_blank">Klear Academy</a> for certification and deeper training. They can also use the in-app chat (bottom-right of the Klear home screen) to reach a product expert.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+      </div>
+    </section>
+
+    <!-- ═══════════ SECTION 7: TROUBLESHOOTING & RESOURCES ═══════════ -->
+    <section id="troubleshooting">
+      <div class="section-header">
+        <div class="section-eyebrow section-eyebrow-orange">When you get stuck</div>
+        <h2>Troubleshooting, FAQs &amp; resources</h2>
+        <p>The questions that come up most in the field, plus where to route issues and find the deeper collateral.<sup class="cite"><a href="#ref-9">9</a></sup></p>
+      </div>
+
+      <div class="objections">
+        <div class="objection">
+          <div class="obj-q">"My client can't find a specific influencer in Klear."</div>
+          <div class="obj-a">Klear is a search engine — get creative with inputs: different languages, keywords like <em>"brand ambassador"</em>, hashtags, similar brands, or uploaded images. Also check account type: <strong>Instagram profiles must be Business or Creator accounts</strong> and public to be searchable. New influencers can be added manually via the Profiles tab.</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"We pulled data from an influencer before, now there's nothing — but they're posting."</div>
+          <div class="obj-a">They likely switched to a <strong>Personal account</strong> (not Creator or Business). If follower data doesn't mirror native, force a refresh: open the influencer profile → the arrows next to <em>Edit Social Networks</em> (gear icon).</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Why is there no demographic or brand-safety data on this influencer?"</div>
+          <div class="obj-a">For unauthenticated profiles, Klear infers demographics from audience data — but if there isn't enough to pass the accuracy threshold, those fields stay blank. Authenticated influencers (connected to Klear) return richer, verified data.</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Why is True Reach higher than the follower count?"</div>
+          <div class="obj-a"><strong>True Reach</strong> is Klear's proprietary estimate of how many people actually see content on average across platforms (everything except YouTube). It's not follower count — content can reach beyond a creator's direct followers, so the two legitimately differ.</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"How do we track sales / conversions?"</div>
+          <div class="obj-a">Only where links or coupon codes are <strong>generated in Klear</strong> — otherwise there's no way to tie it back. Depending on the store, you'll integrate conversion tracking (Shopify/WooCommerce, or the manual product catalog for others). If the client uses another system, they can copy links into Klear to generate trackable bit.ly links.</div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Something's broken / the client hit an error."</div>
+          <div class="obj-a">Have the client (or you) <strong>file a Support ticket</strong> with the specific URL(s). For urgent issues, <a href="https://escalation.support.meltwater.io/" target="_blank">escalate the ticket internally</a> and share the ticket number in the Klear field channel for feedback. Search the field channel first — most questions have already been answered.</div>
+        </div>
+      </div>
+
+      <div class="not-supported">
+        <div class="not-supported-label">! Set expectations on these</div>
+        <ul>
+          <li><strong>IG Stories need tags (or the add-on).</strong> Assisted tracking only captures Stories where the influencer tags the brand. No-tag capture requires the Advanced manual add-on. Real Meta metrics only come from authenticated influencers.</li>
+          <li><strong>Campaign size.</strong> The max is contract-dependent, but recommend no more than ~500 influencers per campaign for the best UX and load times.</li>
+          <li><strong>Data freshness.</strong> Campaigns update roughly every 24 hours; link-click data comes ~24 hours after via bit.ly. You can force-update an individual influencer from their profile.</li>
+          <li><strong>Red / Xiaohongshu.</strong> Klear monitors public Red profiles in Discovery only — clients manage those partnerships natively, outside Klear.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:32px;">
+        <h4 style="font-size:16px; font-weight:700; color:var(--mw-black); margin-bottom:6px;">Where to go next</h4>
+        <p style="font-size:13.5px; color:#4a4a4a; margin-bottom:12px;">The Klear resource canvas in Slack is the single hub for setup, selling, and support material. Start with the Klear FAQ before posting a question.<sup class="cite"><a href="#ref-9">9</a></sup></p>
+        <div class="resource-grid">
+          <a class="resource-link" href="https://meltwater.slack.com/docs/T02EG0KQK/F05FJ7TUG05" target="_blank">
+            <div class="rl-title">Klear Resources Canvas (Slack)</div>
+            <div class="rl-desc">Quick links, rules &amp; guidance, and the full FAQ — the field hub.</div>
+          </a>
+          <a class="resource-link" href="https://docs.google.com/document/d/1O0emMdZ4Up7JXMzL1UZuCl3AQqbYG4uFFp9uLlhsr10/edit" target="_blank">
+            <div class="rl-title">Klear FAQ</div>
+            <div class="rl-desc">Check here first — most field questions are already answered.</div>
+          </a>
+          <a class="resource-link" href="https://meltwater.skillshood.com/content/pages/884" target="_blank">
+            <div class="rl-title">Klear Saleshood Page</div>
+            <div class="rl-desc">Everything to sell, set up, and talk about Klear.</div>
+          </a>
+          <a class="resource-link" href="https://academy.meltwater.com/pages/klear-academy" target="_blank">
+            <div class="rl-title">Klear Academy</div>
+            <div class="rl-desc">Client-facing certification and deeper feature training.</div>
+          </a>
+          <a class="resource-link" href="https://community.meltwater.com/klear-influencer-marketing-152" target="_blank">
+            <div class="rl-title">Klear Help Center (Community)</div>
+            <div class="rl-desc">Customer-facing help articles across all Klear features.</div>
+          </a>
+          <a class="resource-link" href="https://community.meltwater.com/klear-setup-47/get-started-with-klear-7851" target="_blank">
+            <div class="rl-title">Get Started with Klear</div>
+            <div class="rl-desc">The client walkthrough — discovery, vetting, campaigns, reporting.</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SOURCES ═══════════ -->
+    <div class="sources">
+      <h3>Sources</h3>
+      <ol>
+        <li id="ref-1"><a href="https://community.meltwater.com/klear-setup-47/get-started-with-klear-7851" target="_blank">Get Started with Klear</a> — Meltwater Community Help Center (Oct 2025).</li>
+        <li id="ref-2"><a href="https://community.meltwater.com/klear-influencer-marketing-152" target="_blank">Klear: Influencer Marketing</a> — Meltwater Community Help Center.</li>
+        <li id="ref-3"><a href="https://docs.google.com/presentation/d/1huOqdICDAtQC8iesa5X4FvIT5AKCYFdt0F4IqG6Fp_c/edit" target="_blank">FY25 Project Marvel — Klear Enablement deck</a> (June 2025). <span class="src-note">Internal; some framing predates the March 2026 packaging update.</span></li>
+        <li id="ref-4"><a href="https://docs.google.com/presentation/d/1L0A_ldn9a9yc4RAtQF_RckGAPZsdu2qkI00TSV12Y5I/edit" target="_blank">Klear Packaging Updates</a> (March 2026). <span class="src-note">Internal — current package reference; treated as source of truth over the June 2025 deck.</span></li>
+        <li id="ref-5"><a href="https://docs.google.com/document/d/1UVcCeL_ABF455XZtj6XoTsgVeezsARw70kSOTZMZ5d8/edit" target="_blank">How to Set Up a Klear Customer Account</a> — Internal activation steps. <span class="src-note">Activation process updated to email help@meltwater.com per current Support guidance (Jul 2026).</span></li>
+        <li id="ref-6"><a href="https://docs.google.com/document/d/1ZS5L3cPsv6-R7O_6BpYS_ut4tnMBPvONCFDxImWWWmU/edit" target="_blank">KlearPay: Gigapay Customer Onboarding &amp; Creator Payments Process</a> — Internal.</li>
+        <li id="ref-7"><a href="https://docs.google.com/document/d/1EWAtIXdKKBOdT6-OmZCNyUGbOnZvs1PNUlIZMjpcJm0/edit" target="_blank">Tipalti KlearPay Customer Onboarding Process</a> — Internal.</li>
+        <li id="ref-8"><a href="https://docs.google.com/spreadsheets/d/1f8DX0smCDHwZDOKJ4lODZ0Q9R8zL6rLsjVbosfbqMg8/edit" target="_blank">Klear IM Setup Checklist</a> — Internal.</li>
+        <li id="ref-9"><a href="https://meltwater.slack.com/docs/T02EG0KQK/F05FJ7TUG05" target="_blank">Klear Resources Canvas &amp; FAQ</a> — Slack (internal field hub).</li>
+        <li id="ref-10"><a href="https://docs.google.com/presentation/d/1NrHtcNCCX8oQGMC60-huJAFnm_i29592FWvk83b1KDY/edit" target="_blank">KlearPay — Choose the option best for you</a> (partner comparison deck) — Internal.</li>
+      </ol>
+      <p style="font-size:11.5px; color:#7a7a7a; font-style:italic; margin-top:14px;">Klear packaging and vendor processes change periodically. Package caps, Klear Pay thresholds, and vendor contacts should be re-checked against the contract, Totango, and the current internal docs before you rely on specifics with a customer.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">&lt;o&gt; Meltwater</div>
+      <div class="footer-note">Internal use only · Implementation Manager reference guide · Klear</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://community.meltwater.com/klear-influencer-marketing-152" target="_blank">Help Center — Klear</a>
+      <a href="https://meltwater.slack.com/docs/T02EG0KQK/F05FJ7TUG05" target="_blank">Klear Resources Canvas (Slack)</a>
+      <a href="https://academy.meltwater.com/pages/klear-academy" target="_blank">Klear Academy</a>
+    </div>
+  </footer>
+
+</body>
+</html>
