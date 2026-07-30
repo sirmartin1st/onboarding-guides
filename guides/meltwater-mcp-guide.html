@@ -791,6 +791,23 @@
     }
     .internal-note p { font-size: 13.5px; line-height: 1.6; color: #5a4500; }
     .internal-note a { color: #8a6a00; font-weight: 700; }
+
+    /* SHAREABLE-WITH-CUSTOMER CALLOUT */
+    .share-note {
+      background: var(--mw-teal-tint-3);
+      border: 1.5px solid var(--mw-teal-tint-1);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-top: 24px;
+    }
+    .share-note .share-badge {
+      display: inline-block;
+      background: var(--mw-teal); color: white;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 3px 10px; border-radius: 4px; margin-bottom: 10px;
+    }
+    .share-note p { font-size: 13.5px; line-height: 1.6; color: #2a4a4a; }
+    .share-note a { color: var(--mw-teal-dark); font-weight: 700; }
     .sources .src-note { font-style: italic; color: #7a7a7a; }
 
     /* FOOTER */
@@ -1147,48 +1164,33 @@ Best,
         <p style="font-size:12px; color:#7a7a7a; font-style:italic; margin-top:10px;">Draft to adapt — not approved copy. There's no official client email in the launch collateral yet; confirm the live links before sending.<sup class="cite"><a href="#ref-9">9</a></sup></p>
 
         <h4 style="font-size:17px; font-weight:700; color:var(--mw-black); margin:38px 0 12px;">Then get them to a fast "aha"</h4>
-        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">The connection is live — now land a quick win. No special syntax; they ask the way they'd ask a colleague.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">The connection is live — now land a real, tangible win. No special syntax; they ask the way they'd ask a colleague.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 
         <div class="callout callout-purple">
-          <strong>First prompts to run together:</strong><br>
-          • <em>"List my saved Meltwater searches."</em> (the verify step — confirms it's live)<br>
-          • <em>"Build a weekly brand health recap from the last seven days."</em><br>
+          <strong>Start with one tangible prompt.</strong> Give them a single result they can feel the value of — a morning overview, clustered and quantified:<br><br>
+          <em>"Give me a morning overview of coverage about [company] and flag anything that needs attention. Cluster the results by story and give me some high-level stats about each cluster."</em><br><br>
+          Run it live, read the cited result together, then follow up in the same chat — <em>"drill into that cluster,"</em> then <em>"compare it to last week."</em>
+        </div>
+
+        <div class="callout">
+          <strong>A few more to try, once the first lands:</strong><br>
+          • <em>"List my saved Meltwater searches."</em> (also the verify step — confirms it's live)<br>
           • <em>"Compare share of voice between us and our top two competitors this quarter."</em><br>
-          • <em>"How has coverage of our product launch trended over the last 30 days?"</em>
+          • <em>"How has coverage of our product launch trended over the last 30 days?"</em><br>
+          For a fuller bank organized by workflow, see <a href="#workflows">Deeper workflows</a>.
         </div>
 
-        <p style="font-size:14px; color:#4a4a4a; margin:24px 0 12px;"><strong>Then add a skill.</strong> The natural first one is the <strong>Brand DNA skill</strong> — a downloadable Claude skill that captures the customer's brand identity (purpose, positioning, tone of voice, do's and don'ts, audiences). Once installed, Claude applies that context automatically whenever it works with Meltwater data, so briefs and recommendations reflect the brand instead of a generic read.<sup class="cite"><a href="#ref-2">2</a></sup></p>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">A</div>
-            <div class="step-content">
-              <h4>Customize → Skills → Add</h4>
-              <p>In Claude, upload the Brand DNA skill file.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">B</div>
-            <div class="step-content">
-              <h4>Fill in the Brand DNA template</h4>
-              <p>Complete it with the customer's details. If they're not sure where to start, Claude can walk them through it section by section.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">C</div>
-            <div class="step-content">
-              <h4>Just work normally</h4>
-              <p>Mentioning the brand in a Meltwater question ("How did we do this week?") is enough for Claude to apply the Brand DNA automatically. No special syntax.<sup class="cite"><a href="#ref-2">2</a></sup></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="callout callout-orange" style="margin-top:20px;">
-          <strong>On ChatGPT:</strong> there's no direct equivalent to Claude Skills. The closest analog is a custom GPT (or saved project instructions) loaded with the same brand context. It works, but it's not 1:1 — see <a href="#skills">Skills &amp; extending it</a> for the honest comparison.
+        <div class="callout callout-purple" style="margin-top:20px;">
+          <strong>Best practice, once they're hooked — add a skill.</strong> After a few live wins, set up the <strong>Brand DNA skill</strong> so the customer's brand context (purpose, positioning, tone, audiences) applies automatically to every answer, and briefs reflect the brand instead of a generic read. It's the natural next step, not the first thing to configure — full setup and the ChatGPT analog are in <a href="#skills">Skills &amp; extending it</a>.<sup class="cite"><a href="#ref-2">2</a></sup>
         </div>
 
         <div class="callout" style="margin-top:20px;">
           <strong>Handoff — leave them self-sufficient.</strong> Before you close out the session, confirm: the user has connected and verified independently; they've run at least two prompts that matter to their role; a Brand DNA (or custom-GPT) context is in place; they know results follow their own Meltwater permissions and workspace assignments — they see exactly what they'd see in the platform, nothing more; and they know who their admin is for adding more users. Then set the expectation: <em>"Ask it the way you'd ask a colleague, and follow up — each question builds on the last."</em>
+        </div>
+
+        <div class="share-note">
+          <div class="share-badge">✓ OK to share with customers</div>
+          <p><strong>Leave the customer a prompt library.</strong> Meltwater's public blog, <a href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 Meltwater MCP Prompts for Communications Teams</a>, is organized by workflow and written in swap-the-brackets format. Send it after onboarding so the customer keeps exploring on their own — it's public and cited, so it's safe to share directly. (Distinct from the internal SC Dashboard Library above, which stays in-house.)<sup class="cite"><a href="#ref-11">11</a></sup></p>
         </div>
       </div>
     </section>
@@ -1222,6 +1224,17 @@ Best,
           <div class="prompt-example">"Which influencers are best suited for this campaign?"</div>
           <div class="prompt-also">Also: who's driving the conversation in our space? What hashtags are trending? Are they the right fit?</div>
         </div>
+      </div>
+
+      <h4 style="font-size:17px; font-weight:700; color:var(--mw-black); margin:32px 0 12px;">The full prompt library — 55 ready-to-use prompts</h4>
+      <p style="font-size:14px; color:#4a4a4a; margin-bottom:14px;">The cards above are a quick start. For a deeper bank to pull from when tailoring to a customer, Meltwater's public prompt blog groups 55 prompts into nine workflows: daily monitoring &amp; briefings, executive visibility, competitive &amp; market intelligence, campaign &amp; announcement measurement, reporting &amp; share of voice, early-issue awareness, narrative &amp; trend spotting, sharing across the business, and working from existing searches. Swap the bracketed terms for the customer's brand, competitors, and topics.<sup class="cite"><a href="#ref-11">11</a></sup></p>
+      <a class="doc-link" href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 Meltwater MCP Prompts for Communications Teams</a>
+
+      <div class="prompt-lib-card" style="margin-top:18px;">
+        <div class="prompt-lib-tag">⭐ Spotlight — work from existing searches (shows the write capability)</div>
+        <div class="prompt-example">"Run my saved '[search name]' search and give me an overview of this week's coverage."</div>
+        <div class="prompt-example">"Take my '[search name]' search, add [competitor] to the Boolean, and show me how the results change."</div>
+        <div class="prompt-example">"Refine the Boolean in my '[search name]' search to exclude [term], then give me an overview of the cleaned-up results."</div>
       </div>
 
       <div class="callout" style="margin-top:24px;">
@@ -1259,7 +1272,8 @@ Best,
       <div class="skill-example-block">
         <span class="skill-file-name">Brand DNA — brand context skill</span>
         <p><strong>What it does:</strong> captures the brand's identity — purpose, positioning, tone of voice with real writing samples, do's and don'ts, audiences. Once installed, trend scoring, briefs, and content review reflect the brand instead of a generic read on the data.<sup class="cite"><a href="#ref-2">2</a></sup></p>
-        <p><strong>When to introduce it:</strong> as the first skill, right after the connection is verified (Step 3 above).</p>
+        <p><strong>When to introduce it:</strong> once the customer has had a few wins with live prompts — it's a best-practice upgrade, not first-run setup.</p>
+        <p><strong>Setup (Claude):</strong> Customize → Skills → Add → upload the Brand DNA skill file → fill in the template with the customer's details (Claude can walk them through it section by section). After that, just mentioning the brand in a question ("How did we do this week?") applies it automatically — no special syntax.<sup class="cite"><a href="#ref-2">2</a></sup></p>
       </div>
 
       <div class="skill-example-block" style="margin-top:14px;">
@@ -1360,6 +1374,7 @@ Best,
         <li id="ref-8"><a href="https://developer.meltwater.com/guides/meltwater-mcp/connecting" target="_blank">Connecting a custom agent to Meltwater MCP</a> — Meltwater Developer Portal.</li>
         <li id="ref-9"><a href="https://community.meltwater.com/meltwater-mcp-433" target="_blank">Meltwater MCP Help Center</a> — Meltwater Community.</li>
         <li id="ref-10"><a href="https://meltwater.slack.com/archives/C0BBB9QCGEQ" target="_blank">#product-mcp Slack channel</a> &amp; <a href="https://meltwater-mcp-library.netlify.app/" target="_blank">SC Dashboard Library</a> (internal). <span class="src-note">Field questions, known limitations, and example outputs.</span></li>
+        <li id="ref-11"><a href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 Meltwater MCP Prompts for Communications Teams</a> — Meltwater Blog, Jul 29, 2026. <span class="src-note">Public and customer-shareable.</span></li>
       </ol>
       <p style="font-size:11.5px; color:#7a7a7a; font-style:italic; margin-top:14px;">Meltwater MCP is a fast-moving release — several sources above are expected to change (usage metering, dedicated connectors, the skills library). Re-check before relying on timeline-sensitive details.</p>
     </div>
