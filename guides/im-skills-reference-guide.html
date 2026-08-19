@@ -230,9 +230,116 @@
     border-top: 1px solid var(--mw-gray);
     padding-top: 14px;
   }
+
+  /* Password gate */
+  #pageContent { display: none; }
+  html.unlocked #pageContent { display: block; }
+  html.unlocked #passwordGate { display: none; }
+
+  #passwordGate {
+    position: fixed;
+    inset: 0;
+    background: var(--mw-teal-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+  }
+  .gate-card {
+    background: var(--mw-white);
+    border-radius: 14px;
+    padding: 36px 32px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .gate-card .eyebrow {
+    background: var(--mw-teal-tint-3);
+    color: var(--mw-teal-dark);
+  }
+  .gate-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0 6px;
+  }
+  .gate-card p {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 18px;
+    line-height: 1.5;
+  }
+  .gate-card input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--mw-teal-tint-2);
+    border-radius: 8px;
+    font-family: var(--mw-font);
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  .gate-card input:focus { border-color: var(--mw-teal); }
+  .gate-card button {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--mw-teal);
+    color: var(--mw-white);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--mw-font);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .gate-card button:hover { background: var(--mw-teal-dark); }
+  .gate-error {
+    display: none;
+    color: #C62828;
+    font-size: 12.5px;
+    margin-top: 10px;
+  }
+  .gate-hint {
+    font-size: 12px;
+    color: #999;
+    margin: 14px 0 0;
+  }
+
+  .relock {
+    background: none;
+    border: none;
+    color: #bbb;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+  }
+  .relock:hover { color: #888; }
 </style>
 </head>
 <body>
+
+<script>
+  if (localStorage.getItem('mw_im_guide_unlocked') === 'true') {
+    document.documentElement.classList.add('unlocked');
+  }
+</script>
+
+<div id="passwordGate">
+  <div class="gate-card">
+    <span class="eyebrow">Claude for IMs</span>
+    <h2>This guide is restricted</h2>
+    <p>Enter the password to view the IM skills reference guide.</p>
+    <input type="password" id="gatePassword" placeholder="Password" autocomplete="off">
+    <button onclick="tryUnlock()">Unlock</button>
+    <div class="gate-error" id="gateError">That password isn't right — try again.</div>
+    <p class="gate-hint">Don't have it? Ask Marty for the password.</p>
+  </div>
+</div>
+
+<div id="pageContent">
 
 <header>
   <span class="eyebrow">Claude for IMs</span>
@@ -252,8 +359,28 @@
 
 <footer>
   Review AI output before acting on it — outputs are a starting point, not a final decision. Log any AI-informed decision in CRM/ticket per standard practice.<br>
-  Have feedback on any of these skills? Send it directly to Marty Sloane.
+  Have feedback on any of these skills? Send it directly to Marty Sloane.<br>
+  <button class="relock" onclick="localStorage.removeItem('mw_im_guide_unlocked'); document.documentElement.classList.remove('unlocked');">Lock this page again</button>
 </footer>
+
+</div>
+
+<script>
+  function tryUnlock() {
+    const input = document.getElementById('gatePassword');
+    const error = document.getElementById('gateError');
+    if (input.value === 'marty_mcp') {
+      localStorage.setItem('mw_im_guide_unlocked', 'true');
+      document.documentElement.classList.add('unlocked');
+      error.style.display = 'none';
+    } else {
+      error.style.display = 'block';
+    }
+  }
+  document.getElementById('gatePassword').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') tryUnlock();
+  });
+</script>
 
 <script>
   const SKILLS = [
