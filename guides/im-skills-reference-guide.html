@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IM Skills Reference Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mw-teal: #28BBBB;
+    --mw-teal-medium: #00A7A5;
+    --mw-teal-dark: #1C7070;
+    --mw-gray: #F0F4F4;
+    --mw-black: #1A1A1A;
+    --mw-white: #FFFFFF;
+    --mw-teal-tint-1: #A3DFDF;
+    --mw-teal-tint-2: #C0EBEB;
+    --mw-teal-tint-3: #E1EFF0;
+    --mw-font: 'Poppins', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: var(--mw-font);
+    color: var(--mw-black);
+    background: var(--mw-white);
+    padding: 32px 40px 64px;
+  }
+
+  header {
+    max-width: 1100px;
+    margin: 0 auto 28px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    background: var(--mw-teal-tint-3);
+    color: var(--mw-teal-dark);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 30px;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #4a4a4a;
+    max-width: 720px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .toolbar {
+    max-width: 1100px;
+    margin: 20px auto 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--mw-teal-tint-2);
+    border-radius: 8px;
+    font-family: var(--mw-font);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-box:focus { border-color: var(--mw-teal); }
+
+  .grid {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    border: 1px solid var(--mw-teal-tint-2);
+    border-radius: 14px;
+    padding: 20px 20px 18px;
+    background: var(--mw-white);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .card:hover {
+    border-color: var(--mw-teal);
+    box-shadow: 0 4px 18px rgba(28, 187, 187, 0.14);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .command {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--mw-teal-dark);
+    background: var(--mw-teal-tint-3);
+    padding: 5px 10px;
+    border-radius: 7px;
+  }
+
+  .status {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .status.live { background: #E3F3E3; color: #1E7A34; }
+  .status.sandbox { background: var(--mw-yellow-light, #FFFAE7); color: #8A6D00; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--mw-teal-dark);
+    margin-bottom: 2px;
+  }
+
+  .section-body {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+  }
+
+  .flag-banner {
+    font-size: 12px;
+    font-weight: 600;
+    color: #8A6D00;
+    background: var(--mw-yellow-light, #FFFAE7);
+    border: 1px solid var(--mw-yellow, #FFCC01);
+    border-radius: 7px;
+    padding: 7px 10px;
+    line-height: 1.4;
+  }
+
+  .example {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 11.5px;
+    color: #333;
+    background: var(--mw-gray);
+    border-radius: 7px;
+    padding: 8px 10px;
+    overflow-wrap: break-word;
+    word-break: break-all;
+  }
+  .example .example-label {
+    display: block;
+    font-family: var(--mw-font);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 10.5px;
+    color: var(--mw-teal-dark);
+    margin-bottom: 4px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .tag {
+    font-size: 11.5px;
+    background: var(--mw-gray);
+    color: #4a4a4a;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  .card-footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--mw-gray);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .share-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mw-teal-dark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .share-link:hover { text-decoration: underline; }
+
+  .no-results {
+    max-width: 1100px;
+    margin: 40px auto;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+  }
+
+  footer {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid var(--mw-gray);
+    padding-top: 14px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow">Claude for IMs</span>
+  <h1>IM skills quick reference</h1>
+  <p class="subtitle">
+    Slash commands available in your Claude workflow. Each card covers when to trigger it and what it hands back.
+    Most of these will ship pre-installed via a plugin once it's built — until then, use the share link on each card.
+  </p>
+</header>
+
+<div class="toolbar">
+  <input class="search-box" id="searchBox" type="text" placeholder="Search by command, use case, or keyword…">
+</div>
+
+<div class="grid" id="grid"></div>
+<div class="no-results" id="noResults" style="display:none;">No skills match that search.</div>
+
+<footer>
+  Review AI output before acting on it — outputs are a starting point, not a final decision. Log any AI-informed decision in CRM/ticket per standard practice.<br>
+  Have feedback on any of these skills? Send it directly to Marty Sloane.
+</footer>
+
+<script>
+  const SKILLS = [
+    {
+      command: "/totango-agent",
+      status: "live",
+      flag: "Install this first — it's the data connection several other skills below run on.",
+      whenToUse: "Any Totango-sourced data pull — “pull active onboardings,” “show me [IM]’s portfolio,” “which accounts are on hold,” “aging onboardings,” “is there a champion on this account.”",
+      output: "Live answers on your onboarding portfolio — stage breakdowns, aging/at-risk accounts, usage and health scores, product adoption, and champion flags — using Meltwater's correct account definitions so you're never looking at the wrong population. This same Totango data pull is already built into /meeting-prep, and will keep showing up embedded inside future skills rather than always being run on its own.",
+      requires: ["Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01CBfEW4eNX3q3SJ4ZtkUbeL"
+    },
+    {
+      command: "/meeting-prep",
+      status: "live",
+      whenToUse: "Before any upcoming customer call. Say “prep me for my call with [customer]”, “prep me for my next call,” or “get me ready for [customer].” No customer named? It finds your next customer meeting on the calendar automatically.",
+      output: "An inline prep brief tailored to the meeting type (Kickoff, Training, Follow‑Up/Q&A, or Closure): account health snapshot, users on the call, product adoption, objectives vs. discovery alignment, last call recap, email activity since, and 3–5 suggested talking points.",
+      requires: ["Google Calendar", "Gmail", "Google Drive", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01QwkfEy5ri5dgnEyiereFws"
+    },
+    {
+      command: "/my-portfolio-snapshot",
+      status: "live",
+      whenToUse: "Anytime you want a quick read on your whole book of active onboardings. Say “my portfolio,” “show me my accounts,” “portfolio snapshot,” or “how do my accounts look.”",
+      output: "Two scannable tables: your main portfolio and a separate Digital Onboardings table for Quick Start accounts. Each row shows days in onboarding, segment, account health, usage health, and green/yellow/red adoption across Explore, Media Relations, GenAI Lens, Klear, MIRA Studio, and Newsletter — so you can spot what needs attention at a glance.",
+      requires: ["Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01RqwVxLXMZ35eDtA5qBy3an"
+    },
+    {
+      command: "/daily-brief",
+      status: "live",
+      whenToUse: "First thing in the morning, or the night before to get ahead of tomorrow. Say “daily brief,” “prep me for today,” “what's on my plate today,” “morning prep,” or “what do I need to know for tomorrow.”",
+      output: "A 2-minute, three-part scan: outstanding Gmail/Slack items that genuinely need a reply, a light rundown of today's (or tomorrow's) client meetings with health/day/objective context, and a capped list of 3–5 proactive portfolio risks worth getting ahead of. Closes by offering — never auto-running — /meeting-prep for today's meetings and /my-portfolio-snapshot for the full adoption view.",
+      requires: ["Gmail", "Slack", "Google Calendar", "Google Drive", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01Utq3pzW6CDV4RvtPxS13mW"
+    },
+    {
+      command: "/client-vault-helper",
+      status: "live",
+      whenToUse: "Right after you get assigned a new account. For best results, run it with a link to the routing thread where VoCAgent already replied. No VoCAgent reply yet? Run the prompt manually in #onboarding_voc_tools first, then come back and pass that thread link in.",
+      output: "Cleans up and stitches the raw VoCAgent reply into usable documentation, drafts three kickoff goals, and hands you a ready-to-paste JSON payload plus a condensed Totango summary block — formatted for whatever client vault tool your team uses.",
+      example: "/client-vault-helper https://meltwater.slack.com/archives/C03UPUHLGMT/p1786471010882019",
+      requires: ["Slack"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_018cQ15iE1cvU9DmFAcHKRDo"
+    },
+    {
+      command: "/onboarding-handoff-notes",
+      status: "live",
+      whenToUse: "After you close out an onboarding project, to hand off to CS. Say “create the handover doc for [customer],” “generate the CS handoff,” “build the handover notes for [customer],” or ask for a bulk batch across everything you closed this week or month.",
+      output: "A polished Google Doc saved straight to the customer's Vault folder — health score and product adoption up top, then an executive summary, use cases, stakeholders, action items by time horizon, and a full call timeline. Pulls from the VoCAgent handoff post, your email history with the customer, a recency scan of recent calls and Slack notes, and live product usage data.",
+      requires: ["Slack", "Gmail", "Google Drive", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01Ck9QLXuz5opb6mQKnyiYCF"
+    },
+    {
+      command: "/kickoff-helper",
+      status: "live",
+      whenToUse: "Right after you run a customer kickoff call. Say “run kickoff helper for [customer],” “help me follow up on my kickoff call with [customer],” or “I just had a kickoff call with [customer].”",
+      output: "Four things pulled from the call transcript: Totango-ready objectives with tailored outcome milestones, next steps tagged by owner (email content vs. an action for you), private self-coaching notes only you see, and — once you confirm any outstanding actions — a client-ready follow-up email with proposed meeting times pulled from your calendar.",
+      requires: ["Google Calendar", "Google Drive", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01XBgK3ouvvyXELa1qTPPsGd"
+    },
+    {
+      command: "/digital-pooled-helper",
+      status: "live",
+      whenToUse: "Right after you get assigned a new Digital Pooled account. Say “I just got assigned a Digital account,” “run digital-pooled-helper for [customer],” “help me set up [customer],” or paste the #digital-onboarding routing thread link.",
+      output: "A ready-to-use setup packet: a Totango-ready use-case summary with a confidence rating, 1–3 suggested onboarding objectives with reasoning, copy-ready starter searches, and a Users to Set Up list — built by weighing the routing thread's brief against any hands-on deal notes the MD added.",
+      requires: ["Slack", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01D69ZUk91j1kF6GsyntrQdP"
+    },
+    {
+      command: "/timesheet-helper",
+      status: "live",
+      whenToUse: "When it's time to fill out your weekly Kantata timesheet. Say “help me do my timesheet,” “log my hours for this week,” “fill out my Kantata timesheet,” or “what did I work on this week.”",
+      output: "A draft timecard built from your calendar (and email, if you opt in), shown as a Kantata-style grid for you to review — customer rows first, PTO/holidays flagged automatically, progress against your 40-hour goal. Once you confirm it, logs the entries directly into Kantata for you to submit yourself.",
+      requires: ["Google Calendar", "Gmail", "Google Drive", "Claude in Chrome"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01JLdNwwLPQMLAXhLPSFmniR"
+    }
+  ];
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderCard(skill) {
+    const statusLabel = skill.status === 'sandbox' ? 'Sandbox' : 'Live';
+    const tags = skill.requires.map(r => `<span class="tag">${escapeHtml(r)}</span>`).join('');
+    const shareHref = skill.shareUrl && skill.shareUrl.trim() ? skill.shareUrl : '#';
+    return `
+      <div class="card" data-search="${escapeHtml((skill.command + ' ' + skill.whenToUse + ' ' + skill.output + ' ' + (skill.example || '') + ' ' + skill.requires.join(' ')).toLowerCase())}">
+        <div class="card-top">
+          <span class="command">${escapeHtml(skill.command)}</span>
+          <span class="status ${skill.status}">${statusLabel}</span>
+        </div>
+        ${skill.flag ? `<div class="flag-banner">⚡ ${escapeHtml(skill.flag)}</div>` : ''}
+        <div>
+          <div class="section-label">When to use</div>
+          <p class="section-body">${skill.whenToUse}</p>
+        </div>
+        <div>
+          <div class="section-label">What you get</div>
+          <p class="section-body">${skill.output}</p>
+        </div>
+        ${skill.example ? `<div class="example"><span class="example-label">Example</span>${escapeHtml(skill.example)}</div>` : ''}
+        <div class="tags">${tags}</div>
+        <div class="card-footer">
+          <a class="share-link" href="${shareHref}" target="_blank" rel="noopener">
+            &#128279; Share skill link
+          </a>
+        </div>
+      </div>
+    `;
+  }
+
+  const grid = document.getElementById('grid');
+  const noResults = document.getElementById('noResults');
+
+  function draw(filter) {
+    const f = (filter || '').toLowerCase().trim();
+    const matches = SKILLS.filter(s =>
+      !f ||
+      s.command.toLowerCase().includes(f) ||
+      s.whenToUse.toLowerCase().includes(f) ||
+      s.output.toLowerCase().includes(f) ||
+      s.requires.join(' ').toLowerCase().includes(f)
+    );
+    grid.innerHTML = matches.map(renderCard).join('');
+    noResults.style.display = matches.length ? 'none' : 'block';
+  }
+
+  document.getElementById('searchBox').addEventListener('input', (e) => draw(e.target.value));
+  draw('');
+</script>
+
+</body>
+</html>
