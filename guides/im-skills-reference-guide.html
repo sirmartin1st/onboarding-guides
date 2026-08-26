@@ -457,6 +457,14 @@
       output: "A draft timecard built from your calendar (and email, if you opt in), shown as a Kantata-style grid for you to review — customer rows first, PTO/holidays flagged automatically, progress against your 40-hour goal. Once you confirm it, logs the entries directly into Kantata for you to submit yourself.",
       requires: ["Google Calendar", "Gmail", "Google Drive", "Claude in Chrome"],
       shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01JLdNwwLPQMLAXhLPSFmniR"
+    },
+    {
+      command: "/release-radar",
+      status: "live",
+      whenToUse: "Anytime you want to catch up on product releases without reading every Slack post. Say “catch me up on releases,” “what's new I should know about,” “releases relevant to my accounts,” or “did anything ship that affects [customer].” Defaults to the last 14 days if you don't give it a window.",
+      output: "A ranked digest, not a filtered one — everything that shipped still shows up, just sorted into “Came up with a customer,” “Worth knowing,” and “Lower priority / skim.” Each release links straight to its Slack post, and anything that already came up in your inbox or on a call gets flagged with the customer and where it came up.",
+      requires: ["Slack", "Gmail"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01AAJesnrXJr1bWzJWdGP4J3"
     }
   ];
 
