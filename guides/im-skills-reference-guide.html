@@ -60,6 +60,71 @@
     margin: 0;
   }
 
+  .setup-panel {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .setup-block {
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+
+  .setup-install {
+    background: var(--mw-teal-dark);
+    color: var(--mw-white);
+  }
+  .setup-install .setup-label { color: var(--mw-teal-tint-1); }
+  .setup-install .setup-copy { color: var(--mw-teal-tint-2); }
+
+  .setup-connectors {
+    background: var(--mw-white);
+    border: 1.5px solid var(--mw-teal-tint-2);
+  }
+  .setup-connectors .setup-label { color: var(--mw-teal-dark); }
+  .setup-connectors .setup-copy { color: #4a4a4a; }
+
+  .setup-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .setup-copy {
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin: 0 0 14px;
+  }
+
+  .install-cta {
+    display: inline-block;
+    background: var(--mw-teal);
+    color: var(--mw-white);
+    font-weight: 600;
+    font-size: 13.5px;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+  .install-cta:hover { background: var(--mw-white); color: var(--mw-teal-dark); }
+
+  .connector-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .setup-connectors .tag {
+    background: var(--mw-teal-tint-3);
+    color: var(--mw-teal-dark);
+    font-weight: 600;
+  }
+
   .toolbar {
     max-width: 1100px;
     margin: 20px auto 0;
@@ -346,9 +411,28 @@
   <h1>IM skills quick reference</h1>
   <p class="subtitle">
     Slash commands available in your Claude workflow. Each card covers when to trigger it and what it hands back.
-    Most of these will ship pre-installed via a plugin once it's built — until then, use the share link on each card.
   </p>
 </header>
+
+<div class="setup-panel">
+  <div class="setup-block setup-install">
+    <div class="setup-label">Step 1 — Install the plugin</div>
+    <p class="setup-copy">All of these skills now ship together as one plugin. Install it once and every skill below is available — no need to add them individually.</p>
+    <a class="install-cta" href="https://claude.ai/directory/plugins/implementation-manager-toolkit%40meltwater%2Fmeltwater-im-plugins" target="_blank" rel="noopener">Install the Implementation Manager Toolkit plugin →</a>
+  </div>
+  <div class="setup-block setup-connectors">
+    <div class="setup-label">Step 2 — Connect these tools first</div>
+    <p class="setup-copy">The plugin won't work without these connected. Check each one is set up in your Claude connectors before running any skill below.</p>
+    <div class="connector-chips">
+      <span class="tag">Snowflake Agent MCP</span>
+      <span class="tag">Gmail</span>
+      <span class="tag">Google Calendar</span>
+      <span class="tag">Google Drive</span>
+      <span class="tag">Slack</span>
+      <span class="tag">Meltwater Internal</span>
+    </div>
+  </div>
+</div>
 
 <div class="toolbar">
   <input class="search-box" id="searchBox" type="text" placeholder="Search by command, use case, or keyword…">
