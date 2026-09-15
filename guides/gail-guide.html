@@ -703,7 +703,7 @@
   <div class="hero-eyebrow">Internal Guide · Implementation</div>
   <h1>Onboarding customers to <span>GenAI Lens</span></h1>
   <p class="hero-sub">Your end-to-end reference for taking every GAIL customer from kickoff to active adoption — even if they've never thought about LLM monitoring before.</p>
-  <p style="font-size: 13px; opacity: 0.75; margin-bottom: 28px;">Guide last updated: July 23, 2026 · <a href="https://docs.google.com/document/d/1p1z4iRBdttMuiDbDUUPsXVFQl-3sY24Va4GqjETXe4Q/edit?tab=t.0#heading=h.ygm54cezavi" target="_blank" style="color: var(--mw-teal-tint-1); font-weight: 600; text-decoration: underline;">Check the release notes for any new features</a></p>
+  <p style="font-size: 13px; opacity: 0.75; margin-bottom: 28px;">Guide last updated: September 15, 2026 · <a href="https://docs.google.com/document/d/1p1z4iRBdttMuiDbDUUPsXVFQl-3sY24Va4GqjETXe4Q/edit?tab=t.0#heading=h.ygm54cezavi" target="_blank" style="color: var(--mw-teal-tint-1); font-weight: 600; text-decoration: underline;">Check the release notes for any new features</a></p>
   <div class="hero-pills">
     <span class="pill">How to frame it</span>
     <span class="pill">Pre-call prep</span>
@@ -765,16 +765,13 @@
       </div>
     </div>
     <div class="callout callout-orange">
-      <strong>LLMs covered vary by contract:</strong> Before your first GAIL session, review the customer's contract to confirm which models are included in their tier. Don't assume — model access depends on the package they purchased. The pricing tier breakdown is your reference for what's available at each level.
+      <strong>LLMs covered vary by contract:</strong> Before your first GAIL session, review the customer's contract to confirm which models are included in their tier — coverage now spans 11+ sources (ChatGPT, Gemini, Claude, Microsoft Copilot, Grok, Perplexity, Google AI Overviews and AI Mode, Llama, and more). Some models are add-ons rather than base package — <strong>Mistral</strong> (added August, Europe's fastest-growing LLM) and DeepSeek are both paid add-ons. Don't assume — model access depends on the package they purchased, so the pricing tier breakdown is your reference for what's available at each level.
     </div>
     <div class="callout callout-purple">
       <strong>GenAI Lens is GA and moving fast:</strong> This is a fully live product with an active development roadmap. New features and model additions are shipping regularly — frame that as momentum when it comes up. Customers who stay engaged will keep unlocking new capability as it arrives.
     </div>
     <div class="callout callout-purple">
-      <strong>New (July 24) — Google Analytics integration:</strong> Customers can now connect a Google Analytics 4 account to GenAI Lens via the new <strong>AI Site Traffic</strong> tab, correlating AI-driven referral traffic with real website outcomes — sessions, transactions, revenue, and conversion rate by AI platform, plus an overlay of GA4 sessions against their visibility trend. It turns "how often is AI citing us?" into "how much traffic is AI sending us, and is it converting?" Two things to know up front: it requires GA4 (Adobe Analytics support is coming in Q3), and the customer's GA admin has to authorize the connection. How and when to handle that is covered in the prep, walkthrough, and next-steps sections below.
-    </div>
-    <div class="callout">
-      <strong>Terminology note:</strong> "Mentions" are now called <strong>Citations</strong>, and "Prevalence" is now <strong>Mention Rate / Citation Rate</strong>. If a customer asks about something they saw in an older help article or recall from a previous call, these are the same concepts with updated names.
+      <strong>Google Analytics integration:</strong> Customers can connect a Google Analytics 4 account to GenAI Lens via the <strong>AI Site Traffic</strong> tab, correlating AI-driven referral traffic with real website outcomes — sessions, transactions, revenue, and conversion rate by AI platform, plus an overlay of GA4 sessions against their visibility trend. It turns "how often is AI citing us?" into "how much traffic is AI sending us, and is it converting?" Two things to know up front: it requires GA4 (Adobe Analytics support is on the roadmap), and the customer's GA admin has to authorize the connection. How and when to handle that is covered in the prep, walkthrough, and next-steps sections below.
     </div>
   </section>
   <!-- HOW THIS GUIDE IS STRUCTURED -->
@@ -860,7 +857,7 @@
           <h3>Add more prompts — and think in a few simple buckets</h3>
           <p>The suggested prompts are a starting point, but the tool's automatic setup tends to create too many topic buckets, and the prompt variants inside them aren't always strong. You'll get cleaner, more useful results building prompts yourself with Claude or a GPT and organizing them into a small number of clear buckets.</p>
           <p><strong>Keep the buckets simple.</strong> Especially for clients new to LLM monitoring, start narrow — often just Brand and Competitors — with a broader set of prompt variants inside each bucket to capture the different ways people actually ask. A few well-populated buckets beat a dozen thin ones. The goal is to have the account set up with a few buckets of tailored prompts before customer enablement.</p>
-          <p><strong><a href="https://claude.ai/customize/skills?selectedId=skill_01Ta6sGtX1adaJsPf3EofCmW" style="color: var(--mw-teal-dark);">genai-lens-prompt-builder (Claude skill) — recommended</a></strong> — If you're on Claude, this is the best option and outperforms the GPT below. It's built specifically to generate GenAI Lens prompts tailored to a brand and industry, and returns ideas already organized into buckets. Give it the customer's brand and a bit of context. You can also query your own Claude directly to brainstorm bucket ideas.</p>
+          <p><strong>/genai-lens-onboarding (Claude skill) — recommended</strong> — If you're on Claude, this is the best option and outperforms the GPT below. It's included in the <strong>Implementation Manager Tools Claude Plugin</strong> and built specifically to generate GenAI Lens prompts tailored to a brand and industry — it walks an intake and research flow and returns prompts already organized into buckets, written to sound like real people typing into an LLM rather than corporate-speak comparisons. Give it the customer's brand and a bit of context. You can also query your own Claude directly to brainstorm bucket ideas.</p>
           <p><strong><a href="https://chatgpt.com/g/g-691b52bc192c8191b571eedb6cbf4192-gail-prompt-creator" style="color: var(--mw-teal-dark);">GAIL Prompt Creator GPT</a></strong> — The OpenAI equivalent for anyone working in ChatGPT internally. Same idea: input the brand and a few details about their space and it'll generate a starting list.</p>
           <p><strong><a href="https://docs.google.com/spreadsheets/d/1zixyALZD93HNwzqa12sc-Jkf4lmmY0Sq8uKtgVikdy0/edit" style="color: var(--mw-teal-dark);">PM Prompt Spreadsheet</a></strong> — A library of prompt ideas organized by use case and industry, maintained by the product team. Use it as inspiration to identify prompt angles you might not have thought of. This is a reference resource — it's not tied to your specific customer's account.</p>
           <div class="step-note">💡 Use Claude or the GPT to research what other topic buckets could matter for this client — beyond Brand and Competitors. Walking in with a few tailored bucket ideas lets you be consultative during discovery (Step 4), where you'll confirm or expand them with the client rather than starting from a blank page.</div>
@@ -871,8 +868,7 @@
         <div class="step-num">5</div>
         <div class="step-content">
           <h3>Know where GAIL lives in the platform</h3>
-          <p>As of July 2026, GenAI Lens has its own dedicated spot in the main navigation — it's no longer under <strong>Monitor</strong>. Clicking it opens a new landing page that introduces the product and links out to mCommunity guides, which makes a clean starting point for new users. It's still worth introducing it right after Explore conceptually, since both are about how a brand is being talked about.</p>
-          <div class="step-note step-note-orange">⚠️ If the customer had GenAI Lens bookmarked under its old Monitor location, that link won't redirect — they'll need to reset the bookmark to the new nav location.</div>
+          <p>GenAI Lens has its own dedicated spot in the main navigation, and clicking it opens a landing page that introduces the product and links out to mCommunity guides — a clean starting point for new users. It's worth introducing it right after Explore conceptually, since both are about how a brand is being talked about.</p>
         </div>
       </div>
       <div class="step">
@@ -881,7 +877,7 @@
           <h3>Confirm whether Google Analytics is connected</h3>
           <p>GenAI Lens can pull AI referral traffic straight from the customer's Google Analytics 4 account and surface it in the <strong>AI Site Traffic</strong> tab — but only once someone with admin access to that GA4 account authorizes the connection to Meltwater. Ideally this is handled as part of the standard setup steps when we kick off all Meltwater tool onboardings, so the data is already flowing before your first GAIL session. Once connected, the platform backloads 7 days of data.</p>
           <p>Before the call, check whether it's connected. If it is, plan to walk through the AI Site Traffic tab live in the first session. If it isn't, you'll either help them connect it during the session — their GA admin needs to be available — or flag it for the follow-up. See the walkthrough and next-steps sections for how to handle each case.</p>
-          <div class="step-note">💡 The connection is a customer-side admin action — you can't do it for them. It requires a GA4 account (not Adobe Analytics — that support is coming in Q3), and only one GA4 account can be connected per customer. If GA wasn't set up during their broader onboarding, give them a heads-up: having their GA admin on hand means you can turn it on together.</div>
+          <div class="step-note">💡 The connection is a customer-side admin action — you can't do it for them. It requires a GA4 account (Adobe Analytics support is on the roadmap, not live yet), and only one GA4 account can be connected per customer. If GA wasn't set up during their broader onboarding, give them a heads-up: having their GA admin on hand means you can turn it on together.</div>
         </div>
       </div>
     </div>
@@ -960,6 +956,7 @@
           <p><strong>What to cover:</strong> Show them their brand and the competitors you added. Ask whether anything is missing or should be adjusted — a competitor they care about, a product line, a key person. Make any changes live so they see how easy it is to manage themselves going forward.</p>
           <p><strong>Key toggle:</strong> Demonstrate <strong>Competitor-only mode</strong> and explain what it does — it filters all charts to just their brand and the competitors they've added. This now extends to Products and People too, not just Brand, so unbranded prompts (like "top phones on the market") won't bury their product in a sea of unrelated results. Turn it on, show the difference, then explain they can toggle it off any time to see the full landscape.</p>
           <div class="tab-tip">💡 This is a natural moment to explain what "entities" means — brands, products, people, locations, and key phrases are all trackable. Ask if there are any products or people they'd want to add beyond just the brand name.</div>
+          <div class="tab-tip">💡 You can now <strong>assign a brand to specific topics</strong>, so weekly AI Recommendations fire only for the topics that matter to that brand instead of the whole library. Especially useful for agencies or multi-brand accounts — it keeps each brand's recommendations focused. Set it up once the topic buckets are in place.</div>
         </div>
       </div>
       <div class="tab-item">
@@ -973,7 +970,7 @@
           <p><strong>What to show:</strong> Pull up the chart for their brand and walk them through what the citation rate means. A spike or dip is a good conversation starter — "what happened here that might have affected how AI talks about you?"</p>
           <p><strong>The key message:</strong> These aren't social mentions or news articles. This is specifically what AI models are citing when someone asks about your space. It's a fundamentally new signal.</p>
           <div class="tab-tip">💡 If there's limited data, use this as a reason to add more prompts — more prompts = more signal. It's also a good setup for the prompt-building conversation later.</div>
-          <div class="tab-tip">📈 Mention Prompt Volume Analytics here too — it shows customers what consumers are actually asking AI about their brand and industry at large, beyond just the prompts they've configured. It's a good answer for "are we even asking the right questions?"</div>
+          <div class="tab-tip">📈 <strong>Prompt Volumes (Beta)</strong> lives here too — panel data (via Gener8, up to ~9.5M responses a month, primarily US &amp; UK) showing what consumers are <em>actually</em> asking AI about the brand and category, beyond the prompts they've configured. It closes the loop: the rest of GenAI Lens shows how AI answers, this shows the demand behind the question. Use it to pressure-test their prompt set — "are we even tracking the questions people are really asking?" It's in beta and currently available to all GenAI Lens customers; expect it to move to an add-on/Enterprise feature later. <a href="https://community.meltwater.com/genai-lens-223/genai-lens-prompt-volumes-beta-11740" target="_blank" style="color: var(--mw-teal-dark); font-weight: 600;">mCommunity guide ↗</a></div>
         </div>
       </div>
       <div class="tab-item">
@@ -1082,7 +1079,7 @@
       </div>
     </div>
     <div class="callout callout-purple" style="margin-top: 24px;">
-      <strong>Turn the answers into buckets.</strong> Once you've heard what matters, use the <a href="https://claude.ai/customize/skills?selectedId=skill_01Ta6sGtX1adaJsPf3EofCmW">genai-lens-prompt-builder</a> Claude skill (or the GPT) to shape those themes into two or three recommended topic buckets and their prompt variants. Present them back as recommendations — "based on what you said, I'd suggest we track X, Y, and Z" — so the client sees you translating their priorities into a real setup.
+      <strong>Turn the answers into buckets.</strong> Once you've heard what matters, use the <strong>/genai-lens-onboarding</strong> Claude skill (in the Implementation Manager Tools Claude Plugin) or the GPT to shape those themes into two or three recommended topic buckets and their prompt variants. Present them back as recommendations — "based on what you said, I'd suggest we track X, Y, and Z" — so the client sees you translating their priorities into a real setup.
     </div>
     <div class="callout">
       <strong>Fewer buckets, more variants.</strong> As an initial setup, keep the number of topic buckets small and load more prompt variations into each one. A handful of well-populated buckets gives cleaner, more comparable data than a sprawl of thin ones — and it's far easier for the client to manage on their own later.
@@ -1193,7 +1190,7 @@
       <p>This is the most common question after the walkthrough. Have a clear, actionable answer ready — tailored to whoever's in the room. Don't let the conversation end without connecting the data to something they can actually do next week.</p>
     </div>
     <div class="callout callout-purple">
-      <strong>The product now answers part of this for you.</strong> AI Recommendations generates weekly, in-platform guidance automatically based on what's happening in the customer's data — see Next Steps below for how to use this on the follow-up call.
+      <strong>The product now answers part of this for you.</strong> AI Recommendations generates weekly, in-platform guidance automatically based on what's happening in the customer's data — see Next Steps below for how to use this on the follow-up call. And with <strong>Mira Companion</strong>, they can turn any GenAI Lens widget into a plain-language insight — with the drivers, citations, and a recommended action behind it — so the "what do I do about this?" answer is one click from the chart.
     </div>
     <div class="callout">
       <strong>If Google Analytics is connected, lead with traffic and ROI.</strong> The AI Site Traffic tab is often the cleanest answer to "so what" — it ties AI visibility to actual sessions, conversions, and revenue, not just citation counts, and lets them correlate a shift in AI sentiment or visibility with a change in website conversions. For teams that have to justify the spend, this is the tab that makes GenAI Lens concrete.
@@ -1257,6 +1254,7 @@
           <p>Ask them to log back in after about a week and look at what the data is showing. By then, the prompts they've added — and the ones suggested at brand setup — will have accumulated enough signal to show real patterns. Encourage them to note any questions or surprises before the follow-up call.</p>
           <div class="step-note step-note-orange">📅 Set this expectation explicitly on the call: "Give it a week, log back in, and take a look at the Trends and Benchmarking tabs. See what stands out — we'll walk through it together when we talk."</div>
           <div class="step-note">🗓️ Mention AI Recommendations as a reason to keep coming back, not just a one-time check. Every Monday, GenAI Lens drops fresh, narrative-driven recommendations into the account automatically — at no extra cost. Tell the customer to expect something new each week, so logging in becomes a habit rather than a one-off favor to you.</div>
+          <div class="step-note">🔔 Point them to <strong>Visibility Rank Change Alerts</strong> too — GenAI Lens now notifies them when their brand or a competitor moves up or down in AI response rankings, with Visibility Score context and a direct link to investigate. It's a passive re-engagement hook: the product pulls them back in when something actually changes, instead of relying on them to remember to log in.</div>
         </div>
       </div>
       <div class="step">
@@ -1281,7 +1279,7 @@
       </div>
     </div>
     <div class="callout callout-purple" style="margin-top: 24px;">
-      <strong>New in Beta — worth introducing on the follow-up call:</strong> LLM Executive Reports turn GenAI Lens data into a shareable, branded report covering visibility, sentiment drivers, and competitive positioning — built for leadership audiences who won't dig into the dashboards themselves. To generate one: click <strong>Generate Executive Report</strong> in the top right of GenAI Lens, select the brand, set filters (date range, models, prompts/topics, labels, target countries), name the report, and generate. Each account gets 4 free reports during the beta, and generation takes about 20 minutes, so this isn't a live-demo feature — introduce it, then generate one together or shortly after the call. Be upfront that it's Beta: pricing and packaging aren't finalized, and more capability is coming.
+      <strong>Shareable reports — worth introducing on the follow-up call:</strong> GenAI Lens turns its data into a branded, shareable report on a brand's AI visibility, sentiment drivers, and competitive positioning — built for executives, clients, or colleagues who won't dig into the dashboards themselves and don't need a Meltwater seat to read it. There are two formats off the same underlying data: a <strong>Web Report</strong> (a quick shareable link) and a <strong>PowerPoint</strong> (fully editable, for when they're presenting). To generate one, use the report option in GenAI Lens, select the brand, set filters (date range, models, prompts/topics, labels, target countries), name it, and generate. It takes about 30 minutes, so it isn't a live-demo feature — introduce it, then generate one together or shortly after the call. Set two expectations: each report counts toward the account's contracted report allotment, and it's a snapshot in time — they'll generate a fresh one whenever they want updated data.
     </div>
   </section>
   <!-- RESOURCES -->
