@@ -549,6 +549,14 @@
       output: "A ranked digest, not a filtered one — everything that shipped still shows up, just sorted into “Came up with a customer,” “Worth knowing,” and “Lower priority / skim.” Each release links straight to its Slack post, and anything that already came up in your inbox or on a call gets flagged with the customer and where it came up.",
       requires: ["Slack", "Gmail"],
       shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01AAJesnrXJr1bWzJWdGP4J3"
+    },
+    {
+      command: "/genai-lens-onboarding",
+      status: "live",
+      whenToUse: "When a customer is being onboarded onto GenAI Lens and needs a prompt set built out. Mention GenAI Lens, ask to build or generate prompts for a customer, or ask for prompts about a customer's competitors, trending topics, or brand reputation — even without naming the skill.",
+      output: "A spreadsheet of human-language prompts, organized by topic, covering the angles that shape how a brand shows up in AI answers — recommendation-style questions, competitor comparisons, trending/reputation topics, and due-diligence questions, expanding beyond that starting set whenever the research points somewhere new. Written the way people actually type into an LLM, not corporate-speak. Drops right into your customer's GenAI Lens setup in Meltwater. Always flagged back to you for review before it ships.",
+      requires: [],
+      shareUrl: ""
     }
   ];
 
