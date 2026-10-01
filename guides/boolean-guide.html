@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Strong Booleans: IM Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --mw-teal:        #28BBBB;
+      --mw-teal-medium: #00A7A5;
+      --mw-teal-dark:   #1C7070;
+      --mw-teal-tint-1: #A3DFDF;
+      --mw-teal-tint-2: #C0EBEB;
+      --mw-teal-tint-3: #E1EFF0;
+      --mw-gray:        #F0F4F4;
+      --mw-black:       #1A1A1A;
+      --mw-white:       #FFFFFF;
+      --mw-orange:      #FF6221;
+      --mw-orange-mid:  #FFDDCC;
+      --mw-orange-light:#FFEFEA;
+      --mw-purple:      #B627A1;
+      --mw-purple-mid:  #E0A6D7;
+      --mw-purple-light:#F0D4EC;
+      --mw-font: 'Poppins', Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--mw-font);
+      background: var(--mw-white);
+      color: var(--mw-black);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--mw-white);
+      border-bottom: 2px solid var(--mw-teal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--mw-teal-dark);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--mw-teal);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mw-black);
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+    /* HERO */
+    .hero {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 72px 48px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      border: 40px solid rgba(40,187,187,0.18);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: 140px;
+      width: 160px; height: 160px;
+      border: 22px solid rgba(182,39,161,0.15);
+      border-radius: 50%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mw-teal-tint-1);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--mw-teal); }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 400;
+      max-width: 600px;
+      opacity: 0.85;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+    .pill {
+      background: rgba(40,187,187,0.18);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .pill-purple {
+      background: rgba(182,39,161,0.18);
+      border: 1px solid rgba(182,39,161,0.3);
+      color: #E0A6D7;
+    }
+    .pill-orange {
+      background: rgba(255,98,33,0.18);
+      border: 1px solid rgba(255,98,33,0.3);
+      color: #FFDDCC;
+    }
+    /* PAGE BODY */
+    .page-body {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+    section { margin-bottom: 68px; }
+    /* SECTION HEADERS */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--mw-teal-tint-2);
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mw-teal-medium);
+      margin-bottom: 8px;
+    }
+    .section-eyebrow-orange { color: var(--mw-orange); }
+    .section-eyebrow-purple { color: var(--mw-purple); }
+    .section-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--mw-black);
+      line-height: 1.2;
+    }
+    .section-header p {
+      margin-top: 10px;
+      color: #4a4a4a;
+      font-size: 14px;
+      max-width: 720px;
+    }
+    /* CALLOUTS */
+    .callout {
+      background: var(--mw-teal-tint-3);
+      border-left: 4px solid var(--mw-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--mw-teal-dark); }
+    .callout a { color: var(--mw-teal-dark); font-weight: 600; }
+    .callout-orange {
+      background: var(--mw-orange-light);
+      border-left-color: var(--mw-orange);
+    }
+    .callout-orange strong { color: #c04a00; }
+    .callout-orange a { color: #c04a00; }
+    .callout-purple {
+      background: var(--mw-purple-light);
+      border-left-color: var(--mw-purple);
+    }
+    .callout-purple strong { color: #8a1a7a; }
+    .callout-purple a { color: #8a1a7a; }
+    /* CAPABILITY CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .card {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      padding: 22px;
+      background: var(--mw-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--mw-teal);
+      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
+    }
+    .card-icon {
+      width: 36px; height: 36px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 17px;
+    }
+    .card-icon i { font-size: 16px; color: var(--mw-teal-dark); }
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--mw-teal-dark);
+    }
+    .card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4a4a4a;
+    }
+    /* TAB WALKTHROUGH */
+    .tab-list { display: flex; flex-direction: column; gap: 18px; }
+    .tab-item {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .tab-header {
+      background: var(--mw-teal-dark);
+      color: white;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .tab-badge {
+      background: rgba(40,187,187,0.3);
+      border: 1px solid rgba(163,223,223,0.4);
+      color: var(--mw-teal-tint-1);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tab-title {
+      font-size: 15px;
+      font-weight: 700;
+      flex: 1;
+    }
+    .tab-link {
+      font-size: 11.5px;
+      color: var(--mw-teal-tint-1);
+      text-decoration: none;
+      opacity: 0.8;
+      white-space: nowrap;
+    }
+    .tab-link:hover { opacity: 1; text-decoration: underline; }
+    .tab-body {
+      padding: 20px 22px;
+      background: var(--mw-white);
+    }
+    .tab-body p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #4a4a4a;
+      margin-bottom: 12px;
+    }
+    .tab-body p:last-child { margin-bottom: 0; }
+    .tab-body strong { color: var(--mw-black); }
+    /* REASONING ACCORDION */
+    details.reasoning-details { margin-top: 12px; }
+    details.reasoning-details summary {
+      cursor: pointer;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--mw-teal-dark);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+    details.reasoning-details summary::-webkit-details-marker { display: none; }
+    details.reasoning-details summary:hover { color: var(--mw-teal-medium); }
+    details.reasoning-details .chevron-icon { transition: transform 0.2s; font-size: 10px; }
+    details.reasoning-details[open] summary .chevron-icon { transform: rotate(90deg); }
+    .reasoning-body { margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--mw-teal-tint-2); }
+    .tab-tip {
+      background: var(--mw-teal-tint-3);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-top: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+    .tip-icon { flex-shrink: 0; font-size: 13px; margin-top: 2px; }
+    /* BOOLEAN BLOCK */
+    .boolean-block {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .boolean-header {
+      background: var(--mw-gray);
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--mw-teal-tint-2);
+    }
+    .boolean-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mw-teal-dark);
+    }
+    .boolean-copy-btn {
+      background: var(--mw-white);
+      border: 1px solid var(--mw-teal-tint-2);
+      color: var(--mw-teal-dark);
+      padding: 3px 12px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--mw-font);
+      transition: background 0.2s;
+    }
+    .boolean-copy-btn:hover { background: var(--mw-teal-tint-3); }
+    .boolean-copy-btn.copied { background: var(--mw-teal); color: white; border-color: var(--mw-teal); }
+    .boolean-body {
+      padding: 16px 18px;
+      background: var(--mw-black);
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #ECECEC;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .tok-op { color: #6CA0FF; }
+    .tok-str { color: #8FD19E; }
+    .tok-field { color: var(--mw-orange); font-weight: 600; }
+    .boolean-filters {
+      font-size: 12.5px;
+      color: #5a5a5a;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .inline-code {
+      background: var(--mw-gray);
+      border: 1px solid var(--mw-teal-tint-2);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--mw-teal-dark);
+    }
+    /* OPERATOR TABLE */
+    .operator-table-wrap {
+      border: 1.5px solid var(--mw-teal-tint-2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    table.operator-table { width: 100%; border-collapse: collapse; }
+    table.operator-table th {
+      background: var(--mw-teal-dark);
+      color: white;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      padding: 12px 16px;
+    }
+    table.operator-table td {
+      padding: 12px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #4a4a4a;
+      border-top: 1px solid var(--mw-teal-tint-3);
+      vertical-align: top;
+    }
+    table.operator-table tr:nth-child(even) td { background: var(--mw-teal-tint-3); }
+    table.operator-table td:first-child { font-weight: 700; color: var(--mw-teal-dark); white-space: nowrap; }
+    table.operator-table td code {
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 11.5px;
+      background: var(--mw-gray);
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: var(--mw-black);
+    }
+    /* CHECKLIST */
+    .checklist { display: flex; flex-direction: column; gap: 10px; }
+    .check-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--mw-gray);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+    .check-mark {
+      background: var(--mw-teal);
+      color: white;
+      min-width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .check-item p { font-size: 13.5px; line-height: 1.55; color: #333; }
+    /* FOOTER */
+    footer {
+      background: var(--mw-teal-dark);
+      color: var(--mw-white);
+      padding: 36px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; text-align: right; }
+    .footer-links a {
+      color: var(--mw-teal-tint-1);
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .footer-links a:hover { text-decoration: underline; color: white; }
+    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 24px; }
+      .hero h1 { font-size: 28px; }
+      .page-body { padding: 40px 24px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+      .footer-links { text-align: left; }
+      table.operator-table { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark">&lt;o&gt;</div>
+    Boolean Writing: IM Guide
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#brand-searches">Brand</a></li>
+    <li><a href="#industry-searches">Industry</a></li>
+    <li><a href="#exclusions">Exclusions</a></li>
+    <li><a href="#operators">Operators</a></li>
+    <li><a href="#checklist">Checklist</a></li>
+  </ul>
+</nav>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Internal Guide · Implementation</div>
+  <h1>Writing strong <span>booleans</span> for brand & industry searches</h1>
+  <p class="hero-sub">A practical reference for constructing brand, competitor, and industry booleans that actually hold up, built from real searches set up for real customers, not theory.</p>
+  <p style="font-size: 13px; opacity: 0.75;">Guide last updated: September 23, 2026</p>
+  <div class="hero-pills">
+    <span class="pill">Brand & Competitor Searches</span>
+    <span class="pill pill-purple">Industry Searches</span>
+    <span class="pill pill-orange">Exclusions & Noise</span>
+    <span class="pill">Operator Reference</span>
+  </div>
+</div>
+<div class="page-body">
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-eyebrow">Context</div>
+      <h2>How to use this guide</h2>
+      <p>This isn't a pitch for why boolean quality matters. You already know that. It's a technique reference: how to actually construct a brand boolean and an industry boolean that hold up, built from real searches set up for real customers.</p>
+    </div>
+    <div class="callout">
+      <strong>Two search types, same discipline.</strong> A <strong>brand boolean</strong> tracks mentions of a specific company, product, or organization. An <strong>industry/topic boolean</strong> tracks a subject area or intersection of subjects, no brand name required. Competitor searches use the exact same construction logic as brand searches; they're covered as a sub-case below, not a separate skill.
+    </div>
+  </section>
+
+  <!-- BRAND SEARCHES -->
+  <section id="brand-searches">
+    <div class="section-header">
+      <div class="section-eyebrow">Brand & Competitor Searches</div>
+      <h2>Building a brand boolean</h2>
+      <p>Every brand boolean is solving one problem: capture every real mention of the brand while excluding everything the name, handle, or domain could also mean. How much work that takes depends entirely on how ambiguous, and how big, the brand is. Competitor searches are covered here too, not as a separate topic: they use the exact same toolkit, just aimed at a different company (see the callout partway through the examples below).</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-type"></i></div>
+        <h3>Name variants & punctuation</h3>
+        <p>Cover the way people actually type the name: hyphens, apostrophes, spacing, wildcard suffixes ("Trader Joe*"), and the squashed-together or hashtag form ("TraderJoes", "bucees").</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-bullseye"></i></div>
+        <h3>Disambiguate with NEAR / ONEAR</h3>
+        <p>When the bare name is a generic word or common phrase, pair it with context terms inside a proximity window. Use NEAR when order doesn't matter, ONEAR when it does.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-link-45deg"></i></div>
+        <h3>Exact-match signals</h3>
+        <p>Full formal name, official social handles, website domain, containsLink to that domain, and retail-partner listing URLs if the brand sells through marketplaces. These need no disambiguation: they can only mean the brand.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-broadcast"></i></div>
+        <h3>Source-level targeting</h3>
+        <p>Sometimes the cleanest signal isn't a keyword at all. Pull an entire source wholesale (sourceName:/r/brand) when you can safely assume everything there is on-topic.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-image"></i></div>
+        <h3>Image text</h3>
+        <p>imageText: catches product and merchandise photos where the brand name is visible in the image but may not appear in the surrounding text or caption.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-tag"></i></div>
+        <h3>Sub-brands & private label</h3>
+        <p>Don't stop at the corporate name. Capture product lines and store brands that are just as identifying (e.g. "Kirkland Signature" for Costco).</p>
+      </div>
+    </div>
+    <div class="callout callout-orange">
+      <strong>Scope the boolean to the brand's size and ambiguity, not a template.</strong> A small brand with a distinctive or ambiguous name (Venable, Forest Ridge) needs a tighter, more surgical boolean built around disambiguation. A large, ubiquitous consumer brand (Trader Joe's) is better served by a deliberately broad catch-all: capture everything, then narrow downstream with custom categories (product lines, seasonal campaigns, specific launches) rather than trying to make the boolean itself narrow.
+    </div>
+
+    <div class="tab-list">
+      <!-- VENABLE -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Small / ambiguous name</span>
+          <span class="tab-title">Venable LLP: legal services</span>
+          <a class="tab-link" href="https://www.venable.com" target="_blank">venable.com ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(Venable^8 NEAR/12 (legal OR lawyer* OR attorney*))
+OR ("Venable LLP"^7 OR VenableLLP OR "venable.com")
+OR (Venable AND topic:legal_services)</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>When a brand name is also a common word, don't rely on the name alone. Pair it with context terms inside a NEAR window, then add an unambiguous exact-match layer as backup.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>"Venable" alone is a generic-sounding word used in plenty of contexts that have nothing to do with this law firm, so the boolean has to do real disambiguation work.</p><p>The first line pairs the bare name with core legal terms inside a 12-word proximity window: if "Venable" shows up near "legal," "lawyer," or "attorney" language, it's very likely this brand. The second line is exact-match: the full firm name, the "VenableLLP" handle used consistently across their social channels, and their domain. No disambiguation is needed here because these can only mean the firm. The third line is a broader catch-all: any mention of the bare name inside a document already tagged legal_services. It picked up a handful more true positives the first two lines missed.</p></div></details>
+        </div>
+      </div>
+      <!-- TRADER JOE'S -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Large / ubiquitous brand</span>
+          <span class="tab-title">Trader Joe's: grocery retail</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">("Trader Joe*"^7 OR "TraderJoes"^7 OR "traderjoes.com" OR containsLink:"traderjoes.com")
+OR SourceName:/r/traderjoes
+OR (imageText:trader AND (imageText:joe's OR imageText:joes))
+OR ((TJs) AND (topic:food_and_grocery_retailers OR topic:food))</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Boolean robustness should scale with brand size. A ubiquitous consumer brand gets a broad catch-all; let custom categories do the narrowing, not the boolean.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Trader Joe's is big enough that the goal isn't disambiguation. It's building a deliberately broad catch-all, then narrowing downstream with custom categories (Tote Bags, Fall Items, a specific product) instead of trying to make the boolean itself narrow.</p><p>Line one covers keyword variants with a wildcard ("Trader Joe*" catches Trader Joe, Trader Joes, Trader Joe's), plus the website and the one-word social handle/hashtag form. Line two pulls the entire r/traderjoes subreddit wholesale, on the assumption that everything there is relevant. Line three catches product and merchandise photos where "Trader Joe's" appears in the image itself but may not be in the surrounding text. Line four handles the shorthand "TJ's": since an acronym alone is too ambiguous to run unpaired, it's grounded with relevant topic tags.</p></div></details>
+        </div>
+      </div>
+      <!-- BUC-EE'S -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Punctuation handling</span>
+          <span class="tab-title">Buc-ee's: travel centers</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">"Buc-ees"^8 OR "Buc?ees" OR @bucees OR "bucees"</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>If a brand name has a hyphen or apostrophe, cover the punctuated form, the wildcard form, and the plain squashed-together form people actually type.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>A small, clean example of handling punctuation variance. The name has both a hyphen and an apostrophe, and real people type it inconsistently: with the hyphen, with the apostrophe swapped for a wildcard character, or squashed together entirely. No NEAR or topic disambiguation is needed here since "Buc-ee's" isn't a word used any other way.</p></div></details>
+        </div>
+      </div>
+      <!-- OWALA -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Misspellings & retail URLs</span>
+          <span class="tab-title">Owala: water bottles</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(Owala OR @owala OR owalalife.com OR sourceName:/r/owala)
+OR (Owalla)
+OR ("target.com/b/owala")</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Check for the brand's common misspellings, and don't stop at the brand's own domain. Retail-partner listing pages are a real source of mentions for brands that sell through marketplaces.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Two techniques beyond the basics here. First, a common misspelling, "Owalla" with a double L, gets its own clause, since a meaningful share of real mentions use it. Second, since Owala sells through third-party retailers, the boolean includes the brand's specific product listing path on Target's own site (target.com/b/owala), not just Owala's own domain.</p></div></details>
+        </div>
+      </div>
+      <!-- FOREST RIDGE -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Small / niche name</span>
+          <span class="tab-title">Forest Ridge School of the Sacred Heart: K-12 school</span>
+          <a class="tab-link" href="https://www.forestridge.org/" target="_blank">forestridge.org ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">("Forest Ridge School" ONEAR/2 "Sacred Heart") OR @ForestRidgeSchool OR forestridge.org
+OR (("Forest Ridge School") NEAR/12 (Bellevue OR Catholic))</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>ONEAR enforces word order, NEAR doesn't. Disambiguation terms don't have to be industry vocabulary either. Geography and other context words work just as well when that's what actually makes a name unambiguous.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>"Forest Ridge School" alone is generic enough that it needs grounding, but the fix here isn't industry vocabulary the way Venable used legal terms. It's the school's full institutional name and its geography.</p><p>The first clause uses ONEAR (ordered proximity, where the phrases must appear in that specific sequence) to bind "Forest Ridge School" to "Sacred Heart" within 2 words, since the full name is what's actually unambiguous. That's backed by the official handle and domain. The second clause is a second disambiguation layer: the school name paired with geographic and context terms (Bellevue, Catholic) inside a wider NEAR window, for mentions that don't use the full formal name.</p></div></details>
+        </div>
+      </div>
+      <!-- ASHEVILLE AIRPORT -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Long name, no disambiguation needed</span>
+          <span class="tab-title">Asheville Regional Airport</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">"Asheville Regional Airport" OR "Greater Asheville Regional Airport" OR "FlyAVL" OR flyavl.com OR "Asheville Rgnl Airport" OR "Asheville airport"</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Not every brand needs a disambiguation layer. If the full name is already unambiguous, focus your energy on covering real-world variants instead.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Sometimes the name is already specific enough that no proximity operator or topic catch-all is needed at all. Just cover the realistic variants. That's the formal name, the "Greater" variant sometimes used, the brand's own public-facing handle ("FlyAVL"), the domain, and the way people actually abbreviate or misspell it ("Rgnl" for "Regional").</p></div></details>
+        </div>
+      </div>
+      <!-- AYR -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Short / ambiguous name</span>
+          <span class="tab-title">AYR: apparel</span>
+          <a class="tab-link" href="https://www.ayr.com/" target="_blank">ayr.com ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(caseSensitive:(AYR^7) AND language:en AND topic:apparel)
+OR (ayr.com OR containsLink:"ayr.com*" OR "@AYR")</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>caseSensitive: is another disambiguation tool alongside NEAR/ONEAR, useful when a short, all-caps name would otherwise collide with a common lowercase word. language: and other filters can also live inline in the boolean itself, not just as external search filters.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>A three-letter all-caps name is about as ambiguous as it gets: "AYR" collides with the plain word "ayr," the Scottish town of Ayr, and plenty of other noise. Rather than solving that with NEAR + industry terms (Venable) or NEAR + geography (Forest Ridge), this one uses a third approach: caseSensitive forces an exact-case match on "AYR", paired with topic:apparel to ground it in the right industry and language:en to keep it to English-language mentions. The second clause is the usual exact-match layer: domain, a wildcarded containsLink covering any URL path under the domain, and the social handle.</p></div></details>
+        </div>
+      </div>
+      <!-- RIDEALSO / ALSO -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Hardest case · three techniques stacked</span>
+          <span class="tab-title">RideAlso ("Also"): micromobility</span>
+          <a class="tab-link" href="https://ridealso.com/" target="_blank">ridealso.com ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(RideAlso OR ridealso.com OR @ridealso OR @ride_also OR SourceName:/r/ALSOmicromobility/)
+OR (Also NEAR/2 ("TB-M" OR "alpha wave" OR alphawave))
+OR (caseSensitive:(ALSO) AND topic:bicycles_and_accessories)</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Disambiguation terms can come from three places: industry vocabulary (Venable), geography (Forest Ridge), or the brand's own proprietary product names (RideAlso). For the most ambiguous names, stack more than one technique rather than relying on just one.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>The brand's actual product name is the bare word "Also" (about as ambiguous a name as exists), marketed combined as "RideAlso." That takes all three disambiguation techniques covered so far, stacked into one boolean.</p><p>Line one is the exact-match cluster: the combined brand name, domain, both handle variants (with and without the underscore), and the brand's subreddit pulled in wholesale. Line two pairs the bare word "Also" with specific product/model terms ("TB-M", "alpha wave") inside a tight 2-word window. That's a new source for disambiguation terms: proprietary product vocabulary, alongside Venable's industry terms and Forest Ridge's geography. Line three is the same caseSensitive + topic combo as AYR: matching only the all-caps stylized "ALSO" and grounding it in topic:bicycles_and_accessories.</p></div></details>
+        </div>
+      </div>
+      <!-- ABIM -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Acronym · multiple techniques stacked</span>
+          <span class="tab-title">American Board of Internal Medicine (ABIM)</span>
+          <a class="tab-link" href="https://www.abim.org/" target="_blank">abim.org ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">("American Board of Internal Medicine"^7 OR ("American Board" ONEAR/1 "Internal Medicine"))
+OR (abim.org OR @abimcert OR abim.certification)
+OR (caseSensitive:(ABIM) AND topic:health)
+OR (caseSensitive:(ABIM) NEAR/6 (Credit* OR Certificat* OR point*))</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>caseSensitive isn't limited to one secondary grounding. Running it in parallel against both a topic clause and a NEAR+vocabulary clause maximizes recall on an ambiguous acronym while keeping precision on each individual clause.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Four clauses, each solving a different angle of this acronym-heavy name. Line one matches the full formal name exactly, and also covers it split with a 1-word gap tolerance ("American Board" ONEAR/1 "Internal Medicine"), a tight ordered-proximity trick that catches minor variation in how the connecting word between the two name fragments renders, without needing a full wildcard. Line two is the usual exact-match cluster: domain, handle, and a certification-portal-style string.</p><p>Lines three and four both disambiguate the bare acronym "ABIM" with caseSensitive, but ground it two different ways in parallel rather than picking one: line three pairs it with topic:health (the same caseSensitive+topic combo seen with AYR and RideAlso), while line four pairs it with NEAR/6 against wildcarded vocabulary specific to how this acronym actually gets discussed: certification credits and points.</p></div></details>
+        </div>
+      </div>
+      <!-- CNIC -->
+      <div class="tab-item" id="example-cnic">
+        <div class="tab-header">
+          <span class="tab-badge">Genuine name collision · NOT in action</span>
+          <span class="tab-title">CNIC (Commander, Navy Installations Command)</span>
+          <a class="tab-link" href="https://www.cnic.navy.mil/" target="_blank">cnic.navy.mil ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(caseSensitive:(CNIC) AND topic:military NOT ("Computerised National Identity Card" OR Pakista* OR "CNIC Card"))
+OR ("Commander" NEAR/1 "Navy Installations Command")
+OR (cnic.navy.mil OR cnichq)</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>This is what a targeted, name-collision NOT actually looks like in practice: narrow and specific to the one colliding entity, not a general noise filter. See Exclusions &amp; Noise below for when this applies vs. when to use the Implementation Cloner System instead.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>This is the real-world case the Exclusions guidance below is talking about: "CNIC" also commonly refers to Pakistan's national ID card ("Computerised National Identity Card"), a completely unrelated entity, not just background noise. So line one pairs the now-familiar caseSensitive + topic combo (a 4th example of this recurring pattern, after AYR, RideAlso, and ABIM) with a narrow, targeted NOT that excludes only that specific collision: the spelled-out card name, a wildcarded "Pakista*", and the phrase "CNIC Card."</p><p>Line two binds the organization's actual formal name, "Commander" and "Navy Installations Command," inside a 1-word gap using plain NEAR rather than ONEAR. Order isn't forced here, unlike ABIM's ONEAR/1, since either fragment could reasonably lead. Line three is the exact-match cluster: the official .mil domain and the organization's handle.</p></div></details>
+        </div>
+      </div>
+      <!-- QUEST NUTRITION -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Ambiguous name · product-category grounding</span>
+          <span class="tab-title">Quest Nutrition: protein snacks</span>
+          <a class="tab-link" href="https://www.questnutrition.com/" target="_blank">questnutrition.com ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">("Quest Nutrition"^8 OR questnutrition.com OR questnutrition)
+OR ((Quest^7) NEAR/2 ("Protein Chip*" OR "Protein Bar*" OR "Hero Bar*" OR "protein shake*" OR "protein powder" OR "protein milk*"))</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>When disambiguating a generic-word brand name, consider grounding in the product categories the brand sells, not just industry vocabulary. It's often the more natural and complete list.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Line one is the exact-match cluster: full brand name, domain, squashed handle form. Line two disambiguates the bare word "Quest" (a generic word, and a name plenty of other companies use, Quest Diagnostics among them) inside a tight 2-word window against wildcarded product-category terms: protein chips, bars, a specific product line ("Hero Bar"), shakes, powder, and milk.</p><p>This is a fourth flavor of disambiguation-grounding vocabulary, alongside Venable's industry terms, Forest Ridge's geography, and RideAlso's proprietary codenames: here it's the brand's own product categories: what it's actually known for selling. For an ambiguous-name CPG brand, that's usually more reliable and repeatable than hunting for internal codenames.</p></div></details>
+        </div>
+      </div>
+      <!-- UOVO -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Multi-vertical brand · ambiguous foreign-language name</span>
+          <span class="tab-title">UOVO: art storage, logistics, fashion & wine</span>
+          <a class="tab-link" href="https://uovo.com/" target="_blank">uovo.com ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(caseSensitive:("UOVO"^7) AND (topic:visual_art_and_design OR topic:transportation_and_logistics OR topic:fashion_and_style))
+OR ("uovo.com" OR "uovo.art" OR "uovofineart" OR uovofashion OR uovo.fashion OR uovo.wine OR uovo-wine)
+OR (caseSensitive:("UOVO") NEAR/6 (art OR fashion OR wine OR storage OR store OR shipping OR galler*))</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>A brand operating across several unrelated business lines needs its exact-match and vocabulary layers to cover every vertical, not just the primary one. One domain and one grounding category aren't enough here.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>"UOVO" is Italian for "egg," a generic foreign-language word, and the brand itself spans four distinct business lines: fine art storage, logistics, fashion, and wine. That combination, an ambiguous name plus multiple unrelated verticals, needs more coverage than a single-category brand.</p><p>Line one pairs caseSensitive with an OR cluster of topics rather than one topic tag, since no single topic covers art storage, logistics, and fashion at once. Line two is the exact-match cluster, but instead of one consistent domain it lists a separate domain or handle per business line: uovo.com, uovo.art for the art-storage side, uovofineart and uovofashion as handles, plus uovo.fashion, uovo.wine, and the hyphenated uovo-wine variant. Line three repeats the caseSensitive disambiguation, this time grounded with NEAR/6 against vocabulary spanning every vertical at once: art, fashion, wine, storage, and shipping terms together, rather than one product category the way Quest Nutrition's grounding worked.</p></div></details>
+        </div>
+      </div>
+      <!-- LT. GOVERNOR DEIDRE HENDERSON -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Public figure / government official</span>
+          <span class="tab-title">Lt. Governor Deidre Henderson (Utah)</span>
+          <a class="tab-link" href="https://ltgovernor.utah.gov" target="_blank">ltgovernor.utah.gov ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(("Lt." OR Lieutenant) NEAR/1 (Gov. OR Governor) NEAR/3 (Utah OR Henderson OR Deidre))
+OR ("Office of the Lieutenant Governor" NEAR/2 (Utah OR Henderson OR Deidre))
+OR (ltgovernor.utah.gov OR lt.govhenderson OR lghendersonutah OR deidrehendersonutah)</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Chain NEAR windows when a generic title needs two layers of grounding: first binding title variants together, then requiring nearby identifying context. And don't assume a person's handle is consistent across platforms the way a brand's usually is.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Searches for a prominent individual use the same toolkit as brand searches. It's just the "brand" that's a person. The title "Lieutenant Governor" alone is useless on its own; every state has one. So this chains two proximity windows: first binding the title's abbreviation variants together ("Lt." or "Lieutenant" NEAR/1 "Gov." or "Governor"), then requiring that whole title phrase to land within 3 words of identifying context: the state, the last name, or the first name. The second line does the same for the formal office name, which is equally generic without that context.</p><p>The exact-match line carries a wrinkle specific to people rather than brands: a public figure often has inconsistent handle conventions across platforms: three genuinely different naming logics here (lt.govhenderson, lghendersonutah, deidrehendersonutah), rather than the one consistent handle a company typically reuses everywhere.</p></div></details>
+        </div>
+      </div>
+      <div class="callout" style="margin-top: 4px;">
+        <strong>From here: competitor searches.</strong> A competitor search isn't a different discipline. It's a brand search for a different company, usually set up inside your customer's own account. Same techniques, same toolkit: name variants, exact-match signals, source targeting, image text. Depth can be lighter, though: a competitor search usually just needs to track mentions, sentiment, and moves, not the same exhaustive catch-all-plus-custom-categories depth as the account's own brand, unless the customer wants that level of competitive intelligence.
+      </div>
+      <!-- COSTCO (COMPETITOR) -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Competitor · set up in Trader Joe's account</span>
+          <span class="tab-title">Costco</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(Costco^8 OR @Costco OR costco.com OR containsLink:costco.com)
+OR sourceName:/r/Costco
+OR imageText:"Costco"
+OR "Kirkland Signature"</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>We'd build a similar boolean if Costco were our own customer. Competitor and brand searches aren't different skills.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Same building blocks as Trader Joe's own boolean (weighted name, handle, domain, subreddit, image text), but lighter, since "Costco" isn't an ambiguous word the way "Venable" or the "TJ's" shorthand is. The one addition worth noting: "Kirkland Signature," Costco's private-label brand, included alongside the corporate name, the same sub-brand logic covered above.</p></div></details>
+        </div>
+      </div>
+      <!-- GREENVILLE-SPARTANBURG (COMPETITOR) -->
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Competitor · nearby airport</span>
+          <span class="tab-title">Greenville-Spartanburg International Airport</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">"Greenville-Spartanburg International Airport" OR "Greenville Spartanburg International Airport" OR "Greenville-Spartanburg Airport" OR "Greenville Spartanburg Airport" OR "GSP Airport" OR "GSP airport"</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>For compound place names, cover both the hyphenated and un-hyphenated forms. Don't assume people type it consistently.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Same exact-phrase-variant pattern as Asheville's own boolean. The one new wrinkle: covering both the hyphenated and space-separated forms of a compound place name, plus the common airport-code shorthand people actually use ("GSP Airport").</p></div></details>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-purple">
+      <strong>Custom categories are often reusable, not one-and-done. Worth planning for on bigger name brands especially.</strong> A "Fall Seasonal" category built for Trader Joe's (autumn, Halloween, etc.) applies just as well to Costco without rebuilding it from scratch, and the same logic applies to a single ubiquitous brand split across product lines or campaigns (see the scope callout above). Build the taxonomy once per vertical or brand family, not once per search.
+    </div>
+  </section>
+
+  <!-- INDUSTRY SEARCHES -->
+  <section id="industry-searches">
+    <div class="section-header">
+      <div class="section-eyebrow section-eyebrow-purple">Industry Searches</div>
+      <h2>Building an industry / topic boolean</h2>
+      <p>An industry boolean doesn't reference a brand name at all. It's tracking a subject area, usually to give a customer a daily pulse on their space rather than exhaustive coverage. The discipline here is less about disambiguation and more about picking the right topic tags and the right volume-control lever.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-puzzle"></i></div>
+        <h3>Topic + topic intersection</h3>
+        <p>Most industry booleans are two topic tags ANDed together, narrowing to the overlap between the customer's core industry and an adjacent trend or function they care about.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-funnel"></i></div>
+        <h3>Pick topics deliberately, not adjacently</h3>
+        <p>Choose the second topic tag based on what the customer actually wants to know, not just what's loosely related. "business_news" surfaces corporate moves; a generic finance topic would surface stock-ticker noise the customer doesn't care about.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-geo-alt"></i></div>
+        <h3>Geography can replace a second topic</h3>
+        <p>A single topic tag paired with a tight geographic filter can control volume just as well as a topic+topic intersection, especially for inherently local subject areas like K-12 school news.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-newspaper"></i></div>
+        <h3>title: for opportunity-spotting, not just digests</h3>
+        <p>Pairing a topic with title: (matching the headline specifically) surfaces content centrally about the subject, not just mentioning it. That's useful when the goal is spotting marketing or business-development opportunities rather than a daily digest.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="bi bi-layers"></i></div>
+        <h3>OR clusters inside an AND intersection</h3>
+        <p>A single leg of a multi-topic intersection can itself be an OR group of near-synonymous tags, useful when you're not sure which exact topic the relevant content will be classified under, without losing precision on the other legs.</p>
+      </div>
+    </div>
+    <div class="callout callout-purple">
+      <strong>Full list of topic tags:</strong> reference the <a href="https://drive.google.com/file/d/1awI5X28VKjgJY-KkIts3w-LD0RIKl56b/view" target="_blank">Meltwater topic operator list</a> before picking a pairing. There are more topics available than the handful used in these examples.
+    </div>
+
+    <div class="tab-list">
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Daily digest</span>
+          <span class="tab-title">Venable: AI & Law</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">topic:legal AND topic:machine_learning_and_artificial_intelligence</div>
+</div>
+          <p class="boolean-filters">Filters: US, English, top 10% news (target: under 100/day)</p>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Filters (geography, language, volume percentile) do real work here: they're what keeps a topic+topic boolean at a manageable daily volume.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Venable operates in the legal + AI space, so this gives them a pulse on the major daily news at that intersection without needing to read every legal or every AI story.</p></div></details>
+        </div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Daily digest</span>
+          <span class="tab-title">Venable: HR & Law</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">topic:legal AND topic:human_resources</div>
+</div>
+          <p class="boolean-filters">Filters: US, English, top 20% news (target: under 100/day)</p>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>The same brand can run multiple topic booleans, one per adjacent space they operate in. They don't need to be combined into one search.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Same logic as the AI pairing: Venable is active in HR-related legal work, so this keeps them current on that adjacent space.</p></div></details>
+        </div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Daily digest · deliberate topic choice</span>
+          <span class="tab-title">Trader Joe's: Grocery & Business News</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">topic:food_and_grocery_retailers AND topic:business_news</div>
+</div>
+          <p class="boolean-filters">Filters: US, English, top 10% news</p>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Ask "what does the customer want to know vs. not care about" when picking the second topic. Don't just pattern-match to something adjacent.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>"business_news" was chosen deliberately, not just as "an adjacent topic." It surfaces corporate and brand-moves coverage, which is what the customer actually wants a pulse on, while excluding noise like generic stock-price ticker news that a broader finance topic would pull in.</p></div></details>
+        </div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Single topic + geo filter</span>
+          <span class="tab-title">Forest Ridge: Local K-12 News</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">topic:primary_and_secondary_schooling_(k-12)</div>
+</div>
+          <p class="boolean-filters">Filters: News, geography narrowed to Seattle and Bellevue only (no second topic tag needed)</p>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>If the subject area is inherently local, geography can be your only volume-control lever. You don't always need a second topic.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>Local K-12 news is inherently a small, geographically bounded pool, so a tight geographic filter does the volume-control work a second topic tag or percentile filter did in the other examples. One topic tag is enough.</p></div></details>
+        </div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Marketing opportunity, not a digest</span>
+          <span class="tab-title">Asheville: Tourism & Marketing Opportunities</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">(topic:tourist_destinations OR topic:specialty_travel) AND title:Asheville</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Topic booleans aren't only for "stay informed" digests. They can be purpose-built to surface business-development or marketing opportunities, and title: is a good tool for that.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>A different "why" than the other topic examples. This isn't a daily pulse-check. It's built to spot marketing and co-marketing opportunities. title: restricts the match to the article's headline, so it surfaces content that's centrally about Asheville as a tourism destination, not just any article that mentions the city in passing.</p></div></details>
+        </div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Daily digest · regulatory angle</span>
+          <span class="tab-title">Health Insurance & Government</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">topic:health_insurance AND topic:government</div>
+</div>
+          <p class="boolean-filters">Filters: US, top 20% news</p>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>Same lesson as Trader Joe's business_news pairing: pick the second topic based on the specific angle the customer cares about (here, the regulatory/policy angle), not just a loosely related subject.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>"government" is the deliberate second topic here, not just "an adjacent topic." The intent is monitoring regulation changes, Medicare and Medicaid updates, and other government-driven health insurance news specifically, rather than general industry news.</p></div></details>
+        </div>
+      </div>
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Three-topic intersection · OR cluster inside AND</span>
+          <span class="tab-title">ABIM: Training, Health & Policy</span>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">topic:training_and_certification AND topic:health AND (topic:public_policy OR topic:health_policy OR topic:government)</div>
+</div>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>An AND intersection doesn't have to be one tag per leg. Widen a single leg into an OR cluster of related tags when you're covering a concept that could reasonably be classified several different ways.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>The industry-monitoring counterpart to ABIM's own brand boolean (see Brand Searches above). Three topics are ANDed together, but the third leg is itself an OR cluster of near-synonymous policy tags (public_policy, health_policy, government) rather than a single pick, useful when you're not confident which exact tag the relevant coverage will be classified under, without giving up precision on the other two legs.</p></div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXCLUSIONS -->
+  <section id="exclusions">
+    <div class="section-header">
+      <div class="section-eyebrow section-eyebrow-orange">Exclusions</div>
+      <h2>When (and when not) to use NOT</h2>
+      <p>Exclusions are a two-tier decision, not a single technique. And the default isn't a long inline NOT statement in the boolean itself.</p>
+    </div>
+    <div class="callout">
+      <strong>Default: the Implementation Cloner System.</strong> For common noise types (press releases, stock market and earnings coverage, jobs and hiring content, and a few other standard categories), clone the pre-built custom categories into the customer's account and turn those off at the category level. This is the default path for handling noise; it's faster, more maintainable, and doesn't bloat the boolean itself.
+    </div>
+    <div class="callout callout-orange">
+      <strong>Reserve inline NOT for genuine name collisions.</strong> Use a targeted NOT on specific keywords, or NOT topic:, only when there's an actual different business that shares the same or a similar name and operates in a clearly different space. Keep it narrow and specific to that one collision; a long stack of NOT clauses chasing general noise is a sign the exclusion belongs in a custom category instead.
+    </div>
+    <div class="callout">
+      <strong>What this looks like in practice:</strong> <span class="inline-code">NOT ("Computerised National Identity Card" OR Pakista* OR "CNIC Card")</span>, from the CNIC (Commander, Navy Installations Command) example in Brand Searches above, where "CNIC" also happens to be the common name for Pakistan's national ID card. The NOT is narrow and specific to that one real collision, not a general noise filter. <a href="#example-cnic">See the full boolean ↑</a>
+    </div>
+  </section>
+
+  <!-- OPERATOR REFERENCE -->
+  <section id="operators">
+    <div class="section-header">
+      <div class="section-eyebrow">Reference</div>
+      <h2>Operator quick reference</h2>
+      <p>Every operator used in this guide's examples, in one place.</p>
+    </div>
+    <div class="operator-table-wrap">
+      <table class="operator-table">
+        <tr><th>Operator</th><th>Example</th><th>What it does</th></tr>
+        <tr><td>NEAR/N</td><td><code>Venable NEAR/12 legal</code></td><td>Matches when terms appear within N words of each other, in either order.</td></tr>
+        <tr><td>ONEAR/N</td><td><code>"Forest Ridge School" ONEAR/2 "Sacred Heart"</code></td><td>Same as NEAR, but the terms must appear in that exact order.</td></tr>
+        <tr><td>^weight</td><td><code>"Venable LLP"^7</code></td><td>Boosts relevance ranking of that clause; doesn't change what's captured, just scoring.</td></tr>
+        <tr><td>caseSensitive:</td><td><code>caseSensitive:(AYR^7)</code></td><td>Forces an exact-case match, useful for short, all-caps names that would otherwise collide with a common lowercase word.</td></tr>
+        <tr><td>language:</td><td><code>language:en</code></td><td>Restricts matches to a specific language, applied inline within the boolean itself rather than as an external search filter.</td></tr>
+        <tr><td>topic:</td><td><code>topic:legal AND topic:human_resources</code></td><td>Matches documents tagged with a Meltwater topic category.</td></tr>
+        <tr><td>containsLink:</td><td><code>containsLink:"costco.com"</code></td><td>Matches documents that link out to the given domain.</td></tr>
+        <tr><td>sourceName:</td><td><code>sourceName:/r/traderjoes</code></td><td>Targets a specific named source (e.g. a subreddit) directly.</td></tr>
+        <tr><td>imageText:</td><td><code>imageText:"Costco"</code></td><td>Matches text detected inside an image, not the surrounding article text.</td></tr>
+        <tr><td>title:</td><td><code>topic:tourist_destinations AND title:Asheville</code></td><td>Restricts the match to the document's title/headline specifically.</td></tr>
+        <tr><td>* wildcard</td><td><code>"Trader Joe*"</code></td><td>Matches any characters following the wildcard (Joe, Joes, Joe's).</td></tr>
+        <tr><td>? wildcard</td><td><code>"Buc?ees"</code></td><td>Matches a single unknown character in that position.</td></tr>
+        <tr><td>"exact phrase"</td><td><code>"Trader Joe's"</code></td><td>Matches the exact phrase as written.</td></tr>
+        <tr><td>AND / OR / NOT</td><td><code>topic:legal AND topic:human_resources</code></td><td>Standard boolean logic. NOT excludes, reserved for narrow name-collision cases (see Exclusions above).</td></tr>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Full operator list:</strong> this table covers the operators used in this guide's examples. For the complete Meltwater Boolean Library, see the <a href="https://community.meltwater.com/explore-44/the-meltwater-boolean-library-8049?tid=8049&amp;fid=204" target="_blank">Meltwater Community Boolean Library</a>.
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist">
+    <div class="section-header">
+      <div class="section-eyebrow">Before you save it</div>
+      <h2>Quick gut-check</h2>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-mark"><i class="bi bi-check-lg"></i></div><p>Does the boolean cover realistic name variants: punctuation, spacing, abbreviations, common misspellings?</p></div>
+      <div class="check-item"><div class="check-mark"><i class="bi bi-check-lg"></i></div><p>If the name is generic or ambiguous, is there a disambiguation layer (NEAR/ONEAR + context terms)?</p></div>
+      <div class="check-item"><div class="check-mark"><i class="bi bi-check-lg"></i></div><p>Are exact-match signals included (handle, domain, retail URLs) where relevant?</p></div>
+      <div class="check-item"><div class="check-mark"><i class="bi bi-check-lg"></i></div><p>Does the boolean's scope match the brand's size? Surgical for small/ambiguous, broad catch-all + custom categories for large/ubiquitous.</p></div>
+      <div class="check-item"><div class="check-mark"><i class="bi bi-check-lg"></i></div><p>For topic booleans: is the second topic tag or filter chosen deliberately, based on what the customer actually cares about?</p></div>
+      <div class="check-item"><div class="check-mark"><i class="bi bi-check-lg"></i></div><p>Before adding inline NOT clauses for noise, could the Implementation Cloner System handle it instead?</p></div>
+    </div>
+  </section>
+
+</div>
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">&lt;o&gt; Meltwater</div>
+    <div class="footer-note">Internal use only · Implementation Manager reference guide · Boolean Writing</div>
+  </div>
+  <div class="footer-links">
+    <a href="https://drive.google.com/file/d/1awI5X28VKjgJY-KkIts3w-LD0RIKl56b/view" target="_blank">Topic Operator List (Drive)</a>
+    <a href="https://community.meltwater.com/explore-44/the-meltwater-boolean-library-8049?tid=8049&fid=204" target="_blank">Meltwater Community Boolean Library</a>
+  </div>
+</footer>
+
+<script>
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function colorizeBoolean(text) {
+    // Only the field name + colon itself (topic:, caseSensitive:, containsLink:, sourceName:, imageText:, title:,
+    // language:, and any future field:value operator) is colored as an operator. The value that follows is left
+    // for the remaining rules to classify normally: quoted strings green, everything else default (unquoted/black).
+    // Matched in one left-to-right pass so none of the token types overlap.
+    const pattern = /\b[A-Za-z]+:|"[^"]*"|\b(?:ONEAR|NEAR)(?:\/\d+)?\b|\b(?:AND|OR|NOT)\b/g;
+    let result = '';
+    let lastIndex = 0;
+    let m;
+    while ((m = pattern.exec(text)) !== null) {
+      if (m.index > lastIndex) result += escapeHtml(text.slice(lastIndex, m.index));
+      const token = m[0];
+      let cls;
+      if (/^[A-Za-z]+:$/.test(token)) cls = 'tok-field';
+      else if (token.startsWith('"')) cls = 'tok-str';
+      else cls = 'tok-op';
+      result += '<span class="' + cls + '">' + escapeHtml(token) + '</span>';
+      lastIndex = m.index + token.length;
+    }
+    result += escapeHtml(text.slice(lastIndex));
+    return result;
+  }
+
+  document.querySelectorAll('.boolean-body').forEach(function (el) {
+    el.innerHTML = colorizeBoolean(el.textContent);
+  });
+
+  function copyBoolean(btn) {
+    const block = btn.closest('.boolean-block');
+    const bodyEl = block.querySelector('.boolean-body');
+    navigator.clipboard.writeText(bodyEl.innerText).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      btn.textContent = 'Copy failed';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
