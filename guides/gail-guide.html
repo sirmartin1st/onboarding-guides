@@ -32,6 +32,23 @@
       font-size: 15px;
       line-height: 1.65;
     }
+    /* Typographic polish */
+    h1, h2, h3 { text-wrap: balance; }
+    p { text-wrap: pretty; }
+    /* Accessibility: keyboard focus */
+    a:focus-visible,
+    .step-overview-card:focus-visible,
+    .resource-card:focus-visible {
+      outline: 2px solid var(--mw-teal);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+    /* Smooth anchor scrolling (motion-safe) + tactile press */
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+    .step-overview-card:active,
+    .resource-card:active { transform: translateY(1px); }
     /* NAV */
     nav {
       position: sticky;
@@ -113,6 +130,7 @@
       font-size: 42px;
       font-weight: 700;
       line-height: 1.15;
+      letter-spacing: -0.02em;
       max-width: 660px;
       margin-bottom: 20px;
     }
@@ -173,6 +191,7 @@
       font-weight: 700;
       color: var(--mw-black);
       line-height: 1.2;
+      letter-spacing: -0.015em;
     }
     .section-header p {
       margin-top: 10px;
@@ -224,6 +243,7 @@
       color: var(--mw-teal);
       line-height: 1;
       margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
     }
     .stat-label {
       font-size: 12.5px;
@@ -343,9 +363,9 @@
     }
     .tab-link {
       font-size: 11.5px;
-      color: var(--mw-teal-tint-1);
+      color: var(--mw-teal-tint-3);
       text-decoration: none;
-      opacity: 0.8;
+      opacity: 0.9;
       white-space: nowrap;
     }
     .tab-link:hover { opacity: 1; text-decoration: underline; }
@@ -663,7 +683,7 @@
     .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
     .footer-links { display: flex; flex-direction: column; gap: 8px; text-align: right; }
     .footer-links a {
-      color: var(--mw-teal-tint-1);
+      color: var(--mw-teal-tint-3);
       text-decoration: none;
       font-size: 13px;
     }
@@ -693,8 +713,8 @@
     <li><a href="#overview">Overview</a></li>
     <li><a href="#prep">Prep</a></li>
     <li><a href="#framing">Framing</a></li>
-    <li><a href="#walkthrough">Walkthrough</a></li>
     <li><a href="#prompts">Prompts</a></li>
+    <li><a href="#walkthrough">Walkthrough</a></li>
     <li><a href="#next-steps">Next steps</a></li>
   </ul>
 </nav>
@@ -703,7 +723,7 @@
   <div class="hero-eyebrow">Internal Guide · Implementation</div>
   <h1>Onboarding customers to <span>GenAI Lens</span></h1>
   <p class="hero-sub">Your end-to-end reference for taking every GAIL customer from kickoff to active adoption — even if they've never thought about LLM monitoring before.</p>
-  <p style="font-size: 13px; opacity: 0.75; margin-bottom: 28px;">Guide last updated: September 15, 2026 · <a href="https://docs.google.com/document/d/1p1z4iRBdttMuiDbDUUPsXVFQl-3sY24Va4GqjETXe4Q/edit?tab=t.0#heading=h.ygm54cezavi" target="_blank" style="color: var(--mw-teal-tint-1); font-weight: 600; text-decoration: underline;">Check the release notes for any new features</a></p>
+  <p style="font-size: 13px; opacity: 0.75; margin-bottom: 28px;">Guide last updated: October 7, 2026 · <a href="https://docs.google.com/document/d/1p1z4iRBdttMuiDbDUUPsXVFQl-3sY24Va4GqjETXe4Q/edit?tab=t.0#heading=h.ygm54cezavi" target="_blank" style="color: var(--mw-teal-tint-1); font-weight: 600; text-decoration: underline;">Check the release notes for any new features</a></p>
   <div class="hero-pills">
     <span class="pill">How to frame it</span>
     <span class="pill">Pre-call prep</span>
@@ -714,11 +734,10 @@
     <span class="pill pill-orange">Next steps</span>
   </div>
 </div>
-<div class="page-body">
+<main class="page-body">
   <!-- OVERVIEW -->
   <section id="overview">
     <div class="section-header">
-      <div class="section-eyebrow">Context</div>
       <h2>Why this guide exists</h2>
       <p>Most GAIL customers are new to LLM monitoring entirely. They purchased the product but may not know what to do with it, what questions to ask, or why it matters for their team. Your job is to close that gap — fast and confidently.</p>
     </div>
@@ -777,7 +796,6 @@
   <!-- HOW THIS GUIDE IS STRUCTURED -->
   <section id="structure">
     <div class="section-header">
-      <div class="section-eyebrow">Your roadmap</div>
       <h2>Six steps from kickoff to adoption</h2>
       <p>Follow this sequence with every GAIL customer. Steps 1–2 happen before the call. Steps 3–6 are on the call and in follow-up.</p>
     </div>
@@ -792,15 +810,15 @@
         <div class="soc-title">Frame it for their world</div>
         <div class="soc-desc">Assess how familiar they are with LLMs and meet them there. Most customers need a baseline before the product lands.</div>
       </a>
-      <a href="#walkthrough" class="step-overview-card">
-        <div class="soc-num">Step 3</div>
-        <div class="soc-title">Product walkthrough</div>
-        <div class="soc-desc">Walk each tab in sequence. Brand Setup first, then Trends, Benchmarking, Sentiment, Sources, and Settings.</div>
-      </a>
       <a href="#prompts" class="step-overview-card">
-        <div class="soc-num">Step 4</div>
+        <div class="soc-num">Step 3</div>
         <div class="soc-title">Prompt strategy & discovery</div>
-        <div class="soc-desc">Run discovery to find what's worth tracking, shape it into a few topic buckets, and build one bucket together on the call.</div>
+        <div class="soc-desc">Name what they want to measure, run discovery into a few topic buckets, and plan the prompts — before the walkthrough.</div>
+      </a>
+      <a href="#walkthrough" class="step-overview-card">
+        <div class="soc-num">Step 4</div>
+        <div class="soc-title">Product walkthrough</div>
+        <div class="soc-desc">Tour each tab in sequence — Brand Setup, Trends, Benchmarking, Sentiment, Sources, Settings — then build one bucket together to close.</div>
       </a>
       <a href="#so-what" class="step-overview-card">
         <div class="soc-num">Step 5</div>
@@ -820,6 +838,9 @@
       <div class="section-eyebrow">Step 1</div>
       <h2>Pre-call prep</h2>
       <p>The single biggest difference between a GAIL session that lands and one that doesn't is whether you show up with real data already in the platform. Adding the customer's brand is what makes that happen — it's the trigger for everything else.</p>
+    </div>
+    <div class="callout">
+      <strong>Your prompts are your dataset.</strong> GenAI Lens only collects data from the day a prompt is created — it can't look backward and backfill. That's why setup happens before the call, not during it: the prompts you add now are what will have data to read later. More prompts, added earlier, means more signal when you sit down with the customer.
     </div>
     <div class="callout callout-orange">
       <strong>Before you send the invite — check who's in the room.</strong> Confirm whether the people who own SEO, content, and the website will be on the call, not just the PR/Comms buyer. The influence half of GenAI Lens (GEO) lives with them, and sessions that include only PR often stall when the conversation turns to "how do we change what the AI says." If SEO/GEO sits in another department, ask your champion to bring them in — or plan a second session aimed at that team. Check Salesforce and pre-sales notes for who owns organic search and web content.
@@ -934,10 +955,230 @@
       </div>
     </div>
   </section>
-  <!-- STEP 3: PRODUCT WALKTHROUGH -->
-  <section id="walkthrough">
+  <!-- STEP 3: PROMPTS -->
+  <section id="prompts">
     <div class="section-header">
       <div class="section-eyebrow">Step 3</div>
+      <h2>Prompt strategy &amp; discovery</h2>
+      <p>A few jobs in one: name what the customer wants to <em>measure</em>, run discovery to turn that into what's worth tracking, then translate it into well-built prompts. Most new customers default to vague inputs — or stop at brand and competitors — and then wonder why the results aren't useful. Your job is to draw out what matters and shape it into a clean setup.</p>
+    </div>
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px; margin-top: 8px;">Start with the measure: what does leadership want to know?</h3>
+    <p style="font-size: 14px; color: #4a4a4a; margin-bottom: 16px; max-width: 700px;">Before you touch prompts or topics, name the question the customer's leadership will actually ask. Each question points to a measure, and each measure has a home tab. This is what turns "we bought an AI tool" into "here's what we're measuring and why" — and it gives you a shared language for the rest of the call.</p>
+    <div style="overflow-x: auto; margin-bottom: 20px;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 560px;">
+        <thead>
+          <tr style="background: var(--mw-teal-dark); color: #fff; text-align: left;">
+            <th scope="col" style="padding: 10px 14px; font-weight: 700;">The question leadership asks</th>
+            <th scope="col" style="padding: 10px 14px; font-weight: 700;">Measure</th>
+            <th scope="col" style="padding: 10px 14px; font-weight: 700;">Read it in</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--mw-teal-tint-2);">
+            <td style="padding: 10px 14px; color: #4a4a4a;">Do AI models mention us while buyers are still deciding?</td>
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">Visibility</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Overview &amp; Trends</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--mw-teal-tint-2);">
+            <td style="padding: 10px 14px; color: #4a4a4a;">Do they recommend us over competitors?</td>
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">Consideration</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Benchmarking</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--mw-teal-tint-2);">
+            <td style="padding: 10px 14px; color: #4a4a4a;">Which outlets, journalists, and pages shape the answers?</td>
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">Authority &amp; Trust</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Sources</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 14px; color: #4a4a4a;">How do they describe us — and is it accurate?</td>
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">Reputation</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Sentiment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Then decide who acts on each measure.</strong> PR builds outreach lists from Sources, SEO and content close the citation gaps, marketing targets the buying questions where competitors appear and the customer doesn't, and brand leaders report share of model next to share of voice. Tying each measure to an owner is how the data turns into action instead of a dashboard nobody opens.
+    </div>
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px; margin-top: 8px;">Then run discovery: what's worth tracking?</h3>
+    <p style="font-size: 14px; color: #4a4a4a; margin-bottom: 16px; max-width: 700px;">You walked in with candidate topic buckets from your prep (Step 1). Discovery is where you confirm, drop, or expand them with the client. Most clients default to "brand and competitors" — use these questions to surface the themes beyond that which actually matter to their business.</p>
+    <div class="questions-list">
+      <div class="question-item">
+        <div class="q-number">1</div>
+        <div class="q-body">
+          <strong>Outside your brand and competitors, what's top of mind for the business right now?</strong>
+          <span class="q-listen">Listen for: a product launch, a reputation concern, entering a new market, a leadership change.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">2</div>
+        <div class="q-body">
+          <strong>Is there a narrative about your industry you want to own — or one you're worried about?</strong>
+          <span class="q-listen">Listen for: category-level themes big enough to earn a bucket of their own.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">3</div>
+        <div class="q-body">
+          <strong>Are there specific products, executives, or spokespeople whose visibility matters to you?</strong>
+          <span class="q-listen">Listen for: entities worth tracking beyond just the brand name.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">4</div>
+        <div class="q-body">
+          <strong>What decision would this data help you make, or what would you want to put in front of leadership?</strong>
+          <span class="q-listen">Listen for: the outcome that tells you which buckets actually earn their place.</span>
+        </div>
+      </div>
+      <div class="question-item">
+        <div class="q-number">5</div>
+        <div class="q-body">
+          <strong>Which competitors do you actually lose deals to, versus the ones you just keep an eye on?</strong>
+          <span class="q-listen">Listen for: which competitors deserve deeper variant coverage.</span>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-purple" style="margin-top: 24px;">
+      <strong>Turn the answers into buckets.</strong> Once you've heard what matters, use the <strong>/genai-lens-onboarding</strong> Claude skill (in the Implementation Manager Tools Claude Plugin) or the GPT to shape those themes into two or three recommended topic buckets and their prompt variants. Present them back as recommendations — "based on what you said, I'd suggest we track X, Y, and Z" — so the client sees you translating their priorities into a real setup.
+    </div>
+    <div class="callout">
+      <strong>Fewer buckets, more variants — building toward ~50 prompts.</strong> As an initial setup, keep the number of topic buckets small and load more prompt variations into each one. A handful of well-populated buckets gives cleaner, more comparable data than a sprawl of thin ones — and it's far easier for the client to manage on their own later. Aim for roughly 50 prompts per brand as the mature target (a few buckets, ~8 variations each) — the goal is to appear across the many ways people ask, not just one. For clients brand-new to LLM monitoring, start smaller and build toward that number rather than front-loading 50 on day one.
+    </div>
+    <div class="callout">
+      <strong>How prompts work in GenAI Lens:</strong> Each prompt is submitted to multiple LLMs, which generate responses. GenAI Lens then analyzes those responses for brand citations, sentiment, sources, and entities. The quality of your prompts directly determines the quality of your insights.
+    </div>
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; margin-top: 8px;">What makes a good vs. bad prompt</h3>
+    <div class="prompt-grid">
+      <div class="prompt-good">
+        <div class="prompt-label">✅ Good prompts</div>
+        <div class="prompt-item">
+          Tell me about [Brand Name]. How do people generally perceive it, and where does it stand in the market right now?
+          <span class="prompt-note">Specific, open-ended, mirrors how a consumer would actually ask.</span>
+        </div>
+        <div class="prompt-item">
+          What's the latest news or buzz around [Competitor Brand Name]?
+          <span class="prompt-note">Named entity + context = richer, more trackable LLM responses.</span>
+        </div>
+        <div class="prompt-item">
+          How does [Brand]'s [Product] compare to [Competitor]'s [Product]? What are the key differences?
+          <span class="prompt-note">Head-to-head prompts generate strong competitive data in Benchmarking.</span>
+        </div>
+        <div class="prompt-item">
+          What are the top [category] companies known for in terms of customer service?
+          <span class="prompt-note">Category-level prompts surface how the brand ranks in a broader context.</span>
+        </div>
+      </div>
+      <div class="prompt-bad">
+        <div class="prompt-label">❌ Prompts to avoid</div>
+        <div class="prompt-item">
+          Tell me about [Brand].
+          <span class="prompt-note">Too vague. LLMs return generic responses with no trackable signal.</span>
+        </div>
+        <div class="prompt-item">
+          Is [Brand] a good company?
+          <span class="prompt-note">Binary framing limits the response and skews sentiment artificially.</span>
+        </div>
+        <div class="prompt-item">
+          What are all the things [Brand] has ever done?
+          <span class="prompt-note">Overly broad. LLMs will hallucinate or give outdated historical content.</span>
+        </div>
+        <div class="prompt-item">
+          How many employees does [Brand] have?
+          <span class="prompt-note">Factual queries don't generate useful narrative or sentiment data.</span>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-purple">
+      <strong>The prompts already in the account set the standard.</strong> The suggested prompts from brand setup — plus anything you've added — are a model for what good looks like, good enough that the customer may not want to remove them. Use them during the walkthrough to show what a well-formed prompt generates, then use that output as the launchpad for building a new prompt together at the end of the call.
+    </div>
+    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px; margin-top: 8px;">Branded vs. unbranded prompts — write both</h3>
+    <p style="font-size: 14px; color: #4a4a4a; margin-bottom: 16px; max-width: 700px;">Every prompt is either branded (it names the brand, a product, or a person) or unbranded (it describes the category or a buyer's need without naming them). They answer different questions, and a healthy setup needs both.</p>
+    <div style="overflow-x: auto; margin-bottom: 20px;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 560px;">
+        <thead>
+          <tr style="background: var(--mw-teal-dark); color: #fff; text-align: left;">
+            <th scope="col" style="padding: 10px 14px; font-weight: 700; width: 20%;"></th>
+            <th scope="col" style="padding: 10px 14px; font-weight: 700;">Branded</th>
+            <th scope="col" style="padding: 10px 14px; font-weight: 700;">Unbranded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid var(--mw-teal-tint-2);">
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">What it is</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Names the brand, products, or people</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Describes the category or a buyer's need, without naming them</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--mw-teal-tint-2);">
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">Question it answers</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">How does AI describe us once someone already knows who we are?</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Do we show up at all while buyers are still deciding?</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--mw-teal-tint-2);">
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">What to look at</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Sentiment, framing, accuracy, and how you compare to competitors you name</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Visibility, who appears instead of you in Benchmarking, and the Sources behind the answer</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 14px; font-weight: 600; color: var(--mw-teal-dark);">Measure it feeds</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Reputation</td>
+            <td style="padding: 10px 14px; color: #4a4a4a;">Visibility &amp; Consideration</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-orange">
+      <strong>Read Visibility from unbranded prompts only.</strong> A branded prompt already contains the brand name, so the brand almost always appears — great for seeing how the story reads once buyers find them, useless for whether they get found. Branded prompts inflate the visibility number. The uncomfortable, more useful answer lives in the unbranded prompts: where competitors show up and the customer doesn't.
+    </div>
+    <div class="callout">
+      <strong>How to run it:</strong> write in pairs — one branded and one unbranded prompt for each business need (e.g. branded: "How does Northwind Shield compare to Contoso Guard?" / unbranded: "What are the best security platforms for a mid-size bank?"). Keep the unbranded ones clean — no brand or product names, no hints at their strengths — so the answer reflects what a real buyer would see. And label every prompt Branded or Unbranded when you create it, so the customer can filter and report the two groups separately.
+    </div>
+    <div class="use-case-prompts">
+      <div class="ucp-card">
+        <div class="ucp-icon">🏷️</div>
+        <div class="ucp-title">Brand Snapshot</div>
+        <div class="ucp-prompt">"Tell me about [Brand Name]. How do people generally perceive it, and where does it stand in the market right now?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">📦</div>
+        <div class="ucp-title">Product Overview</div>
+        <div class="ucp-prompt">"Can you describe [Product/Service Name]? What are its main features and who typically uses it?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">🔔</div>
+        <div class="ucp-title">Competitor Buzz</div>
+        <div class="ucp-prompt">"What's the latest news or buzz around [Competitor Brand Name]?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">⚔️</div>
+        <div class="ucp-title">Product vs. Competitor</div>
+        <div class="ucp-prompt">"How does [Brand]'s [Product] compare to [Competitor Product] from [Competitor]? What are the key differences?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">🏆</div>
+        <div class="ucp-title">Category Leader</div>
+        <div class="ucp-prompt">"Who are the top companies in [industry/category] and what are they known for?"</div>
+      </div>
+      <div class="ucp-card">
+        <div class="ucp-icon">🛒</div>
+        <div class="ucp-title">Buyer Intent</div>
+        <div class="ucp-prompt">"What should I look for when choosing a [product category]? Which brands are recommended most?"</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Set target countries where markets differ.</strong> AI models answer the same question differently by country. If the customer sells across markets, run the same prompt with different target countries set — it surfaces where their narrative lands in one region but not another. GenAI Lens supports country targeting at the prompt level, so it's a filter to set during setup, not an afterthought.
+    </div>
+    <div class="callout">
+      <strong>Prompts by team type:</strong> Review the suggested prompts with who owns GAIL at this customer in mind, and supplement accordingly. PR teams care about brand protection and journalist sources. Marketing teams care about category visibility and buyer intent. SEO / GEO owners care about which content and keywords influence how the models describe the brand — lean into category, comparison, and buyer-intent prompts that surface the sources worth optimizing for. Competitive intel teams care about how competitors are positioned. Aim for at least one prompt covering each function in the room.
+    </div>
+    <div class="callout callout-purple">
+      <strong>You're set up when…</strong> three things are true: the brand and its competitors appear in Benchmarking, roughly 50 branded and unbranded prompts sit organized in topics, and you can point to one specific thing in the data to change, pitch, or escalate. If you can't name that one action yet, the setup isn't finished — keep refining the prompts until the data says something worth acting on.
+    </div>
+  </section>
+  <!-- STEP 4: PRODUCT WALKTHROUGH -->
+  <section id="walkthrough">
+    <div class="section-header">
+      <div class="section-eyebrow">Step 4</div>
       <h2>Product walkthrough</h2>
       <p>Walk the product in this sequence. Brand Setup first — it makes every subsequent tab more relevant. Then move through Trends, Benchmarking, Sentiment, Sources, and Settings. Use the Competitor-only toggle throughout to keep charts focused.</p>
     </div>
@@ -1021,7 +1262,7 @@
           <a href="https://community.meltwater.com/genai-lens-223/genai-lens-managing-topics-prompts-8078" target="_blank" class="tab-link">mCommunity guide ↗</a>
         </div>
         <div class="tab-body">
-          <p>Settings is where the customer will live once they're active — it's how they create, organize, and manage prompts, brands, and entities over time. Ending the walkthrough here is intentional: it sets up the transition directly into the Prompt Strategy section and the collaborative prompt-building moment.</p>
+          <p>Settings is where the customer will live once they're active — it's how they create, organize, and manage prompts, brands, and entities over time. Ending the walkthrough here is intentional: it hands straight into the collaborative prompt-building moment that closes the session.</p>
           <p><strong>What to show:</strong> Walk through how to create a new prompt using the <a href="https://community.meltwater.com/genai-lens-223/genai-lens-creating-a-prompt-8076" target="_blank" style="color: var(--mw-teal-dark); font-weight: 600;">prompt creation flow</a> — the fields, the options, and what each setting controls. Then show how Topics and Labels can be used to organize prompts as their library grows. This is also where brand and entity management lives now, including Discover & Merge for cleaning up duplicate entities.</p>
           <p><strong>The key message:</strong> The prompts already in the account — whether suggested at brand setup or added by you — are a starting point. This is where the customer takes ownership, adding prompts that reflect their specific questions, campaigns, and competitors. The more focused and specific their prompts, the more useful the data across every other tab.</p>
           <div class="tab-tip">💡 This is the natural lead-in to building a prompt together. After showing them the creation flow, hand it over: "Now let's build one based on what you've seen today."</div>
@@ -1030,141 +1271,6 @@
     </div>
     <div class="callout callout-purple">
       <strong>AI Site Traffic tab — Google Analytics:</strong> If the customer connected their GA4 account ahead of time (ideally at their Meltwater onboarding kickoff), walk through the <strong>AI Site Traffic</strong> tab in this first session. It shows sessions, transactions, revenue, and conversion rate broken out by AI platform, a referral path view of how AI traffic flows to specific pages, and an overlay comparing GA4 sessions against their GenAI Lens visibility trend — the real outcomes behind the citation and share-of-model data. If it isn't connected yet, show them how from that tab (their GA admin has to authorize the GA4 connection); if the admin isn't available, introduce it and pick it up on the follow-up. One expectation to set: AI-referred traffic is usually a small fraction of total site traffic, so the value is in the trend and the conversion/revenue tie-out, not the raw volume.
-    </div>
-  </section>
-  <!-- STEP 4: PROMPTS -->
-  <section id="prompts">
-    <div class="section-header">
-      <div class="section-eyebrow">Step 4</div>
-      <h2>Prompt strategy &amp; discovery</h2>
-      <p>This is two jobs in one: run discovery to figure out what's worth tracking, then translate that into well-built prompts. Most new customers default to vague inputs — or stop at brand and competitors — and then wonder why the results aren't useful. Your job is to draw out what matters and shape it into a clean setup.</p>
-    </div>
-    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px; margin-top: 8px;">Start with discovery: what's worth tracking?</h3>
-    <p style="font-size: 14px; color: #4a4a4a; margin-bottom: 16px; max-width: 700px;">You walked in with candidate topic buckets from your prep (Step 1). Discovery is where you confirm, drop, or expand them with the client. Most clients default to "brand and competitors" — use these questions to surface the themes beyond that which actually matter to their business.</p>
-    <div class="questions-list">
-      <div class="question-item">
-        <div class="q-number">1</div>
-        <div class="q-body">
-          <strong>Outside your brand and competitors, what's top of mind for the business right now?</strong>
-          <span class="q-listen">Listen for: a product launch, a reputation concern, entering a new market, a leadership change.</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <div class="q-number">2</div>
-        <div class="q-body">
-          <strong>Is there a narrative about your industry you want to own — or one you're worried about?</strong>
-          <span class="q-listen">Listen for: category-level themes big enough to earn a bucket of their own.</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <div class="q-number">3</div>
-        <div class="q-body">
-          <strong>Are there specific products, executives, or spokespeople whose visibility matters to you?</strong>
-          <span class="q-listen">Listen for: entities worth tracking beyond just the brand name.</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <div class="q-number">4</div>
-        <div class="q-body">
-          <strong>What decision would this data help you make, or what would you want to put in front of leadership?</strong>
-          <span class="q-listen">Listen for: the outcome that tells you which buckets actually earn their place.</span>
-        </div>
-      </div>
-      <div class="question-item">
-        <div class="q-number">5</div>
-        <div class="q-body">
-          <strong>Which competitors do you actually lose deals to, versus the ones you just keep an eye on?</strong>
-          <span class="q-listen">Listen for: which competitors deserve deeper variant coverage.</span>
-        </div>
-      </div>
-    </div>
-    <div class="callout callout-purple" style="margin-top: 24px;">
-      <strong>Turn the answers into buckets.</strong> Once you've heard what matters, use the <strong>/genai-lens-onboarding</strong> Claude skill (in the Implementation Manager Tools Claude Plugin) or the GPT to shape those themes into two or three recommended topic buckets and their prompt variants. Present them back as recommendations — "based on what you said, I'd suggest we track X, Y, and Z" — so the client sees you translating their priorities into a real setup.
-    </div>
-    <div class="callout">
-      <strong>Fewer buckets, more variants.</strong> As an initial setup, keep the number of topic buckets small and load more prompt variations into each one. A handful of well-populated buckets gives cleaner, more comparable data than a sprawl of thin ones — and it's far easier for the client to manage on their own later.
-    </div>
-    <div class="callout">
-      <strong>How prompts work in GenAI Lens:</strong> Each prompt is submitted to multiple LLMs, which generate responses. GenAI Lens then analyzes those responses for brand citations, sentiment, sources, and entities. The quality of your prompts directly determines the quality of your insights.
-    </div>
-    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; margin-top: 8px;">What makes a good vs. bad prompt</h3>
-    <div class="prompt-grid">
-      <div class="prompt-good">
-        <div class="prompt-label">✅ Good prompts</div>
-        <div class="prompt-item">
-          Tell me about [Brand Name]. How do people generally perceive it, and where does it stand in the market right now?
-          <span class="prompt-note">Specific, open-ended, mirrors how a consumer would actually ask.</span>
-        </div>
-        <div class="prompt-item">
-          What's the latest news or buzz around [Competitor Brand Name]?
-          <span class="prompt-note">Named entity + context = richer, more trackable LLM responses.</span>
-        </div>
-        <div class="prompt-item">
-          How does [Brand]'s [Product] compare to [Competitor]'s [Product]? What are the key differences?
-          <span class="prompt-note">Head-to-head prompts generate strong competitive data in Benchmarking.</span>
-        </div>
-        <div class="prompt-item">
-          What are the top [category] companies known for in terms of customer service?
-          <span class="prompt-note">Category-level prompts surface how the brand ranks in a broader context.</span>
-        </div>
-      </div>
-      <div class="prompt-bad">
-        <div class="prompt-label">❌ Prompts to avoid</div>
-        <div class="prompt-item">
-          Tell me about [Brand].
-          <span class="prompt-note">Too vague. LLMs return generic responses with no trackable signal.</span>
-        </div>
-        <div class="prompt-item">
-          Is [Brand] a good company?
-          <span class="prompt-note">Binary framing limits the response and skews sentiment artificially.</span>
-        </div>
-        <div class="prompt-item">
-          What are all the things [Brand] has ever done?
-          <span class="prompt-note">Overly broad. LLMs will hallucinate or give outdated historical content.</span>
-        </div>
-        <div class="prompt-item">
-          How many employees does [Brand] have?
-          <span class="prompt-note">Factual queries don't generate useful narrative or sentiment data.</span>
-        </div>
-      </div>
-    </div>
-    <div class="callout callout-purple">
-      <strong>The prompts already in the account set the standard.</strong> The suggested prompts from brand setup — plus anything you've added — are a model for what good looks like, good enough that the customer may not want to remove them. Use them during the walkthrough to show what a well-formed prompt generates, then use that output as the launchpad for building a new prompt together at the end of the call.
-    </div>
-    <div class="use-case-prompts">
-      <div class="ucp-card">
-        <div class="ucp-icon">🏷️</div>
-        <div class="ucp-title">Brand Snapshot</div>
-        <div class="ucp-prompt">"Tell me about [Brand Name]. How do people generally perceive it, and where does it stand in the market right now?"</div>
-      </div>
-      <div class="ucp-card">
-        <div class="ucp-icon">📦</div>
-        <div class="ucp-title">Product Overview</div>
-        <div class="ucp-prompt">"Can you describe [Product/Service Name]? What are its main features and who typically uses it?"</div>
-      </div>
-      <div class="ucp-card">
-        <div class="ucp-icon">🔔</div>
-        <div class="ucp-title">Competitor Buzz</div>
-        <div class="ucp-prompt">"What's the latest news or buzz around [Competitor Brand Name]?"</div>
-      </div>
-      <div class="ucp-card">
-        <div class="ucp-icon">⚔️</div>
-        <div class="ucp-title">Product vs. Competitor</div>
-        <div class="ucp-prompt">"How does [Brand]'s [Product] compare to [Competitor Product] from [Competitor]? What are the key differences?"</div>
-      </div>
-      <div class="ucp-card">
-        <div class="ucp-icon">🏆</div>
-        <div class="ucp-title">Category Leader</div>
-        <div class="ucp-prompt">"Who are the top companies in [industry/category] and what are they known for?"</div>
-      </div>
-      <div class="ucp-card">
-        <div class="ucp-icon">🛒</div>
-        <div class="ucp-title">Buyer Intent</div>
-        <div class="ucp-prompt">"What should I look for when choosing a [product category]? Which brands are recommended most?"</div>
-      </div>
-    </div>
-    <div class="callout">
-      <strong>Prompts by team type:</strong> Review the suggested prompts with who owns GAIL at this customer in mind, and supplement accordingly. PR teams care about brand protection and journalist sources. Marketing teams care about category visibility and buyer intent. SEO / GEO owners care about which content and keywords influence how the models describe the brand — lean into category, comparison, and buyer-intent prompts that surface the sources worth optimizing for. Competitive intel teams care about how competitors are positioned. Aim for at least one prompt covering each function in the room.
     </div>
     <div style="margin-top: 32px;">
       <div class="section-header" style="border-bottom: 2px solid var(--mw-purple-mid);">
@@ -1253,6 +1359,7 @@
           <h3>Customer: review results in about a week</h3>
           <p>Ask them to log back in after about a week and look at what the data is showing. By then, the prompts they've added — and the ones suggested at brand setup — will have accumulated enough signal to show real patterns. Encourage them to note any questions or surprises before the follow-up call.</p>
           <div class="step-note step-note-orange">📅 Set this expectation explicitly on the call: "Give it a week, log back in, and take a look at the Trends and Benchmarking tabs. See what stands out — we'll walk through it together when we talk."</div>
+          <div class="step-note">🔍 How to read it: the data needs ~48 hours (two runs) before it's worth a first look; a week gives clearer patterns. Remind them a mention isn't a recommendation — read sentiment next to visibility. And match the window to the question: Last 7 days for a campaign or issue, Last 30 for monthly reporting.</div>
           <div class="step-note">🗓️ Mention AI Recommendations as a reason to keep coming back, not just a one-time check. Every Monday, GenAI Lens drops fresh, narrative-driven recommendations into the account automatically — at no extra cost. Tell the customer to expect something new each week, so logging in becomes a habit rather than a one-off favor to you.</div>
           <div class="step-note">🔔 Point them to <strong>Visibility Rank Change Alerts</strong> too — GenAI Lens now notifies them when their brand or a competitor moves up or down in AI response rankings, with Visibility Score context and a direct link to investigate. It's a passive re-engagement hook: the product pulls them back in when something actually changes, instead of relying on them to remember to log in.</div>
         </div>
@@ -1285,7 +1392,6 @@
   <!-- RESOURCES -->
   <section id="resources">
     <div class="section-header">
-      <div class="section-eyebrow">Reference</div>
       <h2>Customer-facing resources</h2>
       <p>Use these links in your follow-up emails, session notes, and onboarding plans. All are appropriate to send directly to the customer.</p>
     </div>
@@ -1332,7 +1438,7 @@
       </a>
     </div>
   </section>
-</div>
+</main>
 <!-- FOOTER -->
 <footer>
   <div>
