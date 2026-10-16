@@ -245,6 +245,57 @@
     margin-bottom: 4px;
   }
 
+  .schedule-block {
+    background: var(--mw-teal-tint-3);
+    border-radius: 10px;
+    padding: 12px 14px 14px;
+  }
+  .schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .schedule-header .section-label { margin-bottom: 0; }
+  .cadence-pill {
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--mw-teal-dark);
+    color: var(--mw-white);
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .schedule-prompt {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #333;
+    background: var(--mw-white);
+    border: 1px solid var(--mw-teal-tint-2);
+    border-radius: 7px;
+    padding: 10px 11px;
+    margin: 8px 0;
+    max-height: 160px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .copy-btn {
+    font-family: var(--mw-font);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mw-teal-dark);
+    background: var(--mw-white);
+    border: 1.5px solid var(--mw-teal);
+    border-radius: 7px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: var(--mw-teal-tint-3); }
+
   .tags {
     display: flex;
     flex-wrap: wrap;
@@ -499,7 +550,12 @@
       whenToUse: "First thing in the morning, or the night before to get ahead of tomorrow. Say “daily brief,” “prep me for today,” “what's on my plate today,” “morning prep,” or “what do I need to know for tomorrow.”",
       output: "A 2-minute, three-part scan: outstanding Gmail/Slack items that genuinely need a reply, a light rundown of today's (or tomorrow's) client meetings with health/day/objective context, and a capped list of 3–5 proactive portfolio risks worth getting ahead of. Closes by offering — never auto-running — /meeting-prep for today's meetings and /my-portfolio-snapshot for the full adoption view.",
       requires: ["Gmail", "Slack", "Google Calendar", "Google Drive", "Snowflake Agent MCP"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01Utq3pzW6CDV4RvtPxS13mW"
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01Utq3pzW6CDV4RvtPxS13mW",
+      schedule: {
+        cadence: "Daily at 7:00 AM",
+        note: "Runs the full brief every morning, then DMs you just the top 3 things to know — the full brief stays in that conversation if you want to look deeper.",
+        prompt: "Every day at 7:00 AM, run /daily-brief. From the Outstanding Items, Meetings, and Proactive Items sections, pull out the 3 most important things I need to know today — one tight line each, ranked by urgency. Send me a Slack DM (not a channel post) with just those 3 items. Keep the full brief in this conversation in case I want to open it and look deeper, but the DM itself should be short enough to read in a few seconds."
+      }
     },
     {
       command: "/client-vault-helper",
@@ -516,7 +572,12 @@
       whenToUse: "After you close out an onboarding project, to hand off to CS. Say “create the handover doc for [customer],” “generate the CS handoff,” “build the handover notes for [customer],” or ask for a bulk batch across everything you closed this week or month.",
       output: "A polished Google Doc saved straight to the customer's Vault folder — health score and product adoption up top, then an executive summary, use cases, stakeholders, action items by time horizon, and a full call timeline. Pulls from the VoCAgent handoff post, your email history with the customer, a recency scan of recent calls and Slack notes, and live product usage data.",
       requires: ["Slack", "Gmail", "Google Drive", "Snowflake Agent MCP"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01Ck9QLXuz5opb6mQKnyiYCF"
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01Ck9QLXuz5opb6mQKnyiYCF",
+      schedule: {
+        cadence: "Every workday at 7:15 AM",
+        note: "Scans for onboarding closures from the prior workday, flags whether VoCAgent's content is clean or limited, and waits for you to confirm before it runs the skill — never auto-runs.",
+        prompt: "Every workday morning at 7:15 AM, check the Slack channel C0AADR3J4BV (#onboarding_voc_tools) for onboarding closure posts naming me. (Before scheduling this, replace [Your Name] below with your name exactly as it appears in VoCAgent's posts.)\n\nStep 1 — Determine the target date: if today is Monday, use last Friday's date. Otherwise, use yesterday's date.\n\nStep 2 — Search that channel for parent posts from the target date containing the phrase “Meltwater Implementation Manager is [Your Name]” in the “Internal Meltwater People to note” section. If that comes up empty, also check for a later reply in the same thread that tags me by name directly (e.g. “✅ @[Your Name] - You recently closed...”).\n\nStep 3 — For each matching post:\na) Pull the customer name from the “1) Purpose” line near the top of the post — it reads “...for the customer [NAME] -. The Customer Salesforce Account ID is...”\nb) Read the full thread of replies. Look at VoCAgent's actual answer (the “Agent Response” reply, not the “processing” or “thinking” status messages). If it opens with language like “I cannot create the requested handover document” — for any reason (offline terms restricting Gong data, no Gong calls found for the account, account not in the dataset, etc.) — mark that account LIMITED and note the specific reason given. Otherwise mark it CLEAN. Don't use reply count as a signal either way — it doesn't reliably indicate good vs. limited content.\n\nStep 4 — Reply using this format:\n- 0 matches: “No onboarding closure notes from yesterday.”\n- 1 match, CLEAN: “There's 1 account with good content from the VoCAgent — [CUSTOMER]. Do you want to run /onboarding-handoff-notes for it?”\n- 1 match, LIMITED: “[CUSTOMER] was closed yesterday, but the VoCAgent couldn't pull content — [specific reason given]. We can still proceed, but your inputs may be limited. Do you want to run /onboarding-handoff-notes for it anyway?”\n- 2+ matches: list every account with its status and reason (if LIMITED), then ask to start with the first, e.g.:\n  “You have [N] accounts closed yesterday:\n  • [CUSTOMER 1] — good content from VoCAgent, ready to run\n  • [CUSTOMER 2] — offline terms, Gong calls not readable, limited inputs if we proceed\n  • [CUSTOMER 3] — good content from VoCAgent, ready to run\n  Want to start with [CUSTOMER 1]?”\n\nDon't run the skill automatically — wait for me to confirm in this same conversation. Once I say yes, run /onboarding-handoff-notes for that customer (flag it again if it's LIMITED, so I remember content may be thin). When it's done, ask if I want to move to the next customer on the list, and repeat until all matched customers are handled."
+      }
     },
     {
       command: "/kickoff-helper",
@@ -548,7 +609,12 @@
       whenToUse: "Anytime you want to catch up on product releases without reading every Slack post. Say “catch me up on releases,” “what's new I should know about,” “releases relevant to my accounts,” or “did anything ship that affects [customer].” Defaults to the last 14 days if you don't give it a window.",
       output: "A ranked digest, not a filtered one — everything that shipped still shows up, just sorted into “Came up with a customer,” “Worth knowing,” and “Lower priority / skim.” Each release links straight to its Slack post, and anything that already came up in your inbox or on a call gets flagged with the customer and where it came up.",
       requires: ["Slack", "Gmail"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01AAJesnrXJr1bWzJWdGP4J3"
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01AAJesnrXJr1bWzJWdGP4J3",
+      schedule: {
+        cadence: "Every other Friday",
+        note: "A biweekly cadence lines up with the skill's own 14-day default window. DMs a one-line heads-up — not the full digest — so you know when it's worth opening.",
+        prompt: "Every other Friday, run /release-radar. Count how many releases landed in the “Came up with a customer” band — those are the ones already flagged because they came up with a specific customer in email or on a call. Send me a Slack DM (not a channel post) that just says something like: “Your release radar is ready — you have [X] clients who may appreciate an outreach.” Keep the full ranked digest in this conversation so I can open it and see the detail — which customers, which releases, and why."
+      }
     },
     {
       command: "/genai-lens-onboarding",
@@ -557,6 +623,19 @@
       output: "A spreadsheet of human-language prompts, organized by topic, covering the angles that shape how a brand shows up in AI answers — recommendation-style questions, competitor comparisons, trending/reputation topics, and due-diligence questions, expanding beyond that starting set whenever the research points somewhere new. Written the way people actually type into an LLM, not corporate-speak. Drops right into your customer's GenAI Lens setup in Meltwater. Always flagged back to you for review before it ships.",
       requires: [],
       shareUrl: ""
+    },
+    {
+      command: "/digital-signals",
+      status: "live",
+      whenToUse: "Daily, for your Digital cohort — Pooled and Digital-First onboardings. Say “digital signals,” “my digital accounts,” “pooled accounts,” “which digital customers need attention,” or ask for intervention emails. Built to run on a daily schedule.",
+      output: "Two separate action lists — Pooled and Digital-First — built from the Totango digital feed and ACV-banded rules (setup gaps, user submissions, digest quality, day 14/21/24/30/33/48 checks, hygiene). Each item says what to fix today and who to reach out to, with ready-to-send Pooled email copy and Gmail drafts included.",
+      requires: ["Google Drive", "Gmail"],
+      shareUrl: "",
+      schedule: {
+        cadence: "Tuesdays & Thursdays at 7:30 AM",
+        note: "Runs the Pooled + Digital-First scan twice a week and DMs you only the items that actually need action.",
+        prompt: "Every Tuesday and Thursday at 7:30 AM, run /digital-signals. From the Pooled and Digital-First action lists, pull out the items that genuinely need attention this week — skip anything already handled or low-priority. Send me a Slack DM (not a channel post) with those key items, condensed enough to read in a few seconds but with enough detail to act on. Keep the full lists and any drafted emails in this conversation in case I want to dig into the detail."
+      }
     }
   ];
 
@@ -570,6 +649,17 @@
     const statusLabel = skill.status === 'sandbox' ? 'Sandbox' : 'Live';
     const tags = skill.requires.map(r => `<span class="tag">${escapeHtml(r)}</span>`).join('');
     const shareHref = skill.shareUrl && skill.shareUrl.trim() ? skill.shareUrl : '#';
+    const promptId = 'prompt-' + skill.command.replace(/[^a-z0-9]/gi, '');
+    const scheduleBlock = skill.schedule ? `
+        <div class="schedule-block">
+          <div class="schedule-header">
+            <span class="section-label">📅 Recommended schedule</span>
+            <span class="cadence-pill">${escapeHtml(skill.schedule.cadence)}</span>
+          </div>
+          <p class="section-body">${skill.schedule.note}</p>
+          <pre class="schedule-prompt" id="${promptId}">${escapeHtml(skill.schedule.prompt)}</pre>
+          <button class="copy-btn" onclick="copyPrompt('${promptId}', this)">Copy prompt</button>
+        </div>` : '';
     return `
       <div class="card" data-search="${escapeHtml((skill.command + ' ' + skill.whenToUse + ' ' + skill.output + ' ' + (skill.example || '') + ' ' + skill.requires.join(' ')).toLowerCase())}">
         <div class="card-top">
@@ -586,6 +676,7 @@
           <p class="section-body">${skill.output}</p>
         </div>
         ${skill.example ? `<div class="example"><span class="example-label">Example</span>${escapeHtml(skill.example)}</div>` : ''}
+        ${scheduleBlock}
         <div class="tags">${tags}</div>
         <div class="card-footer">
           <a class="share-link" href="${shareHref}" target="_blank" rel="noopener">
@@ -594,6 +685,24 @@
         </div>
       </div>
     `;
+  }
+
+  function copyPrompt(id, btn) {
+    const text = document.getElementById(id).textContent;
+    const original = btn.textContent;
+    const reset = () => setTimeout(() => { btn.textContent = original; }, 1500);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        reset();
+      }).catch(() => {
+        btn.textContent = 'Select & copy above';
+        reset();
+      });
+    } else {
+      btn.textContent = 'Select & copy above';
+      reset();
+    }
   }
 
   const grid = document.getElementById('grid');
