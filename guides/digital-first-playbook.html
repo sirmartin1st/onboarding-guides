@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="description" content="Internal Meltwater playbook for running Digital-First onboardings, from first-time setup to CSM handoff.">
+<title>Digital-First onboarding: IM playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mw-teal:#28BBBB;--mw-teal-medium:#00A7A5;--mw-teal-dark:#1C7070;
+  --mw-gray:#F0F4F4;--mw-black:#1A1A1A;--mw-white:#FFFFFF;
+  --tint-1:#A3DFDF;--tint-2:#C0EBEB;--tint-3:#E1EFF0;
+  --muted:#4A5757;--line:#DDE6E6;
+  --font:'GT Walsheim','Poppins',Arial,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --bar-h:60px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar-h) + 24px)}
+body{font-family:var(--font);background:var(--mw-white);color:var(--mw-black);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+p,li{text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+a{color:inherit}
+.skip{position:absolute;left:-999px;top:8px;background:var(--mw-black);color:#fff;padding:8px 14px;border-radius:6px;z-index:200}
+.skip:focus{left:8px}
+:focus-visible{outline:2px solid var(--mw-teal-dark);outline-offset:3px;border-radius:4px}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:100;height:var(--bar-h);background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:32px;padding:0 max(24px,calc((100vw - 1040px)/2))}
+.brand{font-weight:700;font-size:17px;letter-spacing:-.01em;color:var(--mw-teal);white-space:nowrap}
+.brand-sub{font-weight:500;font-size:13px;color:var(--muted);margin-left:8px;letter-spacing:0}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;transition:background .2s var(--ease),color .2s var(--ease)}
+.tabs a:hover{background:var(--mw-gray);color:var(--mw-black)}
+.tabs a.active{background:var(--tint-3);color:var(--mw-teal-dark);font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--mw-teal);flex-shrink:0}
+
+main{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* page head */
+.page-head{padding:72px 0 32px}
+.eyebrow{font-size:13px;font-weight:500;color:var(--mw-teal-dark);margin-bottom:16px}
+h1{font-size:clamp(32px,5vw,48px);font-weight:700;line-height:1.08;letter-spacing:-.025em;margin-bottom:20px}
+.lede{font-size:18px;line-height:1.55;color:var(--muted);margin-bottom:22px}
+.internal{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#B94400;background:#FFEFEA;padding:6px 12px;border-radius:6px}
+
+/* process visual */
+.flow-sec{padding:8px 0 48px}
+.flow-sec h2{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+.flow-sec .hint{font-size:13px;color:var(--muted);margin-bottom:20px}
+.flow-wrap{overflow-x:auto;padding-bottom:6px}
+.flow{display:grid;grid-template-columns:96px repeat(6,minmax(132px,1fr));gap:8px;min-width:940px;align-items:stretch}
+.lane-label{font-size:12px;font-weight:600;color:var(--muted);display:flex;align-items:center;padding-right:8px;line-height:1.3}
+.fh{position:relative;padding-top:40px;text-align:center}
+.fh::before{content:"";position:absolute;top:15px;left:-4px;right:-4px;height:2px;background:var(--tint-1)}
+.fh.first::before{left:50%}
+.fh.last::before{right:50%}
+.fh .n{position:absolute;top:4px;left:50%;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;background:var(--mw-teal-dark);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:1}
+.fh a{display:block;text-decoration:none;font-size:13px;font-weight:600;line-height:1.3;color:var(--mw-black);padding:2px 4px 8px;border-radius:8px;transition:color .2s var(--ease)}
+.fh a small{display:block;font-size:12px;font-weight:500;color:var(--mw-teal-dark);margin-bottom:1px}
+.fh a:hover{color:var(--mw-teal-dark)}
+.cell{display:block;text-decoration:none;font-size:12.5px;line-height:1.45;padding:10px 12px;border-radius:10px;border:1px solid transparent;transition:border-color .2s var(--ease),background .2s var(--ease)}
+.cell.auto{background:var(--tint-3);color:#2E3A3A}
+.cell.move{background:#fff;border-color:var(--line);color:#2E3A3A}
+.cell.task{background:var(--mw-gray);color:#2E3A3A}
+.cell:hover{border-color:var(--mw-teal)}
+.cell a{text-decoration:none;font-weight:600;color:var(--mw-teal-dark);border-bottom:1px solid var(--tint-1)}
+.cell a:hover{border-color:var(--mw-teal-dark)}
+div.cell{cursor:default}
+div.cell:hover{border-color:var(--line)}
+div.cell.auto:hover,div.cell.task:hover{border-color:transparent}
+.cell strong{font-weight:600;color:var(--mw-black)}
+
+/* intro blocks */
+.howto{padding:8px 0 40px}
+.howto h2{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:12px}
+.howto-body p{color:var(--muted);margin-bottom:12px}
+.howto-body p:last-child{color:var(--mw-black)}
+
+/* tables */
+.table-wrap{overflow-x:auto;border-top:1px solid var(--mw-black);margin:12px 0 8px}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:600;font-size:13px;color:var(--muted);padding:12px 16px 12px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:14px 16px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:500}
+td:last-child{color:var(--muted)}
+td a{text-decoration:none;border-bottom:1px solid var(--tint-2);transition:border-color .2s var(--ease),color .2s var(--ease)}
+td a:hover{color:var(--mw-teal-dark);border-color:var(--mw-teal)}
+tbody tr{transition:background .2s var(--ease)}
+tbody tr:hover{background:var(--tint-3)}
+.table-note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.ilink{border-bottom:1px solid var(--tint-2);text-decoration:none}
+.ilink:hover{color:var(--mw-teal-dark);border-color:var(--mw-teal)}
+.by{display:inline-block;font-size:12px;font-weight:600;color:var(--mw-teal-dark);background:var(--tint-3);border-radius:6px;padding:2px 9px;white-space:nowrap}
+
+/* sections */
+section[id]{padding:64px 0 24px;border-top:1px solid var(--line)}
+section.howto,section.flow-sec{border-top:0}
+.sec-head{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;align-items:start;margin-bottom:12px}
+.sec-num{width:48px;height:48px;border-radius:12px;background:var(--tint-2);color:var(--mw-teal-dark);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;letter-spacing:-.01em}
+h2{font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:10px}
+.sec-intro{color:var(--muted)}
+
+/* two-column blocks */
+.block{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;padding:40px 0;border-top:1px solid var(--line);margin-top:32px}
+.block:first-of-type{margin-top:24px}
+h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-bottom:12px}
+.when{display:inline-block;font-size:13px;font-weight:600;color:var(--mw-teal-dark);background:var(--tint-3);border-radius:6px;padding:3px 10px;margin-bottom:12px}
+.what{color:var(--muted);font-size:14px;line-height:1.65}
+.callout{margin-top:20px;background:var(--tint-3);border-radius:10px;padding:16px 18px}
+.callout-label{font-size:13px;font-weight:600;color:var(--mw-teal-dark);margin-bottom:8px}
+.callout p,.callout li{font-size:13px;line-height:1.6;color:#2E3A3A;margin-bottom:8px}
+.callout p:last-child{margin-bottom:0}
+.callout ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.callout li{position:relative;padding-left:16px;margin:0}
+.callout li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--mw-teal)}
+
+.grp{font-size:14px;font-weight:600;color:var(--mw-teal-dark);margin:28px 0 12px}
+.right>.grp:first-child{margin-top:0}
+.tips{list-style:none;display:flex;flex-direction:column;gap:14px}
+.tips li{position:relative;padding-left:20px;font-size:14px;line-height:1.65;color:#2E3A3A}
+.tips li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--mw-teal)}
+.tips li strong{font-weight:600;color:var(--mw-black)}
+
+/* numbered steps */
+.steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:0;margin-top:24px;border-top:1px solid var(--mw-black)}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:36px minmax(0,1fr);gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.steps>li::before{content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--tint-2);color:var(--mw-teal-dark);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.steps h4{font-size:15px;font-weight:600;margin-bottom:4px;letter-spacing:-.005em}
+.steps p{font-size:14px;color:#2E3A3A}
+.steps .done{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.steps .done b{font-weight:600;color:var(--mw-teal-dark)}
+.part-title{font-size:20px;font-weight:600;letter-spacing:-.01em;margin:44px 0 0}
+.part-sub{font-size:14px;color:var(--muted);margin-top:6px}
+
+/* checklist groups (static) */
+.cl-group{margin-top:32px}
+.cl-group h3{margin-bottom:0}
+
+/* snippets */
+.snippet{margin-top:28px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.snippet-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 16px;background:var(--mw-gray);font-size:13px;font-weight:500;color:var(--muted)}
+.copy{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:500;color:var(--mw-black);background:#fff;border:1px solid var(--line);border-radius:7px;padding:6px 12px;cursor:pointer;transition:background .2s var(--ease),transform .15s var(--ease),border-color .2s var(--ease)}
+.copy:hover{background:var(--tint-3);border-color:var(--mw-teal)}
+.copy:active{transform:scale(.97)}
+.copy.done{background:var(--tint-3);color:var(--mw-teal-dark);border-color:var(--mw-teal)}
+.snippet pre{font-family:inherit;font-size:13px;line-height:1.65;white-space:pre-wrap;padding:16px;color:#2E3A3A}
+
+/* footer */
+.foot{margin-top:72px;border-top:1px solid var(--line);padding:32px max(24px,calc((100vw - 1040px)/2)) 48px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:baseline;font-size:13px;color:var(--muted)}
+.foot p{max-width:62ch}
+.foot .brand{font-size:15px}
+.updated{white-space:nowrap}
+
+@media (max-width:860px){
+  .block{grid-template-columns:minmax(0,1fr);gap:24px;padding:32px 0}
+  .brand-sub{display:none}
+  .foot{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:600px){
+  .topbar{gap:16px;padding:0 16px}
+  main{padding:0 16px}
+  .page-head{padding-top:48px}
+  .sec-head{grid-template-columns:1fr;gap:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="brand">Meltwater<span class="brand-sub">IM playbook</span></div>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#setup"><span class="dot"></span>First-time setup</a>
+    <a href="#new-account"><span class="dot"></span>New account</a>
+    <a href="#checklist"><span class="dot"></span>Setup checklist</a>
+    <a href="#timeline"><span class="dot"></span>Day by day</a>
+    <a href="#reference"><span class="dot"></span>Reference</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <div class="page-head">
+    <p class="eyebrow">Internal guide, implementation</p>
+    <h1>Digital-First onboarding playbook</h1>
+    <p class="lede">How to run a Digital-First onboarding (also called Digital MM or DOBD) from the day the account lands to CSM handoff. Set up the account behind the scenes, let the automated comms drive the early weeks, and step in at the day 15, 21 and 30 checkpoints when usage health says to.</p>
+    <p class="internal">Internal only. Do not share with customers.</p>
+  </div>
+
+  <!-- PROCESS VISUAL -->
+  <section class="flow-sec" id="overview" aria-label="The full process at a glance">
+    <h2>The full process</h2>
+    <p class="hint">Click any box to jump to that part of the guide. On a small screen, scroll sideways.</p>
+    <div class="flow-wrap">
+      <div class="flow">
+        <div></div>
+        <div class="fh first"><span class="n">1</span><a href="#stage-setup"><small>Before start to day 3</small>Set up the account</a></div>
+        <div class="fh"><span class="n">2</span><a href="#stage-settle"><small>Days 4 to 13</small>Automated start</a></div>
+        <div class="fh"><span class="n">3</span><a href="#stage-d14"><small>Days 14 to 20</small>Day 15 check</a></div>
+        <div class="fh"><span class="n">4</span><a href="#stage-d21"><small>Days 21 to 29</small>Day 21 check</a></div>
+        <div class="fh"><span class="n">5</span><a href="#stage-d30"><small>Days 30 to 32</small>Day 30 check</a></div>
+        <div class="fh last"><span class="n">6</span><a href="#stage-extended"><small>Days 33 to 47</small>Day 45 check</a></div>
+
+        <div class="lane-label">Automated comms</div>
+        <a class="cell auto" href="#campaign-sequence">Welcome emails (signer, then start date with checklist). Day 3: review searches and digest</a>
+        <a class="cell auto" href="#campaign-sequence">Day 7: sign up for live training. Day 10: set up GenAI Lens (GenAI Lens customers only)</a>
+        <a class="cell auto" href="#campaign-sequence">Day 14: join Office Hours (Media Relations customers only)</a>
+        <a class="cell auto" href="#campaign-sequence">Day 21: are we meeting expectations? Day 25: set up Klear (Klear customers only)</a>
+        <a class="cell auto" href="#campaign-sequence">Completion email from the CSM, timed by health score</a>
+        <a class="cell auto" href="#campaign-sequence">Completion email from the CSM, if it hasn't gone yet</a>
+
+        <div class="lane-label">Your move</div>
+        <div class="cell move">Build the account in Meltwater: <a href="#meltwater-build">setup</a>. Then the <a href="#totango-admin">Totango and Salesforce admin</a>.</div>
+        <div class="cell move">Close gaps and review the digest (<a href="#do-settle">what to do</a>). 1-1 requests: <a href="#objection-templates">objection templates</a>.</div>
+        <a class="cell move" href="#do-d14">Yellow or red, or setup open: tailored email</a>
+        <a class="cell move" href="#do-d21">Yellow or red: ask for a call, book training</a>
+        <div class="cell move"><a href="#handoff-green">Green: hand off to the CSM</a>. <a href="#push-d30">Yellow or red: keep pushing training, in step with the CSM</a>.</div>
+        <div class="cell move"><a href="#do-extended">Stay in step with the CSM. Still red? Warn your manager before day 45</a>. <a href="#stage-overdue">Day 48+: flagged</a>.</div>
+
+        <div class="lane-label">SuccessPlay task in Totango</div>
+        <a class="cell task" href="#successplay-tasks">Check the day 1 and day 3 tasks. Right objectives applied by day 3</a>
+        <div class="cell task">Champion by day 7 (<a href="https://meltwater-3.wistia.com/medias/613wgz9p5w" target="_blank" rel="noopener">video</a>)</div>
+        <a class="cell task" href="#successplay-tasks">Check the day 15 task</a>
+        <a class="cell task" href="#successplay-tasks">Check the day 21 task</a>
+        <a class="cell task" href="#handoff-green">Check the day 30 task. Green: check the last task to complete onboarding</a>
+        <a class="cell task" href="#successplay-tasks">Check the day 45 task, if the account runs that long</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="howto">
+    <h2>How this motion works</h2>
+    <div class="howto-body">
+    <p>Digital-First is a scaled onboarding for customers with straightforward use cases. Instead of a kickoff call and 1-1 trainings, customers get unlimited live group trainings, weekly Office Hours and workshops, the New to Meltwater checklist and on-demand courses. You handle the setup behind the scenes and step in when risk or no usage shows up.</p>
+    <p>We are not ignoring these customers. They still have an IM and a CSM, and they get automated comms from day one. The goal is to get them into the one-to-many programs before any 1-1 time. It's modeled on the Pooled SMB cohort, where new customers reach 70%+ active users in 30 days, with usage on par with the MM and SMB average, without 1-1 trainings.</p>
+    <p>Every English-speaking onboarding under $35k ACV that isn't Pooled and doesn't include Klear follows this motion. Pooled accounts follow a separate process and aren't covered here.</p>
+    <p>The target is a closed-out onboarding by about day 45, with green accounts handed to the CSM from day 30. You and the CSM stay close from day 30 to 45, so nothing surprises either of you at day 45. A red account should be flagged to your manager before day 45, and the skill flags anything still open past day 48.</p>
+    </div>
+  </section>
+
+  <!-- 1. FIRST-TIME SETUP -->
+  <section id="setup">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div>
+        <h2>First-time setup with /digital-signals</h2>
+        <p class="sec-intro">Do this once. After that, you'll get your most urgent items in Slack every weekday morning.</p>
+      </div>
+    </div>
+
+    <p class="part-sub" style="margin-top:20px">Paste this into Claude (Cowork) to schedule the run. Claude sets it up for you.</p>
+    <div class="snippet" style="margin-top:16px">
+      <div class="snippet-bar"><span>Schedule prompt</span><button class="copy" type="button">Copy</button></div>
+      <pre>Every weekday at 7:30am run /digital-signals and send me a slack DM (not a channel post) of the most urgent items to address today</pre>
+    </div>
+    <p class="table-note">The Totango feed refreshes between 5 and 6 am Eastern, so don't schedule it earlier than 6:30 am Eastern. The skill needs the Google Drive and Gmail connectors, and it has to be switched on under Customize, then Skills.</p>
+
+    <h3 class="part-title">What the skill does</h3>
+    <p class="part-sub">/digital-signals reads your accounts from the Totango digital feed and gives you two short lists: what to fix in Meltwater today, and who to reach out to, with drafts for the customer emails and handoff notes. It never sends anything, so every action is your call. Digest warnings are a prompt to review and tune the digest, not a verdict, because you know the account best. Pooled accounts show up in their own section of the output, and they follow a different process.</p>
+  </section>
+
+  <!-- 2. NEW ACCOUNT -->
+  <section id="new-account">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div>
+        <h2>Receiving a new account</h2>
+        <p class="sec-intro">The Meltwater setup comes first, because it's what the customer sees. Then the Totango and Salesforce admin. Aim to finish both by day 3.</p>
+      </div>
+    </div>
+
+    <h3 class="part-title" id="meltwater-build">Part A: Set up the account in Meltwater</h3>
+    <p class="part-sub">Only build what the customer purchased. Use the Meltwater temp login link from the /digital-signals output. The VoCAgent brief in Slack is the best starting point for what to build.</p>
+    <ol class="steps">
+      <li>
+        <div>
+          <h4>Build starter searches with a digest and/or alerts</h4>
+          <p>Build a brand search, one for each key competitor, and an industry or topic search. Tie a daily digest and/or alerts to them. The <a class="ilink" href="https://sirmartin1st.github.io/onboarding-guides/#boolean" target="_top">boolean examples guide</a> has patterns to start from.</p>
+          <span class="done"><b>Done when:</b> the searches exist and a digest or alerts are attached. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Build at least one starter dashboard</h4>
+          <p>Build it on the customer's main topic while you're already in the account. It's easier than coming back later.</p>
+          <span class="done"><b>Done when:</b> a dashboard exists. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Create at least one MIRA project</h4>
+          <p>Set up a starter project the customer can build on.</p>
+          <span class="done"><b>Done when:</b> a MIRA project exists. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>GenAI Lens, if they have it: create at least 12 prompts</h4>
+          <p>Skip this step if GenAI Lens isn't in their package.</p>
+          <span class="done"><b>Done when:</b> 12 or more prompts exist. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Newsletter, if they have it: create a branded template</h4>
+          <p>Skip this step if Newsletter isn't in their package.</p>
+          <span class="done"><b>Done when:</b> a branded template exists. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Activate users as close to the contract start date as possible</h4>
+          <p>Get the user list from the customer. An automated email asks the contract signer for it, and if they don't reply, send the "info needed" email from the reference section. Add users from the <a class="ilink" href="https://docs.google.com/spreadsheets/d/1fvZIIIRohK5rD1a3YwAx8clBJF2iU7vGHPbF7UzFXy0/edit?gid=1333937292#gid=1333937292" target="_blank" rel="noopener">user setup sheet</a>, and check its New User Submission tab regularly for new submissions. /digital-signals also flags possible matches. <strong>Do not activate users ahead of the contract start date without permission.</strong></p>
+          <span class="done"><b>Done when:</b> users are activated on or right after the start date. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+    </ol>
+
+    <h3 class="part-title" id="totango-admin">Part B: Admin in Totango and Salesforce</h3>
+    <p class="part-sub">The /digital-signals output links to each account's Totango plan page. Salesforce links go to the opportunity. Customer emails are logged automatically, so there's nothing to log there.</p>
+    <ol class="steps">
+      <li>
+        <div>
+          <h4>Activate the "Digital-First Onboarding" SuccessPlay</h4>
+          <p>Activate the SuccessPlay and complete the first task.</p>
+          <span class="done"><b>Done when:</b> the SuccessPlay is active and the first task is checked. <span class="by">Day 1</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Make sure the CSM is listed as the Owner</h4>
+          <p><strong>The CSM must be listed as the Owner on the account in Totango. Without it, the automated campaigns do not run.</strong> If the Owner is blank or wrong, flag the MD. The skill also flags a missing CSM from day 3.</p>
+          <span class="done"><b>Done when:</b> the Owner field shows the CSM. <span class="by">Day 1</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Confirm the VoCAgent output with the new biz rep and the CSM</h4>
+          <p>Send a short Slack message to the new biz rep and the CSM, asking whether the VoCAgent output is accurate. Where their answers and the brief disagree, go with them.</p>
+          <span class="done"><b>Done when:</b> the rep or CSM has confirmed, or you've corrected the brief. <span class="by">Before day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Fill in the plan summary</h4>
+          <p>On the Plan tab, add the VoCAgent output to the Plan Summary field, with any corrections from the rep and CSM. Keep what the customer bought separate from what was only discussed in sales.</p>
+          <span class="done"><b>Done when:</b> the plan summary is filled in. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Apply the right media monitoring objective(s)</h4>
+          <p>Some objectives are added automatically based on the products the customer bought, like the GenAI Lens one. Your job is to apply the right media monitoring objective(s) for what the customer bought and why: Brand Monitoring, Campaign Management, Competitive Benchmarking, Content and Campaign Optimization, or Market and Industry Research. Milestones update automatically as the customer hits certain usage patterns, so there's nothing to customize.</p>
+          <span class="done"><b>Done when:</b> the right media monitoring objective(s) are applied. <span class="by">By day 3</span></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h4>Flag the champion in Salesforce</h4>
+          <p>Tag the working-level champion on the opportunity. <a class="ilink" href="https://meltwater-3.wistia.com/medias/613wgz9p5w" target="_blank" rel="noopener">Watch this walkthrough video</a> for how. The skill tags accounts with no champion from day 7.</p>
+          <span class="done"><b>Done when:</b> Champion on Working Level reads Yes. <span class="by">By day 7</span></span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 3. CHECKLIST -->
+  <section id="checklist">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div>
+        <h2>Setup checklist</h2>
+        <p class="sec-intro">Everything an account needs, and when. Copy it into your own notes or the client Slack channel if it helps.</p>
+      </div>
+    </div>
+
+    <div class="cl-group">
+      <h3>In Meltwater</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Applies to</th><th>By</th></tr></thead>
+          <tbody>
+            <tr><td>Starter searches, with a digest and/or alerts attached</td><td>All accounts</td><td>Day 3</td></tr>
+            <tr><td>At least one starter dashboard</td><td>All accounts</td><td>Day 3</td></tr>
+            <tr><td>At least one MIRA project</td><td>All accounts</td><td>Day 3</td></tr>
+            <tr><td>At least 12 GenAI Lens prompts</td><td>If they have GenAI Lens</td><td>Day 3</td></tr>
+            <tr><td>A branded newsletter template</td><td>If they have Newsletter</td><td>Day 3</td></tr>
+            <tr><td>Users activated, never before the start date without permission</td><td>All accounts</td><td>Day 3</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="cl-group">
+      <h3>In Totango and Salesforce</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Where</th><th>By</th></tr></thead>
+          <tbody>
+            <tr><td>"Digital-First Onboarding" SuccessPlay activated, first task complete</td><td>Totango</td><td>Day 1</td></tr>
+            <tr><td>CSM listed as Owner</td><td>Totango</td><td>Day 1</td></tr>
+            <tr><td>VoCAgent output confirmed with the new biz rep and CSM</td><td>Slack</td><td>Before day 3</td></tr>
+            <tr><td>Plan summary filled in with the VoCAgent output</td><td>Totango, Plan tab</td><td>Day 3</td></tr>
+            <tr><td>Right media monitoring objective(s) applied</td><td>Totango</td><td>Day 3</td></tr>
+            <tr><td><a href="https://meltwater-3.wistia.com/medias/613wgz9p5w" target="_blank" rel="noopener">Champion flagged</a> (video walkthrough)</td><td>Salesforce</td><td>Day 7</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="cl-group">
+      <h3>SuccessPlay tasks to check off</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Task</th><th>Check it when</th></tr></thead>
+          <tbody>
+            <tr><td>Day 1</td><td>The SuccessPlay is active and the first task is complete</td></tr>
+            <tr><td>Day 3</td><td>The Meltwater setup and plan summary are done</td></tr>
+            <tr><td>Day 15</td><td>You've actioned the day 15 check</td></tr>
+            <tr><td>Day 21</td><td>You've actioned the day 21 check</td></tr>
+            <tr><td>Day 30</td><td>You've actioned the day 30 check</td></tr>
+            <tr><td>Day 45, if the account runs that long</td><td>You've actioned the day 45 follow-up</td></tr>
+            <tr><td>Last task in the SuccessPlay</td><td>The account is green and onboarding is complete</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. TIMELINE -->
+  <section id="timeline">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div>
+        <h2>Action plans by day in onboarding</h2>
+        <p class="sec-intro">Each stage lists what happens automatically, what to check, what to do, and the draft language to use. The skill raises the checkpoint for you, so you don't need to count days. Only yellow and red accounts, or accounts with setup still open, get a customer email from you at the day 15, 21 and 30 checkpoints.</p>
+      </div>
+    </div>
+
+    <div class="callout" id="successplay-tasks">
+      <div class="callout-label">Update the SuccessPlay as you go</div>
+      <p>At day 1, day 3, day 15, day 21 and day 30, and at day 45 if the account runs that long, open the Digital-First Onboarding SuccessPlay in Totango and check that day's task as completed. That's all it takes. It shows you actioned it. Customer emails are logged automatically, so you don't need to log anything else.</p>
+    </div>
+
+    <h3 class="part-title" id="campaign-sequence">The automated campaign sequence</h3>
+    <p class="part-sub">These emails go out from Totango without any action from you, so you know what the customer has already been asked to do. They come from the CSM with you copied.</p>
+    <div class="callout" style="margin-top:16px"><p><strong>Make sure the CSM is listed as the Owner in Totango. Without it, the automated campaigns do not run.</strong></p></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>When</th><th>Email</th><th>Who gets it</th><th>Main call to action</th></tr></thead>
+        <tbody>
+          <tr><td>Post order approval</td><td>Welcome email to the contract signer</td><td>All accounts</td><td>Submit users</td></tr>
+          <tr><td>Contract start date</td><td>Welcome email with the New User Checklist</td><td>All accounts</td><td>Log in to Meltwater</td></tr>
+          <tr><td>Day 3</td><td>Review searches and digest</td><td>All accounts</td><td>Log in to Meltwater</td></tr>
+          <tr><td>Day 7</td><td>Sign up for live training</td><td>All accounts</td><td>Register for a workshop</td></tr>
+          <tr><td>Day 10</td><td>Set up GenAI Lens</td><td>GenAI Lens customers only</td><td>Set up GenAI Lens</td></tr>
+          <tr><td>Day 14</td><td>Media Relations nudge</td><td>Media Relations customers only</td><td>Join Office Hours</td></tr>
+          <tr><td>Day 21</td><td>Are we meeting expectations?</td><td>All accounts</td><td>Join Office Hours</td></tr>
+          <tr><td>Day 25</td><td>Set up Klear</td><td>Klear customers only</td><td>Set up Klear</td></tr>
+          <tr><td>Timing varies with health</td><td>Completion email from the CSM: you've completed your onboarding, expand your use case</td><td>All accounts</td><td>Competitor playbook</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">The Klear email is unlikely to apply, since accounts with Klear aren't in this motion.</p>
+
+    <div class="callout" style="margin-top:24px">
+      <div class="callout-label">Always on, from the start date</div>
+      <ul>
+        <li>The New User Group, with the brand toolkit, how-to guides and Academy courses.</li>
+        <li>Product workshops and live trainings, and CSM Office Hours.</li>
+        <li>An onboarding checklist on the Meltwater homepage, plus Pendo guides in the app.</li>
+      </ul>
+    </div>
+
+    <!-- Stage 1 -->
+    <div class="block" id="stage-setup">
+      <div class="left">
+        <span class="when">Before the start date to day 3</span>
+        <h3>Set up the account</h3>
+        <p class="what">The goal is a working account by day 3, with the Meltwater setup and the Totango admin done. Every later check assumes the basics are there.</p>
+        <div class="callout">
+          <div class="callout-label">What happens automatically</div>
+          <ul>
+            <li>After order approval, the contract signer gets a welcome email asking them to submit users.</li>
+            <li>At the contract start date, customers get a welcome email with the New User Checklist, and a short user intent survey appears in the app.</li>
+            <li>Day 3: an email asks the customer to review the searches and digest you built, and to log in to Meltwater.</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-label">What /digital-signals flags</div>
+          <ul>
+            <li>No searches, no digest, or no users shows up under Fix today.</li>
+            <li>A possible new user submission, to confirm on the user setup sheet.</li>
+            <li>From day 3, a missing CSM is flagged to the MD.</li>
+            <li>If the contract hasn't started yet, nothing is raised.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="grp" id="do-setup">What to do</div>
+        <ul class="tips">
+          <li><strong>Build the account in Meltwater first.</strong> Searches with a digest or alerts, a dashboard, a MIRA project, plus GenAI Lens prompts and a newsletter template if they have them. See <a class="ilink" href="#meltwater-build">Part A</a>.</li>
+          <li><strong>Activate users as close to the start date as you can.</strong> Never before it without permission. Check the <a class="ilink" href="https://docs.google.com/spreadsheets/d/1fvZIIIRohK5rD1a3YwAx8clBJF2iU7vGHPbF7UzFXy0/edit?gid=1333937292#gid=1333937292" target="_blank" rel="noopener">user setup sheet</a> for new submissions.</li>
+          <li><strong>Do the Totango admin.</strong> Activate the SuccessPlay, confirm the VoCAgent output with the rep and CSM, and fill in the plan summary. See <a class="ilink" href="#totango-admin">Part B</a>.</li>
+          <li><strong>Check the day 1 and day 3 tasks</strong> in the SuccessPlay.</li>
+          <li><strong>Check the CSM.</strong> The CSM must be listed as the Owner in Totango, or the automated campaigns won't run. If it's missing by day 3, flag the MD.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="block" id="stage-settle">
+      <div class="left">
+        <span class="when">Days 4 to 13</span>
+        <h3>Automated start</h3>
+        <p class="what">Automated emails drive customers to the New to Meltwater User Checklist, live trainings and Office Hours. No customer emails are triggered from you in this window, so use it to close gaps and finish the admin.</p>
+        <div class="callout">
+          <div class="callout-label">What happens automatically</div>
+          <ul>
+            <li>Day 7: an email asks the customer to sign up for live training, with a link to register for a workshop.</li>
+            <li>Day 10, GenAI Lens customers only: an email asks them to set up GenAI Lens.</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-label">What /digital-signals flags</div>
+          <ul>
+            <li>From day 7: no champion, or a blank onboarding stage.</li>
+            <li>From day 7: digest too empty, noisy or flooding.</li>
+            <li>Through day 14: only one user set up.</li>
+            <li>Watching list: yellow or red accounts from day 7 to 13.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="grp" id="do-settle">What to do</div>
+        <ul class="tips">
+          <li><strong>If a customer asks for a 1-1 before day 15, use the objection templates below</strong> before you give up your time. The point is to get them into trainings and Office Hours first.</li>
+          <li><strong>Finish the admin.</strong> <a class="ilink" href="https://meltwater-3.wistia.com/medias/613wgz9p5w" target="_blank" rel="noopener">Flag the champion</a> by day 7. If the right objectives aren't applied yet, do that now. The skill links to each.</li>
+          <li><strong>Monitor setup and product usage.</strong> Check that the customer has logged in and is using what you built.</li>
+          <li><strong>Review the digest.</strong> If it's blank most mornings, add an industry topic. If it's flooding, tighten the query. Use your judgment, since the size is an estimate.</li>
+          <li><strong>Start digging into Watching accounts.</strong> Look at which products are red or yellow, so you know what you'd fix on day 15.</li>
+        </ul>
+        <div class="grp" id="objection-templates">When a customer replies</div>
+        <ul class="tips">
+          <li><strong>Answer their question first.</strong></li>
+          <li><strong>Drive them straight to the platform</strong> to do the task, like adding user seats or building a report.</li>
+          <li><strong>If they ask for time and the account is green,</strong> point them to CSM Office Hours or a workshop. Suggest a 1-1 only as a last resort, and passively.</li>
+        </ul>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Objection email: customer asks for a 1-1 or a kickoff</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+Great to meet you! We collected a lot of information about your use case during the initial sales process, so we're in a good spot to set up your account.
+
+As a first step, here's a list of upcoming trainings that you can register for: [list]. If you're already familiar with the product, our Office Hours or Help Center are great ways to answer quick questions.
+
+Once the team has taken a few preliminary courses or programs, we'll follow up for a 1-1 overview to make sure everything is working as intended.
+
+We look forward to working with you.
+
+[Your name]</pre>
+        </div>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Objection email: you've already built their searches</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name], happy to help! I've gone ahead and created a handful of the searches you've shared.
+
+We've found that our 1-1 training is more effective when users take our Academy courses or join a workshop to start. It's a great way to pick up foundational skills.
+
+As a first step, here's a list of upcoming workshops you can register for: [list]. Our Office Hours and Help Center are also great for quick questions, and I've listed upcoming Office Hours below for your reference: [list]
+
+Once the team has taken a few preliminary courses or workshops, we'll follow up for a 1-1 overview to make sure everything is working as intended.
+
+We look forward to working with you.
+
+[Your name]</pre>
+        </div>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Reply: negative sentiment or a sales expectation</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+Totally understand. We're here to help!
+
+We've found that our 1-1 trainings are more effective when users take our Academy courses or join workshops to start. It's a great way to build foundational skills while we work on your account setup. That way, your personalized training with an Implementation Manager can focus more on the why than the how.
+
+If the live trainings don't fit your schedule, there are plenty of on-demand resources and recordings. I'd at least recommend the short video snippets in the New to Meltwater User Group. They give you an overview of the onboarding checklist and are a quick way to get started with the core features.
+
+Let me know if there's something specific you're after. From there, I'm happy to schedule a training with the team.
+
+[Your name]</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="block" id="stage-d14">
+      <div class="left">
+        <span class="when">Days 14 to 20</span>
+        <h3>Day 15 check</h3>
+        <p class="what">Usage health decides what happens. Green accounts with setup complete need nothing from you yet. Yellow or red accounts, or accounts where setup isn't done, get a fix and a tailored email, sent around day 15 or 16.</p>
+        <div class="callout">
+          <div class="callout-label">What happens automatically</div>
+          <ul>
+            <li>Day 14, Media Relations customers only: an email invites them to join Office Hours.</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-label">What /digital-signals flags</div>
+          <ul>
+            <li>Yellow or red usage health at day 14 to 20.</li>
+            <li>If you already emailed this account in the last 14 days, it moves to Watching instead.</li>
+            <li>A "Fix first" note means setup work is still open on the account.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="grp" id="do-d14">What to do</div>
+        <ul class="tips">
+          <li><strong>Reach out if there's no readership or Media Intelligence usage.</strong> That's the trigger in the motion, and it usually shows up as yellow or red health. The skill's roster shows readership for each account.</li>
+          <li><strong>Do any "Fix first" item.</strong> The email assumes the account is set up properly.</li>
+          <li><strong>Find what's dragging health.</strong> Look at the product status in the skill's roster, and lead with the weakest product the customer bought.</li>
+          <li><strong>Build the fix.</strong> If anything from the day 3 setup is missing, like the dashboard, build it now. The draft assumes it's done.</li>
+          <li><strong>Send a tailored email.</strong> Edit the draft below, and fill the [brackets].</li>
+          <li><strong>If the account is red or yellow, offer 1-1 training.</strong></li>
+          <li><strong>Check the day 15 task</strong> in the SuccessPlay.</li>
+        </ul>
+        <div class="grp">Make the email specific</div>
+        <ul class="tips">
+          <li><strong>Dashboards:</strong> if the account has one or more, write "I set up a dashboard for you on [topic]". The skill can prove it exists, but the topic is yours to name.</li>
+          <li><strong>Users who haven't logged in:</strong> check Totango for the names, then mention them. Never guess names.</li>
+          <li><strong>No community activity:</strong> point them to Office Hours and the New to Meltwater resources.</li>
+        </ul>
+        <p class="what" style="margin-top:16px">Need ideas for moving a specific metric? The <a class="ilink" href="https://sirmartin1st.github.io/onboarding-guides/#usage-health" target="_top">usage health guide</a> lists tactics by product.</p>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Draft email: day 15, yellow or red</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+We set up a few core Meltwater features to help get you started: [dashboard / media list / newsletter template / search]. If you'd like to customize these or create more, the New to Meltwater resources in the Meltwater Community are a great place to start, and our upcoming Office Hours are a quick way to connect live with the Customer Success team.
+
+Don't forget, if you want to track mentions on Facebook, Instagram or YouTube, you'll need to connect your social profiles to Meltwater.
+
+[Your name]</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 4 -->
+    <div class="block" id="stage-d21">
+      <div class="left">
+        <span class="when">Days 21 to 29</span>
+        <h3>Day 21 check</h3>
+        <p class="what">You're close to the end of the onboarding period, so this is where unused products matter. A yellow or red account gets an email that asks for a call and names what hasn't been used.</p>
+        <div class="callout">
+          <div class="callout-label">What happens automatically</div>
+          <ul>
+            <li>Day 21: an email asks "are we meeting expectations?" and invites them to Office Hours.</li>
+            <li>Day 25, Klear customers only: an email asks them to set up Klear.</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-label">What /digital-signals flags</div>
+          <ul>
+            <li>Yellow or red usage health at day 21 to 29.</li>
+            <li>Products that were bought but have no usage at all.</li>
+            <li>Call context from the last 30 days, if a Gong summary email exists.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="grp" id="do-d21">What to do</div>
+        <ul class="tips">
+          <li><strong>Follow up if there's no product usage.</strong> That's the trigger in the motion, and it covers the weeks through day 25.</li>
+          <li><strong>Name each unused product</strong> and offer a specific fix: GenAI Lens prompts, a newsletter template, or a MIRA project.</li>
+          <li><strong>Ask for a call and book the 1-1 training.</strong> A live session with the customer driving is the most reliable way to move usage.</li>
+          <li><strong>Check for a call since day 15,</strong> and adjust the email using the table below.</li>
+          <li><strong>Check the day 21 task</strong> in the SuccessPlay.</li>
+        </ul>
+        <div class="grp">How call context changes the email</div>
+        <div class="table-wrap" style="margin-top:0">
+          <table>
+            <thead><tr><th>Situation</th><th>Your email</th></tr></thead>
+            <tbody>
+              <tr><td>Call held, usage improved since</td><td>A gentle "how's it going since we spoke" follow-up</td></tr>
+              <tr><td>Call held, usage not improved</td><td>Ask for another call</td></tr>
+              <tr><td>No call held</td><td>A tailored email asking for a call</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Draft email: day 21, yellow or red</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+You're almost through your onboarding period, and we noticed some of your products haven't been used yet: [product list]. We want to make sure we can support your key use cases early in your lifecycle.
+
+Is there a day next week we can review your account setup and run a [product] training with the team?
+
+[Your name]</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 5 -->
+    <div class="block" id="stage-d30">
+      <div class="left">
+        <span class="when">Days 30 to 32</span>
+        <h3>Day 30 check</h3>
+        <p class="what">This is the decision point. Green accounts move to the CSM. Yellow or red accounts get one more push for training before onboarding closes.</p>
+        <div class="callout">
+          <div class="callout-label">What happens automatically</div>
+          <ul>
+            <li>Every account gets a completion email from the CSM, inviting them to expand their use case. The timing varies with the account's health score.</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <div class="callout-label">What /digital-signals flags</div>
+          <ul>
+            <li>Green at day 30 or later: hand off to the CSM. This holds even past day 48.</li>
+            <li>Yellow or red at day 30 to 32: ask for a call.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="grp" id="handoff-green">Green account: hand off</div>
+        <ul class="tips">
+          <li><strong>Fix first.</strong> If a digest or other gap is open, close it so the CSM doesn't inherit it.</li>
+          <li><strong>Make sure the admin is done.</strong> The right media monitoring objective(s) applied (milestones update on their own), and the <a class="ilink" href="https://meltwater-3.wistia.com/medias/613wgz9p5w" target="_blank" rel="noopener">champion flagged</a>.</li>
+          <li><strong>Send the CSM a handoff note.</strong> Fill in every line from Totango and your call notes. Leave a line out only if the data is missing, never guess.</li>
+          <li><strong>Check the day 30 task, then the last task in the SuccessPlay.</strong> Checking the last task marks onboarding complete in Totango.</li>
+          <li><strong>The CSM takes it from there.</strong> They email the customer to ask for the account health check (template below), then run the mini Account Health Check: a usage summary, org chart and user roles, key use cases, and business goals.</li>
+        </ul>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Handoff note to the CSM, green accounts</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [CSM first name],
+
+[Account] is ready to hand off. Here's where onboarding landed:
+
+- Health: usage [score] ([rank]), account health [account health], day [day]
+- Setup: [searches] searches, [dashboards] dashboards, daily digest [sending, about X articles per digest / not set up]
+- Users: [users] set up, about [X] active in the last 90 days ([X]%)
+- Readership: digest readership trend [X], Media Relations usage [X, if they have MR]
+- Community: [X] activities (trainings, Office Hours). Leave out if blank.
+- Strongest products: [products that are green]
+- Room to grow: [products that are yellow or red, plus any unused]
+- Last call: [date and 1 to 2 key points, or "No recorded calls; onboarded digitally"]
+- Suggested AHC focus: [one line based on the gaps, e.g. "get the other 4 users active" or "introduce MIRA"]
+
+Next step on your side: email the customer to ask for the account health check (template below), then run the mini Account Health Check (usage summary, org chart and user roles, key use cases, business goals).</pre>
+        </div>
+        <p class="what" style="margin-top:16px">Paste the email below under your handoff note, so the CSM doesn't have to hunt for it. They send it to the customer once you've handed off.</p>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Email for the CSM to send: ask for the account health check</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+Your team did an amazing job in onboarding. You had great adoption of your tools and completed a majority of the New User Checklist.
+
+I'd love to take some time to better understand your use cases and how they tie into your upcoming projects and business objectives. We have checkpoints throughout your subscription to make sure we're aligned on your key goals. Now that you're trained up on the tool, this is a perfect time to make sure your account is ready to support your short-term needs and long-term strategy.
+
+Here are some notes I wanted to cover: [business objectives collected, or upcoming events]
+
+Is there a good day this week we can review your usage plans and these initiatives?
+
+[CSM name]</pre>
+        </div>
+        <div class="grp" id="push-d30">Yellow or red account: keep pushing training</div>
+        <ul class="tips">
+          <li><strong>Use call context since day 15.</strong> Reference the next steps from that call, then push for the training. If there was no call, push again.</li>
+          <li><strong>Keep going through day 45.</strong> You follow up on 1-1 training until then.</li>
+          <li><strong>Stay close to the CSM.</strong> Between day 30 and day 45, talk regularly about where the account stands, so nothing is a surprise at day 45.</li>
+          <li><strong>Check the day 30 task</strong> in the SuccessPlay.</li>
+        </ul>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Draft email: day 30, yellow or red</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+There are still a few items we need to get up and running for you before we close out your onboarding. We'd like to support you with the setup and training.
+
+Is there a day next week we can run a training with the team?
+
+[Your name]</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 6 -->
+    <div class="block" id="stage-extended">
+      <div class="left">
+        <span class="when">Days 33 to 47</span>
+        <h3>Day 45 check</h3>
+        <p class="what">The account is past the standard window, and it isn't green yet. The goal is the best health you can get by day 45, with 1-1 training as the main lever.</p>
+        <div class="callout">
+          <div class="callout-label">What /digital-signals flags</div>
+          <ul>
+            <li>Yellow or red usage health at day 33 to 47.</li>
+            <li>Green accounts still go to the CSM.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="grp" id="do-extended">What to do</div>
+        <ul class="tips">
+          <li><strong>Stay in step with the CSM.</strong> Between day 30 and day 45, talk regularly about where the account stands. There should be no surprises at day 45.</li>
+          <li><strong>If the account is still red as day 45 approaches,</strong> tell your manager ahead of time that it may not close. Don't wait for the day 48 flag.</li>
+          <li><strong>If it reaches yellow by day 45,</strong> you can typically close it. Align with the CSM first.</li>
+          <li><strong>Keep pushing for a 1-1 training.</strong> Use the day 30 email, adjusted for what you know about the account since.</li>
+          <li><strong>Work the weakest products.</strong> Pick the one or two that would move health most, and aim the training at them.</li>
+          <li><strong>Hand off as soon as it turns green.</strong> Don't hold a green account to finish the window. Check the last SuccessPlay task when you do.</li>
+          <li><strong>Check the day 45 task</strong> in the SuccessPlay.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stage 7 -->
+    <div class="block" id="stage-overdue">
+      <div class="left">
+        <span class="when">Day 48 and later</span>
+        <h3>Past target</h3>
+        <p class="what">An account still open at day 48 needs a decision, not more of the same outreach.</p>
+        <div class="callout">
+          <div class="callout-label">What /digital-signals flags</div>
+          <ul>
+            <li>Any non-green account at day 48 or later goes to your manager.</li>
+            <li>Green accounts still get the CSM handoff.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="right">
+        <div class="grp">What to do</div>
+        <ul class="tips">
+          <li><strong>Flag it to your manager.</strong> The skill marks this as flag-only, so there's no draft.</li>
+          <li><strong>Close it out, or document why it's still open.</strong> Put the reason in Totango.</li>
+          <li><strong>Hand off if it's green.</strong> Take the win, even this late.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. REFERENCE -->
+  <section id="reference">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div>
+        <h2>Quick reference</h2>
+        <p class="sec-intro">The talk track, templates, escalation paths and links you'll reach for most.</p>
+      </div>
+    </div>
+
+    <h3 class="part-title">What we say, and what we don't</h3>
+    <p class="part-sub">The customer should expect an account team and a strong self-serve program, not a dedicated kickoff or white-glove setup. This matters most in Slack channels and any call before day 15.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Don't say</th><th>Say instead</th></tr></thead>
+        <tbody>
+          <tr><td>Dedicated kickoff call</td><td>Intro to your account team</td></tr>
+          <tr><td>Unlimited custom trainings</td><td>Unlimited live group trainings and new user resources</td></tr>
+          <tr><td>CS will set up everything for you</td><td>An account team that will make sure you're set up for success</td></tr>
+          <tr><td>White glove service</td><td>Weekly Office Hours and workshops to compare ideas with team members</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="snippet">
+      <div class="snippet-bar"><span>Talk track</span><button class="copy" type="button">Copy</button></div>
+      <pre>We have an Academy and Community program built for new customers. It offers unlimited live group trainings, Office Hours, new user checklists and on-demand courses, so you can learn at your own pace.
+
+We provide learning paths and product tours to help you meet your goals.
+
+Once you work through your onboarding tasks, we'll meet again closer to day 30 for a more strategic session.</pre>
+    </div>
+
+    <h3 class="part-title">Email template: info needed from the customer</h3>
+    <p class="part-sub">Use this if the contract signer hasn't replied to the automated request for users.</p>
+    <div class="snippet" style="margin-top:16px">
+      <div class="snippet-bar"><span>Info needed from the customer</span><button class="copy" type="button">Copy</button></div>
+      <pre>Hi team,
+
+Great to meet you all!
+
+You'll begin to get some onboarding resources in the coming days, but there are a few housekeeping items to cover so all users get the relevant materials.
+
+- Send us a list of the users who will have access to Meltwater (you have [X] included in your subscription).
+- Share 1 or 2 key topics or brands you'd like to see coverage on. We'll set up some initial searches and digest reports.
+
+Once your users are set up and your contract start date is in effect, users will receive access to the platform and our Meltwater Community. There you'll find onboarding guides and training programs to help you get started.
+
+You'll get more direction on setup requirements as soon as we get these key configurations underway!
+
+[Your name]</pre>
+    </div>
+
+    <h3 class="part-title">Who to flag</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Situation</th><th>Flag to</th></tr></thead>
+        <tbody>
+          <tr><td>No CSM listed as Owner from day 3 (the automated campaigns won't run)</td><td>The MD</td></tr>
+          <tr><td>Account still red as day 45 approaches</td><td>Your manager, ahead of day 45</td></tr>
+          <tr><td>Account yellow by day 45</td><td>The CSM, to align on closing it</td></tr>
+          <tr><td>Account still open past day 48</td><td>Your manager</td></tr>
+          <tr><td>Green account, day 30 or later</td><td>The CSM, with the handoff note</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="part-title">Links</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Link</th><th>Use it for</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://docs.google.com/spreadsheets/d/1fvZIIIRohK5rD1a3YwAx8clBJF2iU7vGHPbF7UzFXy0/edit?gid=1333937292#gid=1333937292" target="_blank" rel="noopener">User setup sheet</a></td><td>Adding users, and the New User Submission tab</td></tr>
+          <tr><td><a href="https://sirmartin1st.github.io/onboarding-guides/#boolean" target="_top">Boolean examples guide</a></td><td>Starter searches, and industry topics for thin digests</td></tr>
+          <tr><td><a href="https://sirmartin1st.github.io/onboarding-guides/#usage-health" target="_top">Usage health guide</a></td><td>Tactics for moving a red or yellow metric by product</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Account-level links (Meltwater temp login, Totango plan page, Salesforce opportunity) come from the /digital-signals output, so use those instead of building them by hand.</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="brand">Meltwater</div>
+  <p>Internal use only. Implementation manager reference guide, Digital-First onboarding. Totango is the source of truth, so check the account there before acting on a number from the skill.</p>
+  <div class="updated">Last updated October 20, 2026</div>
+</footer>
+
+<script>
+(function(){
+  /* copy buttons */
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var pre = btn.closest('.snippet').querySelector('pre');
+      var text = pre.innerText;
+      var done = function(){ btn.textContent = 'Copied'; btn.classList.add('done'); setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600); };
+      function fallback(){ var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){} document.body.removeChild(ta); }
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, fallback); } else { fallback(); }
+    });
+  });
+
+  /* scroll spy */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
+  var map = {};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          links.forEach(function(a){ a.classList.remove('active'); });
+          if (map[e.target.id]) map[e.target.id].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    Object.keys(map).forEach(function(id){ var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
