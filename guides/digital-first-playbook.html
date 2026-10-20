@@ -150,6 +150,12 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
 .copy.done{background:var(--tint-3);color:var(--mw-teal-dark);border-color:var(--mw-teal)}
 .snippet pre{font-family:inherit;font-size:13px;line-height:1.65;white-space:pre-wrap;padding:16px;color:#2E3A3A}
 
+.start{margin-top:24px;background:var(--tint-2);border-radius:12px;padding:20px 22px}
+.start-title{font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--mw-teal-dark);margin-bottom:6px}
+.start p{font-size:14px;color:#1A1A1A;margin-bottom:12px}
+.start .snippet{margin-top:0;background:#fff}
+.start .start-note{font-size:13px;color:var(--muted);margin:10px 0 0}
+
 /* footer */
 .foot{margin-top:72px;border-top:1px solid var(--line);padding:32px max(24px,calc((100vw - 1040px)/2)) 48px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:baseline;font-size:13px;color:var(--muted)}
 .foot p{max-width:62ch}
@@ -276,6 +282,16 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
         <h2>Receiving a new account</h2>
         <p class="sec-intro">The Meltwater setup comes first, because it's what the customer sees. Then the Totango and Salesforce admin. Aim to finish both by day 3.</p>
       </div>
+    </div>
+
+    <div class="start">
+      <div class="start-title">Start here: run /digital-pooled-helper in Claude</div>
+      <p><strong>Paste your routing thread link and it builds your setup packet:</strong> Plan Summary, objectives, starter searches, users and a dated admin checklist.</p>
+      <div class="snippet">
+        <div class="snippet-bar"><span>Example</span><button class="copy" type="button">Copy</button></div>
+        <pre>Run /digital-pooled-helper for https://meltwater.slack.com/archives/C03UPUHLGMT/p1792501298993679</pre>
+      </div>
+      <p class="start-note">Swap in the routing thread link for your account.</p>
     </div>
 
     <h3 class="part-title" id="meltwater-build">Part A: Set up the account in Meltwater</h3>
@@ -508,6 +524,7 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
       <div class="right">
         <div class="grp" id="do-setup">What to do</div>
         <ul class="tips">
+          <li><strong>Run /digital-pooled-helper with your routing thread link.</strong> It gives you the Plan Summary, objectives, starter searches, users and a dated admin checklist to work from.</li>
           <li><strong>Build the account in Meltwater first.</strong> Searches with a digest or alerts, a dashboard, a MIRA project, plus GenAI Lens prompts and a newsletter template if they have them. See <a class="ilink" href="#meltwater-build">Part A</a>.</li>
           <li><strong>Activate users as close to the start date as you can.</strong> Never before it without permission. Check the <a class="ilink" href="https://docs.google.com/spreadsheets/d/1fvZIIIRohK5rD1a3YwAx8clBJF2iU7vGHPbF7UzFXy0/edit?gid=1333937292#gid=1333937292" target="_blank" rel="noopener">user setup sheet</a> for new submissions.</li>
           <li><strong>Do the Totango admin.</strong> Activate the SuccessPlay, confirm the VoCAgent output with the rep and CSM, and fill in the plan summary. See <a class="ilink" href="#totango-admin">Part B</a>.</li>
