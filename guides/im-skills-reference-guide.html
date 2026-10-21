@@ -186,16 +186,15 @@
     border-radius: 7px;
   }
 
-  .status {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 3px 9px;
-    border-radius: 20px;
-    white-space: nowrap;
+  .companion-note {
+    font-size: 11.5px;
+    font-style: italic;
+    color: #888;
   }
-  .status.live { background: #E3F3E3; color: #1E7A34; }
-  .status.sandbox { background: var(--mw-yellow-light, #FFFAE7); color: #8A6D00; }
+  .companion-note strong {
+    font-style: normal;
+    color: var(--mw-teal-dark);
+  }
 
   .section-label {
     font-size: 11px;
@@ -309,26 +308,6 @@
     padding: 3px 9px;
     border-radius: 20px;
   }
-
-  .card-footer {
-    margin-top: auto;
-    padding-top: 12px;
-    border-top: 1px solid var(--mw-gray);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .share-link {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--mw-teal-dark);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .share-link:hover { text-decoration: underline; }
 
   .no-results {
     max-width: 1100px;
@@ -520,31 +499,6 @@
 <script>
   const SKILLS = [
     {
-      command: "/totango-agent",
-      status: "live",
-      flag: "Install this first — it's the data connection several other skills below run on.",
-      whenToUse: "Any Totango-sourced data pull — “pull active onboardings,” “show me [IM]’s portfolio,” “which accounts are on hold,” “aging onboardings,” “is there a champion on this account.”",
-      output: "Live answers on your onboarding portfolio — stage breakdowns, aging/at-risk accounts, usage and health scores, product adoption, and champion flags — using Meltwater's correct account definitions so you're never looking at the wrong population. This same Totango data pull is already built into /meeting-prep, and will keep showing up embedded inside future skills rather than always being run on its own.",
-      requires: ["Snowflake Agent MCP"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01CBfEW4eNX3q3SJ4ZtkUbeL"
-    },
-    {
-      command: "/meeting-prep",
-      status: "live",
-      whenToUse: "Before any upcoming customer call. Say “prep me for my call with [customer]”, “prep me for my next call,” or “get me ready for [customer].” No customer named? It finds your next customer meeting on the calendar automatically.",
-      output: "An inline prep brief tailored to the meeting type (Kickoff, Training, Follow‑Up/Q&A, or Closure): account health snapshot, users on the call, product adoption, objectives vs. discovery alignment, last call recap, email activity since, and 3–5 suggested talking points.",
-      requires: ["Google Calendar", "Gmail", "Google Drive", "Snowflake Agent MCP"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01QwkfEy5ri5dgnEyiereFws"
-    },
-    {
-      command: "/my-portfolio-snapshot",
-      status: "live",
-      whenToUse: "Anytime you want a quick read on your whole book of active onboardings. Say “my portfolio,” “show me my accounts,” “portfolio snapshot,” or “how do my accounts look.”",
-      output: "Two scannable tables: your main portfolio and a separate Digital Onboardings table for Quick Start accounts. Each row shows days in onboarding, segment, account health, usage health, and green/yellow/red adoption across Explore, Media Relations, GenAI Lens, Klear, MIRA Studio, and Newsletter — so you can spot what needs attention at a glance.",
-      requires: ["Snowflake Agent MCP"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01RqwVxLXMZ35eDtA5qBy3an"
-    },
-    {
       command: "/daily-brief",
       status: "live",
       whenToUse: "First thing in the morning, or the night before to get ahead of tomorrow. Say “daily brief,” “prep me for today,” “what's on my plate today,” “morning prep,” or “what do I need to know for tomorrow.”",
@@ -558,6 +512,22 @@
       }
     },
     {
+      command: "/meeting-prep",
+      status: "live",
+      whenToUse: "Before any upcoming customer call. Say “prep me for my call with [customer]”, “prep me for my next call,” or “get me ready for [customer].” No customer named? It finds your next customer meeting on the calendar automatically.",
+      output: "An inline prep brief tailored to the meeting type (Kickoff, Training, Follow‑Up/Q&A, or Closure): account health snapshot, users on the call, product adoption, objectives vs. discovery alignment, last call recap, email activity since, and 3–5 suggested talking points.",
+      requires: ["Google Calendar", "Gmail", "Google Drive", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01QwkfEy5ri5dgnEyiereFws"
+    },
+    {
+      command: "/kickoff-helper",
+      status: "live",
+      whenToUse: "Right after you run a customer kickoff call. Say “run kickoff helper for [customer],” “help me follow up on my kickoff call with [customer],” or “I just had a kickoff call with [customer].”",
+      output: "Four things pulled from the call transcript: Totango-ready objectives with tailored outcome milestones, next steps tagged by owner (email content vs. an action for you), private self-coaching notes only you see, and — once you confirm any outstanding actions — a client-ready follow-up email with proposed meeting times pulled from your calendar.",
+      requires: ["Google Calendar", "Google Drive", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01XBgK3ouvvyXELa1qTPPsGd"
+    },
+    {
       command: "/client-vault-helper",
       status: "live",
       whenToUse: "Right after you get assigned a new account. For best results, run it with a link to the routing thread where VoCAgent already replied. No VoCAgent reply yet? Run the prompt manually in #onboarding_voc_tools first, then come back and pass that thread link in.",
@@ -565,6 +535,45 @@
       example: "/client-vault-helper https://meltwater.slack.com/archives/C03UPUHLGMT/p1786471010882019",
       requires: ["Slack"],
       shareUrl: "https://claude.ai/customize/skills?selectedId=skill_018cQ15iE1cvU9DmFAcHKRDo"
+    },
+    {
+      command: "/digital-pooled-helper",
+      status: "live",
+      companion: "/digital-signals",
+      whenToUse: "Right when you get assigned a Digital or Pooled account for onboarding — use this instead of /kickoff-helper for these. As simple as “/digital-pooled-helper” plus the Slack routing message link or the customer name.",
+      output: "A ready-to-use setup packet: the VoCAgent summary, suggested searches and other things to set up, and a Users to Set Up list.",
+      requires: ["Slack", "Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01D69ZUk91j1kF6GsyntrQdP"
+    },
+    {
+      command: "/digital-signals",
+      status: "live",
+      companion: "/digital-pooled-helper",
+      whenToUse: "Daily, for your Digital cohort — Pooled and Digital-First onboardings. Say “digital signals,” “my digital accounts,” “pooled accounts,” “which digital customers need attention,” or ask for intervention emails. Built to run on a daily schedule.",
+      output: "Two separate action lists — Pooled and Digital-First — built from the Totango digital feed and ACV-banded rules (setup gaps, user submissions, digest quality, day 14/21/24/30/33/48 checks, hygiene). Each item says what to fix today and who to reach out to, with ready-to-send Pooled email copy and Gmail drafts included.",
+      requires: ["Google Drive", "Gmail"],
+      shareUrl: "",
+      schedule: {
+        cadence: "Tuesdays & Thursdays at 7:30 AM",
+        note: "Runs the Pooled + Digital-First scan twice a week and DMs you only the items that actually need action.",
+        prompt: "Every Tuesday and Thursday at 7:30 AM, run /digital-signals. From the Pooled and Digital-First action lists, pull out the items that genuinely need attention this week — skip anything already handled or low-priority. Send me a Slack DM (not a channel post) with those key items, condensed enough to read in a few seconds but with enough detail to act on. Keep the full lists and any drafted emails in this conversation in case I want to dig into the detail."
+      }
+    },
+    {
+      command: "/genai-lens-onboarding",
+      status: "live",
+      whenToUse: "When a customer is being onboarded onto GenAI Lens and needs a prompt set built out. Mention GenAI Lens, ask to build or generate prompts for a customer, or ask for prompts about a customer's competitors, trending topics, or brand reputation — even without naming the skill.",
+      output: "A spreadsheet of human-language prompts, organized by topic, covering the angles that shape how a brand shows up in AI answers — recommendation-style questions, competitor comparisons, trending/reputation topics, and due-diligence questions, expanding beyond that starting set whenever the research points somewhere new. Written the way people actually type into an LLM, not corporate-speak. Drops right into your customer's GenAI Lens setup in Meltwater. Always flagged back to you for review before it ships.",
+      requires: [],
+      shareUrl: ""
+    },
+    {
+      command: "/my-portfolio-snapshot",
+      status: "live",
+      whenToUse: "Anytime you want a quick read on your whole book of active onboardings. Say “my portfolio,” “show me my accounts,” “portfolio snapshot,” or “how do my accounts look.”",
+      output: "Two scannable tables: your main portfolio and a separate Digital Onboardings table for Quick Start accounts. Each row shows days in onboarding, segment, account health, usage health, and green/yellow/red adoption across Explore, Media Relations, GenAI Lens, Klear, MIRA Studio, and Newsletter — so you can spot what needs attention at a glance.",
+      requires: ["Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01RqwVxLXMZ35eDtA5qBy3an"
     },
     {
       command: "/onboarding-handoff-notes",
@@ -580,30 +589,6 @@
       }
     },
     {
-      command: "/kickoff-helper",
-      status: "live",
-      whenToUse: "Right after you run a customer kickoff call. Say “run kickoff helper for [customer],” “help me follow up on my kickoff call with [customer],” or “I just had a kickoff call with [customer].”",
-      output: "Four things pulled from the call transcript: Totango-ready objectives with tailored outcome milestones, next steps tagged by owner (email content vs. an action for you), private self-coaching notes only you see, and — once you confirm any outstanding actions — a client-ready follow-up email with proposed meeting times pulled from your calendar.",
-      requires: ["Google Calendar", "Google Drive", "Snowflake Agent MCP"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01XBgK3ouvvyXELa1qTPPsGd"
-    },
-    {
-      command: "/digital-pooled-helper",
-      status: "live",
-      whenToUse: "Right after you get assigned a new Digital Pooled account. Say “I just got assigned a Digital account,” “run digital-pooled-helper for [customer],” “help me set up [customer],” or paste the #digital-onboarding routing thread link.",
-      output: "A ready-to-use setup packet: a Totango-ready use-case summary with a confidence rating, 1–3 suggested onboarding objectives with reasoning, copy-ready starter searches, and a Users to Set Up list — built by weighing the routing thread's brief against any hands-on deal notes the MD added.",
-      requires: ["Slack", "Snowflake Agent MCP"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01D69ZUk91j1kF6GsyntrQdP"
-    },
-    {
-      command: "/timesheet-helper",
-      status: "live",
-      whenToUse: "When it's time to fill out your weekly Kantata timesheet. Say “help me do my timesheet,” “log my hours for this week,” “fill out my Kantata timesheet,” or “what did I work on this week.”",
-      output: "A draft timecard built from your calendar (and email, if you opt in), shown as a Kantata-style grid for you to review — customer rows first, PTO/holidays flagged automatically, progress against your 40-hour goal. Once you confirm it, logs the entries directly into Kantata for you to submit yourself.",
-      requires: ["Google Calendar", "Gmail", "Google Drive", "Claude in Chrome"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01JLdNwwLPQMLAXhLPSFmniR"
-    },
-    {
       command: "/release-radar",
       status: "live",
       whenToUse: "Anytime you want to catch up on product releases without reading every Slack post. Say “catch me up on releases,” “what's new I should know about,” “releases relevant to my accounts,” or “did anything ship that affects [customer].” Defaults to the last 14 days if you don't give it a window.",
@@ -617,25 +602,20 @@
       }
     },
     {
-      command: "/genai-lens-onboarding",
+      command: "/timesheet-helper",
       status: "live",
-      whenToUse: "When a customer is being onboarded onto GenAI Lens and needs a prompt set built out. Mention GenAI Lens, ask to build or generate prompts for a customer, or ask for prompts about a customer's competitors, trending topics, or brand reputation — even without naming the skill.",
-      output: "A spreadsheet of human-language prompts, organized by topic, covering the angles that shape how a brand shows up in AI answers — recommendation-style questions, competitor comparisons, trending/reputation topics, and due-diligence questions, expanding beyond that starting set whenever the research points somewhere new. Written the way people actually type into an LLM, not corporate-speak. Drops right into your customer's GenAI Lens setup in Meltwater. Always flagged back to you for review before it ships.",
-      requires: [],
-      shareUrl: ""
+      whenToUse: "When it's time to fill out your weekly Kantata timesheet. Say “help me do my timesheet,” “log my hours for this week,” “fill out my Kantata timesheet,” or “what did I work on this week.”",
+      output: "A draft timecard built from your calendar (and email, if you opt in), shown as a Kantata-style grid for you to review — customer rows first, PTO/holidays flagged automatically, progress against your 40-hour goal. Once you confirm it, logs the entries directly into Kantata for you to submit yourself.",
+      requires: ["Google Calendar", "Gmail", "Google Drive", "Claude in Chrome"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01JLdNwwLPQMLAXhLPSFmniR"
     },
     {
-      command: "/digital-signals",
+      command: "/totango-agent",
       status: "live",
-      whenToUse: "Daily, for your Digital cohort — Pooled and Digital-First onboardings. Say “digital signals,” “my digital accounts,” “pooled accounts,” “which digital customers need attention,” or ask for intervention emails. Built to run on a daily schedule.",
-      output: "Two separate action lists — Pooled and Digital-First — built from the Totango digital feed and ACV-banded rules (setup gaps, user submissions, digest quality, day 14/21/24/30/33/48 checks, hygiene). Each item says what to fix today and who to reach out to, with ready-to-send Pooled email copy and Gmail drafts included.",
-      requires: ["Google Drive", "Gmail"],
-      shareUrl: "",
-      schedule: {
-        cadence: "Tuesdays & Thursdays at 7:30 AM",
-        note: "Runs the Pooled + Digital-First scan twice a week and DMs you only the items that actually need action.",
-        prompt: "Every Tuesday and Thursday at 7:30 AM, run /digital-signals. From the Pooled and Digital-First action lists, pull out the items that genuinely need attention this week — skip anything already handled or low-priority. Send me a Slack DM (not a channel post) with those key items, condensed enough to read in a few seconds but with enough detail to act on. Keep the full lists and any drafted emails in this conversation in case I want to dig into the detail."
-      }
+      whenToUse: "Mostly runs quietly behind the scenes inside the other skills above — you don't need to call it directly for everyday work. Worth knowing about if you want to query Totango data yourself with a one-off question (“pull active onboardings,” “show me [IM]’s portfolio,” “which accounts are on hold,” “aging onboardings,” “is there a champion on this account”), or if you're building your own skill on top of it.",
+      output: "Live answers on your onboarding portfolio — stage breakdowns, aging/at-risk accounts, usage and health scores, product adoption, and champion flags — using Meltwater's correct account definitions so you're never looking at the wrong population. This is the same data layer that /meeting-prep, /daily-brief, and others already call internally.",
+      requires: ["Snowflake Agent MCP"],
+      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01CBfEW4eNX3q3SJ4ZtkUbeL"
     }
   ];
 
@@ -646,9 +626,7 @@
   }
 
   function renderCard(skill) {
-    const statusLabel = skill.status === 'sandbox' ? 'Sandbox' : 'Live';
     const tags = skill.requires.map(r => `<span class="tag">${escapeHtml(r)}</span>`).join('');
-    const shareHref = skill.shareUrl && skill.shareUrl.trim() ? skill.shareUrl : '#';
     const promptId = 'prompt-' + skill.command.replace(/[^a-z0-9]/gi, '');
     const scheduleBlock = skill.schedule ? `
         <div class="schedule-block">
@@ -664,9 +642,9 @@
       <div class="card" data-search="${escapeHtml((skill.command + ' ' + skill.whenToUse + ' ' + skill.output + ' ' + (skill.example || '') + ' ' + skill.requires.join(' ')).toLowerCase())}">
         <div class="card-top">
           <span class="command">${escapeHtml(skill.command)}</span>
-          <span class="status ${skill.status}">${statusLabel}</span>
         </div>
         ${skill.flag ? `<div class="flag-banner">⚡ ${escapeHtml(skill.flag)}</div>` : ''}
+        ${skill.companion ? `<div class="companion-note">🔗 Pairs with <strong>${escapeHtml(skill.companion)}</strong></div>` : ''}
         <div>
           <div class="section-label">When to use</div>
           <p class="section-body">${skill.whenToUse}</p>
@@ -678,11 +656,6 @@
         ${skill.example ? `<div class="example"><span class="example-label">Example</span>${escapeHtml(skill.example)}</div>` : ''}
         ${scheduleBlock}
         <div class="tags">${tags}</div>
-        <div class="card-footer">
-          <a class="share-link" href="${shareHref}" target="_blank" rel="noopener">
-            &#128279; Share skill link
-          </a>
-        </div>
       </div>
     `;
   }
