@@ -75,6 +75,13 @@ div.cell:hover{border-color:var(--line)}
 div.cell.auto:hover,div.cell.task:hover{border-color:transparent}
 .cell strong{font-weight:600;color:var(--mw-black)}
 
+.mail{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;line-height:1;color:var(--mw-teal-dark);background:var(--tint-2);border-radius:99px;padding:5px 10px 5px 8px;text-decoration:none;white-space:nowrap;transition:background .2s var(--ease),color .2s var(--ease)}
+.cell a.mail{border-bottom:0;font-weight:600;color:var(--mw-teal-dark)}
+a.mail:hover,.cell a.mail:hover{background:var(--mw-teal-dark);color:#fff}
+span.mail{vertical-align:middle;margin:0 2px}
+.cell.move{display:flex;flex-direction:column;gap:10px}
+.cell-text{flex:1}
+.cell-mail{display:flex;flex-wrap:wrap;gap:6px}
 /* intro blocks */
 .howto{padding:8px 0 40px}
 .howto h2{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:12px}
@@ -185,10 +192,12 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
 <header class="topbar">
   <div class="brand">Meltwater<span class="brand-sub">IM playbook</span></div>
   <nav class="tabs" aria-label="Sections">
+    <a href="#overview"><span class="dot"></span>Full process</a>
     <a href="#setup"><span class="dot"></span>First-time setup</a>
     <a href="#new-account"><span class="dot"></span>New account</a>
     <a href="#checklist"><span class="dot"></span>Setup checklist</a>
     <a href="#timeline"><span class="dot"></span>Day by day</a>
+    <a href="#objections"><span class="dot"></span>Objection handling</a>
     <a href="#reference"><span class="dot"></span>Reference</a>
   </nav>
 </header>
@@ -205,7 +214,7 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
   <!-- PROCESS VISUAL -->
   <section class="flow-sec" id="overview" aria-label="The full process at a glance">
     <h2>The full process</h2>
-    <p class="hint">Click any box to jump to that part of the guide. On a small screen, scroll sideways.</p>
+    <p class="hint">Click any box to jump to that part of the guide. Pills like <span class="mail"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</span> link to an email template. On a small screen, scroll sideways.</p>
     <div class="flow-wrap">
       <div class="flow">
         <div></div>
@@ -225,12 +234,12 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
         <a class="cell auto" href="#campaign-sequence">Completion email from the CSM, if it hasn't gone yet</a>
 
         <div class="lane-label">Your move</div>
-        <div class="cell move">Build the account in Meltwater: <a href="#meltwater-build">setup</a>. Then the <a href="#totango-admin">Totango and Salesforce admin</a>.</div>
-        <div class="cell move">Close gaps and review the digest (<a href="#do-settle">what to do</a>). 1-1 requests: <a href="#objection-templates">objection templates</a>.</div>
-        <a class="cell move" href="#do-d14">Yellow or red, or setup open: tailored email</a>
-        <a class="cell move" href="#do-d21">Yellow or red: ask for a call, book training</a>
-        <div class="cell move"><a href="#handoff-green">Green: hand off to the CSM</a>. <a href="#push-d30">Yellow or red: keep pushing training, in step with the CSM</a>.</div>
-        <div class="cell move"><a href="#do-extended">Stay in step with the CSM. Still red? Warn your manager before day 45</a>. <a href="#stage-overdue">Day 48+: flagged</a>.</div>
+        <div class="cell move"><div class="cell-text">Build the account in Meltwater: <a href="#meltwater-build">setup</a>. Then the <a href="#totango-admin">Totango and Salesforce admin</a>.</div><div class="cell-mail"><a class="mail" href="#email-info-needed" title="Email template: info needed from the customer" aria-label="Email template: info needed from the customer"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Info needed</a></div></div>
+        <div class="cell move"><div class="cell-text">Close gaps and review the digest (<a href="#do-settle">what to do</a>). 1-1 requests: <a href="#objections">objection templates</a>.</div><div class="cell-mail"><a class="mail" href="#objections" title="Email templates: objection handling" aria-label="Email templates: objection handling"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Objections</a></div></div>
+        <div class="cell move"><div class="cell-text"><a href="#do-d14">Yellow or red, or setup open: tailored email</a></div><div class="cell-mail"><a class="mail" href="#email-d15" title="Email template: day 15" aria-label="Email template: day 15"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Day 15 email</a></div></div>
+        <div class="cell move"><div class="cell-text"><a href="#do-d21">Yellow or red: ask for a call, book training</a></div><div class="cell-mail"><a class="mail" href="#email-d21" title="Email template: day 21" aria-label="Email template: day 21"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Day 21 email</a></div></div>
+        <div class="cell move"><div class="cell-text"><a href="#handoff-green">Green: hand off to the CSM</a>. <a href="#push-d30">Yellow or red: keep pushing training, in step with the CSM</a>.</div><div class="cell-mail"><a class="mail" href="#email-handoff" title="Templates: CSM handoff note and health check email" aria-label="Templates: CSM handoff note and health check email"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Handoff note</a><a class="mail" href="#email-d30" title="Email template: day 30" aria-label="Email template: day 30"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Day 30 email</a></div></div>
+        <div class="cell move"><div class="cell-text"><a href="#do-extended">Stay in step with the CSM. Still red? Warn your manager before day 45</a>. <a href="#stage-overdue">Day 48+: flagged</a>.</div><div class="cell-mail"><a class="mail" href="#email-d30" title="Email template: day 30, adjusted" aria-label="Email template: day 30, adjusted"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Day 30 email</a></div></div>
 
         <div class="lane-label">SuccessPlay task in Totango</div>
         <a class="cell task" href="#successplay-tasks">Check the day 1 and day 3 tasks. Right objectives applied by day 3</a>
@@ -560,60 +569,12 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
       <div class="right">
         <div class="grp" id="do-settle">What to do</div>
         <ul class="tips">
-          <li><strong>If a customer asks for a 1-1 before day 15, use the objection templates below</strong> before you give up your time. The point is to get them into trainings and Office Hours first.</li>
+          <li><strong>If a customer asks for a 1-1 before day 15, <a class="ilink" href="#objections">use the objection templates</a></strong> before you give up your time. The point is to get them into trainings and Office Hours first.</li>
           <li><strong>Finish the admin.</strong> <a class="ilink" href="https://meltwater-3.wistia.com/medias/613wgz9p5w" target="_blank" rel="noopener">Flag the champion</a> by day 7. If the right objectives aren't applied yet, do that now. The skill links to each.</li>
           <li><strong>Monitor setup and product usage.</strong> Check that the customer has logged in and is using what you built.</li>
           <li><strong>Review the digest.</strong> If it's blank most mornings, add an industry topic. If it's flooding, tighten the query. Use your judgment, since the size is an estimate.</li>
           <li><strong>Start digging into Watching accounts.</strong> Look at which products are red or yellow, so you know what you'd fix on day 15.</li>
         </ul>
-        <div class="grp" id="objection-templates">When a customer replies</div>
-        <ul class="tips">
-          <li><strong>Answer their question first.</strong></li>
-          <li><strong>Drive them straight to the platform</strong> to do the task, like adding user seats or building a report.</li>
-          <li><strong>If they ask for time and the account is green,</strong> point them to CSM Office Hours or a workshop. Suggest a 1-1 only as a last resort, and passively.</li>
-        </ul>
-        <div class="snippet">
-          <div class="snippet-bar"><span>Objection email: customer asks for a 1-1 or a kickoff</span><button class="copy" type="button">Copy</button></div>
-          <pre>Hi [Name],
-
-Great to meet you! We collected a lot of information about your use case during the initial sales process, so we're in a good spot to set up your account.
-
-As a first step, here's a list of upcoming trainings that you can register for: [list]. If you're already familiar with the product, our Office Hours or Help Center are great ways to answer quick questions.
-
-Once the team has taken a few preliminary courses or programs, we'll follow up for a 1-1 overview to make sure everything is working as intended.
-
-We look forward to working with you.
-
-[Your name]</pre>
-        </div>
-        <div class="snippet">
-          <div class="snippet-bar"><span>Objection email: you've already built their searches</span><button class="copy" type="button">Copy</button></div>
-          <pre>Hi [Name], happy to help! I've gone ahead and created a handful of the searches you've shared.
-
-We've found that our 1-1 training is more effective when users take our Academy courses or join a workshop to start. It's a great way to pick up foundational skills.
-
-As a first step, here's a list of upcoming workshops you can register for: [list]. Our Office Hours and Help Center are also great for quick questions, and I've listed upcoming Office Hours below for your reference: [list]
-
-Once the team has taken a few preliminary courses or workshops, we'll follow up for a 1-1 overview to make sure everything is working as intended.
-
-We look forward to working with you.
-
-[Your name]</pre>
-        </div>
-        <div class="snippet">
-          <div class="snippet-bar"><span>Reply: negative sentiment or a sales expectation</span><button class="copy" type="button">Copy</button></div>
-          <pre>Hi [Name],
-
-Totally understand. We're here to help!
-
-We've found that our 1-1 trainings are more effective when users take our Academy courses or join workshops to start. It's a great way to build foundational skills while we work on your account setup. That way, your personalized training with an Implementation Manager can focus more on the why than the how.
-
-If the live trainings don't fit your schedule, there are plenty of on-demand resources and recordings. I'd at least recommend the short video snippets in the New to Meltwater User Group. They give you an overview of the onboarding checklist and are a quick way to get started with the core features.
-
-Let me know if there's something specific you're after. From there, I'm happy to schedule a training with the team.
-
-[Your name]</pre>
-        </div>
       </div>
     </div>
 
@@ -656,7 +617,7 @@ Let me know if there's something specific you're after. From there, I'm happy to
           <li><strong>No community activity:</strong> point them to Office Hours and the New to Meltwater resources.</li>
         </ul>
         <p class="what" style="margin-top:16px">Need ideas for moving a specific metric? The <a class="ilink" href="https://sirmartin1st.github.io/onboarding-guides/#usage-health" target="_top">usage health guide</a> lists tactics by product.</p>
-        <div class="snippet">
+        <div class="snippet" id="email-d15">
           <div class="snippet-bar"><span>Draft email: day 15, yellow or red</span><button class="copy" type="button">Copy</button></div>
           <pre>Hi [Name],
 
@@ -711,7 +672,7 @@ Don't forget, if you want to track mentions on Facebook, Instagram or YouTube, y
             </tbody>
           </table>
         </div>
-        <div class="snippet">
+        <div class="snippet" id="email-d21">
           <div class="snippet-bar"><span>Draft email: day 21, yellow or red</span><button class="copy" type="button">Copy</button></div>
           <pre>Hi [Name],
 
@@ -753,7 +714,7 @@ Is there a day next week we can review your account setup and run a [product] tr
           <li><strong>Check the day 30 task, then the last task in the SuccessPlay.</strong> Checking the last task marks onboarding complete in Totango.</li>
           <li><strong>The CSM takes it from there.</strong> They email the customer to ask for the account health check (template below), then run the mini Account Health Check: a usage summary, org chart and user roles, key use cases, and business goals.</li>
         </ul>
-        <div class="snippet">
+        <div class="snippet" id="email-handoff">
           <div class="snippet-bar"><span>Handoff note to the CSM, green accounts</span><button class="copy" type="button">Copy</button></div>
           <pre>Hi [CSM first name],
 
@@ -772,7 +733,7 @@ Is there a day next week we can review your account setup and run a [product] tr
 Next step on your side: email the customer to ask for the account health check (template below), then run the mini Account Health Check (usage summary, org chart and user roles, key use cases, business goals).</pre>
         </div>
         <p class="what" style="margin-top:16px">Paste the email below under your handoff note, so the CSM doesn't have to hunt for it. They send it to the customer once you've handed off.</p>
-        <div class="snippet">
+        <div class="snippet" id="email-ahc">
           <div class="snippet-bar"><span>Email for the CSM to send: ask for the account health check</span><button class="copy" type="button">Copy</button></div>
           <pre>Hi [Name],
 
@@ -793,7 +754,7 @@ Is there a good day this week we can review your usage plans and these initiativ
           <li><strong>Stay close to the CSM.</strong> Between day 30 and day 45, talk regularly about where the account stands, so nothing is a surprise at day 45.</li>
           <li><strong>Check the day 30 task</strong> in the SuccessPlay.</li>
         </ul>
-        <div class="snippet">
+        <div class="snippet" id="email-d30">
           <div class="snippet-bar"><span>Draft email: day 30, yellow or red</span><button class="copy" type="button">Copy</button></div>
           <pre>Hi [Name],
 
@@ -859,13 +820,98 @@ Is there a day next week we can run a training with the team?
     </div>
   </section>
 
-  <!-- 5. REFERENCE -->
-  <section id="reference">
+  <!-- 5. OBJECTIONS -->
+  <section id="objections">
     <div class="sec-head">
       <div class="sec-num">05</div>
       <div>
-        <h2>Quick reference</h2>
-        <p class="sec-intro">The talk track, templates, escalation paths and links you'll reach for most.</p>
+        <h2>Handling objections</h2>
+        <p class="sec-intro">Some customers push back on the digital approach, or ask for 1-1 time before they've used the resources. Start with these responses. More situations will be added over time.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px">
+      <div class="callout-label">How to respond</div>
+      <ul>
+        <li>Answer their question first.</li>
+        <li>Drive them straight to the platform to do the task, like adding user seats or building a report.</li>
+        <li>If the account is green and they ask for time, point them to CSM Office Hours or a workshop. Suggest a 1-1 only as a last resort, and passively.</li>
+        <li>In client Slack channels, lead from the front.</li>
+      </ul>
+    </div>
+
+    <div class="block" id="objection-1on1-block">
+      <div class="left">
+        <span class="when">Most common before day 15</span>
+        <h3>The customer asks for a 1-1 or a kickoff</h3>
+        <p class="what">The customer may ask because a kickoff was suggested during the sale, or because they'd rather not use the group programs. The goal is to get them into trainings and Office Hours first, then follow up with a 1-1 overview.</p>
+      </div>
+      <div class="right">
+        <div class="grp">What to do</div>
+        <ul class="tips">
+          <li><strong>Share what's coming up:</strong> live trainings and workshops, Office Hours, and the Help Center.</li>
+          <li><strong>Set the next step.</strong> Once the team has taken a few preliminary courses or workshops, you'll follow up for a 1-1 overview.</li>
+          <li><strong>If you've already built their searches,</strong> say so. It shows the setup is moving.</li>
+        </ul>
+        <div class="snippet" id="objection-1on1">
+          <div class="snippet-bar"><span>Objection email: customer asks for a 1-1 or a kickoff</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+Great to meet you! We collected a lot of information about your use case during the initial sales process, so we're in a good spot to set up your account.
+
+As a first step, here's a list of upcoming trainings that you can register for: [list]. If you're already familiar with the product, our Office Hours or Help Center are great ways to answer quick questions.
+
+Once the team has taken a few preliminary courses or programs, we'll follow up for a 1-1 overview to make sure everything is working as intended.
+
+We look forward to working with you.
+
+[Your name]</pre>
+        </div>
+        <div class="snippet">
+          <div class="snippet-bar"><span>Objection email: you've already built their searches</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name], happy to help! I've gone ahead and created a handful of the searches you've shared.
+
+We've found that our 1-1 training is more effective when users take our Academy courses or join a workshop to start. It's a great way to pick up foundational skills.
+
+As a first step, here's a list of upcoming workshops you can register for: [list]. Our Office Hours and Help Center are also great for quick questions, and I've listed upcoming Office Hours below for your reference: [list]
+
+Once the team has taken a few preliminary courses or workshops, we'll follow up for a 1-1 overview to make sure everything is working as intended.
+
+We look forward to working with you.
+
+[Your name]</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="block" id="objection-negative-block">
+      <div class="left">
+        <span class="when">Any time</span>
+        <h3>Negative sentiment or a sales expectation</h3>
+        <p class="what">The customer is frustrated, or expected something different from what sales described, like a dedicated kickoff or white-glove setup.</p>
+      </div>
+      <div class="right">
+        <div class="grp">What to do</div>
+        <ul class="tips">
+          <li><strong>Acknowledge it first.</strong> Keep the tone warm and the reply short.</li>
+          <li><strong>Explain why group training comes first:</strong> it builds the foundation, so a 1-1 can focus on the why instead of the how.</li>
+          <li><strong>Point to on-demand options</strong> if live sessions don't fit their schedule, starting with the short videos in the New to Meltwater User Group.</li>
+          <li><strong>Ask what they're after,</strong> then offer to schedule a training with the team.</li>
+        </ul>
+        <div class="snippet" id="objection-negative">
+          <div class="snippet-bar"><span>Reply: negative sentiment or a sales expectation</span><button class="copy" type="button">Copy</button></div>
+          <pre>Hi [Name],
+
+Totally understand. We're here to help!
+
+We've found that our 1-1 trainings are more effective when users take our Academy courses or join workshops to start. It's a great way to build foundational skills while we work on your account setup. That way, your personalized training with an Implementation Manager can focus more on the why than the how.
+
+If the live trainings don't fit your schedule, there are plenty of on-demand resources and recordings. I'd at least recommend the short video snippets in the New to Meltwater User Group. They give you an overview of the onboarding checklist and are a quick way to get started with the core features.
+
+Let me know if there's something specific you're after. From there, I'm happy to schedule a training with the team.
+
+[Your name]</pre>
+        </div>
       </div>
     </div>
 
@@ -891,9 +937,21 @@ We provide learning paths and product tours to help you meet your goals.
 Once you work through your onboarding tasks, we'll meet again closer to day 30 for a more strategic session.</pre>
     </div>
 
+  </section>
+
+  <!-- 6. REFERENCE -->
+  <section id="reference">
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <div>
+        <h2>Quick reference</h2>
+        <p class="sec-intro">Templates, escalation paths and links you'll reach for most.</p>
+      </div>
+    </div>
+
     <h3 class="part-title">Email template: info needed from the customer</h3>
     <p class="part-sub">Use this if the contract signer hasn't replied to the automated request for users.</p>
-    <div class="snippet" style="margin-top:16px">
+    <div class="snippet" id="email-info-needed" style="margin-top:16px">
       <div class="snippet-bar"><span>Info needed from the customer</span><button class="copy" type="button">Copy</button></div>
       <pre>Hi team,
 
