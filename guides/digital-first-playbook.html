@@ -163,6 +163,13 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
 .start .snippet{margin-top:0;background:#fff}
 .start .start-note{font-size:13px;color:var(--muted);margin:10px 0 0}
 
+.rich-body{padding:16px;font-size:13px;line-height:1.65;color:#2E3A3A}
+.rich-body p{margin:0 0 12px}
+.rich-body p:last-child,.rich-body ul:last-child{margin-bottom:0}
+.rich-body ul{margin:0 0 12px 20px;list-style:disc}
+.rich-body li{margin-bottom:6px}
+.rich-body a{color:var(--mw-teal-dark);text-decoration:underline}
+
 /* footer */
 .foot{margin-top:72px;border-top:1px solid var(--line);padding:32px max(24px,calc((100vw - 1040px)/2)) 48px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:baseline;font-size:13px;color:var(--muted)}
 .foot p{max-width:62ch}
@@ -234,7 +241,7 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
         <a class="cell auto" href="#campaign-sequence">Completion email from the CSM, if it hasn't gone yet</a>
 
         <div class="lane-label">Your move</div>
-        <div class="cell move"><div class="cell-text">Build the account in Meltwater: <a href="#meltwater-build">setup</a>. Then the <a href="#totango-admin">Totango and Salesforce admin</a>.</div><div class="cell-mail"><a class="mail" href="#email-info-needed" title="Email template: info needed from the customer" aria-label="Email template: info needed from the customer"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Info needed</a></div></div>
+        <div class="cell move"><div class="cell-text">Send the <a href="#customer-followup">follow-up email</a> after the rep's intro. Then <a href="#meltwater-build">build the account in Meltwater</a> and do the <a href="#totango-admin">Totango and Salesforce admin</a>.</div><div class="cell-mail"><a class="mail" href="#email-followup" title="Email template: follow-up to the new biz rep's introduction" aria-label="Email template: follow-up to the new biz rep's introduction"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Follow-up email</a><a class="mail" href="#email-info-needed" title="Email template: info needed from the customer" aria-label="Email template: info needed from the customer"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Info needed</a></div></div>
         <div class="cell move"><div class="cell-text">Close gaps and review the digest (<a href="#do-settle">what to do</a>). 1-1 requests: <a href="#objections">objection templates</a>.</div><div class="cell-mail"><a class="mail" href="#objections" title="Email templates: objection handling" aria-label="Email templates: objection handling"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Objections</a></div></div>
         <div class="cell move"><div class="cell-text"><a href="#do-d14">Yellow or red, or setup open: tailored email</a></div><div class="cell-mail"><a class="mail" href="#email-d15" title="Email template: day 15" aria-label="Email template: day 15"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Day 15 email</a></div></div>
         <div class="cell move"><div class="cell-text"><a href="#do-d21">Yellow or red: ask for a call, book training</a></div><div class="cell-mail"><a class="mail" href="#email-d21" title="Email template: day 21" aria-label="Email template: day 21"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Day 21 email</a></div></div>
@@ -268,16 +275,28 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
       <div class="sec-num">01</div>
       <div>
         <h2>First-time setup with /digital-signals</h2>
-        <p class="sec-intro">Do this once. After that, you'll get your most urgent items in Slack every weekday morning.</p>
+        <p class="sec-intro">Do this once. After that, your most urgent items show up every weekday morning, on your calendar or in Slack.</p>
       </div>
     </div>
 
-    <p class="part-sub" style="margin-top:20px">Paste this into Claude (Cowork) to schedule the run. Claude sets it up for you.</p>
-    <div class="snippet" style="margin-top:16px">
-      <div class="snippet-bar"><span>Schedule prompt</span><button class="copy" type="button">Copy</button></div>
+    <p class="part-sub" style="margin-top:20px">Paste one of these into Claude (Cowork) to schedule the run. Claude sets it up for you.</p>
+
+    <p class="part-sub" style="margin-top:20px"><strong>Option 1: a calendar block.</strong> Claude finds a 30-minute slot, outside your lunch hour and not right before a call, and puts your action items in the invite.</p>
+    <div class="snippet" style="margin-top:12px">
+      <div class="snippet-bar"><span>Schedule prompt: calendar block</span><button class="copy" type="button">Copy</button></div>
+      <pre>Every weekday morning at 7:30am, run /digital-signals. Then pull out my action items for the day and create a 30-minute calendar event for me to work on them.
+
+Find an open 30-minute slot that isn't my usual lunch hour. Ideally it shouldn't be right before one of my calls, in case it runs long.
+
+In the calendar invite, list each action item with its relevant links.</pre>
+    </div>
+
+    <p class="part-sub" style="margin-top:28px"><strong>Option 2: a Slack message.</strong> Claude sends you a DM with the most urgent items.</p>
+    <div class="snippet" style="margin-top:12px">
+      <div class="snippet-bar"><span>Schedule prompt: Slack message</span><button class="copy" type="button">Copy</button></div>
       <pre>Every weekday at 7:30am run /digital-signals and send me a slack DM (not a channel post) of the most urgent items to address today</pre>
     </div>
-    <p class="table-note">The Totango feed refreshes between 5 and 6 am Eastern, so don't schedule it earlier than 6:30 am Eastern. The skill needs the Google Drive and Gmail connectors, and it has to be switched on under Customize, then Skills.</p>
+    <p class="table-note">The Totango feed refreshes between 5 and 6 am Eastern, so don't schedule it earlier than 6:30 am Eastern. The skill needs the Google Drive and Gmail connectors, and it has to be switched on under Customize, then Skills. The calendar option also needs the Google Calendar connector, and the Slack option needs Slack.</p>
 
     <h3 class="part-title">What the skill does</h3>
     <p class="part-sub">/digital-signals reads your accounts from the Totango digital feed and gives you two short lists: what to fix in Meltwater today, and who to reach out to, with drafts for the customer emails and handoff notes. It never sends anything, so every action is your call. Digest warnings are a prompt to review and tune the digest, not a verdict, because you know the account best. Pooled accounts show up in their own section of the output, and they follow a different process.</p>
@@ -303,7 +322,100 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
       <p class="start-note">Swap in the routing thread link for your account.</p>
     </div>
 
-    <h3 class="part-title" id="meltwater-build">Part A: Set up the account in Meltwater</h3>
+    <h3 class="part-title" id="customer-followup">Part A: Email the customer</h3>
+    <p class="part-sub">This is one of the most important emails you send. Do it first, before the Totango admin, and usually before the account is built. The new biz rep introduces the account team by email, anywhere from 3 days before the contract start to 3 days after.</p>
+    <ol class="steps">
+      <li>
+        <div>
+          <h4>Follow up on the new biz rep's introduction email</h4>
+          <p>Once the rep has sent the introduction email, reply on the same thread so the customer sees the whole account team. Send it even if the account isn't built yet. The status line covers either case. The rep's email is in the reference section.</p>
+          <span class="done"><b>Done when:</b> your follow-up is sent, with a specific first impact and the setup items the customer owns. <span class="by">After the rep's email</span></span>
+        </div>
+      </li>
+    </ol>
+    <div class="snippet rich" id="email-followup">
+      <div class="snippet-bar"><span>Your follow-up email: base template</span><button class="copy" type="button">Copy</button></div>
+      <div class="rich-body">
+<p>Hi [Client names],</p>
+<p>Great to connect, and thank you for the introduction, [new biz rep]! Excited to get you all up and running in Meltwater.</p>
+<p>[Status line: use the "already built" or "coming soon" version below.]</p>
+<p>To ensure you get the most value out of the platform as quickly as possible, here are a few things we'd like you to knock out over the next couple of weeks. They'll serve as a great foundation for [first impact: always specific].</p>
+<p><strong>Learning resources</strong></p>
+<ul>
+<li>Join the <a href="https://community.meltwater.com/groups/new-to-meltwater-125" target="_blank" rel="noopener">Meltwater Launch group</a> and complete the steps listed. This is your onboarding guide and is the fastest way to get comfortable creating searches, dashboards, and more across Meltwater.</li>
+<li>Sign up and attend a <a href="https://community.meltwater.com/events?tab=upcoming" target="_blank" rel="noopener">Community Workshop</a>. I recommend our next "Media Monitoring in Explore" workshop, and any others of interest.</li>
+<li>[Optional: a third or fourth resource, if a specific use case calls for it.]</li>
+</ul>
+<p><strong>Setup items</strong></p>
+<ul>
+<li>You'll receive invitations to the platform momentarily. You can also manage permissions of your user seats <a href="https://community.meltwater.com/getting-familiar-with-meltwater-204/setting-up-your-meltwater-account-in-account-settings-7603?tid=7603&amp;fid=204#Manage+Users" target="_blank" rel="noopener">by following these steps</a>. [If the contract hasn't started, use the before-start version below.]</li>
+<li><a href="https://community.meltwater.com/source-types-137/monitor-facebook-pages-instagram-handles-hashtags-x-competitors-youtube-keywords-and-tiktok-and-threads-accounts-monitored-connections-tab-7912" target="_blank" rel="noopener">Set up monitored social connections</a> to monitor Facebook Pages, Instagram handles, hashtags, YouTube keywords and more. Social is included in your subscription, and you'll need to connect your accounts to listen on those platforms.</li>
+<li>[Media Relations only: add the approved senders bullet from below.]</li>
+<li>[GenAI Lens and/or MCP only: add the setup bullet from the product blocks below.]</li>
+</ul>
+<p>Once your team has had a chance to work through these, your account team will follow up closer to day 30 for a more strategic conversation, diving into your specific use cases, business objectives, and how to get the most long-term value from your subscription.</p>
+<p>In the meantime, don't hesitate to reach out with any quick questions. I'm here to help!</p>
+<p>Best,<br>[Your name]</p>
+      </div>
+    </div>
+
+    <h3 class="part-title">Tailor it</h3>
+    <p class="part-sub">Three things change from account to account: what you've already done in the account, the customer's first impact, and the products they bought.</p>
+
+    <div class="grp" style="margin-top:24px">1. The status line</div>
+    <p class="part-sub" style="margin-top:0">Say what you've built, or what's coming. This email should go out quickly, so you may not be done setting up, or you may already be finished. It goes right after the thank-you.</p>
+    <div class="snippet rich" style="margin-top:16px">
+      <div class="snippet-bar"><span>Status line: already built</span><button class="copy" type="button">Copy</button></div>
+      <div class="rich-body">
+<p>To help you and the team get started, you'll see that I've created some searches in your account about [topic]. You'll see the results both in Meltwater and in a morning digest email.</p>
+      </div>
+    </div>
+    <div class="snippet rich" style="margin-top:16px">
+      <div class="snippet-bar"><span>Status line: coming soon</span><button class="copy" type="button">Copy</button></div>
+      <div class="rich-body">
+<p>To help you and the team get a head start, in the next few days you'll see searches in your account monitoring for [topic], and you'll receive a morning digest of those results soon.</p>
+      </div>
+    </div>
+
+    <div class="grp" style="margin-top:28px">2. The first impact</div>
+    <p class="part-sub" style="margin-top:0">This is the customer's primary goal with Meltwater. Always make it specific, never generic. For example:</p>
+    <ul class="tips" style="margin-top:12px">
+      <li>Starting to monitor [Brand] on news and social media</li>
+      <li>Creating monthly reports for your clients (for an agency)</li>
+      <li>Monitoring news and social media for [Brand] and your competitors</li>
+      <li>Sending outreach to new journalists and monitoring your news coverage</li>
+      <li>Analyzing how LLMs respond when consumers ask about your brand and space</li>
+    </ul>
+
+    <div class="grp" style="margin-top:28px">3. The products they bought</div>
+    <p class="part-sub" style="margin-top:0">The two learning resources stay the same for everyone. Add a third or fourth only if a specific use case makes it valuable. Then add the setup bullets below as they apply.</p>
+    <div class="snippet rich" style="margin-top:16px">
+      <div class="snippet-bar"><span>Setup bullet: contract hasn't started yet (replaces the invitation bullet)</span><button class="copy" type="button">Copy</button></div>
+      <div class="rich-body">
+<ul><li>You'll receive invitations to the platform on [contract start date]. You can also manage permissions of your user seats <a href="https://community.meltwater.com/getting-familiar-with-meltwater-204/setting-up-your-meltwater-account-in-account-settings-7603?tid=7603&amp;fid=204#Manage+Users" target="_blank" rel="noopener">by following these steps</a>.</li></ul>
+      </div>
+    </div>
+    <div class="snippet rich" style="margin-top:16px">
+      <div class="snippet-bar"><span>Setup bullet: Media Relations customers only</span><button class="copy" type="button">Copy</button></div>
+      <div class="rich-body">
+<ul><li><a href="https://community.meltwater.com/media-relations-48/media-relations-adding-approved-senders-email-integrations-11735?tid=11735&amp;fid=48" target="_blank" rel="noopener">Integrate your email and add approved senders</a> for journalist outreach.</li></ul>
+      </div>
+    </div>
+    <div class="snippet rich" style="margin-top:16px">
+      <div class="snippet-bar"><span>GenAI Lens customers: setup bullet</span><button class="copy" type="button">Copy</button></div>
+      <div class="rich-body">
+<ul><li>Set up your GenAI Lens prompts, so you can see how LLMs talk about your brand. <a href="https://community.meltwater.com/genai-lens-223/getting-started-with-genai-lens-7574?tid=7574&amp;fid=223" target="_blank" rel="noopener">Getting started with GenAI Lens</a> walks you through it.</li></ul>
+      </div>
+    </div>
+    <div class="snippet rich" style="margin-top:16px">
+      <div class="snippet-bar"><span>Meltwater MCP customers: setup bullet</span><button class="copy" type="button">Copy</button></div>
+      <div class="rich-body">
+<ul><li>Connect the Meltwater MCP to your AI tools. <a href="https://community.meltwater.com/meltwater-mcp-433/getting-started-with-meltwater-mcp-11718?tid=11718&amp;fid=433" target="_blank" rel="noopener">Getting started with Meltwater MCP</a> walks you through it.</li></ul>
+      </div>
+    </div>
+    <p class="table-note">Product blocks are setup bullets only, so the customer has an action list without extra resources to read. Social is always included, so that bullet stays for everyone. MIRA and Newsletter don't need a block here. Cover them later if the customer needs them.</p>
+
+    <h3 class="part-title" id="meltwater-build">Part B: Set up the account in Meltwater</h3>
     <p class="part-sub">Only build what the customer purchased. Use the Meltwater temp login link from the /digital-signals output. The VoCAgent brief in Slack is the best starting point for what to build.</p>
     <ol class="steps">
       <li>
@@ -350,7 +462,7 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
       </li>
     </ol>
 
-    <h3 class="part-title" id="totango-admin">Part B: Admin in Totango and Salesforce</h3>
+    <h3 class="part-title" id="totango-admin">Part C: Admin in Totango and Salesforce</h3>
     <p class="part-sub">The /digital-signals output links to each account's Totango plan page. Salesforce links go to the opportunity. Customer emails are logged automatically, so there's nothing to log there.</p>
     <ol class="steps">
       <li>
@@ -396,6 +508,7 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
         </div>
       </li>
     </ol>
+
   </section>
 
   <!-- 3. CHECKLIST -->
@@ -437,6 +550,18 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
             <tr><td>Plan summary filled in with the VoCAgent output</td><td>Totango, Plan tab</td><td>Day 3</td></tr>
             <tr><td>Right media monitoring objective(s) applied</td><td>Totango</td><td>Day 3</td></tr>
             <tr><td><a href="https://meltwater-3.wistia.com/medias/613wgz9p5w" target="_blank" rel="noopener">Champion flagged</a> (video walkthrough)</td><td>Salesforce</td><td>Day 7</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="cl-group">
+      <h3>Customer communication</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Where</th><th>By</th></tr></thead>
+          <tbody>
+            <tr><td>Follow-up sent after the new biz rep's introduction email</td><td>Email</td><td>After the rep's email</td></tr>
           </tbody>
         </table>
       </div>
@@ -534,9 +659,10 @@ h3{font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.01em;margin-b
         <div class="grp" id="do-setup">What to do</div>
         <ul class="tips">
           <li><strong>Run /digital-pooled-helper with your routing thread link.</strong> It gives you the Plan Summary, objectives, starter searches, users and a dated admin checklist to work from.</li>
-          <li><strong>Build the account in Meltwater first.</strong> Searches with a digest or alerts, a dashboard, a MIRA project, plus GenAI Lens prompts and a newsletter template if they have them. See <a class="ilink" href="#meltwater-build">Part A</a>.</li>
+          <li><strong>Send your follow-up email</strong> once the new biz rep has sent the introduction email. It usually goes out anywhere from 3 days before the contract start to 3 days after, often before the account is built. See <a class="ilink" href="#customer-followup">Part A</a>.</li>
+          <li><strong>Build the account in Meltwater first.</strong> Searches with a digest or alerts, a dashboard, a MIRA project, plus GenAI Lens prompts and a newsletter template if they have them. See <a class="ilink" href="#meltwater-build">Part B</a>.</li>
           <li><strong>Activate users as close to the start date as you can.</strong> Never before it without permission. Check the <a class="ilink" href="https://docs.google.com/spreadsheets/d/1fvZIIIRohK5rD1a3YwAx8clBJF2iU7vGHPbF7UzFXy0/edit?gid=1333937292#gid=1333937292" target="_blank" rel="noopener">user setup sheet</a> for new submissions.</li>
-          <li><strong>Do the Totango admin.</strong> Activate the SuccessPlay, confirm the VoCAgent output with the rep and CSM, and fill in the plan summary. See <a class="ilink" href="#totango-admin">Part B</a>.</li>
+          <li><strong>Do the Totango admin.</strong> Activate the SuccessPlay, confirm the VoCAgent output with the rep and CSM, and fill in the plan summary. See <a class="ilink" href="#totango-admin">Part C</a>.</li>
           <li><strong>Check the day 1 and day 3 tasks</strong> in the SuccessPlay.</li>
           <li><strong>Check the CSM.</strong> The CSM must be listed as the Owner in Totango, or the automated campaigns won't run. If it's missing by day 3, flag the MD.</li>
         </ul>
@@ -949,6 +1075,27 @@ Once you work through your onboarding tasks, we'll meet again closer to day 30 f
       </div>
     </div>
 
+    <h3 class="part-title">Email template: introduction from the new biz rep</h3>
+    <p class="part-sub">For context. The new biz rep sends this, so you know what the customer has already received before you follow up.</p>
+    <div class="snippet" id="email-intro" style="margin-top:16px">
+      <div class="snippet-bar"><span>New biz rep's introduction email</span><button class="copy" type="button">Copy</button></div>
+      <pre>Hi [Name],
+
+I'd like to introduce you to your Meltwater Account Team, who will be your go-to resources for growth, success and account deployment:
+
+- [AM name] | Account Manager: Oversees Strategic Initiatives & Business Development ([email])
+- [CSM name] | Client Success Manager: Connects your Goals & Objectives to our Products & Solutions ([email])
+- [IM name] | Implementation Manager: Facilitates Setup, Training & Onboarding Resources ([email])
+
+Once your users are set up and your contract start date is in effect, users will receive access to the platform and our Meltwater Community. There you'll find a ton of onboarding guides and training programs.
+
+The account team will be in touch throughout the onboarding period to make sure you're on track for success. They will reach out with any questions or additional information needed to ensure your account is set up to address your key use cases.
+
+We look forward to working with you!
+
+[New biz rep name]</pre>
+    </div>
+
     <h3 class="part-title">Email template: info needed from the customer</h3>
     <p class="part-sub">Use this if the contract signer hasn't replied to the automated request for users.</p>
     <div class="snippet" id="email-info-needed" style="margin-top:16px">
@@ -1010,11 +1157,31 @@ You'll get more direction on setup requirements as soon as we get these key conf
   /* copy buttons */
   document.querySelectorAll('.copy').forEach(function(btn){
     btn.addEventListener('click', function(){
-      var pre = btn.closest('.snippet').querySelector('pre');
-      var text = pre.innerText;
+      var box = btn.closest('.snippet');
+      var rich = box.querySelector('.rich-body');
+      var el = rich || box.querySelector('pre');
+      var text = el.innerText;
       var done = function(){ btn.textContent = 'Copied'; btn.classList.add('done'); setTimeout(function(){ btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600); };
-      function fallback(){ var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){} document.body.removeChild(ta); }
-      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, fallback); } else { fallback(); }
+      function fallback(){
+        if (rich) {
+          var r = document.createRange(); r.selectNodeContents(el);
+          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+          try { document.execCommand('copy'); done(); } catch(e) {}
+          s.removeAllRanges();
+        } else {
+          var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); done(); } catch(e) {}
+          document.body.removeChild(ta);
+        }
+      }
+      if (rich && window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        navigator.clipboard.write([new ClipboardItem({
+          'text/html': new Blob([el.innerHTML], {type: 'text/html'}),
+          'text/plain': new Blob([text], {type: 'text/plain'})
+        })]).then(done, fallback);
+      } else if (!rich && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
     });
   });
 
