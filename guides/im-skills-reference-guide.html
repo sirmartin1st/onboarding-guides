@@ -309,6 +309,22 @@
     border-radius: 20px;
   }
 
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mw-teal-dark);
+    background: var(--mw-teal-tint-3);
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+  .resource-link:hover { background: var(--mw-teal-tint-2); }
+
   .no-results {
     max-width: 1100px;
     margin: 40px auto;
@@ -602,12 +618,22 @@
       }
     },
     {
-      command: "/timesheet-helper",
+      command: "/setup-writing-style",
       status: "live",
-      whenToUse: "When it's time to fill out your weekly Kantata timesheet. Say “help me do my timesheet,” “log my hours for this week,” “fill out my Kantata timesheet,” or “what did I work on this week.”",
-      output: "A draft timecard built from your calendar (and email, if you opt in), shown as a Kantata-style grid for you to review — customer rows first, PTO/holidays flagged automatically, progress against your 40-hour goal. Once you confirm it, logs the entries directly into Kantata for you to submit yourself.",
-      requires: ["Google Calendar", "Gmail", "Google Drive", "Claude in Chrome"],
-      shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01JLdNwwLPQMLAXhLPSFmniR"
+      whenToUse: "Anytime you want Claude to draft emails, Slack messages, or docs that actually sound like you instead of generic AI copy. A one-time setup — run the prompt once and future drafts pull from it automatically.",
+      output: "A personal writing-style profile saved to your account, built from a short Q&A about how you write. Once it's set up, any skill that drafts something on your behalf can pull from it automatically.",
+      resource: {
+        label: "Open the full setup prompt (Google Doc)",
+        url: "https://docs.google.com/document/d/10wUOOF_-ftAVEQ4m2AsrwJIkRnCS3ZvFBZpA-mODE7c/edit?tab=t.0"
+      },
+      requires: []
+    },
+    {
+      command: "/sprinklr-boolean-migration · /talkwalker-boolean-migration",
+      status: "live",
+      whenToUse: "When a customer is switching to Meltwater from Sprinklr or Talkwalker and has existing boolean searches to carry over. Use whichever matches the platform they're migrating from — same job, different source syntax. Say “migrate this Sprinklr/Talkwalker search,” “translate these booleans,” “convert this export,” or “customer switching from Sprinklr/Talkwalker.”",
+      output: "An Excel workbook with the original boolean, the translated Meltwater boolean, and translation notes side by side — anything with no clean equivalent, or anything that looks off (duplicates, unbalanced parentheses, mixed AND/OR), gets flagged for your review rather than guessed at or silently changed. Can also sample live hit counts and save straight into the customer's account if you ask.",
+      requires: []
     },
     {
       command: "/totango-agent",
@@ -655,6 +681,7 @@
         </div>
         ${skill.example ? `<div class="example"><span class="example-label">Example</span>${escapeHtml(skill.example)}</div>` : ''}
         ${scheduleBlock}
+        ${skill.resource ? `<a class="resource-link" href="${escapeHtml(skill.resource.url)}" target="_blank" rel="noopener">&#128279; ${escapeHtml(skill.resource.label)}</a>` : ''}
         <div class="tags">${tags}</div>
       </div>
     `;
