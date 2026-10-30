@@ -983,6 +983,23 @@ OR "Kirkland Signature"</div>
           <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>The industry-monitoring counterpart to ABIM's own brand boolean (see Brand Searches above). Three topics are ANDed together, but the third leg is itself an OR cluster of near-synonymous policy tags (public_policy, health_policy, government) rather than a single pick, useful when you're not confident which exact tag the relevant coverage will be classified under, without giving up precision on the other two legs.</p></div></details>
         </div>
       </div>
+      <div class="tab-item">
+        <div class="tab-header">
+          <span class="tab-badge">Precise geo-ID targeting · operational awareness</span>
+          <span class="tab-title">Jefferson County Sheriff's Office, KY: Local Crime News</span>
+          <a class="tab-link" href="https://www.jcsoky.org/" target="_blank">jcsoky.org ↗</a>
+        </div>
+        <div class="tab-body">
+          <div class="boolean-block">
+<div class="boolean-header"><span class="boolean-label">Boolean</span><button class="boolean-copy-btn" onclick="copyBoolean(this)">Copy</button></div>
+<div class="boolean-body">metaData.source.location.geonames.adm2:4296212
+AND (topic:crime_and_justice OR topic:law_enforcement)</div>
+</div>
+          <p class="boolean-filters">Filter: News only</p>
+          <div class="tab-tip"><i class="bi bi-lightbulb tip-icon"></i>When precision matters, a GeoNames administrative ID beats a plain place-name filter: it pins down exactly which jurisdiction you mean, since place names repeat across states and counties.</div>
+          <details class="reasoning-details"><summary><i class="bi bi-chevron-right chevron-icon"></i> Read the reasoning</summary><div class="reasoning-body"><p>No brand name involved at all here, just geography plus topic. `metaData.source.location.geonames.adm2:` targets a specific GeoNames administrative-level-2 region (county level) by its numeric ID rather than matching on a place name like "Seattle" or "Bellevue" the way Forest Ridge's filter did. That extra precision matters for a law-enforcement customer: there are multiple counties with the same name across different states, and a text filter can't disambiguate between them the way a GeoNames ID can.</p><p>The intent is different from the other geo-based topic examples too. Forest Ridge wanted a general local-news pulse-check; this is built for operational situational awareness, giving a Sheriff's Office a feed of crime and law-enforcement news specifically within its own jurisdiction.</p></div></details>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1024,6 +1041,7 @@ OR "Kirkland Signature"</div>
         <tr><td>sourceName:</td><td><code>sourceName:/r/traderjoes</code></td><td>Targets a specific named source (e.g. a subreddit) directly.</td></tr>
         <tr><td>imageText:</td><td><code>imageText:"Costco"</code></td><td>Matches text detected inside an image, not the surrounding article text.</td></tr>
         <tr><td>title:</td><td><code>topic:tourist_destinations AND title:Asheville</code></td><td>Restricts the match to the document's title/headline specifically.</td></tr>
+        <tr><td>metaData.source.location.geonames.adm2:</td><td><code>metaData.source.location.geonames.adm2:4296212</code></td><td>Targets a precise geographic region by its GeoNames administrative ID (county level), rather than matching on a place name that could repeat across states.</td></tr>
         <tr><td>* wildcard</td><td><code>"Trader Joe*"</code></td><td>Matches any characters following the wildcard (Joe, Joes, Joe's).</td></tr>
         <tr><td>? wildcard</td><td><code>"Buc?ees"</code></td><td>Matches a single unknown character in that position.</td></tr>
         <tr><td>"exact phrase"</td><td><code>"Trader Joe's"</code></td><td>Matches the exact phrase as written.</td></tr>
@@ -1074,7 +1092,7 @@ OR "Kirkland Signature"</div>
     // language:, and any future field:value operator) is colored as an operator. The value that follows is left
     // for the remaining rules to classify normally: quoted strings green, everything else default (unquoted/black).
     // Matched in one left-to-right pass so none of the token types overlap.
-    const pattern = /\b[A-Za-z]+:|"[^"]*"|\b(?:ONEAR|NEAR)(?:\/\d+)?\b|\b(?:AND|OR|NOT)\b/g;
+    const pattern = /\b[A-Za-z][A-Za-z0-9.]*:|"[^"]*"|\b(?:ONEAR|NEAR)(?:\/\d+)?\b|\b(?:AND|OR|NOT)\b/g;
     let result = '';
     let lastIndex = 0;
     let m;
@@ -1082,7 +1100,7 @@ OR "Kirkland Signature"</div>
       if (m.index > lastIndex) result += escapeHtml(text.slice(lastIndex, m.index));
       const token = m[0];
       let cls;
-      if (/^[A-Za-z]+:$/.test(token)) cls = 'tok-field';
+      if (/^[A-Za-z][A-Za-z0-9.]*:$/.test(token)) cls = 'tok-field';
       else if (token.startsWith('"')) cls = 'tok-str';
       else cls = 'tok-op';
       result += '<span class="' + cls + '">' + escapeHtml(token) + '</span>';
