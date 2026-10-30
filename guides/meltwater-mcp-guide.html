@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meltwater MCP — IM Onboarding Guide</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --mw-teal:        #28BBBB;
@@ -16,16 +16,19 @@
       --mw-gray:        #F0F4F4;
       --mw-black:       #1A1A1A;
       --mw-white:       #FFFFFF;
-      --mw-orange:      #FF6221;
-      --mw-orange-mid:  #FFDDCC;
-      --mw-orange-light:#FFEFEA;
-      --mw-purple:      #B627A1;
-      --mw-purple-mid:  #E0A6D7;
-      --mw-purple-light:#F0D4EC;
+      --muted:          #4A5757;
+      --body:           #2E3A3A;
+      --line:           #DDE6E6;
+      --warn-ink:       #B94400;
+      --warn-bg:        #FFF1EA;
+      --warn-line:      #F6C9B3;
       --mw-font: 'Poppins', Arial, sans-serif;
+      --ease: cubic-bezier(.16,1,.3,1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 
     body {
       font-family: var(--mw-font);
@@ -33,6 +36,19 @@
       color: var(--mw-black);
       font-size: 15px;
       line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 { text-wrap: balance; }
+    p, li { text-wrap: pretty; }
+    :focus-visible { outline: 2px solid var(--mw-teal-dark); outline-offset: 3px; border-radius: 4px; }
+
+    /* ICONS */
+    .ico {
+      width: 18px; height: 18px;
+      fill: none; stroke: currentColor; stroke-width: 1.75;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
     }
 
     /* NAV */
@@ -41,7 +57,7 @@
       top: 0;
       z-index: 100;
       background: var(--mw-white);
-      border-bottom: 2px solid var(--mw-teal);
+      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -52,103 +68,76 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 14px;
       color: var(--mw-teal-dark);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
     }
     .nav-logo-mark {
-      width: 32px; height: 32px;
+      width: 30px; height: 30px;
       background: var(--mw-teal);
-      border-radius: 4px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       letter-spacing: -0.5px;
     }
-    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
     .nav-links a {
+      display: block;
       text-decoration: none;
       font-size: 13px;
       font-weight: 500;
-      color: var(--mw-black);
-      opacity: 0.6;
-      transition: opacity 0.2s, color 0.2s;
+      color: var(--muted);
+      padding: 7px 12px;
+      border-radius: 8px;
+      transition: background .2s var(--ease), color .2s var(--ease);
       white-space: nowrap;
     }
-    .nav-links a:hover { opacity: 1; color: var(--mw-teal-dark); }
+    .nav-links a:hover { background: var(--mw-gray); color: var(--mw-black); }
+    .nav-links a.active { background: var(--mw-teal-tint-3); color: var(--mw-teal-dark); font-weight: 600; }
 
     /* HERO */
     .hero {
-      background: var(--mw-teal-dark);
-      color: var(--mw-white);
-      padding: 72px 48px 64px;
-      position: relative;
-      overflow: hidden;
+      background: var(--mw-teal-tint-3);
+      color: var(--mw-black);
+      padding: 64px 48px 56px;
+      border-bottom: 1px solid var(--line);
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 320px; height: 320px;
-      border: 40px solid rgba(40,187,187,0.18);
-      border-radius: 50%;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -40px; right: 140px;
-      width: 160px; height: 160px;
-      border: 22px solid rgba(182,39,161,0.15);
-      border-radius: 50%;
-    }
+    .hero-inner { max-width: 920px; margin: 0 auto; }
     .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--mw-teal-tint-1);
-      margin-bottom: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mw-teal-dark);
+      margin-bottom: 14px;
     }
     .hero h1 {
-      font-size: 42px;
+      font-size: clamp(32px, 4.6vw, 44px);
       font-weight: 700;
-      line-height: 1.15;
-      max-width: 660px;
-      margin-bottom: 20px;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      max-width: 700px;
+      margin-bottom: 18px;
     }
-    .hero h1 span { color: var(--mw-teal); }
+    .hero h1 span { color: var(--mw-teal-dark); }
     .hero-sub {
-      font-size: 16px;
-      font-weight: 400;
-      max-width: 580px;
-      opacity: 0.85;
-      margin-bottom: 36px;
+      font-size: 17px;
+      max-width: 620px;
+      color: var(--muted);
+      margin-bottom: 28px;
       line-height: 1.6;
     }
-    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; }
     .pill {
-      background: rgba(40,187,187,0.18);
-      border: 1px solid rgba(163,223,223,0.4);
-      color: var(--mw-teal-tint-1);
-      font-size: 12px;
+      background: var(--mw-white);
+      border: 1px solid var(--mw-teal-tint-1);
+      color: var(--mw-teal-dark);
+      font-size: 12.5px;
       font-weight: 500;
       padding: 6px 14px;
       border-radius: 20px;
-    }
-    .pill-purple {
-      background: rgba(182,39,161,0.18);
-      border: 1px solid rgba(182,39,161,0.3);
-      color: #E0A6D7;
-    }
-    .pill-orange {
-      background: rgba(255,98,33,0.18);
-      border: 1px solid rgba(255,98,33,0.3);
-      color: #FFDDCC;
     }
 
     /* PAGE BODY */
@@ -158,7 +147,7 @@
       padding: 56px 48px 80px;
     }
 
-    section { margin-bottom: 68px; }
+    section { margin-bottom: 72px; }
 
     /* SECTION HEADERS */
     .section-header {
@@ -167,27 +156,25 @@
       border-bottom: 2px solid var(--mw-teal-tint-2);
     }
     .section-eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--mw-teal-medium);
-      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mw-teal-dark);
+      margin-bottom: 6px;
     }
-    .section-eyebrow-orange { color: var(--mw-orange); }
-    .section-eyebrow-purple { color: var(--mw-purple); }
     .section-header h2 {
       font-size: 26px;
       font-weight: 700;
       color: var(--mw-black);
       line-height: 1.2;
+      letter-spacing: -0.015em;
     }
     .section-header p {
       margin-top: 10px;
-      color: #4a4a4a;
+      color: var(--muted);
       font-size: 14px;
       max-width: 700px;
     }
+    .lead-p { font-size: 14px; color: var(--muted); margin-bottom: 18px; max-width: 760px; }
 
     /* CALLOUTS */
     .callout {
@@ -198,79 +185,85 @@
       margin-bottom: 24px;
       font-size: 14px;
       line-height: 1.6;
+      color: var(--body);
     }
     .callout strong { color: var(--mw-teal-dark); }
     .callout a { color: var(--mw-teal-dark); font-weight: 600; }
+    .callout em { color: var(--mw-black); }
+    .callout-strong {
+      background: var(--mw-gray);
+      border-left-color: var(--mw-teal-dark);
+    }
     .callout-orange {
-      background: var(--mw-orange-light);
-      border-left-color: var(--mw-orange);
+      background: var(--warn-bg);
+      border-left-color: var(--warn-ink);
     }
-    .callout-orange strong { color: #c04a00; }
-    .callout-orange a { color: #c04a00; }
-    .callout-purple {
-      background: var(--mw-purple-light);
-      border-left-color: var(--mw-purple);
+    .callout-orange strong { color: var(--warn-ink); }
+    .callout-orange a { color: var(--warn-ink); }
+    .prompt-line {
+      display: block;
+      background: var(--mw-white);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 10px 0;
+      font-style: italic;
+      color: var(--mw-black);
     }
-    .callout-purple strong { color: #8a1a7a; }
-    .callout-purple a { color: #8a1a7a; }
 
     /* BOUNDARY BANNER */
     .boundary-banner {
-      background: var(--mw-teal-dark);
-      color: white;
+      background: var(--mw-teal-tint-2);
+      color: var(--mw-black);
       border-radius: 10px;
-      padding: 22px 26px;
+      padding: 20px 24px;
       margin-top: 20px;
       font-size: 14px;
       line-height: 1.65;
     }
-    .boundary-banner strong { color: var(--mw-teal-tint-1); }
+    .boundary-banner strong { color: var(--mw-teal-dark); }
+    .boundary-banner a { color: var(--mw-teal-dark); font-weight: 600; }
 
     /* CAPABILITY CARDS */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
+      gap: 16px;
       margin-bottom: 24px;
     }
     .card {
-      border: 1.5px solid var(--mw-teal-tint-2);
+      border: 1px solid var(--line);
       border-radius: 10px;
-      padding: 22px;
+      padding: 20px 22px;
       background: var(--mw-white);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
     }
-    .card:hover {
-      border-color: var(--mw-teal);
-      box-shadow: 0 4px 16px rgba(40,187,187,0.12);
-    }
+    .card:hover { border-color: var(--mw-teal); }
     .card-icon {
       width: 36px; height: 36px;
       background: var(--mw-teal-tint-3);
+      color: var(--mw-teal-dark);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 12px;
-      font-size: 17px;
     }
     .card h3 {
       font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--mw-teal-dark);
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--mw-black);
     }
     .card p {
       font-size: 13px;
       line-height: 1.55;
-      color: #4a4a4a;
+      color: var(--muted);
     }
 
     /* ACTIVATION FLOW (3-step at-a-glance visual) */
     .activation-flow {
       display: flex;
       align-items: stretch;
-      gap: 0;
       margin-bottom: 8px;
     }
     .flow-step {
@@ -282,181 +275,114 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
+      background: var(--mw-teal-tint-3);
     }
-    .flow-step.s1 { background: var(--mw-teal-tint-3); border: 1.5px solid var(--mw-teal-tint-2); }
-    .flow-step.s2 { background: var(--mw-teal-tint-3); border: 1.5px solid var(--mw-teal-tint-2); }
-    .flow-step.s3 { background: var(--mw-purple-light); border: 1.5px solid var(--mw-purple-mid); }
+    .flow-step.s3 { background: var(--mw-teal-tint-2); }
     .flow-num {
       width: 30px; height: 30px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 14px; font-weight: 700; color: white;
-      background: var(--mw-teal);
+      background: var(--mw-teal-dark);
     }
-    .flow-step.s3 .flow-num { background: var(--mw-purple); }
-    .flow-step h4 { font-size: 13.5px; font-weight: 700; color: var(--mw-black); line-height: 1.3; }
-    .flow-step p { font-size: 12px; line-height: 1.5; color: #4a4a4a; }
-    .flow-who {
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
-      color: var(--mw-teal-medium);
-    }
-    .flow-step.s3 .flow-who { color: var(--mw-purple); }
+    .flow-step h4 { font-size: 14px; font-weight: 600; color: var(--mw-black); line-height: 1.3; }
+    .flow-step p { font-size: 12.5px; line-height: 1.5; color: var(--body); }
+    .flow-who { font-size: 12px; font-weight: 600; color: var(--mw-teal-dark); }
     .flow-arrow {
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px; color: var(--mw-teal-medium); font-weight: 700;
-      padding: 0 8px; flex-shrink: 0;
+      color: var(--mw-teal); padding: 0 8px; flex-shrink: 0;
     }
 
     /* STEP SUB-SECTIONS */
-    .activation-step { margin-top: 44px; }
+    .activation-step { margin-top: 48px; }
     .activation-step-head {
-      display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
     }
     .activation-step-num {
       min-width: 38px; height: 38px;
-      background: var(--mw-teal); color: white;
+      background: var(--mw-teal-dark); color: white;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 15px; font-weight: 700; flex-shrink: 0;
     }
-    .activation-step.purple .activation-step-num { background: var(--mw-purple); }
-    .activation-step-head h3 { font-size: 19px; font-weight: 700; color: var(--mw-black); line-height: 1.2; }
+    .activation-step-head h3 { font-size: 19px; font-weight: 700; color: var(--mw-black); line-height: 1.2; letter-spacing: -0.01em; }
+    .step-audience {
+      display: inline-block;
+      background: var(--mw-teal-tint-3);
+      color: var(--mw-teal-dark);
+      font-size: 12px; font-weight: 600;
+      padding: 4px 12px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .step-audience.champion { background: var(--mw-gray); color: var(--muted); }
+    .step-audience.users { background: var(--mw-teal-tint-2); }
+    .sub-head { font-size: 17px; font-weight: 700; color: var(--mw-black); margin: 38px 0 12px; letter-spacing: -0.01em; }
 
     /* CHECKLIST */
     .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 4px 0 8px; }
     .check-list li {
       position: relative; padding-left: 28px;
-      font-size: 13.5px; line-height: 1.55; color: #3a3a3a;
+      font-size: 13.5px; line-height: 1.55; color: var(--body);
     }
     .check-list li::before {
       content: '✓';
       position: absolute; left: 0; top: 0;
       width: 18px; height: 18px; border-radius: 4px;
-      background: var(--mw-teal-tint-3); color: var(--mw-teal-dark);
+      background: var(--mw-teal-tint-2); color: var(--mw-teal-dark);
       font-size: 11px; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
       margin-top: 2px;
     }
     .check-list li strong { color: var(--mw-black); }
-
-    /* NUMBERED STEPS (admin / connect) */
-    .steps { display: flex; flex-direction: column; position: relative; }
-    .steps::before {
-      content: '';
-      position: absolute;
-      left: 20px; top: 42px; bottom: 42px;
-      width: 2px;
-      background: var(--mw-teal-tint-2);
-    }
-    .step {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      padding: 14px 0;
-      position: relative;
-    }
-    .step-num {
-      min-width: 42px; height: 42px;
-      background: var(--mw-teal);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 700;
-      position: relative;
-      z-index: 1;
-      flex-shrink: 0;
-    }
-    .step-content h4 {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: var(--mw-black);
-      margin-bottom: 4px;
-      margin-top: 10px;
-    }
-    .step-content p {
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: #4a4a4a;
-    }
-    .step-content code, .inline-code {
-      background: var(--mw-gray);
-      border: 1px solid var(--mw-teal-tint-2);
-      border-radius: 4px;
-      padding: 2px 7px;
-      font-family: 'Courier New', monospace;
-      font-size: 12px;
-      color: var(--mw-teal-dark);
-    }
-    .step-note {
-      margin-top: 10px;
-      background: var(--mw-teal-tint-3);
-      border-radius: 6px;
-      padding: 10px 14px;
-      font-size: 12.5px;
-      color: var(--mw-teal-dark);
-      font-weight: 500;
-      line-height: 1.5;
-    }
-    .step-note-orange {
-      background: var(--mw-orange-light);
-      color: #c04a00;
-    }
+    .check-list a { color: var(--mw-teal-dark); font-weight: 600; }
 
     /* INTEGRATION CARDS (Claude / ChatGPT) */
     .integration-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 16px;
       margin-bottom: 20px;
     }
     .integration-card {
-      border: 1.5px solid var(--mw-teal-tint-2);
+      border: 1px solid var(--line);
       border-radius: 10px;
       overflow: hidden;
     }
     .integration-header {
-      background: var(--mw-teal-dark);
-      color: white;
-      padding: 14px 20px;
+      background: var(--mw-teal-tint-3);
+      color: var(--mw-teal-dark);
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     .integration-icon {
-      width: 26px; height: 26px;
-      background: rgba(255,255,255,0.15);
+      width: 28px; height: 28px;
+      background: var(--mw-white);
       border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
       flex-shrink: 0;
     }
-    .integration-title { font-size: 14px; font-weight: 700; }
-    .integration-body {
-      padding: 20px 20px 18px;
-      background: var(--mw-white);
-    }
+    .integration-icon .ico { width: 16px; height: 16px; }
+    .integration-title { font-size: 14px; font-weight: 600; }
+    .integration-body { padding: 18px 20px; background: var(--mw-white); }
     .integration-body ol { margin: 0 0 4px 18px; }
     .integration-body ol li {
       font-size: 13px;
       line-height: 1.6;
-      color: #4a4a4a;
+      color: var(--body);
       margin-bottom: 7px;
       padding-left: 4px;
     }
     .integration-body ol li strong { color: var(--mw-black); }
     .integration-tag {
       display: inline-block;
-      background: var(--mw-teal-tint-3);
-      color: var(--mw-teal-dark);
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      background: var(--mw-gray);
+      color: var(--muted);
+      font-size: 11.5px;
+      font-weight: 600;
       padding: 3px 9px;
       border-radius: 4px;
       margin-bottom: 12px;
@@ -464,80 +390,84 @@
     .verify-line {
       margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px dashed var(--mw-teal-tint-2);
+      border-top: 1px solid var(--line);
       font-size: 12.5px;
       line-height: 1.55;
-      color: #4a4a4a;
+      color: var(--body);
     }
     .verify-line strong { color: var(--mw-teal-dark); }
 
     /* EMAIL TEMPLATE */
     .email-shell {
-      border: 2px solid var(--mw-teal-tint-2);
-      border-radius: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
       overflow: hidden;
       margin-top: 8px;
     }
     .email-header {
-      background: var(--mw-teal-dark);
-      color: white;
-      padding: 14px 24px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      background: var(--mw-gray);
+      color: var(--muted);
+      padding: 8px 8px 8px 20px;
+      font-size: 13px;
+      font-weight: 600;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
     .email-copy-btn {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: white;
-      padding: 5px 14px;
-      border-radius: 5px;
-      font-size: 11px;
-      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--mw-white);
+      border: 1px solid var(--line);
+      color: var(--mw-black);
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
-      letter-spacing: 0.04em;
       font-family: var(--mw-font);
-      transition: background 0.2s;
-      text-transform: uppercase;
+      transition: background .2s var(--ease), border-color .2s var(--ease), transform .15s var(--ease);
     }
-    .email-copy-btn:hover { background: rgba(255,255,255,0.25); }
-    .email-copy-btn.copied { background: rgba(40,187,187,0.4); }
+    .email-copy-btn .ico { width: 14px; height: 14px; }
+    .email-copy-btn:hover { background: var(--mw-teal-tint-3); border-color: var(--mw-teal); }
+    .email-copy-btn:active { transform: scale(.97); }
+    .email-copy-btn.copied { background: var(--mw-teal-tint-3); color: var(--mw-teal-dark); border-color: var(--mw-teal); }
     .email-meta {
-      background: var(--mw-gray);
-      padding: 14px 24px;
+      background: var(--mw-white);
+      padding: 12px 20px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      border-bottom: 1px solid var(--mw-teal-tint-2);
+      gap: 4px;
+      border-bottom: 1px solid var(--line);
     }
     .email-meta-row { display: flex; gap: 12px; font-size: 13px; }
-    .email-meta-label { font-weight: 700; color: var(--mw-teal-dark); min-width: 60px; }
-    .email-meta-value { color: #4a4a4a; font-style: italic; }
+    .email-meta-label { font-weight: 600; color: var(--mw-teal-dark); min-width: 60px; }
+    .email-meta-value { color: var(--muted); }
     .email-body {
-      padding: 28px 28px 24px;
+      padding: 22px 20px 20px;
       font-size: 14px;
-      line-height: 1.8;
+      line-height: 1.75;
       color: var(--mw-black);
       white-space: pre-wrap;
       font-family: var(--mw-font);
     }
+    .email-body a { color: var(--mw-teal-dark); word-break: break-all; }
     .placeholder {
-      background: #fff3cd;
-      border-radius: 3px;
+      background: var(--mw-teal-tint-3);
+      border-radius: 4px;
       padding: 1px 5px;
-      font-style: italic;
-      color: #856404;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
       font-size: 13px;
     }
+    .draft-note { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 10px; }
 
     /* SKILLS EXPLAINER */
     .skills-explainer {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: stretch;
       margin-bottom: 20px;
     }
@@ -545,54 +475,41 @@
       flex: 1;
       border-radius: 10px;
       padding: 18px 20px;
-      border: 1.5px solid var(--mw-teal-tint-2);
     }
     .skills-explainer-box.mcp-box { background: var(--mw-teal-tint-3); }
-    .skills-explainer-box.skill-box { background: var(--mw-purple-light); border-color: var(--mw-purple-mid); }
-    .skills-explainer-box h4 {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .mcp-box h4 { color: var(--mw-teal-dark); }
-    .skill-box h4 { color: #8a1a7a; }
-    .skills-explainer-box p {
-      font-size: 12.5px;
-      line-height: 1.55;
-      color: #4a4a4a;
-    }
+    .skills-explainer-box.skill-box { background: var(--mw-teal-tint-2); }
+    .skills-explainer-box h4 { font-size: 13.5px; font-weight: 600; margin-bottom: 6px; color: var(--mw-teal-dark); }
+    .skills-explainer-box p { font-size: 12.5px; line-height: 1.55; color: var(--body); }
     .skills-explainer-arrow {
       display: flex;
       align-items: center;
       font-size: 20px;
-      color: var(--mw-teal-medium);
-      font-weight: 700;
+      color: var(--mw-teal);
+      font-weight: 600;
     }
     .skill-example-block {
       background: var(--mw-white);
-      border: 1.5px dashed var(--mw-purple-mid);
-      border-radius: 8px;
-      padding: 16px 20px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 18px 20px;
       margin-top: 4px;
     }
     .skill-example-block .skill-file-name {
-      font-family: 'Courier New', monospace;
-      font-size: 11.5px;
-      background: var(--mw-purple-light);
-      color: #8a1a7a;
-      display: inline-block;
-      padding: 3px 9px;
-      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      background: var(--mw-teal-tint-3);
+      color: var(--mw-teal-dark);
+      padding: 4px 10px;
+      border-radius: 6px;
       margin-bottom: 10px;
-      font-weight: 700;
+      font-weight: 600;
     }
-    .skill-example-block p {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #4a4a4a;
-      margin-bottom: 6px;
-    }
+    .skill-example-block .skill-file-name .ico { width: 15px; height: 15px; }
+    .skill-example-block p { font-size: 13px; line-height: 1.6; color: var(--body); margin-bottom: 6px; }
     .skill-example-block p:last-child { margin-bottom: 0; }
+    .skill-example-block strong { color: var(--mw-black); }
 
     /* PROMPT LIBRARY */
     .prompt-library-grid {
@@ -603,17 +520,19 @@
     }
     .prompt-lib-card {
       background: var(--mw-gray);
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 16px 18px;
     }
     .prompt-lib-tag {
-      font-size: 10.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--mw-teal-dark);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
+    .prompt-lib-tag .ico { width: 16px; height: 16px; }
     .prompt-lib-card .prompt-example {
       font-size: 13px;
       font-style: italic;
@@ -621,80 +540,81 @@
       line-height: 1.55;
       margin-bottom: 8px;
       padding-bottom: 8px;
-      border-bottom: 1px solid var(--mw-teal-tint-2);
+      border-bottom: 1px solid var(--line);
     }
     .prompt-lib-card .prompt-example:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .prompt-lib-card .prompt-also { font-size: 12px; color: #5a5a5a; line-height: 1.5; }
+    .prompt-lib-card .prompt-also { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .more-link { font-size: 13.5px; color: var(--muted); margin-top: 14px; }
+    .more-link a { color: var(--mw-teal-dark); font-weight: 600; }
 
     /* TROUBLESHOOTING (Q&A) */
-    .objections { display: flex; flex-direction: column; gap: 14px; }
+    .objections { display: flex; flex-direction: column; gap: 12px; }
     .objection {
-      border: 1.5px solid var(--mw-orange-mid);
+      border: 1px solid var(--line);
       border-radius: 10px;
       overflow: hidden;
     }
     .obj-q {
-      background: var(--mw-orange-light);
-      padding: 14px 20px;
+      background: var(--mw-gray);
+      padding: 13px 20px;
       font-size: 14px;
       font-weight: 600;
-      color: #c04a00;
+      color: var(--mw-black);
       display: flex;
       gap: 10px;
       align-items: flex-start;
     }
-    .obj-q::before { content: '🔧'; font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .obj-q::before {
+      content: '';
+      width: 16px; height: 16px;
+      margin-top: 3px;
+      flex-shrink: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231C7070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5z'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
     .obj-a {
-      padding: 16px 20px;
+      padding: 15px 20px;
       font-size: 13.5px;
       line-height: 1.65;
-      color: #4a4a4a;
-      border-top: 1px solid var(--mw-orange-mid);
+      color: var(--body);
+      border-top: 1px solid var(--line);
       background: var(--mw-white);
     }
     .obj-a strong { color: var(--mw-black); }
+    .obj-a a { color: var(--mw-teal-dark); font-weight: 600; }
 
     /* NOT SUPPORTED */
     .not-supported {
-      background: #2a1810;
-      color: #FFEFEA;
+      background: var(--warn-bg);
+      color: var(--body);
       border-radius: 10px;
-      padding: 26px 28px;
+      padding: 22px 26px;
       margin-top: 24px;
     }
     .not-supported-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--mw-orange);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--warn-ink);
       margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .not-supported ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .not-supported ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .not-supported li {
       position: relative;
       padding-left: 22px;
       font-size: 13.5px;
       line-height: 1.6;
-      opacity: 0.92;
     }
     .not-supported li::before {
       content: '✕';
       position: absolute;
       left: 0; top: 0;
-      color: var(--mw-orange);
+      color: var(--warn-ink);
       font-weight: 700;
       font-size: 12px;
     }
-    .not-supported li strong { color: white; }
+    .not-supported li strong { color: var(--mw-black); }
 
     /* SPEC GRID */
     .spec-grid {
@@ -706,7 +626,7 @@
     .spec-card {
       background: var(--mw-gray);
       border-radius: 10px;
-      padding: 18px 18px;
+      padding: 18px;
       text-align: center;
     }
     .spec-num {
@@ -715,26 +635,62 @@
       color: var(--mw-teal-dark);
       line-height: 1.2;
       margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
     }
-    .spec-label {
-      font-size: 12px;
-      color: #4a4a4a;
-      line-height: 1.4;
+    .spec-label { font-size: 12px; color: var(--body); line-height: 1.45; }
+
+    /* INLINE CODE */
+    .inline-code {
+      background: var(--mw-gray);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 12.5px;
+      color: var(--mw-teal-dark);
+      font-weight: 500;
     }
 
-    /* DOC LINK */
-    .doc-link {
+    /* INTERNAL-ONLY CALLOUT */
+    .internal-note {
+      background: var(--warn-bg);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-top: 24px;
+    }
+    .internal-note .internal-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--mw-teal-dark);
-      text-decoration: none;
-      margin-top: 4px;
+      gap: 6px;
+      background: var(--mw-white);
+      color: var(--warn-ink);
+      border: 1px solid var(--warn-line);
+      font-size: 12px; font-weight: 600;
+      padding: 3px 10px; border-radius: 6px; margin-bottom: 10px;
     }
-    .doc-link:hover { text-decoration: underline; }
-    .doc-link::after { content: '↗'; font-size: 11px; }
+    .internal-note .internal-badge .ico { width: 14px; height: 14px; }
+    .internal-note p { font-size: 13.5px; line-height: 1.6; color: var(--body); }
+    .internal-note strong { color: var(--mw-black); }
+    .internal-note a { color: var(--warn-ink); font-weight: 600; }
+
+    /* SHAREABLE-WITH-CUSTOMER CALLOUT */
+    .share-note {
+      background: var(--mw-teal-tint-3);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-top: 24px;
+    }
+    .share-note .share-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--mw-white);
+      color: var(--mw-teal-dark);
+      border: 1px solid var(--mw-teal-tint-1);
+      font-size: 12px; font-weight: 600;
+      padding: 3px 10px; border-radius: 6px; margin-bottom: 10px;
+    }
+    .share-note .share-badge .ico { width: 14px; height: 14px; }
+    .share-note p { font-size: 13.5px; line-height: 1.6; color: var(--body); }
+    .share-note a { color: var(--mw-teal-dark); font-weight: 600; }
 
     /* CITATIONS */
     sup.cite { font-size: 10px; line-height: 0; }
@@ -752,94 +708,50 @@
       padding: 24px 28px;
     }
     .sources h3 {
-      font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      font-size: 15px; font-weight: 600;
       color: var(--mw-teal-dark); margin-bottom: 14px;
     }
     .sources ol { margin: 0 0 0 18px; }
-    .sources li {
-      font-size: 12.5px; line-height: 1.6; color: #4a4a4a; margin-bottom: 7px;
-    }
-    .sources a { color: var(--mw-teal-dark); text-decoration: underline; font-weight: 500; }
-    .sources a:hover { color: var(--mw-teal-medium); }
-
-    /* AUDIENCE CHIP */
-    .step-audience {
-      display: inline-block;
-      background: var(--mw-teal-tint-3);
-      color: var(--mw-teal-dark);
-      font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.05em;
-      padding: 4px 12px; border-radius: 20px;
-      margin-left: 14px; white-space: nowrap;
-    }
-    .activation-step.purple .step-audience { background: var(--mw-purple-light); color: #8a1a7a; }
-    .step-audience.champion { background: var(--mw-orange-light); color: #c04a00; }
-
-    /* INTERNAL-ONLY RESOURCE CALLOUT */
-    .internal-note {
-      background: #FFFAE7;
-      border: 1.5px dashed #E0B400;
-      border-radius: 10px;
-      padding: 18px 22px;
-      margin-top: 24px;
-    }
-    .internal-note .internal-badge {
-      display: inline-block;
-      background: #FFCC01; color: #5a4500;
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-      padding: 3px 10px; border-radius: 4px; margin-bottom: 10px;
-    }
-    .internal-note p { font-size: 13.5px; line-height: 1.6; color: #5a4500; }
-    .internal-note a { color: #8a6a00; font-weight: 700; }
-
-    /* SHAREABLE-WITH-CUSTOMER CALLOUT */
-    .share-note {
-      background: var(--mw-teal-tint-3);
-      border: 1.5px solid var(--mw-teal-tint-1);
-      border-radius: 10px;
-      padding: 18px 22px;
-      margin-top: 24px;
-    }
-    .share-note .share-badge {
-      display: inline-block;
-      background: var(--mw-teal); color: white;
-      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-      padding: 3px 10px; border-radius: 4px; margin-bottom: 10px;
-    }
-    .share-note p { font-size: 13.5px; line-height: 1.6; color: #2a4a4a; }
-    .share-note a { color: var(--mw-teal-dark); font-weight: 700; }
-    .sources .src-note { font-style: italic; color: #7a7a7a; }
+    .sources li { font-size: 12.5px; line-height: 1.6; color: var(--body); margin-bottom: 7px; }
+    .sources li:target { background: var(--mw-teal-tint-2); border-radius: 4px; }
+    .sources a { color: var(--mw-teal-dark); text-decoration: underline; text-decoration-color: var(--mw-teal-tint-1); text-underline-offset: 2px; font-weight: 500; }
+    .sources a:hover { text-decoration-color: var(--mw-teal-dark); }
+    .sources .src-note { font-style: italic; color: var(--muted); }
 
     /* FOOTER */
     footer {
-      background: var(--mw-teal-dark);
-      color: var(--mw-white);
-      padding: 36px 48px;
+      background: var(--mw-gray);
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding: 32px 48px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 32px;
     }
-    .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+    .footer-brand { font-size: 15px; font-weight: 700; color: var(--mw-teal-dark); }
     .footer-links { display: flex; flex-direction: column; gap: 8px; text-align: right; }
-    .footer-links a { color: var(--mw-teal-tint-1); text-decoration: none; font-size: 13px; }
-    .footer-links a:hover { text-decoration: underline; color: white; }
-    .footer-note { font-size: 11.5px; opacity: 0.55; margin-top: 6px; }
+    .footer-links a { color: var(--mw-teal-dark); text-decoration: none; font-size: 13px; font-weight: 500; }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-note { font-size: 12px; margin-top: 6px; }
 
     /* RESPONSIVE */
-    @media (max-width: 700px) {
+    @media (max-width: 760px) {
       nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .hero { padding: 48px 24px; }
-      .hero h1 { font-size: 28px; }
+      .hero { padding: 44px 24px; }
       .page-body { padding: 40px 24px; }
       .cards-grid, .integration-grid, .spec-grid, .prompt-library-grid { grid-template-columns: 1fr; }
       .activation-flow { flex-direction: column; }
-      .flow-arrow { transform: rotate(90deg); padding: 4px 0; }
+      .flow-arrow { transform: rotate(90deg); padding: 6px 0; }
       .skills-explainer { flex-direction: column; }
-      .skills-explainer-arrow { transform: rotate(90deg); justify-content: center; padding: 4px 0; }
+      .skills-explainer-arrow { justify-content: center; }
       footer { flex-direction: column; }
       .footer-links { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
     }
   </style>
 </head>
@@ -860,13 +772,15 @@
   </nav>
 
   <div class="hero">
-    <div class="hero-eyebrow">Internal Guide · Implementation · Last updated July 22, 2026</div>
-    <h1>Deploying <span>Meltwater MCP</span> to your customers</h1>
-    <p class="hero-sub">A step-by-step runbook for getting a customer from "account ready" to "asking Meltwater questions inside Claude or ChatGPT" — with the first prompts and skills to run once they're live.</p>
-    <div class="hero-pills">
-      <span class="pill">Works in Claude &amp; ChatGPT</span>
-      <span class="pill pill-purple">3-step activation</span>
-      <span class="pill pill-orange">Prompts, skills &amp; troubleshooting</span>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Internal guide · Implementation · Last updated October 30, 2026</div>
+      <h1>Deploying <span>Meltwater MCP</span> to your customers</h1>
+      <p class="hero-sub">A step-by-step runbook for getting a customer from "account ready" to "asking Meltwater questions inside Claude or ChatGPT" — with the first skills and prompts to run once they're live.</p>
+      <div class="hero-pills">
+        <span class="pill">Works in Claude, ChatGPT &amp; Grok</span>
+        <span class="pill">3-step activation</span>
+        <span class="pill">Skills, prompts &amp; troubleshooting</span>
+      </div>
     </div>
   </div>
 
@@ -881,50 +795,50 @@
       </div>
 
       <div class="callout">
-        <strong>The one-liner:</strong> Meltwater MCP brings your customer's Meltwater intelligence into the AI assistants their team already uses — Claude and ChatGPT.<sup class="cite"><a href="#ref-1">1</a></sup> They ask a question in plain language and get a cited answer grounded in their own Meltwater data, without logging into the platform or building an integration. As of the July 8, 2026 general availability release, it can also <strong>take action</strong> — creating and editing searches, drafting outreach — not just answer.<sup class="cite"><a href="#ref-6">6</a></sup>
+        <strong>The one-liner:</strong> Meltwater MCP brings your customer's Meltwater intelligence into the AI assistants their team already uses — Claude, ChatGPT, and Grok list Meltwater in their own catalogs, and most other MCP-compatible assistants can connect through a custom URL.<sup class="cite"><a href="#ref-4">4</a></sup> They ask a question in plain language and get a cited answer grounded in their own Meltwater data, without logging into the platform or building an integration. It can also <strong>take action</strong> — creating and editing searches, drafting outreach — not just answer.<sup class="cite"><a href="#ref-6">6</a></sup>
       </div>
 
-      <p style="font-size:14px; color:#4a4a4a; margin-bottom:20px;">MCP (Model Context Protocol) is the open standard that makes the connection work. Meltwater has hosted MCP natively since 2025; this is the commercially available, in-assistant version. It surfaces a set of capabilities that map to the products in the customer's plan:<sup class="cite"><a href="#ref-1">1</a></sup></p>
+      <p class="lead-p">MCP (Model Context Protocol) is the open standard that makes the connection work. It surfaces a set of capabilities that map to the products in the customer's plan:<sup class="cite"><a href="#ref-1">1</a></sup></p>
 
       <div class="cards-grid">
         <div class="card">
-          <div class="card-icon">📝</div>
+          <div class="card-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></div>
           <h3>Ask &amp; Brief</h3>
           <p>A cited overview or answer on a brand, topic, or event — a structured brief in minutes.</p>
         </div>
         <div class="card">
-          <div class="card-icon">📊</div>
+          <div class="card-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18"/><path d="M6 16v-5M11 16V6M16 16v-8M20 16v-3"/></svg></div>
           <h3>Coverage Analysis</h3>
           <p>Explore Meltwater metrics conversationally: volume, sentiment, trends, share of voice.</p>
         </div>
         <div class="card">
-          <div class="card-icon">🔍</div>
+          <div class="card-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
           <h3>Manage Searches</h3>
           <p>Reference asset lists and saved Explore searches — and, with the right permissions, create and edit them.</p>
         </div>
         <div class="card">
-          <div class="card-icon">👥</div>
+          <div class="card-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg></div>
           <h3>Profiles &amp; Influencers</h3>
-          <p>People and creator intelligence — who's driving the conversation and whether they fit.</p>
+          <p>People and creator intelligence — who's driving the conversation and whether they fit (Klear add-on).</p>
         </div>
         <div class="card">
-          <div class="card-icon">📰</div>
+          <div class="card-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2H5"/><path d="M7 8h7M7 12h7M7 16h4"/></svg></div>
           <h3>Media Relations</h3>
-          <p>Journalist and outlet intelligence — who's covering a topic and what angle lands.</p>
+          <p>Journalist and outlet intelligence — who's covering a topic and what angle lands (Media Relations add-on).</p>
         </div>
         <div class="card">
-          <div class="card-icon">✨</div>
+          <div class="card-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></svg></div>
           <h3>AI Visibility</h3>
-          <p>How the brand shows up in AI-generated answers (for customers with the add-on).</p>
+          <p>How the brand shows up in AI-generated answers (GenAI Lens add-on).</p>
         </div>
       </div>
 
-      <div class="callout callout-purple">
-        <strong>Why customers trust the output:</strong> analytics match the numbers in Explore — not a relevance-weighted sample like Mira Studio.<sup class="cite"><a href="#ref-4">4</a></sup> When there's no Meltwater data for a question, it returns nothing and shows the query it ran rather than inventing an answer, and it enforces each user's own Meltwater permissions.<sup class="cite"><a href="#ref-4">4</a></sup>
+      <div class="callout callout-strong">
+        <strong>Why customers trust the output:</strong> analytics are calculated on the customer's own Meltwater dataset and align with Explore. Depending on the prompt, the assistant may work from a representative sample, so when exact numbers matter, coach users to ask for specific metrics, searches, and timeframes.<sup class="cite"><a href="#ref-4">4</a></sup> When there's no Meltwater data for a question, it returns nothing and shows the query it ran rather than inventing an answer, and it enforces each user's own Meltwater permissions.<sup class="cite"><a href="#ref-4">4</a></sup>
       </div>
 
       <div class="boundary-banner">
-        <strong>Scope of this guide:</strong> this covers the no-code, in-assistant connectors for <strong>Claude and ChatGPT</strong> — the path your PR, comms, and marketing customers use. It is not the developer / custom-agent path (API token, custom connection URLs, other assistants); that's covered briefly under <a href="#troubleshooting" style="color:var(--mw-teal-tint-1); font-weight:600;">Troubleshooting &amp; limits</a>.
+        <strong>Scope of this guide:</strong> this covers the no-code, in-assistant connectors for <strong>Claude, ChatGPT, and Grok</strong> — the path your PR, comms, and marketing customers use. It is not the developer / custom-agent path (API token, custom connection URLs, other assistants); that's covered briefly under <a href="#troubleshooting">Troubleshooting &amp; limits</a>.
       </div>
     </section>
 
@@ -941,21 +855,21 @@
           <div class="flow-num">1</div>
           <div class="flow-who">Implementation Manager</div>
           <h4>Get Meltwater ready</h4>
-          <p>Confirm the plan and entitlements, add good saved searches, and grant each user access.</p>
+          <p>Confirm the plan and entitlements, add good saved searches, and make sure users have Meltwater seats.</p>
         </div>
-        <div class="flow-arrow">→</div>
+        <div class="flow-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
         <div class="flow-step s2">
           <div class="flow-num">2</div>
           <div class="flow-who">Champion + IT admin</div>
           <h4>Enable at the org level</h4>
           <p>The customer's IT admin turns on the Meltwater connector or plugin for the organization.</p>
         </div>
-        <div class="flow-arrow">→</div>
+        <div class="flow-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
         <div class="flow-step s3">
           <div class="flow-num">3</div>
           <div class="flow-who">End users</div>
-          <h4>Connect + first prompt</h4>
-          <p>Each user connects their own account, verifies, and runs a first prompt and skill.</p>
+          <h4>Connect + first skill</h4>
+          <p>Each user connects their own account, verifies, and runs a Meltwater skill for a fast first win.</p>
         </div>
       </div>
 
@@ -967,43 +881,24 @@
           <span class="step-audience">Owner: Implementation Manager</span>
         </div>
 
-        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">Your pre-flight check before you involve the customer. Run through this first — deploying into an account without the right entitlements or any saved searches is the fastest way to a flat demo.</p>
+        <p class="lead-p">Your pre-flight check before you involve the customer. Run through this first — deploying into an account without the right entitlements or any saved searches is the fastest way to a flat demo.</p>
 
         <ul class="check-list">
-          <li><strong>MCP is on the subscription.</strong> An active Meltwater plan that <em>includes a Meltwater MCP package</em>. Access to Meltwater on its own does not automatically include MCP.<sup class="cite"><a href="#ref-1">1</a></sup></li>
-          <li><strong>A base Explore package is in place.</strong> Explore is a hard prerequisite for Meltwater MCP — no Explore, no MCP. Add-on tools follow the customer's entitlements (see the add-on note below for current readiness).<sup class="cite"><a href="#ref-4">4</a></sup></li>
-          <li><strong>Supported assistant, enterprise tier.</strong> Claude Enterprise or Team, or ChatGPT Enterprise or Business. Personal Pro / Plus accounts are much less likely to clear org approval — connectors and plugins are managed at the org level, and a personal account needs the heavier custom-connector setup rather than the native Enterprise connector. Not a hard technical block, just a steep uphill climb.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></li>
+          <li><strong>MCP is on the subscription.</strong> A signed order that includes <em>Meltwater MCP subscription – Intelligence Credits</em>. Access to Meltwater on its own does not include MCP.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>A base Explore or Explore+ package is in place.</strong> It's a hard prerequisite — no Explore, no MCP.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>Supported assistant, enterprise tier.</strong> Claude Enterprise or Team, ChatGPT Enterprise or Business, or Grok (x.ai) — these list Meltwater in their own catalogs. Personal Pro / Plus accounts are much less likely to clear org approval — connectors and plugins are managed at the org level, and a personal account needs the heavier custom-connector setup rather than the native connector. Not a hard technical block, just a steep uphill climb.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></li>
           <li><strong>Sign-in method confirmed.</strong> Users sign in with their real Meltwater identity via SSO. They never enter credentials into the assistant.<sup class="cite"><a href="#ref-4">4</a></sup></li>
-          <li><strong>Add-on entitlements checked.</strong> GenAI Lens and Klear tools are still being brought to production-ready status for MCP by Engineering — check current availability before promising them. Media Relations tooling for MCP hasn't started vetting and has no ETA; don't set this expectation with a customer today.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>Add-on tools match the contract.</strong> Once the order is signed, core tools activate and the add-on tools on the contract — GenAI Lens, Media Relations, Klear — are assigned automatically. Confirm the add-ons you plan to demo are on the contract. Trials include core tools only.<sup class="cite"><a href="#ref-4">4</a></sup><sup class="cite"><a href="#ref-10">10</a></sup></li>
+          <li><strong>Credit entitlement is visible.</strong> An account admin should see MCP usage under the Account page (credits remaining, usage by user, top tools). If the dashboard is missing or shows no credits, file a Support ticket — it usually means the credit entitlement isn't mapped.<sup class="cite"><a href="#ref-12">12</a></sup></li>
           <li><strong>At least one good saved Explore search.</strong> Not strictly required — live questions return results without one — but saved searches sharpen results and make citations render predictably. Set one up before you demo.<sup class="cite"><a href="#ref-4">4</a></sup></li>
         </ul>
 
         <div class="callout" style="margin-top:20px;">
-          <strong>Grant each user access inside Meltwater.</strong> Even after IT enables the connector, a Meltwater account admin still has to switch it on per user. This is the step most often missed — the "access_denied / no seat" errors almost always land here.<sup class="cite"><a href="#ref-2">2</a></sup>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">A</div>
-            <div class="step-content">
-              <h4>Sign in to Meltwater as an account admin</h4>
-              <p>Use an account with admin access to reach user management.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">B</div>
-            <div class="step-content">
-              <h4>Go to Account → Users</h4>
-              <p>Open User management from the right-hand navigation, then find the user (search or scroll) and open them to edit.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">C</div>
-            <div class="step-content">
-              <h4>Assign the connector seat, then save</h4>
-              <p>Assign the <strong>Claude Connector</strong> seat or the <strong>ChatGPT Plugin</strong> seat (whichever the user needs), and save. Removing the seat later revokes that user's access. Repeat for each user.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></p>
-            </div>
-          </div>
+          <strong>Access comes with the Meltwater seat.</strong> MCP is account-wide: every user with a Meltwater seat gets the tools, and each user's platform permissions (including View-Only) carry over.<sup class="cite"><a href="#ref-4">4</a></sup> Two things follow from that:
+          <ul class="check-list" style="margin-top:12px;">
+            <li><strong>Account → Users is your MCP user list.</strong> Anyone who needs MCP needs a Meltwater seat. Adding a lot of users? Bulk upload via CSV or Excel handles up to 1,000 rows at a time.<sup class="cite"><a href="#ref-10">10</a></sup></li>
+            <li><strong>MCP can't be limited to a subset of users.</strong> Everyone with a seat gets it. Role-based access is on the roadmap; if a customer needs it, log it in #product-feedback.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          </ul>
         </div>
       </div>
 
@@ -1015,24 +910,24 @@
           <span class="step-audience champion">Owner: Champion + IT admin</span>
         </div>
 
-        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">This is the single org-level switch that turns Meltwater on inside the assistant. It's done once, by whoever owns Claude or ChatGPT for the organization. Your day-to-day champion usually <em>isn't</em> that person, so expect to arm them with what their IT / assistant admin needs.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+        <p class="lead-p">This is the single org-level switch that turns Meltwater on inside the assistant. It's done once, by whoever owns Claude or ChatGPT for the organization. Your day-to-day champion usually <em>isn't</em> that person, so expect to arm them with what their IT / assistant admin needs.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 
         <ul class="check-list" style="margin-bottom:20px;">
           <li><strong>Who does it:</strong> a Claude Owner / Primary Owner, or a ChatGPT Workspace Owner / Admin — enabling it for everyone in the org.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup></li>
           <li><strong>What they do:</strong> turn on the Meltwater connector (Claude) or the Meltwater plugin (ChatGPT) at the organization level, following Meltwater's IT admin guide.</li>
-          <li><strong>Then it hands off:</strong> once enabled at the org level and access is granted per user (Step 1), each end user can connect their own account (Step 3).</li>
+          <li><strong>Then it hands off:</strong> once it's enabled at the org level, anyone with a Meltwater seat can connect their own account (Step 3).</li>
         </ul>
 
         <div class="callout">
-          <strong>The IT admin steps are Meltwater-provided — point the admin to the one that matches their assistant:</strong> <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-in-claude-11714#For+IT/Claude+Admins" target="_blank">Connect Meltwater in Claude — IT admin steps</a> or <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-mcp-app-in-chatgpt-11715#For+IT/Claude+Admins" target="_blank">Connect Meltwater in ChatGPT — IT admin steps</a>. For the security and compliance questions that come up here, share <em>both</em> the <a href="https://community.meltwater.com/meltwater-it-resources-375/meltwater-mcp-security-compliance-11723" target="_blank">MCP Security &amp; Compliance guide</a> (MCP-specific detail) and the <a href="https://trust.meltwater.com/" target="_blank">Meltwater Trust Center</a>.
+          <strong>The IT admin steps are Meltwater-provided — point the admin to the one that matches their assistant:</strong> <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-in-claude-11714#For+IT/Claude+Admins" target="_blank">Connect Meltwater in Claude — IT admin steps</a> or <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-mcp-app-in-chatgpt-11715#For+IT/Claude+Admins" target="_blank">Connect Meltwater in ChatGPT — IT admin steps</a>. For the security and compliance questions that come up here, share <em>both</em> the <a href="https://community.meltwater.com/meltwater-it-resources-375/meltwater-mcp-security-compliance-11723" target="_blank">MCP Security &amp; Compliance guide</a> (MCP-specific detail) and the <a href="https://trust.meltwater.com/" target="_blank">Meltwater Trust Center</a>. If IT wants a one-pager, the shorter <a href="https://meltwater.skillshood.com/asset/1983161" target="_blank">AI Security leave-behind PDF</a> is on Saleshood. For assistants beyond Claude and ChatGPT (Grok, Copilot, Gemini, Perplexity), the developer portal has a <a href="https://developer.meltwater.com/guides/meltwater-mcp/connectors/overview" target="_blank">connection guide for each</a>.<sup class="cite"><a href="#ref-13">13</a></sup>
         </div>
 
-        <p style="font-size:13.5px; color:#4a4a4a; margin:18px 0 8px;">Most champions aren't technical and won't be able to answer IT's questions themselves. Send them this — it gives them everything to forward straight to their IT / assistant admin:</p>
+        <p class="lead-p" style="margin:18px 0 8px;">Most champions aren't technical and won't be able to answer IT's questions themselves. Send them this — it gives them everything to forward straight to their IT / assistant admin:</p>
 
         <div class="email-shell">
           <div class="email-header">
-            Champion → IT admin email — draft, adapt before sending
-            <button class="email-copy-btn" onclick="copyEmail(this)">Copy email</button>
+            Champion → IT admin email · draft, adapt before sending
+            <button class="email-copy-btn" onclick="copyEmail(this)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg><span>Copy email</span></button>
           </div>
           <div class="email-meta">
             <div class="email-meta-row"><span class="email-meta-label">To:</span><span class="email-meta-value">[Customer champion]</span></div>
@@ -1054,10 +949,10 @@ Claude: <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltw
 ChatGPT: <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-mcp-app-in-chatgpt-11715#For+IT/Claude+Admins" target="_blank">https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-mcp-app-in-chatgpt-11715</a>
 
 For security, privacy, and compliance, two resources:
-MCP Security & Compliance guide: <a href="https://community.meltwater.com/meltwater-it-resources-375/meltwater-mcp-security-compliance-11723" target="_blank">https://community.meltwater.com/meltwater-it-resources-375/meltwater-mcp-security-compliance-11723</a>
+MCP Security &amp; Compliance guide: <a href="https://community.meltwater.com/meltwater-it-resources-375/meltwater-mcp-security-compliance-11723" target="_blank">https://community.meltwater.com/meltwater-it-resources-375/meltwater-mcp-security-compliance-11723</a>
 Meltwater Trust Center: <a href="https://trust.meltwater.com/" target="_blank">https://trust.meltwater.com/</a>
 
-Once it's switched on, our Meltwater contact will make sure each of us has access, and we can connect our own accounts.
+Once it's switched on, anyone on our team with a Meltwater login can connect their own account.
 
 — — —
 
@@ -1066,29 +961,29 @@ Thanks so much — once this is done I'll help everyone get connected. Any quest
 Best,
 <span class="placeholder">[Your name]</span></div>
         </div>
-        <p style="font-size:12px; color:#7a7a7a; font-style:italic; margin-top:10px;">Draft to adapt — not approved copy. Swap the Claude / ChatGPT links to match the customer's assistant.<sup class="cite"><a href="#ref-9">9</a></sup></p>
+        <p class="draft-note">Draft to adapt — not approved copy. Swap the Claude / ChatGPT links to match the customer's assistant.<sup class="cite"><a href="#ref-9">9</a></sup></p>
       </div>
 
       <!-- STEP 3 -->
-      <div class="activation-step purple">
+      <div class="activation-step">
         <div class="activation-step-head">
           <div class="activation-step-num">3</div>
-          <h3>Connect + first prompt</h3>
-          <span class="step-audience">Owner: End users</span>
+          <h3>Connect + first skill</h3>
+          <span class="step-audience users">Owner: End users</span>
         </div>
 
-        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">With the org-level switch on and their access granted, each user connects their own account — about two minutes, and no credentials ever go into the assistant.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+        <p class="lead-p">With the org-level switch on, each user with a Meltwater seat connects their own account — about two minutes, and no credentials ever go into the assistant.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 
         <div class="integration-grid">
           <div class="integration-card">
             <div class="integration-header">
-              <div class="integration-icon">◆</div>
+              <div class="integration-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
               <div class="integration-title">Connect in Claude</div>
             </div>
             <div class="integration-body">
               <span class="integration-tag">Enterprise / Team</span>
               <ol>
-                <li>Open Claude, signed in to the <strong>org Enterprise account</strong>.</li>
+                <li>Open Claude, signed in to the <strong>org's work account</strong>.</li>
                 <li>Click <strong>Customize</strong>.</li>
                 <li>In the search bar, type <span class="inline-code">Meltwater</span>.</li>
                 <li>Click <strong>Connect</strong> on the Meltwater card.</li>
@@ -1102,7 +997,7 @@ Best,
           </div>
           <div class="integration-card">
             <div class="integration-header">
-              <div class="integration-icon">◈</div>
+              <div class="integration-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
               <div class="integration-title">Connect in ChatGPT</div>
             </div>
             <div class="integration-body">
@@ -1122,16 +1017,17 @@ Best,
           </div>
         </div>
 
-        <div class="callout">
-          <strong>Naming note — the customer's is just "Meltwater."</strong> The steps above and the email below reference the connector/plugin named <strong>Meltwater</strong>, which is what your customer connects to. When <em>you</em> connect your own Meltwater employee (buddy) account to test or demo, use <strong>Meltwater Internal</strong> instead — same steps, different entry in the list.
+        <div class="internal-note" style="margin-top:4px; margin-bottom:20px;">
+          <div class="internal-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Internal only — for you, not the customer</div>
+          <p><strong>Customer vs. employee connector.</strong> Customers connect to <strong>Meltwater</strong> — that's what the steps above and the email below reference. Meltwater employees connect to <strong>Meltwater Internal</strong> instead (installed automatically for ChatGPT Enterprise; added as a connector in Claude). For your own demo account, core tools are on; request add-on tools in the <a href="https://app.meltwater.com/a/mcp-governance/governance?tab=request" target="_blank">MCP Governance portal</a>. To demo with a shared team account's assets, switch your default account under Account → Profile, then log out and back in to the assistant.<sup class="cite"><a href="#ref-4">4</a></sup><sup class="cite"><a href="#ref-10">10</a></sup></p>
         </div>
 
-        <p style="font-size:13.5px; color:#4a4a4a; margin:18px 0 8px;">Once each user is granted access, hand them the connection steps directly. Here's a starter email you can adapt — swap in your own links and details:</p>
+        <p class="lead-p" style="margin:18px 0 8px;">Once the org-level switch is on, hand users the connection steps directly. Here's a starter email you can adapt — swap in your own links and details:</p>
 
         <div class="email-shell">
           <div class="email-header">
-            End-user connection email — draft, adapt before sending
-            <button class="email-copy-btn" onclick="copyEmail(this)">Copy email</button>
+            End-user connection email · draft, adapt before sending
+            <button class="email-copy-btn" onclick="copyEmail(this)"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg><span>Copy email</span></button>
           </div>
           <div class="email-meta">
             <div class="email-meta-row"><span class="email-meta-label">To:</span><span class="email-meta-value">[Customer contact]</span></div>
@@ -1139,7 +1035,7 @@ Best,
           </div>
           <div class="email-body" id="email-body-text">Hi <span class="placeholder">[First name]</span>,
 
-You're all set on the Meltwater side — I've enabled your access, so you can now connect Meltwater directly inside <span class="placeholder">[Claude / ChatGPT]</span> and start asking questions of your own Meltwater data in plain language.
+You're all set on the Meltwater side — your account includes Meltwater MCP, so you can connect Meltwater directly inside <span class="placeholder">[Claude / ChatGPT]</span> and start asking questions of your own Meltwater data in plain language.
 
 It takes about two minutes:
 
@@ -1150,7 +1046,9 @@ It takes about two minutes:
 
 To check it's working, start a new chat and ask: "List my saved Meltwater searches." If your searches come back, you're live.
 
-A great first question to try: "Build a weekly brand health recap from the last seven days."
+The best first thing to try: ask "What Meltwater skills are available?", then "Run the Brand Pulse skill for <span class="placeholder">[company]</span>." You'll get a full brand health report built from your own Meltwater data.
+
+And anytime you want to see how much of your team's credit allowance you've used, just ask: "What's my credit usage?"
 
 The full step-by-step guides are here:
 Claude: <a href="https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-in-claude-11714" target="_blank">https://community.meltwater.com/meltwater-mcp-433/connect-meltwater-in-claude-11714</a>
@@ -1161,36 +1059,42 @@ Happy to jump on a quick call if anything doesn't connect the first time — jus
 Best,
 <span class="placeholder">[Your name]</span></div>
         </div>
-        <p style="font-size:12px; color:#7a7a7a; font-style:italic; margin-top:10px;">Draft to adapt — not approved copy. There's no official client email in the launch collateral yet; confirm the live links before sending.<sup class="cite"><a href="#ref-9">9</a></sup></p>
+        <p class="draft-note">Draft to adapt — not approved copy. Confirm the live links before sending.<sup class="cite"><a href="#ref-9">9</a></sup></p>
 
-        <h4 style="font-size:17px; font-weight:700; color:var(--mw-black); margin:38px 0 12px;">Then get them to a fast "aha"</h4>
-        <p style="font-size:14px; color:#4a4a4a; margin-bottom:16px;">The connection is live — now land a real, tangible win. No special syntax; they ask the way they'd ask a colleague.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+        <h4 class="sub-head">Then get them to a fast "aha" — start with a skill</h4>
+        <p class="lead-p">The connection is live. Before any open-ended prompting, run a Meltwater skill together: one ask, and a finished, presentation-ready report built from their own data.<sup class="cite"><a href="#ref-10">10</a></sup></p>
 
-        <div class="callout callout-purple">
-          <strong>Start with one tangible prompt.</strong> Give them a single result they can feel the value of — a morning overview, clustered and quantified:<br><br>
-          <em>"Give me a morning overview of coverage about [company] and flag anything that needs attention. Cluster the results by story and give me some high-level stats about each cluster."</em><br><br>
-          Run it live, read the cited result together, then follow up in the same chat — <em>"drill into that cluster,"</em> then <em>"compare it to last week."</em>
+        <div class="callout callout-strong">
+          <strong>Start with a Meltwater skill.</strong> Have the customer type these two prompts, then read the report together and point out the citations:
+          <span class="prompt-line">"What Meltwater skills are available?"</span>
+          <span class="prompt-line">"Run the Brand Pulse skill for [company]."</span>
+          Brand Pulse is the default first run. <strong>Coverage Report</strong>, <strong>Competitive SOV</strong>, and <strong>Issues &amp; Crisis</strong> are one ask away — pick the one that matches the team. Nothing to upload: the skills come through the Meltwater connector. Details in <a href="#skills">Skills &amp; extending it</a>.
         </div>
 
         <div class="callout">
-          <strong>A few more to try, once the first lands:</strong><br>
-          • <em>"List my saved Meltwater searches."</em> (also the verify step — confirms it's live)<br>
-          • <em>"Compare share of voice between us and our top two competitors this quarter."</em><br>
-          • <em>"How has coverage of our product launch trended over the last 30 days?"</em><br>
-          For a fuller bank organized by workflow, see <a href="#workflows">Deeper workflows</a>.
+          <strong>Then show open prompting.</strong> Once a skill has landed, show that they can ask anything — the way they'd ask a colleague:
+          <span class="prompt-line">"Give me a morning overview of coverage about [company] and flag anything that needs attention. Cluster the results by story and give me some high-level stats about each cluster."</span>
+          Follow up in the same chat — <em>"drill into that cluster,"</em> then <em>"compare it to last week."</em> More starters by team in <a href="#workflows">Deeper workflows</a>.
         </div>
 
-        <div class="callout callout-purple" style="margin-top:20px;">
-          <strong>Best practice, once they're hooked — add a skill.</strong> After a few live wins, set up the <strong>Brand DNA skill</strong> so the customer's brand context (purpose, positioning, tone, audiences) applies automatically to every answer, and briefs reflect the brand instead of a generic read. It's the natural next step, not the first thing to configure — full setup and the ChatGPT analog are in <a href="#skills">Skills &amp; extending it</a>.<sup class="cite"><a href="#ref-2">2</a></sup>
+        <div class="callout callout-strong" style="margin-top:20px;">
+          <strong>Best practice, once they're hooked — add brand context.</strong> After a few live wins, set up the <strong>Brand DNA skill</strong> so the customer's brand context (purpose, positioning, tone, audiences) applies automatically to every answer, and reports reflect the brand instead of a generic read. It's the natural next step, not the first thing to configure — setup is in <a href="#skills">Skills &amp; extending it</a>.<sup class="cite"><a href="#ref-2">2</a></sup>
         </div>
 
         <div class="callout" style="margin-top:20px;">
-          <strong>Handoff — leave them self-sufficient.</strong> Before you close out the session, confirm: the user has connected and verified independently; they've run at least two prompts that matter to their role; a Brand DNA (or custom-GPT) context is in place; they know results follow their own Meltwater permissions and workspace assignments — they see exactly what they'd see in the platform, nothing more; and they know who their admin is for adding more users. Then set the expectation: <em>"Ask it the way you'd ask a colleague, and follow up — each question builds on the last."</em>
+          <strong>Handoff — leave them self-sufficient.</strong> Before you close out the session, confirm: the user has connected and verified independently; they've run one Meltwater skill and at least two prompts that matter to their role; they know how to check usage by asking <em>"What's my credit usage?"</em>; they know results follow their own Meltwater permissions and workspace assignments — they see exactly what they'd see in the platform, nothing more; and they know who their admin is for adding more users. Then set the expectation: <em>"Ask it the way you'd ask a colleague, and follow up — each question builds on the last."</em>
         </div>
 
         <div class="share-note">
-          <div class="share-badge">✓ OK to share with customers</div>
-          <p><strong>Leave the customer a prompt library.</strong> Meltwater's public blog, <a href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 Meltwater MCP Prompts for Communications Teams</a>, is organized by workflow and written in swap-the-brackets format. Send it after onboarding so the customer keeps exploring on their own — it's public and cited, so it's safe to share directly. (Distinct from the internal SC Dashboard Library above, which stays in-house.)<sup class="cite"><a href="#ref-11">11</a></sup></p>
+          <div class="share-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v12M7 8l5-5 5 5"/></svg>OK to share with customers</div>
+          <p><strong>Leave the customer a starter kit.</strong> All public and safe to send after onboarding so they keep exploring on their own:</p>
+          <ul class="check-list" style="margin-top:10px;">
+            <li><a href="https://www.meltwater.com/en/product-tours/mcp" target="_blank">Interactive MCP product tour</a> — Claude and ChatGPT walkthroughs for colleagues who weren't on the call.<sup class="cite"><a href="#ref-14">14</a></sup></li>
+            <li><a href="https://www.youtube.com/watch?v=b0IP7qTuYFw" target="_blank">"The Meltwater MCP Difference" video</a> — a short explainer for stakeholders.</li>
+            <li><a href="https://www.meltwater.com/en/blog/meltwater-mcp-use-cases" target="_blank">10 Real-World Ways Communications Teams Are Using the Meltwater MCP</a> — use-case inspiration.</li>
+            <li><a href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 Meltwater MCP Prompts for Communications Teams</a> — a prompt library by workflow, for when they want more ideas.<sup class="cite"><a href="#ref-11">11</a></sup></li>
+          </ul>
+          <p style="margin-top:10px;">(Distinct from the internal SC Dashboard Library, which stays in-house.)</p>
         </div>
       </div>
     </section>
@@ -1198,51 +1102,49 @@ Best,
     <!-- ═══════════ SECTION 3: WORKFLOWS ═══════════ -->
     <section id="workflows">
       <div class="section-header">
-        <div class="section-eyebrow section-eyebrow-orange">Put it to work</div>
+        <div class="section-eyebrow">Put it to work</div>
         <h2>Deeper workflows by team</h2>
-        <p>The same prompts work identically in Claude and ChatGPT for core Listening workflows (PR &amp; Comms, Marketing &amp; Insights). Media Relations and Influencer Marketing tools are Claude-only today — ChatGPT doesn't yet expose Klear, Media Relations, or GenAI Lens tools, so demo those two workflows in Claude and describe the experience as representative.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+        <p>After the first skill, match open prompts to the team you're onboarding. The same prompts work in Claude and ChatGPT. Media Relations, Influencer (Klear), and GenAI Lens workflows light up for customers with those add-ons; add-on tools can reach ChatGPT later than Claude, so if one is missing there, reconnect the plugin and run that workflow in Claude for the demo.<sup class="cite"><a href="#ref-4">4</a></sup><sup class="cite"><a href="#ref-10">10</a></sup></p>
       </div>
 
       <div class="prompt-library-grid">
         <div class="prompt-lib-card">
-          <div class="prompt-lib-tag">📣 PR &amp; Comms</div>
+          <div class="prompt-lib-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M17 8a5 5 0 0 1 0 8"/></svg>PR &amp; Comms</div>
           <div class="prompt-example">"What coverage featured our brand this week?"</div>
           <div class="prompt-also">Also: what's the coverage on breaking news so far, and where? Is sentiment shifting, and what's driving it? Is an issue starting to spike?</div>
         </div>
         <div class="prompt-lib-card">
-          <div class="prompt-lib-tag">📈 Marketing &amp; Insights</div>
+          <div class="prompt-lib-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Marketing &amp; Insights</div>
           <div class="prompt-example">"How are we standing out from the competition?"</div>
           <div class="prompt-also">Also: what's our share of voice vs the competitors we name? Which themes are our competitive edge? How did the last campaign land against benchmarks?</div>
         </div>
         <div class="prompt-lib-card">
-          <div class="prompt-lib-tag">📰 Media Relations</div>
+          <div class="prompt-lib-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2H5"/><path d="M7 8h7M7 12h7M7 16h4"/></svg>Media Relations</div>
           <div class="prompt-example">"Which journalists can amplify our story?"</div>
           <div class="prompt-also">Also: who's covering this topic? What angle is likely to land? Does the pitch align with their audience?</div>
         </div>
         <div class="prompt-lib-card">
-          <div class="prompt-lib-tag">🌟 Influencer Marketing</div>
+          <div class="prompt-lib-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Influencer Marketing</div>
           <div class="prompt-example">"Which influencers are best suited for this campaign?"</div>
           <div class="prompt-also">Also: who's driving the conversation in our space? What hashtags are trending? Are they the right fit?</div>
         </div>
       </div>
 
-      <h4 style="font-size:17px; font-weight:700; color:var(--mw-black); margin:32px 0 12px;">The full prompt library — 55 ready-to-use prompts</h4>
-      <p style="font-size:14px; color:#4a4a4a; margin-bottom:14px;">The cards above are a quick start. For a deeper bank to pull from when tailoring to a customer, Meltwater's public prompt blog groups 55 prompts into nine workflows: daily monitoring &amp; briefings, executive visibility, competitive &amp; market intelligence, campaign &amp; announcement measurement, reporting &amp; share of voice, early-issue awareness, narrative &amp; trend spotting, sharing across the business, and working from existing searches. Swap the bracketed terms for the customer's brand, competitors, and topics.<sup class="cite"><a href="#ref-11">11</a></sup></p>
-      <a class="doc-link" href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 Meltwater MCP Prompts for Communications Teams</a>
-
-      <div class="prompt-lib-card" style="margin-top:18px;">
-        <div class="prompt-lib-tag">⭐ Spotlight — work from existing searches (shows the write capability)</div>
+      <div class="prompt-lib-card" style="margin-top:14px;">
+        <div class="prompt-lib-tag"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></svg>Work from existing searches — shows the write capability</div>
         <div class="prompt-example">"Run my saved '[search name]' search and give me an overview of this week's coverage."</div>
         <div class="prompt-example">"Take my '[search name]' search, add [competitor] to the Boolean, and show me how the results change."</div>
         <div class="prompt-example">"Refine the Boolean in my '[search name]' search to exclude [term], then give me an overview of the cleaned-up results."</div>
       </div>
+
+      <p class="more-link">Want more starters? Meltwater's public blog has <a href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 prompts grouped by workflow</a>.<sup class="cite"><a href="#ref-11">11</a></sup></p>
 
       <div class="callout" style="margin-top:24px;">
         <strong>The real unlock is follow-ups.</strong> Because the assistant can call multiple Meltwater tools in one conversation, the customer can keep going: <em>"Drill into that — top three outlets driving negative sentiment,"</em> then <em>"now compare that to last month."</em> It can also combine Meltwater data with the customer's own context and other connected tools in the same chat.<sup class="cite"><a href="#ref-4">4</a></sup>
       </div>
 
       <div class="internal-note">
-        <div class="internal-badge">Internal only — do not share with customers</div>
+        <div class="internal-badge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Internal only — do not share with customers</div>
         <p><strong>Need inspiration for what to build?</strong> The <a href="https://meltwater-mcp-library.netlify.app/" target="_blank">SC Dashboard Library</a> collects real example outputs built with Meltwater MCP — dashboards, briefs, and reports across industries and use cases. Use it to spark ideas for what to show a customer and what "good" looks like. It's an internal SC resource: pull ideas from it, but don't send the library itself to clients.<sup class="cite"><a href="#ref-10">10</a></sup></p>
       </div>
     </section>
@@ -1250,9 +1152,9 @@ Best,
     <!-- ═══════════ SECTION 4: SKILLS ═══════════ -->
     <section id="skills">
       <div class="section-header">
-        <div class="section-eyebrow section-eyebrow-purple">Make it stick</div>
+        <div class="section-eyebrow">Make it stick</div>
         <h2>Skills &amp; extending it</h2>
-        <p>The MCP connection is the access. A skill is the reusable recipe that tells the assistant how to use it well, every time.</p>
+        <p>The MCP connection is the access. A skill is the reusable recipe that tells the assistant how to use it well, every time — and Meltwater's own skills are the fastest route to a polished first deliverable.</p>
       </div>
 
       <div class="skills-explainer">
@@ -1262,39 +1164,41 @@ Best,
         </div>
         <div class="skills-explainer-arrow">+</div>
         <div class="skills-explainer-box skill-box">
-          <h4>A Claude Skill — the recipe</h4>
-          <p>A reusable set of instructions and reference material you give Claude once, so it applies that expertise automatically whenever it's relevant.</p>
+          <h4>A skill — the recipe</h4>
+          <p>A reusable set of instructions and reference material the assistant follows automatically whenever it's relevant, so the customer doesn't re-explain the job every time.</p>
         </div>
       </div>
 
-      <p style="font-size:14px; color:#4a4a4a; margin-bottom:8px;">Two real examples worth showing customers on Claude:</p>
+      <p class="lead-p">Two kinds of skills to show customers — ready-made ones from Meltwater, and ones they set up for their own brand:</p>
 
       <div class="skill-example-block">
-        <span class="skill-file-name">Brand DNA — brand context skill</span>
-        <p><strong>What it does:</strong> captures the brand's identity — purpose, positioning, tone of voice with real writing samples, do's and don'ts, audiences. Once installed, trend scoring, briefs, and content review reflect the brand instead of a generic read on the data.<sup class="cite"><a href="#ref-2">2</a></sup></p>
-        <p><strong>When to introduce it:</strong> once the customer has had a few wins with live prompts — it's a best-practice upgrade, not first-run setup.</p>
-        <p><strong>Setup (Claude):</strong> Customize → Skills → Add → upload the Brand DNA skill file → fill in the template with the customer's details (Claude can walk them through it section by section). After that, just mentioning the brand in a question ("How did we do this week?") applies it automatically — no special syntax.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+        <span class="skill-file-name"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Meltwater platform skills — ready-made, served through the connector</span>
+        <p><strong>What's there:</strong> <strong>Brand Pulse</strong> (brand health infographic + PDF), <strong>Coverage Report</strong> (news and social with period-over-period comparison), <strong>Competitive SOV</strong> (benchmarks a brand against auto-researched competitors), and <strong>Issues &amp; Crisis</strong> (an 11-section crisis brief). There's also <strong>Meltwater Knowledge</strong>, a primer that helps the assistant pick the right tools — it runs on its own.<sup class="cite"><a href="#ref-10">10</a></sup></p>
+        <p><strong>How customers use them:</strong> ask <em>"What Meltwater skills are available?"</em>, then run one by name — <em>"Run the Competitive SOV skill for [brand] against [competitor]."</em> They're delivered through the Meltwater connector, so there's nothing to upload, and they follow the customer's entitlements.</p>
+        <p><strong>When to introduce them:</strong> first, right after the connection is verified (Step 3) — they're the fastest route to an "aha."</p>
       </div>
 
       <div class="skill-example-block" style="margin-top:14px;">
-        <span class="skill-file-name">Daily Meltwater Brief — recurring briefing skill</span>
-        <p><strong>What it does:</strong> packages a repeatable morning brief into one instruction. The customer just says "run my daily brief" and gets a consistent, cited rundown — overnight coverage, sentiment shifts, competitor moves, anything starting to spike — in the same format every day, built on their saved searches.</p>
-        <p><strong>Why it lands:</strong> it turns a report someone used to assemble by hand into a 30-second ask, and it's an easy, high-frequency habit that makes Meltwater MCP part of the customer's daily routine.</p>
+        <span class="skill-file-name"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12l-8 8-9-9V3h8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>Brand DNA — brand context skill</span>
+        <p><strong>What it does:</strong> captures the brand's identity — purpose, positioning, tone of voice with real writing samples, do's and don'ts, audiences. Once installed, trend scoring, briefs, and content review reflect the brand instead of a generic read on the data.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+        <p><strong>When to introduce it:</strong> once the customer has had a few wins with Meltwater skills and live prompts — it's a best-practice upgrade, not first-run setup.</p>
+        <p><strong>Setup (Claude):</strong> Customize → Skills → Add → upload the Brand DNA skill file → fill in the template with the customer's details (Claude can walk them through it section by section). After that, just mentioning the brand in a question ("How did we do this week?") applies it automatically — no special syntax.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+        <p><strong>Setup (ChatGPT):</strong> skills upload under Plugins → Skills → Upload. A custom GPT or project instructions loaded with the same brand files is the fallback.<sup class="cite"><a href="#ref-10">10</a></sup></p>
       </div>
 
-      <div class="callout callout-purple" style="margin-top:22px;">
-        <strong>A Meltwater skills library is on the way.</strong> Meltwater plans to publish a library of skills built by its own internal experts, designed to work alongside Meltwater MCP — so Claude brings not just the data but the expertise to interpret it. Flag this as coming, not available yet.<sup class="cite"><a href="#ref-1">1</a></sup>
+      <div class="callout" style="margin-top:22px;">
+        <strong>The library grows over time.</strong> Enablement has more skills planned after the first batch, alongside an MCP Playbook (setup video, Brand DNA, building your own skill). Check the <a href="https://meltwater.skillshood.com/content/pages/6760" target="_blank">MCP Saleshood page</a> for the latest before promising a specific skill.<sup class="cite"><a href="#ref-10">10</a></sup>
       </div>
 
       <div class="callout callout-orange" style="margin-top:16px;">
-        <strong>The ChatGPT equivalent — honest version.</strong> ChatGPT has no feature that matches Claude Skills 1:1. The nearest approach is a <strong>custom GPT</strong> loaded with the same instructions and brand files, or reusable <strong>project instructions</strong>. It gets you persistent context, but it's set up per workspace/GPT rather than as a portable, invokable skill, and there's no shared library equivalent yet. If a customer's differentiator is skills, that's a genuine point in Claude's favor — say so plainly.
+        <strong>ChatGPT vs. Claude.</strong> Meltwater's platform skills come through the connector, so they should work in ChatGPT as well as Claude — confirm in a live demo first, since new and add-on tools can reach ChatGPT later than Claude.<sup class="cite"><a href="#ref-10">10</a></sup>
       </div>
     </section>
 
     <!-- ═══════════ SECTION 5: TROUBLESHOOTING ═══════════ -->
     <section id="troubleshooting">
       <div class="section-header">
-        <div class="section-eyebrow section-eyebrow-orange">When it doesn't work</div>
+        <div class="section-eyebrow">When it doesn't work</div>
         <h2>Troubleshooting &amp; known limits</h2>
         <p>The failures below are the ones that actually come up in the field, mapped to the fix. Most are access-sequence issues, not real bugs.<sup class="cite"><a href="#ref-2">2</a></sup><sup class="cite"><a href="#ref-3">3</a></sup><sup class="cite"><a href="#ref-10">10</a></sup></p>
       </div>
@@ -1302,15 +1206,15 @@ Best,
       <div class="objections">
         <div class="objection">
           <div class="obj-q">"Meltwater doesn't show up in my connector / plugin list."</div>
-          <div class="obj-a">Almost always the account: confirm they're signed in to the <strong>work / enterprise account</strong>, not a personal one. If it's still missing, their per-user access probably isn't active yet — the Meltwater admin needs to assign the seat (Step 1C). Have them contact their admin.</div>
+          <div class="obj-a">Almost always the account: confirm they're signed in to the <strong>work / enterprise account</strong>, not a personal one. If it's still missing, the org-level connector or plugin probably isn't enabled yet (Step 2) — loop in the champion and their IT admin.</div>
         </div>
         <div class="objection">
           <div class="obj-q">"I only see 'Browse', not 'Add' custom connector in Claude settings."</div>
           <div class="obj-a">Expected on Enterprise plans — only Org Owners can add custom connectors. For the official Meltwater connector this doesn't matter; the org admin enables it once for everyone. This trips people up when they try to self-add a custom connection instead of using the enabled one.</div>
         </div>
         <div class="objection">
-          <div class="obj-q">"ChatGPT throws access_denied / 'no seat for this provider'."</div>
-          <div class="obj-a">The seat isn't assigned. Check both layers: the ChatGPT plugin is enabled at the <strong>workspace</strong> level by a Workspace Owner/Admin, <em>and</em> the user has the <strong>ChatGPT Plugin seat</strong> granted inside Meltwater. Missing either produces this error.</div>
+          <div class="obj-q">"Sign-in fails with access_denied, 'no seat,' or 'connection canceled.'"</div>
+          <div class="obj-a">Check three things: the plugin/connector is enabled at the <strong>workspace</strong> level; the user has an active <strong>Meltwater seat</strong> and signs in with the same business email as that seat; and the account actually has an <strong>MCP credits entitlement</strong> — without it, sign-in fails. If all three check out, file a Support ticket.<sup class="cite"><a href="#ref-10">10</a></sup></div>
         </div>
         <div class="objection">
           <div class="obj-q">"I get a login error signing in to Meltwater."</div>
@@ -1318,41 +1222,64 @@ Best,
         </div>
         <div class="objection">
           <div class="obj-q">"The response came back empty or errored."</div>
-          <div class="obj-a">Usually an expired sign-in — <strong>reconnect</strong> the connector/plugin to re-trigger the sign-in flow. In ChatGPT, if a <em>write</em> action specifically is blocked, the workspace may be set to <strong>read-only</strong> for Meltwater; that's an admin setting.</div>
+          <div class="obj-a">Usually an expired sign-in — <strong>reconnect</strong> the connector/plugin to re-trigger the sign-in flow. In ChatGPT, if a <em>write</em> action specifically is blocked, the workspace may be set to <strong>read-only</strong> for Meltwater; that's an admin setting. An expired-token error that reconnecting doesn't clear is a Support ticket.<sup class="cite"><a href="#ref-10">10</a></sup></div>
         </div>
         <div class="objection">
           <div class="obj-q">"Do users have to sign in every session?"</div>
           <div class="obj-a">No — they sign in once and the connection stays live. Re-authentication only happens under normal conditions: their SSO session or security policy requires a fresh sign-in, an admin changes or revokes their access, or they connect a new assistant. It's the same SSO flow each time, so an occasional re-auth is expected, not a fault.<sup class="cite"><a href="#ref-4">4</a></sup></div>
         </div>
         <div class="objection">
-          <div class="obj-q">"Can we connect a different assistant — Perplexity, Copilot, Gemini?"</div>
-          <div class="obj-a">Any MCP-compatible assistant can connect via a <strong>custom connection URL</strong> today, where the customer's enterprise environment allows it — this may carry added cost beyond the base entitlement. Dedicated connectors (and Gemini, Microsoft) are on the roadmap but directional, not committed dates. For a customer building their own agent, that's the developer path — point them to the <a href="https://developer.meltwater.com/guides/meltwater-mcp/overview" target="_blank">developer portal</a>, where the MCP server (<span class="inline-code">api.meltwater.com/v2/mcp</span>) authenticates with an API token today.<sup class="cite"><a href="#ref-7">7</a></sup><sup class="cite"><a href="#ref-8">8</a></sup></div>
+          <div class="obj-q">"ChatGPT says 'tool not found,' or I see two Meltwater plugins."</div>
+          <div class="obj-a">A known ChatGPT-side issue. Start a new chat, select Meltwater with the <strong>+</strong> icon rather than relying on auto-routing, and make sure the user is connected to only one Meltwater plugin. If it persists, disconnect and reconnect.<sup class="cite"><a href="#ref-10">10</a></sup></div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"How do we see how many credits we've used?"</div>
+          <div class="obj-a">Two ways. Any user can ask the assistant <em>"What's my credit usage?"</em> — it can break usage down by month, tool, user, or the current conversation. Account admins also get an MCP usage dashboard on the Account page: credits remaining, usage trend, usage by user, and top tools. Usage by Meltwater employees never counts against the customer's credits.<sup class="cite"><a href="#ref-12">12</a></sup></div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Why did a short prompt use so many credits?"</div>
+          <div class="obj-a">Credits aren't tokens. They measure the Meltwater work the assistant requests, not the length of the question. A four-word prompt that triggers several data-heavy tools can cost more than a long prompt that calls none. The analysis and writing the assistant does afterward costs no credits.<sup class="cite"><a href="#ref-4">4</a></sup></div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Can we give MCP to only some of our users?"</div>
+          <div class="obj-a">Not today. Everyone with a Meltwater seat on the account gets MCP, and their platform permissions carry over. Role-based access is on the roadmap — log the request in #product-feedback.<sup class="cite"><a href="#ref-4">4</a></sup></div>
+        </div>
+        <div class="objection">
+          <div class="obj-q">"Can we connect a different assistant — Copilot, Gemini, Perplexity?"</div>
+          <div class="obj-a">Usually yes. Claude, ChatGPT, and Grok list Meltwater in their own catalogs. Most other MCP-compatible assistants — Microsoft Copilot (via Copilot Studio), Gemini, Perplexity, Cursor — connect through a <strong>custom connection URL</strong> where the customer's IT policy allows it, and the developer portal has a <a href="https://developer.meltwater.com/guides/meltwater-mcp/connectors/overview" target="_blank">connection guide for each</a>. Dedicated Microsoft Copilot and Cowork connectors are expected in 2027. If an assistant isn't listed, search its docs for "MCP" — if it supports MCP connections, it can likely connect. The usual blocker is IT policy, not a technical limit.<sup class="cite"><a href="#ref-4">4</a></sup><sup class="cite"><a href="#ref-13">13</a></sup></div>
         </div>
       </div>
 
       <div class="not-supported">
-        <div class="not-supported-label">✕ What to set expectations on — not supported today</div>
+        <div class="not-supported-label"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>What to set expectations on — not supported today</div>
         <ul>
           <li><strong>Raw mention exports.</strong> It returns AI-generated, cited responses — not raw article lists. For raw dataset access, use the Meltwater Insights API.<sup class="cite"><a href="#ref-4">4</a></sup></li>
-          <li><strong>Bulk custom scoring / tagging.</strong> It's built for interactive, conversational queries, not high-volume programmatic enrichment. Use the Insights API with automations for that.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>Tagging, bulk scoring, or writing back to Meltwater fields.</strong> Sentiment analysis can happen in the assistant, but it can't overwrite Meltwater's fields, and tagging isn't supported (it's on the roadmap). For high-volume enrichment, use the Insights API with automations.<sup class="cite"><a href="#ref-4">4</a></sup></li>
           <li><strong>Always-on real-time streaming.</strong> Request/response by design — the assistant has to invoke a tool. For near-real-time delivery, use Insights API Data Streams.<sup class="cite"><a href="#ref-4">4</a></sup></li>
-          <li><strong>Full Explore+ custom categories &amp; filter sets.</strong> The standard tools reach the regular Explore index; deeper custom-index work (custom categories, filter sets) isn't fully reachable via the MCP yet. Custom fields are visible but you can't extract deeper insights from them today.<sup class="cite"><a href="#ref-10">10</a></sup></li>
+          <li><strong>Full Explore+ custom categories &amp; filter sets.</strong> The standard tools reach the regular Explore index; deeper custom-index work (custom categories, filter sets) isn't fully reachable via the MCP. Custom fields are visible but you can't extract deeper insights from them.<sup class="cite"><a href="#ref-10">10</a></sup></li>
+          <li><strong>Owned social (Measure) analytics.</strong> Owned-channel tools aren't available and there's no ETA — don't position MCP for owned-channel reporting.<sup class="cite"><a href="#ref-10">10</a></sup></li>
+          <li><strong>Every premium source.</strong> Licensed content generally follows the customer's subscription, but some licensed providers are excluded or limited in MCP results, and citation links may land on the outlet's login page.<sup class="cite"><a href="#ref-4">4</a></sup></li>
+          <li><strong>Building a product on journalist or influencer data.</strong> Using MCP output to power a product or service for third parties is barred by Meltwater's and Klear's terms.<sup class="cite"><a href="#ref-4">4</a></sup></li>
         </ul>
       </div>
 
       <div class="spec-grid" style="margin-top:24px;">
         <div class="spec-card">
-          <div class="spec-num">100 / min</div>
+          <div class="spec-num">60 / min</div>
           <div class="spec-label">Safety rate limit — requests per minute, shared across all connected assistants.<sup class="cite"><a href="#ref-4">4</a></sup></div>
         </div>
         <div class="spec-card">
-          <div class="spec-num">= Explore</div>
-          <div class="spec-label">Analytics match the numbers in Explore — not a sample. Safe to stand behind.<sup class="cite"><a href="#ref-4">4</a></sup></div>
+          <div class="spec-num">≈ Explore</div>
+          <div class="spec-label">Analytics come from the customer's own dataset and align with Explore. Some prompts use a sample — be specific when exact numbers matter.<sup class="cite"><a href="#ref-4">4</a></sup></div>
         </div>
         <div class="spec-card">
-          <div class="spec-num">Not yet live</div>
-          <div class="spec-label">Self-serve usage visibility is rolling out later in 2026 — until then, the Account Manager is the reference for where a customer stands.<sup class="cite"><a href="#ref-4">4</a></sup></div>
+          <div class="spec-num">Self-serve</div>
+          <div class="spec-label">Credit usage: admin dashboard on the Account page, plus "What's my credit usage?" in any connected assistant.<sup class="cite"><a href="#ref-12">12</a></sup></div>
         </div>
+      </div>
+
+      <div class="callout callout-strong" style="margin-top:20px;">
+        <strong>Heads-up: Mira Studio is moving onto the same tools.</strong> Mira Studio will soon run on the same tools as Meltwater MCP, with skills replacing core prompts. When it rolls out (opt-in), Mira Studio and MCP will draw from one shared credit allowance; credit gating is planned for early 2027. Expect customers to ask how the two relate.<sup class="cite"><a href="#ref-10">10</a></sup>
       </div>
 
       <div class="callout callout-orange" style="margin-top:20px;">
@@ -1373,10 +1300,13 @@ Best,
         <li id="ref-7"><a href="https://developer.meltwater.com/guides/meltwater-mcp/overview" target="_blank">Meltwater MCP — Overview</a> — Meltwater Developer Portal.</li>
         <li id="ref-8"><a href="https://developer.meltwater.com/guides/meltwater-mcp/connecting" target="_blank">Connecting a custom agent to Meltwater MCP</a> — Meltwater Developer Portal.</li>
         <li id="ref-9"><a href="https://community.meltwater.com/meltwater-mcp-433" target="_blank">Meltwater MCP Help Center</a> — Meltwater Community.</li>
-        <li id="ref-10"><a href="https://meltwater.slack.com/archives/C0BBB9QCGEQ" target="_blank">#product-mcp Slack channel</a> &amp; <a href="https://meltwater-mcp-library.netlify.app/" target="_blank">SC Dashboard Library</a> (internal). <span class="src-note">Field questions, known limitations, and example outputs.</span></li>
+        <li id="ref-10"><a href="https://meltwater.slack.com/archives/C0BBB9QCGEQ" target="_blank">#product-mcp</a> and <a href="https://meltwater.slack.com/archives/C010L40UY7N" target="_blank">#product-releases</a> Slack channels, plus the <a href="https://meltwater-mcp-library.netlify.app/" target="_blank">SC Dashboard Library</a> (internal). <span class="src-note">Product Marketing and enablement guidance, release notes, field issues, and example outputs.</span></li>
         <li id="ref-11"><a href="https://www.meltwater.com/en/blog/meltwater-mcp-prompts" target="_blank">55 Meltwater MCP Prompts for Communications Teams</a> — Meltwater Blog, Jul 29, 2026. <span class="src-note">Public and customer-shareable.</span></li>
+        <li id="ref-12"><a href="https://community.meltwater.com/meltwater-mcp-433/meltwater-mcp-understanding-your-usage-12452" target="_blank">Meltwater MCP: Understanding Your Usage</a> — Meltwater Community Help Center.</li>
+        <li id="ref-13"><a href="https://developer.meltwater.com/guides/meltwater-mcp/connectors/overview" target="_blank">Meltwater MCP connector guides</a> — Meltwater Developer Portal.</li>
+        <li id="ref-14"><a href="https://www.meltwater.com/en/product-tours/mcp" target="_blank">Meltwater MCP interactive product tour</a> — meltwater.com. <span class="src-note">Public and customer-shareable.</span></li>
       </ol>
-      <p style="font-size:11.5px; color:#7a7a7a; font-style:italic; margin-top:14px;">Meltwater MCP is a fast-moving release — several sources above are expected to change (usage metering, dedicated connectors, the skills library). Re-check before relying on timeline-sensitive details.</p>
+      <p style="font-size:11.5px; color:var(--muted); font-style:italic; margin-top:14px;">Meltwater MCP is a fast-moving release — several sources above are expected to change (role-based access, connector listings, the skills library, ChatGPT tool coverage). Re-check before relying on timeline-sensitive details.</p>
     </div>
 
   </div>
@@ -1388,8 +1318,8 @@ Best,
     </div>
     <div class="footer-links">
       <a href="https://community.meltwater.com/meltwater-mcp-433" target="_blank">Help Center — Meltwater MCP</a>
-      <a href="https://developer.meltwater.com/guides/meltwater-mcp/overview" target="_blank">Developer Portal — MCP Overview</a>
-      <a href="https://www.meltwater.com/en/about/press-releases/meltwater-mcp" target="_blank">Press Release — GA Jul 8, 2026</a>
+      <a href="https://developer.meltwater.com/guides/meltwater-mcp/connectors/overview" target="_blank">Developer Portal — connector guides</a>
+      <a href="https://www.meltwater.com/en/product-tours/mcp" target="_blank">Interactive MCP product tour</a>
     </div>
   </footer>
 
@@ -1397,21 +1327,39 @@ Best,
     function copyEmail(btn) {
       const shell = btn.closest('.email-shell');
       const bodyEl = shell.querySelector('.email-body');
+      const label = btn.querySelector('span');
       const div = document.createElement('div');
       div.innerHTML = bodyEl.innerHTML;
       const text = div.innerText;
       navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = 'Copied!';
+        label.textContent = 'Copied';
         btn.classList.add('copied');
         setTimeout(() => {
-          btn.textContent = 'Copy email';
+          label.textContent = 'Copy email';
           btn.classList.remove('copied');
         }, 2200);
       }).catch(() => {
-        btn.textContent = 'Copy failed';
-        setTimeout(() => { btn.textContent = 'Copy email'; }, 2000);
+        label.textContent = 'Copy failed';
+        setTimeout(() => { label.textContent = 'Copy email'; }, 2000);
       });
     }
+
+    /* highlight the current section in the nav */
+    (function () {
+      const links = Array.from(document.querySelectorAll('.nav-links a'));
+      if (!('IntersectionObserver' in window)) return;
+      const map = {};
+      links.forEach(a => { map[a.getAttribute('href').slice(1)] = a; });
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting && map[e.target.id]) {
+            links.forEach(a => a.classList.remove('active'));
+            map[e.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px' });
+      Object.keys(map).forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+    })();
   </script>
 
 </body>
