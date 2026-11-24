@@ -513,8 +513,21 @@
       shareUrl: "https://claude.ai/customize/skills?selectedId=skill_01XBgK3ouvvyXELa1qTPPsGd"
     },
     {
+      id: "timesheet-helper", group: "portfolio", command: "/timesheet-helper", title: "Timesheet helper",
+      whenToUse: "Once a week, ideally Friday, when it's time to fill in your Certinia timecard. Say “help me do my timesheet,” “log my hours for this week,” or “what did I work on this week.” It works for IMs, PSPMs, and CSSs and asks your role once. Hours are drafted from your calendar first, then your sent email, so it works best if you block time for heavy client work with titles like “Config - [Client].”",
+      output: "A draft Certinia timecard in chat, laid out like the Certinia screen: project rows with the milestone, indented task rows beneath, daily totals, and a running count against 40 hours for the Sunday to Saturday week. Only tasks with time appear, with no zero-hour rows. Calendar events are classified into the right project and task for your role, and external client calls get a 15-minute buffer for prep and follow-up, which it always calls out so you can remove it. It then asks about SMB Pooled work (IMs), architecture pre-work (specialists), and client work you did in Claude, scans your sent email and shows suggestions for you to confirm, and offers an optional light Slack check. The final grid comes with an entry order and links to the Certinia timesheet and the FAQs. It never logs or submits anything: you key the hours in yourself. PTO and holidays aren't synced, so it drafts 8 hours per day off and you correct it. After your first interactive run it offers to schedule a Friday 3pm draft. Scheduled runs only build the calendar grid and leave email suggestions and questions for you to answer when you open the skill.",
+      requires: ["Google Calendar", "Gmail", "Slack (optional)"],
+      schedule: {
+        cadence: "Fridays at 3:00 PM",
+        note: "Pulls your calendar and sent email and sends you a draft of your week to review. You still answer a few quick questions and enter the hours in Certinia yourself.",
+        prompt: "Every Friday at 3:00 PM in my time zone, run /timesheet-helper in scheduled (unattended) mode for the current Sunday to Saturday week. My role is [IM, PSPM, or CSS] and I am [or am not] an architecture specialist. Build the calendar-based draft grid, list email-based suggestions and open questions under Still open, and send me a Slack DM when it's ready."
+      },
+      shareUrl: ""
+    },
+    {
       id: "client-vault-helper", group: "new", command: "/client-vault-helper", title: "Client vault helper",
-      whenToUse: "Right after you get assigned a new account. Paste the routing thread link, or give the customer name and it finds the thread. It handles both routing channels: #gold_nam_onboarding_routing for Standard and Advanced accounts, built from VoCAgent's brief, and ebu_nam_routing for Enterprise, built from the sales rep's scoping doc with VoCAgent only as a fallback. If an Enterprise scoping doc is a Word file, it stops and asks you for a Google Doc link or an upload rather than guessing.",
+      companions: ["watcher-setup"],
+      whenToUse: "Right after you get assigned a new account. Paste the routing thread link, or give the customer name and it finds the thread. It handles both routing channels: #gold_nam_onboarding_routing for Standard and Advanced accounts, built from VoCAgent's brief, and ebu_nam_routing for Enterprise, built from the sales rep's scoping doc with VoCAgent only as a fallback. If an Enterprise scoping doc is a Word file, it stops and asks you for a Google Doc link or an upload rather than guessing. If you'd rather not run it by hand for Mid-Market accounts above $35k, /watcher-setup turns on a background watcher that runs it for you when you're tagged in the routing thread.",
       output: "Three things, in this order: a JSON setup payload for the vault creator web app (client name, team roles, three drafted kickoff goals, and the presales summary), a Totango Plan Summary block, and a briefing that ends with what to double-check. It only prepares the input. It doesn't create the folder, touch the deck, or write to Totango, and subscription details like seat counts and entitlements aren't covered yet.",
       example: "/client-vault-helper https://meltwater.slack.com/archives/C03UPUHLGMT/p1786471010882019",
       requires: ["Slack", "Google Drive (Enterprise)"],
@@ -534,7 +547,7 @@
     },
     {
       id: "digital-pooled-helper", group: "digital", command: "/digital-pooled-helper", title: "Digital and Pooled setup",
-      companion: "digital-signals",
+      companions: ["watcher-setup", "digital-signals"],
       whenToUse: "Right when you get assigned a Digital onboarding. Use it instead of /kickoff-helper for these. Paste the Slack routing link or give the customer name. It picks the segment from the channel: #digital-onboarding is Pooled, and #gold_nam_onboarding_routing is Digital-First when the ACV is under $35k. At $35k or more it stops and points you to /client-vault-helper, and if Klear was sold it flags that Digital-First doesn't apply.",
       output: "A setup packet. Both segments get a Totango Plan Summary block, 1–3 suggested objectives with reasoning, copy-ready starter searches (brand, competitors, industry) in code blocks, a Users to Set Up list drawn from the thread, the User Activation sheet, and Salesforce, and a GenAI Lens flag. Digital-First adds a ready-to-paste Slack DM to the new biz rep and CSM, a follow-up email for the customer, a day-3 build list, a dated admin checklist, and a briefing. Everything is text for you to review and paste, and nothing is sent. Optionally, reply “yes, build the searches” and it saves them into the customer's Meltwater account with News and English filters applied, then gives you a link to check them. It only creates new searches.",
       requires: ["Slack", "Google Drive", "Meltwater Internal (optional)"],
@@ -542,7 +555,7 @@
     },
     {
       id: "digital-signals", group: "digital", command: "/digital-signals", title: "Digital signals",
-      companion: "digital-pooled-helper",
+      companions: ["digital-pooled-helper", "watcher-setup"],
       whenToUse: "Daily, or every few days, for your Digital cohort: Pooled and Digital-First onboardings. Say “digital signals,” “my digital accounts,” “which digital customers need attention,” or ask for intervention emails. It's built for a schedule. The data feed refreshes between 5 and 6am ET, so don't schedule it before 6:30am ET.",
       output: "Separate Pooled and Digital-First action plans, built from the Totango digital feed Sheet (not the Totango agent) with ACV-banded rules: setup gaps, user submissions, digest quality, day 14/21/24/30/33/48 checks, and hygiene. Each segment lists what to fix today and who to reach out to, internal or customer, plus a Watching list for anything you've already actioned. Accounts missing an onboarding path are flagged at the top so you can set it in Totango. Pooled reach-outs come with copy-ready email text to send from the success@ mailbox. Digital-First reach-outs get tailored Gmail drafts, using your sent mail and Gong summaries for context, and skip customers you've already emailed.",
       requires: ["Google Drive", "Gmail"], shareUrl: "",
@@ -551,6 +564,14 @@
         note: "Runs the Pooled + Digital-First scan twice a week, after the feed has refreshed, and DMs you only the items that actually need action.",
         prompt: "Every Tuesday and Thursday at 7:30 AM, run /digital-signals. From the Pooled and Digital-First action lists, pull out the items that genuinely need attention this week — skip anything already handled or low-priority. Send me a Slack DM (not a channel post) with those key items, condensed enough to read in a few seconds but with enough detail to act on. Keep the full lists and any drafted emails in this conversation in case I want to dig into the detail."
       }
+    },
+    {
+      id: "watcher-setup", group: "digital", command: "/watcher-setup", title: "Routing watcher setup",
+      companions: ["digital-pooled-helper", "client-vault-helper", "digital-signals"],
+      whenToUse: "Once, when you want new accounts to arrive as a finished packet instead of you watching Slack. Say “set up my routing watcher,” “turn on the routing packets,” or “/watcher-setup.” Run it again to change how often the watcher runs. It's the automatic version of /digital-pooled-helper and /client-vault-helper: the watcher runs those same skills for you whenever a person tags you in a routing thread. Pooled and Digital-First accounts get a /digital-pooled-helper packet, which is the front end of the Digital cohort workflow that /digital-signals then monitors. Mid-Market accounts above $35k get a /client-vault-helper payload, so it also covers part of New accounts. Enterprise routing isn't covered, so run that one manually.",
+      output: "A one-time guided setup, then a background task that does the rest. Setup finds your Slack ID, checks your connectors and helper skills, tests the Slack search against tags from the last 30 days, and runs a delivery test that creates a test Doc, a test calendar block, and a Slack DM to yourself. It won't create the task until all three work. Then it runs a dry run so you can see what it would match, and creates a scheduled task that runs every 2 hours on weekdays, 8am to 4pm your time. From then on, each time someone tags you in a matching routing thread you get a Google Doc packet (Pooled, Digital-First, or Mid-Market Routing Packet for the customer), a 30-minute calendar block to work through it, a Slack DM with the link, and a 📨 reaction on the message that tagged you so the team can see it was picked up. It handles at most 3 threads per run and never emails or invites anyone. Packets are drafts for you to review, and the calendar block is what prompts you, since a DM to yourself usually doesn't ping. The Claude app has to be open and your computer awake for runs to happen. Missed runs catch up at the next launch, and the watcher looks back 3 days. Let your team know about the 📨 so nobody reads it as a manual acknowledgement. To pause it, turn off the “Routing watcher” task in the Scheduled section of the sidebar.",
+      requires: ["Slack", "Google Drive", "Google Calendar", "Snowflake Agent MCP", "Scheduled tasks"],
+      shareUrl: ""
     },
     {
       id: "onboarding-handoff-notes", group: "closeout", command: "/onboarding-handoff-notes", title: "Onboarding handoff notes",
@@ -819,8 +840,9 @@
         <button class="btn btn-ghost" data-copy="prompt-${esc(s.id)}">Copy prompt</button>
       </section>` : '';
 
-    const pair = s.companion && byId[s.companion]
-      ? `<div class="side-card"><h2>Pairs with</h2><button class="pair-btn" data-go="${esc(s.companion)}">${esc(byId[s.companion].command)}<span aria-hidden="true">→</span></button></div>` : '';
+    const pairIds = (s.companions || (s.companion ? [s.companion] : [])).filter(id => byId[id]);
+    const pair = pairIds.length
+      ? `<div class="side-card"><h2>Pairs with</h2>${pairIds.map(id => `<button class="pair-btn" data-go="${esc(id)}">${esc(byId[id].command)}<span aria-hidden="true">→</span></button>`).join('')}</div>` : '';
 
     main.innerHTML = `<article class="pane">
       <p class="crumb">${crumbs}</p>
